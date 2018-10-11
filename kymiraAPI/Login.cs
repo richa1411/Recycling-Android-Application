@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace kymiraAPI
 {
-    public class BackendLoginValidation
+    public class Login
     {
         string phoneNumber;
         string password;

@@ -12,5 +12,14 @@ namespace kymiraAPI.Models
 
         public string password { get; set; }
 
+        public string validatePhoneNumber(string phoneNum)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string validatePassword(string password)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
