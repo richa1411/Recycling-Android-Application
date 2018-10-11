@@ -33,16 +33,6 @@
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\kymiraAPI\kymiraAPI.csproj">
-      <Project>{437060e6-ed6e-4bf6-a333-406ad7d93a3e}</Project>
-      <Name>kymiraAPI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\kymiraApp\kymiraApp.Android\kymiraApp.Android.csproj">
-      <Project>{89894166-c872-480f-8626-d92b3e8d7dcc}</Project>
-      <Name>kymiraApp.Android</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="TestCredentials.cs" />
     <Compile Include="AppInitializer.cs" />
   </ItemGroup>

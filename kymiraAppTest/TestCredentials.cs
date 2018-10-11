@@ -22,7 +22,7 @@ namespace kymiraAppTest
 
         }
 
-		public Tests(Platform platform)
+		public TestCredentials(Platform platform)
 		{
 			this.platform = platform;
 		}
@@ -63,9 +63,11 @@ namespace kymiraAppTest
                 if(c >='0'  || c <= '9')
                 {
                     trueDigit = true;
+                    Assert.IsTrue(trueDigit);
                 }
+
             }
-            Assert.IsTrue(trueDigit);
+           
         }
 
         [Test]
@@ -107,9 +109,9 @@ namespace kymiraAppTest
         public static void TestPasswordBetweenSixAndTwelveChar()
         {
             TestCredentials testObj = new TestCredentials("123456789", "shah11");
-            Assert.IsTrue(testObj.password.Length = 6);
+            Assert.IsTrue(testObj.password.Length == 6);
             TestCredentials testObj2 = new TestCredentials("123456789", "shahricha110");
-            Assert.IsTrue(testObj.password.Length =12);
+            Assert.IsTrue(testObj.password.Length ==12);
 
         }
 
