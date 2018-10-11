@@ -7,20 +7,15 @@ using Xamarin.UITest.Queries;
 
 namespace kymiraAppTest
 {
-	[TestFixture(Platform.Android)]
-	[TestFixture(Platform.iOS)]
+    
+    [TestFixture(Platform.Android)]
+	
 	public class TestCredentials
 	{
 		IApp app;
 		Platform platform;
-        String phoneNumber;
-        String password;
-        public TestCredentials(String phoneNumber, String password)
-        {
-            this.phoneNumber = phoneNumber;
-            this.password = password;
-
-        }
+       
+       
 
 		public TestCredentials(Platform platform)
 		{
@@ -45,81 +40,92 @@ namespace kymiraAppTest
         [Test]
         public static void TestPhoneNumberNotEmpty()
         {
-           
-            TestCredentials testObj = new TestCredentials("", "");
 
-            Assert.AreEqual("",testObj.phoneNumber);
+            kymiraApp.Credentials objCredentials = new kymiraApp.Credentials("", "shah11081");
+
+            Assert.AreEqual("", objCredentials.getPhone());
             
         }
 
         [Test]
         public static void TestPhoneNumberOnlyDigits()
         {
-            TestCredentials testObj = new TestCredentials("456723456", "");
-            String phoneCheck = testObj.phoneNumber;
-            bool trueDigit;
-            foreach(char c in phoneCheck)
+
+          kymiraApp.Credentials objCredentials = new kymiraApp.Credentials("4512367892", "shah11081");
+
+           
+          String phoneCheck = objCredentials.getPhone();
+         bool trueDigit;
+          foreach(char c in phoneCheck)
             {
                 if(c >='0'  || c <= '9')
                 {
+                   
                     trueDigit = true;
                     Assert.IsTrue(trueDigit);
                 }
-
             }
+            
+        }
+
+        [Test]
+        public static void TestPhoneNumberTenDigitLegth()
+        {
+           kymiraApp.Credentials objCredentials = new kymiraApp.Credentials("4512367892", "shah11081");
+           Assert.AreEqual(9, objCredentials.getPhone().Length);
+        }
+
+        [Test]
+        public static void TestPhoneNumberExceedTenDigit()
+        {
+            kymiraApp.Credentials objCredentials = new kymiraApp.Credentials("4512367892454656", "shah11081");
            
+            
+             Assert.IsTrue(objCredentials.getPhone().Length > 10);
         }
 
         [Test]
-        public static void TestPhoneNumberNineDigitLegth()
+        public static void TestPhoneNumberLessThanTenDigit()
         {
-            TestCredentials testObj = new TestCredentials("123456789", "");
-            Assert.AreEqual(9, testObj.phoneNumber.Length);
-        }
-
-        [Test]
-        public static void TestPhoneNumberExceedNineDigit()
-        {
-            TestCredentials testObj = new TestCredentials("1234567895675", "");
-            Assert.IsTrue(testObj.phoneNumber.Length > 9);
-        }
-
-        [Test]
-        public static void TestPhoneNumberLessThanNineDigit()
-        {
-            TestCredentials testObj = new TestCredentials("12345", "");
-            Assert.IsTrue(testObj.phoneNumber.Length < 9);
+            kymiraApp.Credentials objCredentials = new kymiraApp.Credentials("4512", "shah11081");
+            
+            Assert.IsTrue(objCredentials.getPhone().Length < 10);
         }
 
         [Test]
         public static void TestPasswordNotEmpty()
         {
-            TestCredentials testObj = new TestCredentials("123456789", "");
-            Assert.AreEqual("", testObj.password);
+            kymiraApp.Credentials objCredentials = new kymiraApp.Credentials("4512367892", "");
+          
+            Assert.AreEqual("", objCredentials.getPass());
         }
 
         [Test]
         public static void TestPasswordLessThanSixChar()
         {
-            TestCredentials testObj = new TestCredentials("123456789", "shah1");
-            Assert.IsTrue(testObj.password.Length < 6);
+            kymiraApp.Credentials objCredentials = new kymiraApp.Credentials("4512367892", "shah1");
+            
+            Assert.IsTrue(objCredentials.getPass().Length < 6);
         }
 
         [Test]
         public static void TestPasswordBetweenSixAndTwelveChar()
         {
-            TestCredentials testObj = new TestCredentials("123456789", "shah11");
-            Assert.IsTrue(testObj.password.Length == 6);
-            TestCredentials testObj2 = new TestCredentials("123456789", "shahricha110");
-            Assert.IsTrue(testObj.password.Length ==12);
+            kymiraApp.Credentials objCredentials = new kymiraApp.Credentials("4512367892", "shah11");
+            kymiraApp.Credentials objCredentials2 = new kymiraApp.Credentials("4512367892", "shahricha110");
+           
+           
+            Assert.IsTrue(objCredentials2.getPass().Length == 6);
+            
+            Assert.IsTrue(objCredentials.getPass().Length ==12);
 
         }
 
         [Test]
         public static void TestPasswordGreaterThanTwelveChar()
         {
-            TestCredentials testObj = new TestCredentials("123456789", "shahricha11089");
-            Assert.IsTrue(testObj.password.Length >12);
+            kymiraApp.Credentials objCredentials = new kymiraApp.Credentials("4512367892", "shahricha110464fg");
+            Assert.IsTrue(objCredentials.getPass().Length >12);
         }
     }
 }
