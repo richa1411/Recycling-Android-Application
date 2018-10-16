@@ -1,17 +1,18 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using kymiraAPI.Models;
 using System;
+using Newtonsoft.Json;
 
 namespace kymiraAPITest
 {
     [TestClass]
     public class Story1dTests
     {
-        
         [TestMethod]
         public void TestPassToDatabase()
         {
             //attempt to create a new Resident and save it to the database
+            
             //attempt to retrieve the Resident from the database
             //check the retrieved resident against the original resident object
         }
