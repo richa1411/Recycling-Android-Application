@@ -40,8 +40,6 @@ namespace kymiraAPITest
 
             Assert.AreEqual(1,results.Count);
             Assert.AreEqual("Phone number is empty", results[0].ErrorMessage);
-
-
         }
         
         /*
