@@ -10,22 +10,12 @@ namespace kymiraAPI.Models
     {
         public int ID { get; set; }
 
-        [Required]
+        [Required (ErrorMessage = "Phone number is empty")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone Number is not 10 digits")]
         public string phoneNumber { get; set; }
 
         [Required]
-        [RegularExpression("")] // TODO
+        [StringLength(50,MinimumLength = 6, ErrorMessage = "Passwork must be between 6 - 50 characters")]
         public string password { get; set; }
-
-        public string validatePhoneNumber(string phoneNum)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string validatePassword(string password)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,6 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using kymiraAPI;
 using kymiraAPI.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace kymiraAPITest
 {
@@ -22,10 +24,7 @@ namespace kymiraAPITest
         [TestInitialize]
         public void InitializeTest()
         {
-            loginCreds = new Credentials();
-            phoneNumber = "1234567890";
-            password = "P@ssw0rd1234";
-            errorMessage = "Hello World";
+            loginCreds = new Credentials { phoneNumber= "1234567890", password = "P@ssw0rd"};
         }
 
         /*
@@ -34,9 +33,15 @@ namespace kymiraAPITest
         [TestMethod]
         public void PhoneNumberCannotBeEmptyTest()
         {
-            Assert.AreEqual("", phoneNumber);
-            errorMessage = loginCreds.validatePhoneNumber(phoneNumber);
-            Assert.AreEqual("{ error:1 message: “Phone number is empty” }", errorMessage);
+            loginCreds.phoneNumber = "";
+
+            var results = HelperTestModel.Validate(loginCreds);
+            
+
+            Assert.AreEqual(1,results.Count);
+            Assert.AreEqual("Phone number is empty", results[0].ErrorMessage);
+
+
         }
         
         /*
@@ -45,8 +50,16 @@ namespace kymiraAPITest
         [TestMethod]
         public void PhoneNumberMustBeOnlyDigitsTest()
         {
+            loginCreds.phoneNumber = "JohnDoe123";
+
+            var results = HelperTestModel.Validate(loginCreds);
+
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Phone number is empty", results[0].ErrorMessage);
+
+
             Assert.AreEqual("JohnDoe123", phoneNumber);
-            errorMessage = loginCreds.validatePhoneNumber(phoneNumber);
             Assert.AreEqual("{ error:1 message: “Incorrect phone number or password”}", errorMessage);
         }
 
@@ -57,7 +70,6 @@ namespace kymiraAPITest
         public void PhoneNumberMustBeTenDigitsInLengthTest()
         {
             Assert.AreEqual("1234567890", phoneNumber);
-            errorMessage = loginCreds.validatePhoneNumber(phoneNumber);
             Assert.AreEqual("{ error:0 message: “This is a valid phone number”}", errorMessage);
         }
 
@@ -68,7 +80,6 @@ namespace kymiraAPITest
         public void PhoneNumberCannotExceedTenDigitsInLengthTest()
         {
             Assert.AreEqual("12345678901", phoneNumber);
-            errorMessage = loginCreds.validatePhoneNumber(phoneNumber);
             Assert.AreEqual("{ error:1 “Incorrect username or password” }", errorMessage);
         }
 
@@ -79,7 +90,6 @@ namespace kymiraAPITest
         public void PhoneNumberCannotBeLessThanTenDigitsInLengthTest()
         {
             Assert.AreEqual("123456789", phoneNumber);
-            errorMessage = loginCreds.validatePhoneNumber(phoneNumber);
             Assert.AreEqual("{ error:1 “Incorrect username or password” }", errorMessage);
         }
 
@@ -96,7 +106,6 @@ namespace kymiraAPITest
         public void PasswordCannotBeEmptyTest()
         {
             Assert.AreEqual("", password);
-            errorMessage = loginCreds.validatePassword(password);
             Assert.AreEqual("{ error:1 message: “Password is empty” }", errorMessage);
         }
 
@@ -107,7 +116,6 @@ namespace kymiraAPITest
         public void PasswordCannotBeLessThanSixCharactersLongTest()
         {
             Assert.AreEqual("P@ssw", password);
-            errorMessage = loginCreds.validatePassword(password);
             Assert.AreEqual("{ error:1 “Incorrect username or password” }", errorMessage);
         }
 
@@ -118,11 +126,9 @@ namespace kymiraAPITest
         public void PasswordMustBeSixToTwelveCharactersLong()
         {
             Assert.AreEqual("P@ssw0", password);
-            errorMessage = loginCreds.validatePassword(password);
             Assert.AreEqual("{ error:0 “This is a valid password” }", errorMessage);
 
             Assert.AreEqual("P@ssw0rd1234", password);
-            errorMessage = loginCreds.validatePassword(password);
             Assert.AreEqual("{ error:0 “This is a valid password” }", errorMessage);
         }
 
@@ -133,7 +139,7 @@ namespace kymiraAPITest
         public void PasswordCannotExceedTwelveCharactersInLength()
         {
             Assert.AreEqual("P@ssw0rd12345", password);
-            errorMessage = loginCreds.validatePassword(password);
+            //errorMessage = loginCreds.validatePasswordDatabase(password);
             Assert.AreEqual("{ error:1 “Incorrect username or password” }", errorMessage);
         }
 
