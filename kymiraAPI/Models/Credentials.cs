@@ -14,8 +14,8 @@ namespace kymiraAPI.Models
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone Number is not 10 digits")]
         public string phoneNumber { get; set; }
 
-        [Required]
-        [StringLength(50,MinimumLength = 6, ErrorMessage = "Passwork must be between 6 - 50 characters")]
+        [Required (ErrorMessage ="Password is empty")]
+        [StringLength(50,MinimumLength = 6, ErrorMessage = "Password must be between 6 - 50 characters")]
         public string password { get; set; }
     }
 }

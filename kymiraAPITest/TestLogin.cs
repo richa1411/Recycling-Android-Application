@@ -89,8 +89,14 @@ namespace kymiraAPITest
         [TestMethod]
         public void PhoneNumberCannotBeLessThanTenDigitsInLengthTest()
         {
-            Assert.AreEqual("123456789", phoneNumber);
-            Assert.AreEqual("{ error:1 “Incorrect username or password” }", errorMessage);
+
+            loginCreds.phoneNumber = "1234567"; // 7 digits
+
+            var results = HelperTestModel.Validate(loginCreds);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
+
         }
 
 
@@ -105,8 +111,13 @@ namespace kymiraAPITest
         [TestMethod]
         public void PasswordCannotBeEmptyTest()
         {
-            Assert.AreEqual("", password);
-            Assert.AreEqual("{ error:1 message: “Password is empty” }", errorMessage);
+
+            loginCreds.password = ""; // Empty Password
+
+            var results = HelperTestModel.Validate(loginCreds);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Password is empty", results[0].ErrorMessage);
         }
 
         /*
@@ -115,32 +126,63 @@ namespace kymiraAPITest
         [TestMethod]
         public void PasswordCannotBeLessThanSixCharactersLongTest()
         {
-            Assert.AreEqual("P@ssw", password);
-            Assert.AreEqual("{ error:1 “Incorrect username or password” }", errorMessage);
+
+            loginCreds.password = "P@ssw"; // Password is only 5 characters
+
+            var results = HelperTestModel.Validate(loginCreds);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Password must be between 6 - 50 characters", results[0].ErrorMessage);
+
         }
 
         /*
-         *  Tests that the password must be 6 - 12 characters long
+         *  Tests that the password must be 6 - 50 characters long
          */
         [TestMethod]
-        public void PasswordMustBeSixToTwelveCharactersLong()
+        public void PasswordMustBeSixToFiftyCharactersLongLowerBoundaryTest()
         {
-            Assert.AreEqual("P@ssw0", password);
-            Assert.AreEqual("{ error:0 “This is a valid password” }", errorMessage);
 
-            Assert.AreEqual("P@ssw0rd1234", password);
-            Assert.AreEqual("{ error:0 “This is a valid password” }", errorMessage);
+            loginCreds.password = "P@ssw0"; // Password at lower boundary
+
+            var results = HelperTestModel.Validate(loginCreds);
+
+            Assert.AreEqual(0, results.Count);
+
+
         }
 
+
         /*
-         *  Tests that the password cannot exceed 12 characters
+        *  Tests that the password must be 6 - 50 characters long
+        */
+        [TestMethod]
+        public void PasswordMustBeSixToFiftyCharactersLongHigherBoundaryTest()
+        {
+
+
+            loginCreds.password = "P@ssw0rd12P@ssw0rd12P@ssw0rd12P@ssw0rd12P@ssw0rd12"; // Password is exactly 50 characters
+
+            var results = HelperTestModel.Validate(loginCreds);
+
+            Assert.AreEqual(0, results.Count);
+
+        }
+
+
+
+        /*
+         *  Tests that the password cannot exceed 50 characters
          */
         [TestMethod]
-        public void PasswordCannotExceedTwelveCharactersInLength()
+        public void PasswordCannotExceedFiftyCharactersInLength()
         {
-            Assert.AreEqual("P@ssw0rd12345", password);
-            //errorMessage = loginCreds.validatePasswordDatabase(password);
-            Assert.AreEqual("{ error:1 “Incorrect username or password” }", errorMessage);
+            loginCreds.password = "P@ssw0rd12P@ssw0rd12P@ssw0rd12P@ssw0rd12P@ssw0rd123"; // Password is exactly 51 characters
+
+            var results = HelperTestModel.Validate(loginCreds);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Password must be between 6 - 50 characters", results[0].ErrorMessage);
         }
 
     }
