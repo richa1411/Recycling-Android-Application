@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -16,7 +15,7 @@ namespace kymiraApp.Droid
     public class Registration
     {
 
-        
+
         public String emailAddress { get; }
         public String password { get; }
         public String phoneNumber { get; }
@@ -68,6 +67,6 @@ namespace kymiraApp.Droid
             this.checkBox = checkBox;
         }
 
-        
+
     }
 }

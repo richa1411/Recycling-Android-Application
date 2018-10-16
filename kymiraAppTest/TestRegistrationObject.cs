@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using kymiraApp.Droid;
 using NUnit.Framework;
-
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
 
@@ -16,10 +15,7 @@ namespace kymiraAppTest
     [TestFixture(Platform.Android)]
     class TestRegistrationObject
     {
-
-
         Registration obReg;
-
 
        [SetUp]
         public void TestsetUp()
