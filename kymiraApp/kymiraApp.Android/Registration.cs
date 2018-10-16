@@ -10,24 +10,25 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+
 namespace kymiraApp.Droid
 {
     public class Registration
     {
 
-
-        private String emailAddress { get; }
-        private String password { get; }
-        private String phoneNumber { get; }
-        private String firstName { get; }
-        private String lastName { get; }
-        private String birthDate { get; }
-        private String addressLine1 { get; }
-        private String addressLine2 { get; }
-        private String city { get; }
-        private String province { get; }
-        private String postalCode { get; }
-        private bool checkBox { get; }
+        
+        public String emailAddress { get; }
+        public String password { get; }
+        public String phoneNumber { get; }
+        public String firstName { get; }
+        public String lastName { get; }
+        public String birthDate { get; }
+        public String addressLine1 { get; }
+        public String addressLine2 { get; }
+        public String city { get; }
+        public String province { get; }
+        public String postalCode { get; }
+        public bool checkBox { get; }
 
 
 
