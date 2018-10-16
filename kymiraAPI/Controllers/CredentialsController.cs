@@ -20,67 +20,6 @@ namespace kymiraAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Credentials
-        [HttpGet]
-        public IEnumerable<Credentials> GetCredentials()
-        {
-            return _context.Credentials;
-        }
-
-        // GET: api/Credentials/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetCredentials([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var credentials = await _context.Credentials.SingleOrDefaultAsync(m => m.ID == id);
-
-            if (credentials == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(credentials);
-        }
-
-        // PUT: api/Credentials/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCredentials([FromRoute] int id, [FromBody] Credentials credentials)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != credentials.ID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(credentials).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CredentialsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
         // POST: api/Credentials
         [HttpPost]
         public async Task<IActionResult> PostCredentials([FromBody] Credentials credentials)
@@ -96,26 +35,6 @@ namespace kymiraAPI.Controllers
             return CreatedAtAction("GetCredentials", new { id = credentials.ID }, credentials);
         }
 
-        // DELETE: api/Credentials/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCredentials([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var credentials = await _context.Credentials.SingleOrDefaultAsync(m => m.ID == id);
-            if (credentials == null)
-            {
-                return NotFound();
-            }
-
-            _context.Credentials.Remove(credentials);
-            await _context.SaveChangesAsync();
-
-            return Ok(credentials);
-        }
 
         private bool CredentialsExists(int id)
         {
