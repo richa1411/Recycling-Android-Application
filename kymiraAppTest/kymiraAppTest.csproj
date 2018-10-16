@@ -39,5 +39,11 @@
   <ItemGroup>
     <Folder Include="Model\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\kymiraApp\kymiraApp.Android\kymiraApp.Android.csproj">
+      <Project>{89894166-c872-480f-8626-d92b3e8d7dcc}</Project>
+      <Name>kymiraApp.Android</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
