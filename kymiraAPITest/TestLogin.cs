@@ -36,7 +36,6 @@ namespace kymiraAPITest
             loginCreds.phoneNumber = "";
 
             var results = HelperTestModel.Validate(loginCreds);
-            
 
             Assert.AreEqual(1,results.Count);
             Assert.AreEqual("Phone number is empty", results[0].ErrorMessage);
@@ -52,13 +51,9 @@ namespace kymiraAPITest
 
             var results = HelperTestModel.Validate(loginCreds);
 
-
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Phone number is empty", results[0].ErrorMessage);
+            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
 
-
-            Assert.AreEqual("JohnDoe123", phoneNumber);
-            Assert.AreEqual("{ error:1 message: “Incorrect phone number or password”}", errorMessage);
         }
 
         /*
@@ -67,8 +62,11 @@ namespace kymiraAPITest
         [TestMethod]
         public void PhoneNumberMustBeTenDigitsInLengthTest()
         {
-            Assert.AreEqual("1234567890", phoneNumber);
-            Assert.AreEqual("{ error:0 message: “This is a valid phone number”}", errorMessage);
+            loginCreds.phoneNumber = "1234567890"; // 10 digits
+
+            var results = HelperTestModel.Validate(loginCreds);
+
+            Assert.AreEqual(0, results.Count);
         }
 
         /*
@@ -77,8 +75,12 @@ namespace kymiraAPITest
         [TestMethod]
         public void PhoneNumberCannotExceedTenDigitsInLengthTest()
         {
-            Assert.AreEqual("12345678901", phoneNumber);
-            Assert.AreEqual("{ error:1 “Incorrect username or password” }", errorMessage);
+            loginCreds.phoneNumber = "123456789012345"; // 15 digits
+
+            var results = HelperTestModel.Validate(loginCreds);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
         }
 
         /*
