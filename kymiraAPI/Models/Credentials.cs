@@ -11,13 +11,11 @@ namespace kymiraAPI.Models
         public int ID { get; set; }
 
         [Required]
-        [StringLength(10)] // Maybe redundant
-        [Range(10, 10)]
-        [RegularExpression(@"\d{10}")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone Number is not 10 digits")]
         public string phoneNumber { get; set; }
 
         [Required]
-        [Range(6, 12)]
+        [RegularExpression("")] // TODO
         public string password { get; set; }
 
         public string validatePhoneNumber(string phoneNum)
