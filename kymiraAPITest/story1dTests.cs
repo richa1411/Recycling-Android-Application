@@ -80,19 +80,31 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestAddress1Field()
         {
-            //test that Address1 will allow valid entries
+            //test that Address1 of 200 characters is valid
+            resident.address1 = new string('h', 200);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+
+            //test that Address1 of 1 character is valid
+            resident.address1 = "g";
+            results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
         public void TestAddress2Field()
         {
-            //test that address2 will allow valid entries
+            //test that address2 of 200 characters is valid
+            resident.address2 = new string('p', 200);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
         public void TestPostalCodeField()
         {
             //test that postalCode will allow valid entries
+
         }
 
         [TestMethod]
@@ -112,7 +124,16 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestCityField()
         {
-            //test that City will allow valid entries
+            //test that City of 100 characters is valid
+            resident.city = new string('f',100);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+
+            //test that city of 1 character is valid
+            resident.city = "W";
+            results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+
         }
 
         [TestMethod]
@@ -142,7 +163,7 @@ namespace kymiraAPITest
             resident.firstName = new string('j', 51);
             results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("First name must less then 50 characters.", results[0].ErrorMessage);
+            Assert.AreEqual("First name must be 50 characters or less.", results[0].ErrorMessage);
         }
 
         [TestMethod]
@@ -152,24 +173,22 @@ namespace kymiraAPITest
             resident.lastName = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Last name is required and must be between 1 and 50 characters.", results[0]);
+            Assert.AreEqual("Last name is required.", results[0].ErrorMessage);
 
             //test that last name of 51 characters is invalid
             resident.lastName = new string('j', 51);
             results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Last name is required and must be between 1 and 50 characters.", results[0]);
+            Assert.AreEqual("Last name must be 50 characters or less.", results[0].ErrorMessage);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void TestDOBFieldInvalid()
         {
             //test that DOB will not allow invalid entries
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void TestEmailFieldInvalid()
         {
             //test that email
@@ -177,109 +196,108 @@ namespace kymiraAPITest
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void TestAddress1FieldInvalid()
         {
             //test that address1 of empty string is invalid
             resident.address1 = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Address line 1 is required and must be between 1 and 200 characters.", results[0]);
+            Assert.AreEqual("Address line 1 is required.", results[0].ErrorMessage);
 
             //test that address1 of 201 characters is invalid
             resident.address1 = new string('d', 201);
             results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Address line 1 is required and must be between 1 and 200 characters.", results[0]);
+            Assert.AreEqual("Address line 1 must be 200 characters or less.", results[0].ErrorMessage);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void TestAddress2FieldInvalid()
         {
             //test that address2 of 201 characters is invalid
-            resident.address1 = new string('d', 201);
+            resident.address2 = new string('d', 201);
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Address line 2 must be between 1 and 200 characters.", results[0]);
+            Assert.AreEqual("Address line 2 must be 200 characters or less.", results[0].ErrorMessage);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void TestPostalCodeFieldInvalid()
         {
-            //test that postalCode of 7 characters/digits is invalid
-            resident.postalCode = "S0L0K0E";
+            //test that postalCode of 5 characters/digits is invalid
+            resident.postalCode = "S0L0K";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0]);
+            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
+
+            //test that postalCode of 7 characters/digits is invalid
+            resident.postalCode = "S0L0K0E";
+            results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
 
             //test that postalCode of incorrect format is invalid
             resident.postalCode = "SSS000";
             results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0]);
+            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
 
             //test that postalCode of empty string is invalid
             resident.postalCode = "";
             results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Postal code is required and must be 6 characters.", results[0]);
+            Assert.AreEqual("Postal code is required and must be 6 characters.", results[0].ErrorMessage);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void TestProvinceFieldInvalid()
         {
             //test that province of empty string is invalid
             resident.province = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Province is required and must be less than 100 characters.", results[0]);
+            Assert.AreEqual("Province is required.", results[0].ErrorMessage);
 
             //test that province of 101 characters is invalid
             resident.province = new string('i', 101);
             results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Province is required and must be less than 100 characters.", results[0]);
+            Assert.AreEqual("Province must be 100 characters or less.", results[0].ErrorMessage);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void TestCityFieldInvalid()
         {
             //test that City of empty string is invalid
             resident.city = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("City is required and must be less than 100 characters.", results[0]);
+            Assert.AreEqual("City is required.", results[0].ErrorMessage);
 
             //test that city of 101 characters is invalid
             resident.city = new string('s',101);
             results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("City is required and must be less than 100 characters.", results[0]);
+            Assert.AreEqual("City must be 100 characters or less.", results[0].ErrorMessage);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void TestPasswordFieldInvalid()
         {
             //test that password of empty string is invalid
             resident.password = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password is required and must be 8 or more characters.", results[0]);
+            Assert.AreEqual("Password is required.", results[0].ErrorMessage);
 
             //test that password of 51 characters is invalid
             resident.password = new string('o', 51);
             results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password is required and must be 50 characters or less.", results[0]);
+            Assert.AreEqual("Password must be 50 characters or less.", results[0].ErrorMessage);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
         public void TestPhoneFieldInvalid()
         {
             //test that phone will not allow invalid entries
