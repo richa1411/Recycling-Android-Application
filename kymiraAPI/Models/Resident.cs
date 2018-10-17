@@ -11,53 +11,50 @@ namespace kymiraAPI.Models
         [Range(1, 999999)]
         public int id { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        private string firstName { get; }
+        [Required(ErrorMessage = "First name is required.")]
+        [StringLength(50,ErrorMessage = "First name must less then 50 characters.")]
+        public string firstName { get; set; }
 
         [Required]
         [StringLength(50)]
-        private string lastName { get; }
+        public string lastName { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        private DateTime dateOfBirth { get; }
+        public DateTime dateOfBirth { get; set; }
 
         [MaxLength(100)]
         [MinLength(6)]
         [EmailAddress]
-        private string email { get; }
+        public string email { get; set; }
 
         [StringLength(10)]
         [Phone]
-        private string phoneNumber { get; }
+        public string phoneNumber { get; set; }
 
         [Required]
         [MaxLength(200)]
-        [MinLength(1)]        
-        private string address1 { get; }
+        public string address1 { get; set; }
 
         [MaxLength(200)]
-        private string address2 { get; }
+        public string address2 { get; set; }
 
         [Required]
-        [StringLength(6)]
-        private string postalCode { get; }
+        [RegularExpression("^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$")]
+        public string postalCode { get; set; }
 
         [Required]
         [StringLength(100)]
-        [MinLength(1)]
-        private string province { get; }
+        public string province { get; set; }
 
         [Required]
         [MaxLength(100)]
-        [MinLength(1)]
-        private string city { get; }
+        public string city { get; set; }
 
         [Required]
         [MaxLength(50)]
         [MinLength(8)]
-        private string password { get; }
+        public string password { get; set; }
 
     }
 }
