@@ -161,7 +161,7 @@ namespace kymiraAPITest
         {
 
 
-            loginCreds.password = "P@ssw0rd12P@ssw0rd12P@ssw0rd12P@ssw0rd12P@ssw0rd12"; // Password is exactly 50 characters
+            loginCreds.password = new string('a', 50); ; // Password is exactly 50 characters
 
             var results = HelperTestModel.Validate(loginCreds);
 
@@ -177,7 +177,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void PasswordCannotExceedFiftyCharactersInLength()
         {
-            loginCreds.password = "P@ssw0rd12P@ssw0rd12P@ssw0rd12P@ssw0rd12P@ssw0rd123"; // Password is exactly 51 characters
+            loginCreds.password = new string('a', 51); // Password is exactly 51 characters
 
             var results = HelperTestModel.Validate(loginCreds);
 

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace kymiraAPI
+namespace kymiraAPI.Models
 {
-    public class DummyUserObject
+    public class Resident
     {
+
         public int ID { get; set; }
 
         public string phoneNumber { get; set; }
