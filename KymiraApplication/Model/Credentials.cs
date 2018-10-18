@@ -5,40 +5,25 @@ using System.Text;
 
 namespace KymiraApplication.Model
 {
-   public class Credentials : IValidatableObject
+   public class Credentials 
     {
 
-        public Credentials()
+      public Credentials()
         {
 
         }
         [Required(ErrorMessage = "Phone number is required")]
-        [StringLength(10,MinimumLength =10, ErrorMessage = "Phonenumber Should be of 10 characters")]
-        [DataType(DataType.PhoneNumber)]
-        public string phoneNumber;
+    
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Phone Number is not 10 digits")]
+        public string phoneNumber { get; set; }
 
 
         [Required(ErrorMessage = "Password is required")]
-        [StringLength(50,MinimumLength =6,ErrorMessage ="Password must be in between 6 and 50 charcaters")]
-        public string password;
+        [StringLength(50, MinimumLength = 6, ErrorMessage = "Password must be in between 6 and 50 charcaters")]
+        public string password { get; set; }
 
      
 
-        public string getPhone()
-        {
-            return this.phoneNumber;
-        }
-        public string getPassword()
-        {
-            return this.password;
-        }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-           if (password.Length < 6 )
-            {
-                yield return new ValidationResult("Invalid password", new List<string> { "password" });
-            }
-        }
+       
     }
 }

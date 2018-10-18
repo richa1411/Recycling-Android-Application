@@ -1,73 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using kymiraAppTest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using KymiraApplication.Model;
 
-namespace KymiraApplicationTests.Model
+namespace kymiraAppTest.Tests
 {
+    [TestClass()]
     public class TestCredentials
     {
+        string phoneNumber; // The phone number used to log in
+        string password; // The password used to log in
+        string errorMessage; // The error message
 
-        [TestMethod()]
-        public void Validate_Credentials_Valid_Test()
+        Credentials loginCreds;
+        /*
+        *  Setups a Credentials object with a phone number, password, and message
+        */
+        [TestInitialize]
+        public void InitializeTest()
         {
-            // Assemble
-            var credential = new Credentials
-                
-        {
-           phoneNumber = "1234567892",
-           password="shah110811"
-        };
- 
-    // Act
-    var validationResults = new List<ValidationResult>();
-    var actual = Validator.TryValidateObject(credential, new ValidationContext(credential), validationResults, true);
- 
-    // Assert
-    Assert.IsTrue(actual, "Expected validation to succeed.");
-    Assert.AreEqual(0, validationResults.Count, "Unexpected number of validation errors.");
-}
-        [TestMethod()]
-        public void Validate_Credential_PhonenumberRequired_Test()
-        {
-            // Assemble
-            var credential = new Credentials
-            {
-                
-                phoneNumber = null,
-                password = "ES330fg34545"
-            };
-
-            // Act
-            var validationResults = new List<ValidationResult>();
-            var actual = Validator.TryValidateObject(credential, new ValidationContext(credential), validationResults, true);
-
-            // Assert
-           // Assert.IsFalse(actual, "Expected validation to fail.");
-//            Assert.AreEqual(1, validationResults.Count, "Unexpected number of validation errors.");
-          var msg = validationResults[0];
-           // Assert.AreEqual(, msg.ErrorMessage);
-            //Assert.AreEqual(1, msg.MemberNames.Count(), "Unexpected number of member names.");
-           // Assert.AreEqual("phoneNumber", msg.MemberNames.ElementAt(0));
+            loginCreds = new Credentials { phoneNumber = "1234567890", password = "P@ssw0rd" };
         }
 
-        [TestMethod()]
-        public static void TestPhoneNumberNotEmpty()
+
+        /*
+        *  Tests that the phone number cannot be empty
+        */
+
+
+
+       /* [TestMethod()]
+        public void TestPhoneNumberNotEmpty()
+
         {
-            Credentials objCredentials = new Credentials { phoneNumber = "1234567890", password = "1234567" };
-            var results = HelperTestModel.Validate(objCredentials);
-            Assert.AreEqual(0, results.Count());
+            loginCreds.phoneNumber = "";
+
+            //  Credentials objCredentials = new Credentials { phoneNumber = "1234567890", password = "1234567" };
+var results = HelperTestModel.Validate(loginCreds);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Phone number is required", results[0].ErrorMessage);
         }
 
-        [TestMethod()]
-        public static void TestPhoneNumberOnlyDigits()
+       /* [TestMethod()]
+        public void TestPhoneNumberOnlyDigits()
         {
 
             Credentials objCredentials = new Credentials { phoneNumber = "12345678900", password = "1234567" };
@@ -99,19 +78,19 @@ namespace KymiraApplicationTests.Model
         }
 
         [TestMethod()]
-        public static void TestPhoneNumberTenDigitLegth()
+        public void TestPhoneNumberTenDigitLegth()
         {
 
             KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "shah11081");
             Assert.AreEqual(9, objCredentials.getPhone().Length);
 
-           KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "shah11081");
-           Assert.AreEqual(10, objCredentials.getPhone().Length);
+            KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "shah11081");
+            Assert.AreEqual(10, objCredentials.getPhone().Length);
 
         }
 
         [TestMethod()]
-        public static void TestPhoneNumberExceedTenDigit()
+        public void TestPhoneNumberExceedTenDigit()
         {
             KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892454656", "shah11081");
 
@@ -176,7 +155,6 @@ namespace KymiraApplicationTests.Model
             KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "shahricha110464fg");
             Assert.IsTrue(objCredentials.getPassword().Length > 12);
 
-        }
-        }
-
+        }*/
     }
+}
