@@ -37,10 +37,10 @@ namespace kymiraAppTest.Tests
         public void TestPhoneNumberNotEmpty()
 
         {
-            loginCreds.phoneNumber = "";
+            objCred.phoneNumber = "";
 
             //  Credentials objCredentials = new Credentials { phoneNumber = "1234567890", password = "1234567" };
-var results = HelperTestModel.Validate(loginCreds);
+var results = HelperTestModel.Validate(objCred);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Phone number is required", results[0].ErrorMessage);
         }

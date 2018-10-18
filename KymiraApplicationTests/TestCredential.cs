@@ -15,135 +15,188 @@ namespace KymiraApplicationTests
     [TestClass]
     public class TestCredentials
     {
-        string phoneNumber; // The phone number used to log in
-        string password; // The password used to log in
-        string errorMessage; // The error message
+       
 
-        Credentials loginCreds;
+        Credentials objCred;
         /*
         *  Setups a Credentials object with a phone number, password, and message
         */
         [TestInitialize]
         public void InitializeTest()
         {
-            loginCreds = new Credentials { phoneNumber = "1234567890", password = "P@ssw0rd" };
+            objCred = new Credentials { phoneNumber = "1234567890", password = "P@ssw0rd" };
         }
 
 
-        /*
-        *  Tests that the phone number cannot be empty
-        */
+        /*   Unit tests for Phonenumber   */
+
         [TestMethod]
-        public void TestPhoneNumberNotEmpty()
+        public void TestPhoneNumberIsEmpty()
 
         {
-            loginCreds.phoneNumber = "";
-            
+            //Test phone number is empty string
+            objCred.phoneNumber = "";
 
-            var results = HelperTestModel.Validate(loginCreds);
+
+            var results = HelperTestModel.Validate(objCred);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Phone number is required", results[0].ErrorMessage);
-            loginCreds.phoneNumber = "1234567890";
-            results = HelperTestModel.Validate(loginCreds);
+        }
+        [TestMethod]
+        public void TestPhoneNumberIsNotEmpty()
+
+        {
+            //test phonenumber is non empty
+            var results = HelperTestModel.Validate(objCred);
+            
+            objCred.phoneNumber = "1234567890";
+            results = HelperTestModel.Validate(objCred);
             Assert.AreEqual(0, results.Count());
             
+
+        }
+
+        [TestMethod]
+        public void TestPhoneNumberNonDigits()
+        {
+            //test phonenumber contains characters instead digits
+            objCred.phoneNumber = "shahsjhghr";
+            var results = HelperTestModel.Validate(objCred);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
+
+            //Test phone number contains combination of charcatres and digits
+            objCred.phoneNumber = "shahsjh678";
+            results = HelperTestModel.Validate(objCred);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
+        }
+
+            [TestMethod]
+        public void TestPhoneNumberOnlyDigits()
+        {
+            //Test phone number contains digits
+            objCred.phoneNumber = "1234567890";
+            var results = HelperTestModel.Validate(objCred);
+            Assert.AreEqual(0, results.Count());
 
         }
 
          [TestMethod]
-          public  void TestPhoneNumberOnlyDigits()
+          public void TestPhoneNumberTenDigitLegth()
           {
-            loginCreds.phoneNumber = "shahsjhd67";
-            var results = HelperTestModel.Validate(loginCreds);
+            //Test phone number contains 10 digits
+            objCred.phoneNumber = "3456789096";
+            var results = HelperTestModel.Validate(objCred);
+            Assert.AreEqual(0, results.Count());
+            
+        }
+
+          [TestMethod]
+          public  void TestPhoneNumberExceedTenDigit()
+          {
+            //Test phoneNumber contains more than 10 digits
+            objCred.phoneNumber = "34567890965657";
+            var results = HelperTestModel.Validate(objCred);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
+        }
+
+          [TestMethod]
+          public  void TestPhoneNumberLessThanTenDigit()
+          {
+            //Test phoneNumber contains less than 10 digits
+            objCred.phoneNumber = "345678";
+            var results = HelperTestModel.Validate(objCred);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
 
-            loginCreds.phoneNumber = "1234567890";
-            results = HelperTestModel.Validate(loginCreds);
-            Assert.AreEqual(0, results.Count());
+        }
+
+        /*  Unit tests for Password  */
+
+
+
+        [TestMethod]
+          public  void TestPasswordIsEmpty()
+          {
+            //Test password with an empty string
+            objCred.password = "";
+            var results = HelperTestModel.Validate(objCred);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Password is required", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        public void TestPasswordIsNotEmpty()
+        {
+            //Test password with an non empty string
+            objCred.password = "shah1108";
+            var results = HelperTestModel.Validate(objCred);
+
+            Assert.AreEqual(0, results.Count);
+           
+        }
+
+        [TestMethod]
+        public void TestPasswordISSixChar()
+        {
+            //Test Password is  6 characters
+            objCred.password = "Shh@11"; 
+
+            var results = HelperTestModel.Validate(objCred);
+
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        public void TestPasswordISFiftyChar()
+        {
+            //Test Password is  50 characters
+            objCred.password = new string('a', 50);
+
+            var results = HelperTestModel.Validate(objCred);
+
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+          public  void TestPasswordLessThanSixChar()
+          {
+            //Test password is less than 6 characters
+            objCred.password = "Shh@1"; // Password is only 5 characters
+
+            var results = HelperTestModel.Validate(objCred);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Password must be in between 6 and 50 charcaters", results[0].ErrorMessage);
 
         }
 
-        /*  [TestMethod()]
-          public void TestPhoneNumberTenDigitLegth()
-          {
-
-              KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "shah11081");
-              Assert.AreEqual(9, objCredentials.getPhone().Length);
-
-             KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "shah11081");
-             Assert.AreEqual(10, objCredentials.getPhone().Length);
-
-          }
-
           [TestMethod()]
-          public  void TestPhoneNumberExceedTenDigit()
+          public  void TestPasswordBetweenSixAndFiftyChar()
           {
-              KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892454656", "shah11081");
+            //Test password is greater than 6 characters but less than 50 charcaters
+            objCred.password = "P@ssw0rd1178"; // Password at lower boundary
 
+            var results = HelperTestModel.Validate(objCred);
 
-              Assert.IsTrue(objCredentials.getPhone().Length > 10);
+            Assert.AreEqual(0, results.Count);
+        }
 
-              Assert.IsTrue(objCredentials.getPhone().Length > 10);
-
-          }
-
-          [TestMethod()]
-          public static void TestPhoneNumberLessThanTenDigit()
+        [TestMethod()]
+          public  void TestPasswordGreaterThanFiftyChar()
           {
-              KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512", "shah11081");
+            //Test Password is  51 characters
+            objCred.password = new string('a', 51);
 
-              Assert.IsTrue(objCredentials.getPhone().Length < 10);
+            var results = HelperTestModel.Validate(objCred);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Password must be in between 6 and 50 charcaters", results[0].ErrorMessage);
+        }
           }
-
-          [TestMethod()]
-          public static void TestPasswordNotEmpty()
-          {
-              KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "");
-
-              Assert.AreEqual("", objCredentials.getPassword());
-
-          }
-
-          [TestMethod()]
-          public static void TestPasswordLessThanSixChar()
-          {
-              KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "shah1");
-
-              Assert.IsTrue(objCredentials.getPassword().Length < 6);
-          }
-
-          [TestMethod()]
-          public static void TestPasswordBetweenSixAndTwelveChar()
-          {
-              KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "shah11");
-              KymiraApplication.Model.Credentials objCredentials2 = new KymiraApplication.Model.Credentials("4512367892", "shahricha110");
-
-
-
-
-              Assert.IsTrue(objCredentials2.getPassword().Length == 6);
-
-              Assert.IsTrue(objCredentials.getPassword().Length == 12);
-
-
-              KymiraApplication.Model.Credentials objCredentials3 = new KymiraApplication.Model.Credentials("4512367892", "richa11011");
-
-              Assert.IsTrue(objCredentials.getPassword().Length == 6);
-              Assert.IsTrue(objCredentials2.getPassword().Length == 12);
-              Assert.IsTrue(objCredentials3.getPassword().Length <= 12 && objCredentials3.getPassword().Length >= 6);
-
-
-          }
-
-          [TestMethod()]
-          public static void TestPasswordGreaterThanTwelveChar()
-          {
-              KymiraApplication.Model.Credentials objCredentials = new KymiraApplication.Model.Credentials("4512367892", "shahricha110464fg");
-              Assert.IsTrue(objCredentials.getPassword().Length > 12);
-
-          }
-          }*/
 
     }
-}
+
