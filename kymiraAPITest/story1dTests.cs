@@ -50,18 +50,26 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestFirstNameField()
         {
+            //test that 'generaal' first name is valid
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        
             //test that first name of 50 characters is valid
             resident.firstName = new string('h', 50);
-            var results = HelperTestModel.Validate(resident);
+            results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
         public void TestLastNameField()
         {
+            //test that 'general' last name is valid
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+
             //test that last name of 50 characters is valid
             resident.lastName = new string('h', 50);
-            var results = HelperTestModel.Validate(resident);
+            results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -69,24 +77,33 @@ namespace kymiraAPITest
         public void TestDOBField()
         {
             //test that DOB will allow valid entries
-           
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+            //TODO: Check the sending/recieving function within 'run'/'socket' for date conversion 
+
         }
 
         [TestMethod]
         public void TestEmailField()
         {
+            //test that 'general' email passes
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
             //test that email of 100 characters following the correct email format is valid
             resident.email = new string('d',88) + "@sasktel.net";
-            var results = HelperTestModel.Validate(resident);
+            results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
         public void TestAddress1Field()
         {
+            //test that 'general' address1 field passes
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
             //test that Address1 of 200 characters is valid
             resident.address1 = new string('h', 200);
-            var results = HelperTestModel.Validate(resident);
+            results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
 
             //test that Address1 of 1 character is valid
@@ -98,9 +115,16 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestAddress2Field()
         {
+            //test that 'general' address2 field passes
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
             //test that address2 of 200 characters is valid
             resident.address2 = new string('p', 200);
-            var results = HelperTestModel.Validate(resident);
+            results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+            //test that Address2 of 0 characters is valid
+            resident.address2 = "";
+            results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -116,9 +140,12 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestProvinceField()
         {
+            //test that 'general' test passes
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
             //test that Province of 100 characters is valid
             resident.province = new string('h', 100);
-            var results = HelperTestModel.Validate(resident);
+            results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
 
             //test that province of 1 character is valid
@@ -130,9 +157,12 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestCityField()
         {
+            //test that 'general' test passes
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
             //test that City of 100 characters is valid
             resident.city = new string('f',100);
-            var results = HelperTestModel.Validate(resident);
+            results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
 
             //test that city of 1 character is valid
@@ -146,7 +176,6 @@ namespace kymiraAPITest
         public void TestPasswordField()
         {
             //test that password of 8 characters is valid
-            resident.password = "P@ssw0rd";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
 
@@ -203,6 +232,10 @@ namespace kymiraAPITest
         public void TestDOBFieldInvalid()
         {
             //test that DOB will not allow invalid entries
+            //resident.dateOfBirth = "12/4432/11244"; -- Requires a date object and will not compile
+            // TODO: Check the sending/recieving function within 'run'/'socket' for improper date conversion 
+
+
         }
 
         [TestMethod]

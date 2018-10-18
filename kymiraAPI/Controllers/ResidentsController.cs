@@ -24,7 +24,7 @@ namespace kymiraAPI.Controllers
         [HttpGet]
         public IEnumerable<Resident> GetResident()
         {
-            return _context.Resident;
+            return _context.ResidentDBSet;
         }
 
         // GET: api/Residents/5
@@ -36,7 +36,7 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var resident = await _context.Resident.SingleOrDefaultAsync(m => m.id == id);
+            var resident = await _context.ResidentDBSet.SingleOrDefaultAsync(m => m.id == id);
 
             if (resident == null)
             {
@@ -90,7 +90,7 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Resident.Add(resident);
+            _context.ResidentDBSet.Add(resident);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetResident", new { id = resident.id }, resident);
@@ -105,13 +105,13 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var resident = await _context.Resident.SingleOrDefaultAsync(m => m.id == id);
+            var resident = await _context.ResidentDBSet.SingleOrDefaultAsync(m => m.id == id);
             if (resident == null)
             {
                 return NotFound();
             }
 
-            _context.Resident.Remove(resident);
+            _context.ResidentDBSet.Remove(resident);
             await _context.SaveChangesAsync();
 
             return Ok(resident);
@@ -119,7 +119,7 @@ namespace kymiraAPI.Controllers
 
         private bool ResidentExists(int id)
         {
-            return _context.Resident.Any(e => e.id == id);
+            return _context.ResidentDBSet.Any(e => e.id == id);
         }
     }
 }

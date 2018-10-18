@@ -13,6 +13,6 @@ namespace kymiraAPI.Models
         {
         }
 
-        public DbSet<kymiraAPI.Models.Resident> Resident { get; set; }
+        public DbSet<kymiraAPI.Models.Resident> ResidentDBSet { get; set; }
     }
 }
