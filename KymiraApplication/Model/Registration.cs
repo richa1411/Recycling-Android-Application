@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace KymiraApplication.Model
 {
-    public class Registration
+    public class Registration : IValidatableObject
     {
 
 
+        [Required(ErrorMessage = "An email address is required")]
+        [StringLength(10, MinimumLength=10, ErrorMessage = "Email address must be between 1 and 100 characters")]
         public String emailAddress { get; }
+        [Required(ErrorMessage = "A password is required")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "Email address must be between 1 and 100 characters")]
+        [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "]
         public String password { get; }
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number can only contain digits")]
         public String phoneNumber { get; }
         public String firstName { get; }
         public String lastName { get; }
@@ -70,6 +71,9 @@ namespace KymiraApplication.Model
             this.checkBox = checkBox;
         }
 
-
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
