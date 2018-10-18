@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace kymiraAppTest
+namespace KymiraApplication.Model
 {
    public class Credentials : IValidatableObject
     {
+
+        public Credentials()
+        {
+
+        }
         [Required(ErrorMessage = "Phone number is required")]
         [StringLength(10,MinimumLength =10, ErrorMessage = "Phonenumber Should be of 10 characters")]
         [DataType(DataType.PhoneNumber)]
@@ -17,8 +22,7 @@ namespace kymiraAppTest
         [StringLength(50,MinimumLength =6,ErrorMessage ="Password must be in between 6 and 50 charcaters")]
         public string password;
 
-      
-
+     
 
         public string getPhone()
         {
