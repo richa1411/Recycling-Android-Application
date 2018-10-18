@@ -90,6 +90,193 @@ namespace kymiraAppTest
             obValidatable = new PhoneNumberValidator("3062224469");
             obValidatable.Validate();
             Assert.IsTrue(obValidatable.isValid);
+
+            //Validate phone number with too few digits
+            obValidatable = new PhoneNumberValidator("306222");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
         }
+
+        [Test]
+        public void TestValidFirstName()
+        {
+            //Validate an empty first name
+            obValidatable = new FirstNameValidator("");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a first name field that isn't blank
+            obValidatable = new FirstNameValidator("a");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+
+            //Validate a first name field that has too many characters
+            obValidatable = new FirstNameValidator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a first name with max characters (valid)
+            obValidatable = new FirstNameValidator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+
+        }
+
+        [Test]
+        public void TestValidLastName()
+        {
+            //Validate an empty last name field
+            obValidatable = new LastNameValidator("");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a last name field that isn't blank
+            obValidatable = new LastNameValidator("a");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a last name field that has too many characters
+            obValidatable = new LastNameValidator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a first name with max characters (valid)
+            obValidatable = new FirstNameValidator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+        }
+
+        [Test]
+        public void TestValidBirthDate()
+        {
+            //Validate an empty birth date
+            obValidatable = new BirthDateValidator("");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a birth date with too few characters
+            obValidatable = new BirthDateValidator("101118");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a birth date with the correct number of characters
+            obValidatable = new BirthDateValidator("10112018");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+        }
+
+        [Test]
+        public void TestValidAddressLine1()
+        {
+            //Validate an empty address line 1 field
+            obValidatable = new AddressLine1Validator("");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate an address line 1 field that isn't empty
+            obValidatable = new AddressLine1Validator("a");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+
+            //Validate an address line 1 that is the max number of characters (valid)
+            obValidatable = new AddressLine1Validator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+
+            //Validate an address line 1 that is over the max number of characters
+            obValidatable = new AddressLine1Validator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagfdsgfds");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+        }
+
+        [Test]
+        public void TestValidAddressLine2()
+        {
+            //Validate an empty address line 2 field (valid)
+            obValidatable = new AddressLine2Validator("");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate an empty address line 2 field with max characters
+            obValidatable = new AddressLine1Validator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+
+            //Validate an address line 2 field with too many characters
+            obValidatable = new AddressLine1Validator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" +
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaljkkjhlkj");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+        }
+
+        public void TestValidCity()
+        {
+            //Validate an empty City field
+            obValidatable = new CityValidator("");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a city field with the max number of characters
+            obValidatable = new CityValidator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+
+            //Validate a city field with more than the max number of characters
+            obValidatable = new CityValidator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagfdgdfsgdfs");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+        }
+
+        [Test]
+        public void TestValidProvince()
+        {
+            //Validate an empty province field
+            obValidatable = new ProvinceValidator("");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a province field with max number of characters
+            obValidatable = new ProvinceValidator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+
+            //Validate a province with too many characters
+            obValidatable = new ProvinceValidator("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagfdsgddfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+        }
+
+        [Test]
+        public void TestValidPostalCode()
+        {
+            //Validate a postal code in the wrong format
+            obValidatable = new PostalCodeValidator("");
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a postal code in the correct format
+            obValidatable = new PostalCodeValidator("S7J4J6");
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+        }
+
+        [Test]
+        public void TestValidCheckBox()
+        {
+            //Validate a check box that isn't checked
+            obValidatable = new CheckBoxValidator(false);
+            obValidatable.Validate();
+            Assert.IsFalse(obValidatable.isValid);
+
+            //Validate a check box that is checked
+            obValidatable = new CheckBoxValidator(true);
+            obValidatable.Validate();
+            Assert.IsTrue(obValidatable.isValid);
+        }
+
     }
 }
