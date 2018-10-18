@@ -23,13 +23,14 @@ namespace kymiraAPI.Models
         [DataType(DataType.Date)]
         public DateTime dateOfBirth { get; set; }
 
-        [MaxLength(100)]
-        [MinLength(6)]
-        [EmailAddress]
+        [MaxLength(100,ErrorMessage = "Email must be 100 characters or less.")]
+        [EmailAddress(ErrorMessage = "Email must be in email address format.")]
+        [Required(ErrorMessage = "Email is required.")]
         public string email { get; set; }
 
-        [StringLength(10)]
-        [Phone]
+        //[StringLength(10)]
+        [RegularExpression("[0-9]{10}",ErrorMessage = "Phone number must be in phone number format.")]
+        [Required(ErrorMessage = "Phone number is required.")]
         public string phoneNumber { get; set; }
 
         [Required(ErrorMessage = "Address line 1 is required.")]

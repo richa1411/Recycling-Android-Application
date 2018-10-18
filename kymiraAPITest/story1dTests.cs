@@ -10,7 +10,7 @@ namespace kymiraAPITest
     {
         //Valid resident to use for testing
         Resident resident = new Resident{id = 1, firstName = "John", lastName = "Smith", dateOfBirth = new DateTime(),
-            email = "john.smith@hotmail.com",phoneNumber = "3064567890", address1 = "Fairhaven", address2 = "Unit 6",
+            email = "john.smith@hotmail.com",phoneNumber = "3061234780", address1 = "Fairhaven", address2 = "Unit 6",
             city = "Saskatoon", province = "Saskatchewan", postalCode = "S7L5W4", password = "P@ssw0rd"};
 
         [TestMethod]
@@ -69,12 +69,16 @@ namespace kymiraAPITest
         public void TestDOBField()
         {
             //test that DOB will allow valid entries
+           
         }
 
         [TestMethod]
         public void TestEmailField()
         {
-            //test that email will allow valid entries
+            //test that email of 100 characters following the correct email format is valid
+            resident.email = new string('d',88) + "@sasktel.net";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
@@ -103,8 +107,10 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestPostalCodeField()
         {
-            //test that postalCode will allow valid entries
-
+            //test that postalCode will allow valid entries (uses current valid resident created at the top of
+            //this class)
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
@@ -139,13 +145,24 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestPasswordField()
         {
-            //test that password 
+            //test that password of 8 characters is valid
+            resident.password = "P@ssw0rd";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+
+            //test that password of 50 characters is valid
+            resident.password = new string('s',50);
+            results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
         public void TestPhoneField()
         {
-            //test that phone will allow valid entries
+            //test that phone will allow valid entries (uses current valid resident created at the top of
+            //this class)
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
         }
 
         //**************** TESTING FOR INVALIDS BELOW ****************/
@@ -191,8 +208,23 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestEmailFieldInvalid()
         {
-            //test that email
+            //test that email of empty string is invalid
+            resident.email = "";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Email is required.", results[0].ErrorMessage);
 
+            //test that email of 101 characters (following the correct format) is invalid
+            resident.email = new string('y',101) + "@sasktel.net";
+            results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Email must be 100 characters or less.", results[0].ErrorMessage);
+
+            //test that email of incorrect format is invalid
+            resident.email = new string('o',7);
+            results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Email must be in email address format.", results[0].ErrorMessage);
         }
 
         [TestMethod]
@@ -300,8 +332,17 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestPhoneFieldInvalid()
         {
-            //test that phone will not allow invalid entries
+            //test that phone number of empty string is invalid
+            resident.phoneNumber = "";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Phone number is required.", results[0].ErrorMessage);
 
+            //test that phone number in incorrect format is invalid
+            resident.phoneNumber = "4325";
+            results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Phone number must be in phone number format.", results[0].ErrorMessage);
         }
     }
 }
