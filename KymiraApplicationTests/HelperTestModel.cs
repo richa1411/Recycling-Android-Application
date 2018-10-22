@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KymiraApplicationTests
 {
-    class HelperTestModel
+    public class HelperTestModel
     {
-        public static IList<ValidationResult> Validate(object model)
+        public static List<ValidationResult> Validate(object model)
         {
             var results = new List<ValidationResult>();
 
