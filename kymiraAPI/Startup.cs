@@ -10,8 +10,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using kymiraAPI.Models;
-using kymiraAPI.Server;
-using Microsoft.AspNetCore.WebSockets;
 
 namespace kymiraAPI
 {
@@ -42,7 +40,6 @@ namespace kymiraAPI
             }
 
             app.UseMvc();
-            app.UseWebSockets();
         }
     }
 }

@@ -82,7 +82,7 @@ namespace kymiraAPI.Controllers
         }
 
         // POST: api/Residents
-        [HttpPost]
+        [HttpPost("register")]
         public async Task<IActionResult> PostResident([FromBody] Resident resident)
         {
             if (!ModelState.IsValid)

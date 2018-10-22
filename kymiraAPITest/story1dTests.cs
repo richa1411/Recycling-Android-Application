@@ -14,43 +14,9 @@ namespace kymiraAPITest
             city = "Saskatoon", province = "Saskatchewan", postalCode = "S7L5W4", password = "P@ssw0rd"};
 
         [TestMethod]
-        public void TestPassToDatabase()
-        {
-            //attempt to create a new Resident and save it to the database
-            
-            //attempt to retrieve the Resident from the database
-            //check the retrieved resident against the original resident object
-        }
-
-        [TestMethod]
-        public void TestCreateResident()
-        {
-            //attempt to create a resident object
-            //check that all of the new object's attributes were set as intended
-        }
-
-        [TestMethod]
-        /**
-         * Tests that a User can be extracted from the database reliably
-         * */
-        public void TestRetrieval()
-        {
-            //attempt to retrieve a valid Resident object from the database
-        }
-
-        [TestMethod]
-        /**
-         * Will test for boolean response from constructor
-         * */
-        public void TestResidentsController()
-        {
-            //test that the controller is active when it should be
-        }
-
-        [TestMethod]
         public void TestFirstNameField()
         {
-            //test that 'generaal' first name is valid
+            //test that 'general' first name is valid
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
         
