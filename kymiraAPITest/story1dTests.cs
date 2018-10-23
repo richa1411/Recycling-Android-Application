@@ -199,9 +199,6 @@ namespace kymiraAPITest
         {
             //test that DOB will not allow invalid entries
             //resident.dateOfBirth = "12/4432/11244"; -- Requires a date object and will not compile
-            // TODO: Check the sending/recieving function within 'run'/'socket' for improper date conversion 
-
-
         }
 
         [TestMethod]
