@@ -283,7 +283,18 @@ namespace kymiraAPITest
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
-
+        [TestMethod]
+        /**
+            * This method tests that an AddressLine2 field of 201 characters is invalid.
+            */
+        public void TestThatAddressLine2FieldOf201CharsIsInvalid()
+        {
+            //test that addressLine2 of 201 characters is invalid
+            resident.addressLine2 = new string('d', 201);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Address line 2 must be 200 characters or less.", results[0].ErrorMessage);
+        }
 
         /*--------------------------------------Postal Code Field Testing-------------------------------------------------------------*/
         [TestMethod]
@@ -294,6 +305,58 @@ namespace kymiraAPITest
         {
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a PostalCode Field of 5 characters is invalid
+         */
+        public void TestThatPostalCodeFieldOf5CharsIsInvalid()
+        {
+            //test that postalCode of 5 characters/digits is invalid
+            resident.postalCode = "S0L0K";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a PostalCode Field of 7 characters is invalid
+         */
+        public void TestThatPostalCodeFieldOf7CharsIsInvalid()
+        {
+            //test that postalCode of 7 characters/digits is invalid
+            resident.postalCode = "S0L0K0E";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a PostalCode Field in incorrect format is invalid
+         */
+        public void TestThatPostalCodeFieldOfIncorrectFormatIsInvalid()
+        {
+            //test that postalCode of incorrect format is invalid
+            resident.postalCode = "SSS000";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that an empty PostalCode Field is invalid
+         */
+        public void TestThatPostalCodeFieldOfEmptyStringIsInvalid()
+        {
+            //test that postalCode of empty string is invalid
+            resident.postalCode = "";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Postal code is required and must be 6 characters.", results[0].ErrorMessage);
         }
 
         /*--------------------------------------Province Field Testing-------------------------------------------------------------*/
@@ -329,6 +392,33 @@ namespace kymiraAPITest
             Assert.AreEqual(0, results.Count);
         }
 
+        [TestMethod]
+        /**
+         * This method tests that an empty resident Province is invalid.
+         */
+        public void TestThatEmptyProvinceFieldIsInvalid()
+        {
+            //test that province of empty string is invalid
+            resident.province = "";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Province is required.", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident Province of 101 characters is invalid.
+         */
+        public void TestThatProvinceFieldOf101CharsIsInvalid()
+        {
+            //test that province of 101 characters is invalid
+            resident.province = new string('i', 101);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Province must be 100 characters or less.", results[0].ErrorMessage);
+        }
+
+
         /*--------------------------------------City Field Testing-------------------------------------------------------------*/
         [TestMethod]
         /**
@@ -363,6 +453,33 @@ namespace kymiraAPITest
 
         }
 
+        [TestMethod]
+        /**
+         * This method tests that an empty resident City is invalid.
+         */
+        public void TestThatEmptyCityFieldIsInvalid()
+        {
+            //test that City of empty string is invalid
+            resident.city = "";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("City is required.", results[0].ErrorMessage);
+
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident City of 101 characters is invalid.
+         */
+        public void TestThatCityFieldOf101CharsIsInvalid()
+        {
+            //test that city of 101 characters is invalid
+            resident.city = new string('s', 101);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("City must be 100 characters or less.", results[0].ErrorMessage);
+        }
+
         /*--------------------------------------Password Field Testing-------------------------------------------------------------*/
         [TestMethod]
         /**
@@ -383,6 +500,32 @@ namespace kymiraAPITest
             resident.password = new string('s', 50);
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
+        } 
+
+        [TestMethod]
+        /**
+         * This method tests that an empty resident password is invalid.
+         */
+        public void TestThatEmptyPasswordFieldIsInvalid()
+        {
+            //test that password of empty string is invalid
+            resident.password = "";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Password is required.", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident password of 51 characters is invalid.
+         */
+        public void TestThatPasswordFieldOf51CharsIsInvalid()
+        {
+            //test that password of 51 characters is invalid
+            resident.password = new string('o', 51);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Password must be 50 characters or less.", results[0].ErrorMessage);
         }
 
         /*--------------------------------------Phone Field Testing-------------------------------------------------------------*/
@@ -395,95 +538,11 @@ namespace kymiraAPITest
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
-        
 
         [TestMethod]
-        public void TestAddress2FieldInvalid()
-        {
-            //test that addressLine2 of 201 characters is invalid
-            resident.addressLine2 = new string('d', 201);
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Address line 2 must be 200 characters or less.", results[0].ErrorMessage);
-        }
-
-        [TestMethod]
-        public void TestPostalCodeFieldInvalid()
-        {
-            //test that postalCode of 5 characters/digits is invalid
-            resident.postalCode = "S0L0K";
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
-
-            //test that postalCode of 7 characters/digits is invalid
-            resident.postalCode = "S0L0K0E";
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
-
-            //test that postalCode of incorrect format is invalid
-            resident.postalCode = "SSS000";
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
-
-            //test that postalCode of empty string is invalid
-            resident.postalCode = "";
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Postal code is required and must be 6 characters.", results[0].ErrorMessage);
-        }
-
-        [TestMethod]
-        public void TestProvinceFieldInvalid()
-        {
-            //test that province of empty string is invalid
-            resident.province = "";
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Province is required.", results[0].ErrorMessage);
-
-            //test that province of 101 characters is invalid
-            resident.province = new string('i', 101);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Province must be 100 characters or less.", results[0].ErrorMessage);
-        }
-
-        [TestMethod]
-        public void TestCityFieldInvalid()
-        {
-            //test that City of empty string is invalid
-            resident.city = "";
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("City is required.", results[0].ErrorMessage);
-
-            //test that city of 101 characters is invalid
-            resident.city = new string('s',101);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("City must be 100 characters or less.", results[0].ErrorMessage);
-        }
-
-        [TestMethod]
-        public void TestPasswordFieldInvalid()
-        {
-            //test that password of empty string is invalid
-            resident.password = "";
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password is required.", results[0].ErrorMessage);
-
-            //test that password of 51 characters is invalid
-            resident.password = new string('o', 51);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password must be 50 characters or less.", results[0].ErrorMessage);
-        }
-
-        [TestMethod]
+        /**
+         * This method tests that an empty resident Phone is invalid.
+         */
         public void TestPhoneFieldInvalid()
         {
             //test that phone number of empty string is invalid
@@ -491,10 +550,17 @@ namespace kymiraAPITest
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Phone number is required.", results[0].ErrorMessage);
+        }
 
+        [TestMethod]
+        /**
+         * This method tests that a resident Phone in incorrect format is invalid.
+         */
+        public void TestThatEmptyPhoneFieldIsInvalid()
+        {
             //test that phone number in incorrect format is invalid
             resident.phoneNumber = "4325";
-            results = HelperTestModel.Validate(resident);
+            var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Phone number must be in phone number format.", results[0].ErrorMessage);
         }

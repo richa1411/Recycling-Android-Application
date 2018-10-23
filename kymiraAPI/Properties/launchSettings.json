@@ -19,7 +19,7 @@
     "kymiraAPI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "kymiraAPI/Data/Index.cshtml",
+      "launchUrl": "api/Resident",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
