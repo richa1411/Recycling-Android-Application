@@ -35,11 +35,11 @@ namespace KymiraApplication.Model
 
         [Required(ErrorMessage = "A birth date is required")]
         [DataType (DataType.Date, ErrorMessage = "Was not in a Date format")]
-        [StringLength(8, MinimumLength = 1)]
+        [StringLength(8, MinimumLength = 8)]
         public String birthDate { get; }
 
         [Required(ErrorMessage = "An Address is required")]
-        [StringLength (200, MinimumLength=1, ErrorMessage ="The address must be between 1 and 200 characters")]
+        [StringLength (200, MinimumLength=10, ErrorMessage ="The address must be between 1 and 200 characters")]
         public String addressLine1 { get; }
 
         [StringLength(200, ErrorMessage ="Must be less than 200 characters")]

@@ -43,8 +43,7 @@ namespace KymiraApplication.Model.Tests
         public void testThatEmailCannotBeMoreThan100Characters()
         {
 
-            regtestBad = new Registration("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad = new Registration(new string('a',100) + "@gmail.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123steveaasdfave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
 
@@ -53,7 +52,7 @@ namespace KymiraApplication.Model.Tests
         public void testThatEmailis100Characters()
         {
 
-            regtestBad = new Registration("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            regtestBad = new Registration(new string('a', 90) + "@gmail.com",
                 "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(0, results.Count());
@@ -63,7 +62,7 @@ namespace KymiraApplication.Model.Tests
         public void testThatEmailCannotBeInvalidFormat()
         {
 
-            regtestBad = new Registration("email.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad = new Registration("guyemail.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
 
@@ -137,7 +136,7 @@ namespace KymiraApplication.Model.Tests
 
             regtestBad = new Registration("email@email.com", "asdadsasdas", "a1231", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
             results = HelperTestModel.Validate(regtestBad);
-            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual(2, results.Count());
 
         }
         [TestMethod()]
@@ -153,9 +152,9 @@ namespace KymiraApplication.Model.Tests
         public void testThatPhoneNumberCannotBe11digits()
         {
 
-            regtestBad = new Registration("email@email.com", "asdadsasdas", "12341567891", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad = new Registration("guy@email.com", "password1", "30665245456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
             results = HelperTestModel.Validate(regtestBad);
-            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual(2, results.Count());
 
         }
         [TestMethod()]
@@ -164,7 +163,7 @@ namespace KymiraApplication.Model.Tests
 
             regtestBad = new Registration("email@email.com", "asdadsasdas", "123467891", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
             results = HelperTestModel.Validate(regtestBad);
-            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual(2, results.Count());
 
         }
         [TestMethod()]
@@ -317,12 +316,12 @@ namespace KymiraApplication.Model.Tests
 
         }
         [TestMethod()]
-        public void testThatAddressLine2CanHave200Characters()
+        public void testThatAddressLine2CanHaveMoreThan200Characters()
         {
             regtestBad = new Registration("email@email.com", "asdadsasdas", "1234567891", "guy", "fghijabcdefghijabcdefghij", "10102000",
                 "asdfgasdafg", new string('a',201), "Regina", "Saskatchewan", "S4T5N3", true);
             results = HelperTestModel.Validate(regtestBad);
-            Assert.AreEqual(0, results.Count());
+            Assert.AreEqual(1, results.Count());
 
         }
         [TestMethod()]
@@ -385,7 +384,7 @@ namespace KymiraApplication.Model.Tests
             regtestBad = new Registration("email@email.com", "asdadsasdas", "1234567891", "guy", "fghijabcdefghijabcdefghij", "10102000",
                 "asdfgasdafg", "asdfadfadf", new string('a', 100), new string('a', 100), "S4T5N3", true);
             results = HelperTestModel.Validate(regtestBad);
-            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual(0, results.Count());
 
         }
         [TestMethod()]
@@ -418,8 +417,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatPostalCodeHas6Characters()
         {
-            regtestBad = new Registration("email@email.com", "asdadsasdas", "1234567891", "guy", "fghijabcdefghijabcdefghij", "10102000",
-                "asdfgasdafg", "asdfadfadf", new string('a', 100), new string('a', 100), "s4n2p5", true);
+            regtestBad = new Registration("guy@email.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(0, results.Count());
 
