@@ -161,7 +161,7 @@ namespace kymiraAPITest
         {
 
 
-            loginCreds.password = new string('a', 50); ; // Password is exactly 50 characters
+            loginCreds.password = new string('a', 50); // Password is exactly 50 characters
 
             var results = HelperTestModel.Validate(loginCreds);
 

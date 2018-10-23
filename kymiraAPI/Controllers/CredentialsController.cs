@@ -26,7 +26,7 @@ namespace kymiraAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("{ Error:1 Message:Incorrect phone number or password }");
             }
 
             // This will queury the database with a Credentials Object and compare it to a Resident Object

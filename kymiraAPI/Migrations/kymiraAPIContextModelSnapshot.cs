@@ -20,20 +20,6 @@ namespace kymiraAPI.Migrations
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("kymiraAPI.DummyUserObject", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("password");
-
-                    b.Property<string>("phoneNumber");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DummyUserObject");
-                });
-
             modelBuilder.Entity("kymiraAPI.Models.Credentials", b =>
                 {
                     b.Property<int>("ID")
@@ -49,6 +35,20 @@ namespace kymiraAPI.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Credentials");
+                });
+
+            modelBuilder.Entity("kymiraAPI.Models.Resident", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("password");
+
+                    b.Property<string>("phoneNumber");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Resident");
                 });
 #pragma warning restore 612, 618
         }

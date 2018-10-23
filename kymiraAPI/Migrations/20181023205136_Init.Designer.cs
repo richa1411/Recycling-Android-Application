@@ -11,8 +11,8 @@ using System;
 namespace kymiraAPI.Migrations
 {
     [DbContext(typeof(kymiraAPIContext))]
-    [Migration("20181018193719_init")]
-    partial class init
+    [Migration("20181023205136_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,20 +20,6 @@ namespace kymiraAPI.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("kymiraAPI.DummyUserObject", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("password");
-
-                    b.Property<string>("phoneNumber");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("DummyUserObject");
-                });
 
             modelBuilder.Entity("kymiraAPI.Models.Credentials", b =>
                 {
@@ -50,6 +36,20 @@ namespace kymiraAPI.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Credentials");
+                });
+
+            modelBuilder.Entity("kymiraAPI.Models.Resident", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("password");
+
+                    b.Property<string>("phoneNumber");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Resident");
                 });
 #pragma warning restore 612, 618
         }
