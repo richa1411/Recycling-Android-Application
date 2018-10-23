@@ -29,10 +29,16 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Credentials.Add(credentials);
-            await _context.SaveChangesAsync();
+            // This will queury the database with a Credentials Object and compare it to a Resident Object
+            // already inside the database with a matching Phone Number and Password 
+            var resident = await _context.Resident.SingleOrDefaultAsync(r => r.phoneNumber == credentials.phoneNumber && r.password == credentials.password);
 
-            return CreatedAtAction("GetCredentials", new { id = credentials.ID }, credentials);
+            if (resident == null)
+            {
+                return NotFound("{ Error:1 Message:Incorrect phone number or password }");
+            }
+
+            return Ok(resident);
         }
 
 
