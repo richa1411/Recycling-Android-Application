@@ -9,241 +9,399 @@ namespace kymiraAPITest
     public class Story1dTests
     {
         //Valid resident to use for testing
-        Resident resident = new Resident{id = 1, firstName = "John", lastName = "Smith", dateOfBirth = new DateTime(),
-            email = "john.smith@hotmail.com",phoneNumber = "3061234780", address1 = "Fairhaven", address2 = "Unit 6",
+        Resident resident = new Resident{id = 1, firstName = "John", lastName = "Smith", birthDate = "1996-05-12",
+            email = "john.smith@hotmail.com",phoneNumber = "3061234780", addressLine1 = "Fairhaven", addressLine2 = "Unit 6",
             city = "Saskatoon", province = "Saskatchewan", postalCode = "S7L5W4", password = "P@ssw0rd"};
 
+
+        /*--------------------------------------First Name Field Testing-------------------------------------------------------------*/
         [TestMethod]
-        public void TestFirstNameField()
+        /**
+         * This method tests that the resident Model created above truly contains a valid first name.
+         */
+        public void TestThatFirstNameFieldGeneralIsValid()
         {
-            //test that 'general' first name is valid
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
-        
-            //test that first name of 50 characters is valid
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident with a first name of 50 characters is valid.
+         */
+        public void TestThatFirstNameFieldOf50CharsIsValid()
+        {
             resident.firstName = new string('h', 50);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        [TestMethod]
-        public void TestLastNameField()
-        {
-            //test that 'general' last name is valid
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-
-            //test that last name of 50 characters is valid
-            resident.lastName = new string('h', 50);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        [TestMethod]
-        public void TestDOBField()
-        {
-            //test that DOB will allow valid entries
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-            //TODO: Check the sending/recieving function within 'run'/'socket' for date conversion 
-
-        }
-
-        [TestMethod]
-        public void TestEmailField()
-        {
-            //test that 'general' email passes
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-            //test that email of 100 characters following the correct email format is valid
-            resident.email = new string('d',88) + "@sasktel.net";
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        [TestMethod]
-        public void TestAddress1Field()
-        {
-            //test that 'general' address1 field passes
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-            //test that Address1 of 200 characters is valid
-            resident.address1 = new string('h', 200);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-
-            //test that Address1 of 1 character is valid
-            resident.address1 = "g";
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        [TestMethod]
-        public void TestAddress2Field()
-        {
-            //test that 'general' address2 field passes
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-            //test that address2 of 200 characters is valid
-            resident.address2 = new string('p', 200);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-            //test that Address2 of 0 characters is valid
-            resident.address2 = "";
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        [TestMethod]
-        public void TestPostalCodeField()
-        {
-            //test that postalCode will allow valid entries (uses current valid resident created at the top of
-            //this class)
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
-        public void TestProvinceField()
+        /**
+         * This method tests that a resident first name of an empty string is invalid.
+         */
+        public void TestThatFirstNameFieldOfEmptyStringIsInvalid()
         {
-            //test that 'general' test passes
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-            //test that Province of 100 characters is valid
-            resident.province = new string('h', 100);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-
-            //test that province of 1 character is valid
-            resident.province = "g";
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        [TestMethod]
-        public void TestCityField()
-        {
-            //test that 'general' test passes
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-            //test that City of 100 characters is valid
-            resident.city = new string('f',100);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-
-            //test that city of 1 character is valid
-            resident.city = "W";
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-
-        }
-
-        [TestMethod]
-        public void TestPasswordField()
-        {
-            //test that password of 8 characters is valid
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-
-            //test that password of 50 characters is valid
-            resident.password = new string('s',50);
-            results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        [TestMethod]
-        public void TestPhoneField()
-        {
-            //test that phone will allow valid entries (uses current valid resident created at the top of
-            //this class)
-            var results = HelperTestModel.Validate(resident);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        //**************** TESTING FOR INVALIDS BELOW ****************/
-
-        [TestMethod]
-        public void TestFirstNameFieldInvalid()
-        {
-            //test that first name of empty string is invalid
             resident.firstName = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("First name is required.", results[0].ErrorMessage);
+        }
 
-            //test that first name of 51 characters is invalid
+        [TestMethod]
+        /**
+         * This method tests that a resident first name of 51 characters is invalid.
+         */
+        public void TestThatFirstNameFieldOf51CharsIsInvalid()
+        {
             resident.firstName = new string('j', 51);
-            results = HelperTestModel.Validate(resident);
+            var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("First name must be 50 characters or less.", results[0].ErrorMessage);
         }
 
+
+        /*--------------------------------------Last Name Field Testing-------------------------------------------------------------*/
         [TestMethod]
-        public void TestLastNameFieldInvalid()
+        /**
+         * This method tests that the resident Model created above truly contains a valid last name.
+         */
+        public void TestThatLastNameFieldGeneralIsValid()
         {
-            //test that last name of empty string is invalid
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident with a last name of 50 characters is valid.
+         */
+        public void TestThatLastNameFieldOf50CharsIsValid()
+        {
+            resident.lastName = new string('h', 50);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident last name of an empty string is invalid.
+         */
+        public void TestThatLastNameFieldEmptyIsInvalid()
+        {
             resident.lastName = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Last name is required.", results[0].ErrorMessage);
+        }
 
-            //test that last name of 51 characters is invalid
+
+        [TestMethod]
+        /**
+         * This method tests that a resident last name of 51 characters is invalid.
+         */
+        public void TestThatLastNameFieldOf51CharsIsInvalid()
+        {
             resident.lastName = new string('j', 51);
-            results = HelperTestModel.Validate(resident);
+            var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Last name must be 50 characters or less.", results[0].ErrorMessage);
         }
+
+        /*--------------------------------------Birth Date Field Testing-------------------------------------------------------------*/
+        [TestMethod]
+        /**
+         * This method tests that the resident Model created above truly contains a valid birth date.
+         */
+        public void TestThatBirthDateFieldGeneralIsValid()
+        {
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
 
         [TestMethod]
         public void TestDOBFieldInvalid()
         {
             //test that DOB will not allow invalid entries
-            //resident.dateOfBirth = "12/4432/11244"; -- Requires a date object and will not compile
+            //resident.birthDate = "12/4432/11244"; -- Requires a date object and will not compile
+        }
+
+
+        /*--------------------------------------Email Field Testing-------------------------------------------------------------*/
+        [TestMethod]
+        /**
+         * This method tests that the resident Model created above truly contains a valid email.
+         */
+        public void TestThatEmailFieldGeneralIsValid()
+        {
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
-        public void TestEmailFieldInvalid()
+        /**
+         * This method tests that a resident email of 100 characters following the correct email format is valid.
+         */
+        public void TestThatEmailFieldOf100CharsIsValid()
         {
-            //test that email of empty string is invalid
+            resident.email = new string('d', 88) + "@sasktel.net";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident email of an empty string is invalid.
+         */
+        public void TestThatEmailFieldEmptyIsInvalid()
+        {
             resident.email = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Email is required.", results[0].ErrorMessage);
+        }
 
+        [TestMethod]
+        /**
+         * This method tests that a resident email of 101 characters is invalid.
+         */
+        public void TestThatEmailFieldOf101CharsIsInvalid()
+        {
             //test that email of 101 characters (following the correct format) is invalid
-            resident.email = new string('y',101) + "@sasktel.net";
-            results = HelperTestModel.Validate(resident);
+            resident.email = new string('y', 101) + "@sasktel.net";
+            var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Email must be 100 characters or less.", results[0].ErrorMessage);
+        }
 
-            //test that email of incorrect format is invalid
-            resident.email = new string('o',7);
-            results = HelperTestModel.Validate(resident);
+        [TestMethod]
+        /**
+         * This method tests that a resident email of NOT following the correct email format is invalid.
+         */
+        public void TestThatEmailFieldOfWrongFormatIsInvalid()
+        {
+            resident.email = new string('o', 7);
+            var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Email must be in email address format.", results[0].ErrorMessage);
         }
 
+        /*--------------------------------------AddressLine1 Field Testing-------------------------------------------------------------*/
         [TestMethod]
-        public void TestAddress1FieldInvalid()
+        /**
+         * This method tests that the resident Model created above truly contains a valid AddressLine1.
+         */
+        public void TestThatAddressLine1FieldGeneralIsValid()
         {
-            //test that address1 of empty string is invalid
-            resident.address1 = "";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+
+        [TestMethod]
+        /**
+         * This method tests that a resident AddressLine1 of 200 characters is valid.
+         */
+        public void TestThatAddressLine1FieldOf200CharsIsValid()
+        {
+            resident.addressLine1 = new string('h', 200);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+
+        [TestMethod]
+        /**
+         * This method tests that a resident AddressLine1 of 1 character is valid.
+         */
+        public void TestThatAddressLine1FieldOf1CharIsValid()
+        {
+            resident.addressLine1 = "g";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident AddressLine1 of empty string is invalid.
+         */
+        public void TestThatAddressLine1FieldEmptyIsInvalid()
+        {
+            resident.addressLine1 = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address line 1 is required.", results[0].ErrorMessage);
+        }
 
-            //test that address1 of 201 characters is invalid
-            resident.address1 = new string('d', 201);
-            results = HelperTestModel.Validate(resident);
+        [TestMethod]
+        /**
+         * This method tests that a resident AddressLine1 of 201 characters is invalid.
+         */
+        public void TestThatAddressLine1FieldOf201CharsIsInvalid()
+        {
+            resident.addressLine1 = new string('d', 201);
+            var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address line 1 must be 200 characters or less.", results[0].ErrorMessage);
         }
 
+
+        /*--------------------------------------AddressLine2 Field Testing-------------------------------------------------------------*/
+        [TestMethod]
+        /**
+         * This method tests that the resident Model created above truly contains a valid AddressLine2.
+         */
+        public void TestThatAddressLine2FieldGeneralIsValid()
+        {
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+
+        [TestMethod]
+        /**
+         * This method tests that a resident AddressLine2 of 200 characters is valid.
+         */
+        public void TestThatAddressLine2FieldOf200CharsIsValid()
+        {
+            //test that addressLine2 of 200 characters is valid
+            resident.addressLine2 = new string('p', 200);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+
+        [TestMethod]
+        /**
+         * This method tests that a resident AddressLine2 of 0 characters is valid.
+         */
+        public void TestThatAddressLine2FieldOf0CharsIsValid()
+        {
+            //test that Address2 of 0 characters is valid
+            resident.addressLine2 = "";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+
+        /*--------------------------------------Postal Code Field Testing-------------------------------------------------------------*/
+        [TestMethod]
+        /**
+         * This method tests that the resident Model created above truly contains a valid Postal Code.
+         */
+        public void TestThatPostalCodeFieldGeneralIsValid()
+        {
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        /*--------------------------------------Province Field Testing-------------------------------------------------------------*/
+        [TestMethod]
+        /**
+         * This method tests that the resident Model created above truly contains a valid Province.
+         */
+        public void TestThatProvinceFieldGeneralIsValid()
+        {
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident Province of 100 characters is valid.
+         */
+        public void TestThatProvinceFieldOf100CharsIsValid()
+        {
+            resident.province = new string('h', 100);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident Province of 1 character is valid.
+         */
+        public void TestThatProvinceFieldOf1CharIsValid()
+        {
+            resident.province = "g";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        /*--------------------------------------City Field Testing-------------------------------------------------------------*/
+        [TestMethod]
+        /**
+         * This method tests that the resident Model created above truly contains a valid city.
+         */
+        public void TestThatCityFieldGeneralIsValid()
+        {
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident city of 100 characters is valid.
+         */
+        public void TestThatCityFieldOf100CharsIsValid()
+        {
+            resident.city = new string('f', 100);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident city of 1 character is valid.
+         */
+        public void TestThatCityFieldOf1CharIsValid()
+        {
+            resident.city = "W";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+
+        }
+
+        /*--------------------------------------Password Field Testing-------------------------------------------------------------*/
+        [TestMethod]
+        /**
+         * This method tests that the resident Model created above truly contains a valid password.
+         */
+        public void TestThatPasswordFieldGeneralIsValid()
+        {
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        /**
+         * This method tests that a resident password of 50 characters is valid.
+         */
+        public void TestThatPasswordFieldOf50CharsIsValid()
+        {
+            resident.password = new string('s', 50);
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        /*--------------------------------------Phone Field Testing-------------------------------------------------------------*/
+        [TestMethod]
+        /**
+         * This method tests that the resident Model created above truly contains a valid phone.
+         */
+        public void TestThatPhoneFieldGeneralIsValid()
+        {
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(0, results.Count);
+        }
+        
+
         [TestMethod]
         public void TestAddress2FieldInvalid()
         {
-            //test that address2 of 201 characters is invalid
-            resident.address2 = new string('d', 201);
+            //test that addressLine2 of 201 characters is invalid
+            resident.addressLine2 = new string('d', 201);
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address line 2 must be 200 characters or less.", results[0].ErrorMessage);

@@ -20,8 +20,8 @@ namespace kymiraAPI.Models
         public string lastName { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
-        public DateTime dateOfBirth { get; set; }
+        [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))",ErrorMessage = "Birth date must be a valid date.")]
+        public string birthDate { get; set; }
 
         [MaxLength(100, ErrorMessage = "Email must be 100 characters or less.")]
         [EmailAddress(ErrorMessage = "Email must be in email address format.")]
@@ -34,10 +34,10 @@ namespace kymiraAPI.Models
 
         [Required(ErrorMessage = "Address line 1 is required.")]
         [MaxLength(200, ErrorMessage = "Address line 1 must be 200 characters or less.")]
-        public string address1 { get; set; }
+        public string addressLine1 { get; set; }
 
         [MaxLength(200, ErrorMessage = "Address line 2 must be 200 characters or less.")]
-        public string address2 { get; set; }
+        public string addressLine2 { get; set; }
 
         [Required(ErrorMessage = "Postal code is required and must be 6 characters.")]
         [RegularExpression("^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$", ErrorMessage = "Postal code is required and must be 6 characters in the Canadian postal code format.")]
