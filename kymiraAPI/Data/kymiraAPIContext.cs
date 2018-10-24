@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using kymiraAPI;
+using kymiraAPI.Models;
 
 namespace kymiraAPI.Models
 {
@@ -12,7 +14,10 @@ namespace kymiraAPI.Models
             : base(options)
         {
         }
-
+        
         public DbSet<kymiraAPI.Models.Resident> ResidentDBSet { get; set; }
+        public DbSet<kymiraAPI.Models.Credentials> Credentials { get; set; }
+        
+        
     }
 }

@@ -54,6 +54,5 @@ namespace kymiraAPI.Models
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Password must be 50 characters or less.")]
         public string password { get; set; }
-
     }
 }
