@@ -121,10 +121,28 @@ namespace kymiraAPITest
 
 
         [TestMethod]
-        public void TestDOBFieldInvalid()
+        /**
+         * This method tests that a resident birth date of any empty string is invalid.
+         */
+        public void TestThatDOBFieldEmptyIsInvalid()
         {
-            //test that DOB will not allow invalid entries
-            //resident.birthDate = "12/4432/11244"; -- Requires a date object and will not compile
+            resident.birthDate = "";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Birth Date is required.", results[0].ErrorMessage);
+        }
+
+
+        [TestMethod]
+        /**
+         * This method tests that a resident birth date NOT in the date format yyyy-dd-mm is invalid.
+         */
+        public void TestThatDOBFieldWrongFormatIsInvalid()
+        {
+            resident.birthDate = "222-99-038976";
+            var results = HelperTestModel.Validate(resident);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Birth date must be a valid date.", results[0].ErrorMessage);
         }
 
 

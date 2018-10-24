@@ -31,7 +31,7 @@ namespace kymiraAPI.Controllers
 
             // This will queury the database with a Credentials Object and compare it to a Resident Object
             // already inside the database with a matching Phone Number and Password 
-           var resident = await _context.Resident.SingleOrDefaultAsync(r => r.phoneNumber == credentials.phoneNumber && r.password == credentials.password);
+           var resident = await _context.ResidentDBSet.SingleOrDefaultAsync(r => r.phoneNumber == credentials.phoneNumber && r.password == credentials.password);
 
             if (resident == null)
             {

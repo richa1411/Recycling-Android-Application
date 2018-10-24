@@ -19,7 +19,7 @@ namespace kymiraAPI.Models
         [StringLength(50, ErrorMessage = "Last name must be 50 characters or less.")]
         public string lastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Birth Date is required.")]
         [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))",ErrorMessage = "Birth date must be a valid date.")]
         public string birthDate { get; set; }
 

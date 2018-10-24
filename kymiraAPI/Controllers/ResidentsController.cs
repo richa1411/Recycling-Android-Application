@@ -87,7 +87,7 @@ namespace kymiraAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("{ Error: 1 Message: Make sure all required fields are valid }");
             }
 
             _context.ResidentDBSet.Add(resident);
@@ -117,7 +117,8 @@ namespace kymiraAPI.Controllers
             return Ok(resident);
         }
 
-        private bool ResidentExists(int id)
+       
+        private bool ResidentExists(int id) //This method COULD be changed further down the line to take in different parameters instead of just an ID.
         {
             return _context.ResidentDBSet.Any(e => e.id == id);
         }
