@@ -7,29 +7,50 @@ using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
+using Android.Widget;
 
 namespace KymiraApplication
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity //, NavigationView.IOnNavigationItemSelectedListener
     {
+        Spinner birthDateSpinnerMonth;
+        Spinner birthDateSpinnerDay;
+        Spinner birthDateSpinnerYear;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            // Set the content view to our Registration Activity
             SetContentView(Resource.Layout.activity_registration);
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
-            //FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            //fab.Click += FabOnClick;
+            birthDateSpinnerMonth = FindViewById<Spinner>(Resource.Id.birthDateSpinnerMonth);
+            birthDateSpinnerMonth.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateMonthSpinner_ItemSelected);
+            var monthAdapter = ArrayAdapter.CreateFromResource(
+                    this, Resource.Array.birthDateMonths_array, Android.Resource.Layout.SimpleSpinnerItem);
 
-            //DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
-            //drawer.AddDrawerListener(toggle);
-            //toggle.SyncState();
+            monthAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            birthDateSpinnerMonth.Adapter = monthAdapter;
 
-            //NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            //navigationView.SetNavigationItemSelectedListener(this);
+            birthDateSpinnerDay = FindViewById<Spinner>(Resource.Id.birthDateSpinnerDay);
+            birthDateSpinnerDay.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateDaySpinner_ItemSelected);
+            var dayAdapter = ArrayAdapter.CreateFromResource(
+                    this, Resource.Array.birthDateMonths_array, Android.Resource.Layout.SimpleSpinnerItem);
+
+            dayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            birthDateSpinnerMonth.Adapter = dayAdapter;
+        }
+
+        private void birthDateDaySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void birthDateMonthSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+           //TODO
         }
 
         public override void OnBackPressed()
