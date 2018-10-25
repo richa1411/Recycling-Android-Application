@@ -12,8 +12,20 @@ using Android.Widget;
 
 namespace KymiraApplication.Model
 {
-    class Login
+    public class Login
     {
+        Credentials objCred = new Credentials();
+       
+        public String ValidPhone(Credentials obj)
+        {
+           var result = HelperTestModel.Validate(obj);
+           if( result.Count() == 0)
+            {
+                return "Success";
+            }
+
+            return "Fail";
+        }
         
     }
 }

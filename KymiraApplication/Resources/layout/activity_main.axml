@@ -10,7 +10,10 @@
         android:text="Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/loginButton" />
+        android:id="@+id/loginButton"
+        android:clickable="false"
+        android:onClick="OnLoginButtonClick()"
+        android:numeric="integer|decimal" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

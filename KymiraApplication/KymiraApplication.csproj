@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Model\Credentials.cs" />
+    <Compile Include="Model\HelperTestModel.cs" />
     <Compile Include="Model\Login.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
