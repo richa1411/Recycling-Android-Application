@@ -23,8 +23,12 @@ namespace KymiraApplication
             base.OnCreate(savedInstanceState);
             // Set the content view to our Registration Activity
             SetContentView(Resource.Layout.activity_registration);
+
+
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
+
+
 
             birthDateSpinnerMonth = FindViewById<Spinner>(Resource.Id.birthDateSpinnerMonth);
             birthDateSpinnerMonth.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateMonthSpinner_ItemSelected);
@@ -34,18 +38,39 @@ namespace KymiraApplication
             monthAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             birthDateSpinnerMonth.Adapter = monthAdapter;
 
+
+
+
             birthDateSpinnerDay = FindViewById<Spinner>(Resource.Id.birthDateSpinnerDay);
             birthDateSpinnerDay.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateDaySpinner_ItemSelected);
             var dayAdapter = ArrayAdapter.CreateFromResource(
-                    this, Resource.Array.birthDateMonths_array, Android.Resource.Layout.SimpleSpinnerItem);
+                    this, Resource.Array.birthDateDay_array, Android.Resource.Layout.SimpleSpinnerItem);
 
             dayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            birthDateSpinnerMonth.Adapter = dayAdapter;
+            birthDateSpinnerDay.Adapter = dayAdapter;
+
+
+            birthDateSpinnerYear = FindViewById<Spinner>(Resource.Id.birthDateSpinnerYear);
+            birthDateSpinnerYear.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateYearSpinner_ItemSelected);
+            var yearAdapter = ArrayAdapter.CreateFromResource(
+                    this, Resource.Array.birthDateYear_array, Android.Resource.Layout.SimpleSpinnerItem);
+
+            yearAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            birthDateSpinnerYear.Adapter = yearAdapter;
+
+
+
+
+        }
+
+        private void birthDateYearSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+           //
         }
 
         private void birthDateDaySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            throw new NotImplementedException();
+            //
         }
 
         private void birthDateMonthSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)

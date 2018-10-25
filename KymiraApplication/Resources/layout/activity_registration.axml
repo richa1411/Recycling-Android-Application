@@ -69,25 +69,43 @@
         android:layout_height="wrap_content"
         android:background="@android:drawable/editbox_background"
         android:layout_below="@+id/lastName_label" />
-    <GridLayout
+    <TextView
+        android:id="@+id/BirthDateName_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Birth Date:"
+        android:layout_below="@+id/lastName_value" />
+<!--<GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:rowCount="1"
         android:columnCount="3"
         android:layout_below="@+id/lastName_Value">
-        <Spinner
-            android:id="@+id/birthDateSpinnerMonth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown" />
-        <Spinner
-            android:id="@+id/birthDateSpinnerDay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/btn_dropdown"
-            android:spinnerMode="dropdown" />
-    </GridLayout>
+       
+    </GridLayout>-->
+    <Spinner
+        android:id="@+id/birthDateSpinnerMonth"
+        android:layout_width="450px"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_below="@+id/BirthDateName_label" />
+    <Spinner
+        android:id="@+id/birthDateSpinnerDay"
+        android:layout_width="450px"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_toRightOf="@+id/birthDateSpinnerMonth"
+        android:layout_below="@+id/BirthDateName_label" />
+    <Spinner
+        android:id="@+id/birthDateSpinnerYear"
+        android:layout_width="450px"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        android:layout_toRightOf="@+id/birthDateSpinnerDay"
+        android:layout_below="@+id/BirthDateName_label" />
     <Button
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"

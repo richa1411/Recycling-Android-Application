@@ -33,7 +33,7 @@ namespace KymiraApplication.Model
             // Serialize the Registration item into a JSON object
             var json = JsonConvert.SerializeObject(item);
 
-            // Conver the JSON object to be StringContent
+            // Convert the JSON object to be StringContent
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             // Create an HttpResponseMessage to hold the response of the HttpClient's POST
