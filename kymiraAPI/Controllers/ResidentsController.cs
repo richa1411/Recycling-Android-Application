@@ -27,6 +27,7 @@ namespace kymiraAPI.Controllers
             return _context.ResidentDBSet;
         }
 
+        /*
         // GET: api/Residents/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetResident([FromRoute] int id)
@@ -79,9 +80,14 @@ namespace kymiraAPI.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         // POST: api/Residents
+        /**
+         * This method takes in a resident object in JSON notation, checks that the model is valid,
+         * and saves the resident to the DB if it is valid (returns the JSON object back with a 201: Created) otherwise
+         * returns a 400: Bad Request with an error message in JSON notation.
+         */
         [HttpPost]
         public async Task<IActionResult> PostResident([FromBody] Resident resident)
         {
@@ -95,7 +101,7 @@ namespace kymiraAPI.Controllers
 
             return CreatedAtAction("GetResident", new { id = resident.id }, resident);
         }
-
+        /*
         // DELETE: api/Residents/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteResident([FromRoute] int id)
@@ -121,6 +127,6 @@ namespace kymiraAPI.Controllers
         private bool ResidentExists(int id) //This method COULD be changed further down the line to take in different parameters instead of just an ID.
         {
             return _context.ResidentDBSet.Any(e => e.id == id);
-        }
+        }*/
     }
 }
