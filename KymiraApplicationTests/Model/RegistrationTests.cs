@@ -22,8 +22,8 @@ namespace KymiraApplication.Model.Tests
         public void setup()
         {
            results = new List<ValidationResult>();
-           regTestgood = new Registration("guy@email.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
-            regtestBad = new Registration("guy@email.com", "password1", "3045456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T53", true);
+            regtestBad = new Registration("guy@email.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            //regtestBad = new Registration("guy@email.com", "password1", "3045456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T53", true);
         }
         [TestMethod()]
         public void RegistrationTest()
@@ -33,8 +33,8 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatEmailCannotBeEpmpty()
         {
-          
-            regtestBad = new Registration("", "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+
+            regtestBad.emailAddress = "";
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
 
@@ -43,7 +43,7 @@ namespace KymiraApplication.Model.Tests
         public void testThatEmailCannotBeMoreThan100Characters()
         {
 
-            regtestBad = new Registration(new string('a',100) + "@gmail.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123steveaasdfave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.emailAddress = new string('a', 100);
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
 
@@ -51,9 +51,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatEmailis100Characters()
         {
-
-            regtestBad = new Registration(new string('a', 90) + "@gmail.com",
-                "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.emailAddress = new string('a', 90) + "@gmail.com";
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(0, results.Count());
 
@@ -61,8 +59,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatEmailCannotBeInvalidFormat()
         {
-
-            regtestBad = new Registration("guyemail.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.emailAddress = "guyemail.com";
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
 
@@ -70,8 +67,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatEmailEnteredIsValid()
         {
-
-            regtestBad = new Registration("email@email.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.emailAddress = "email@email.com";
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(0, results.Count());
 
@@ -79,8 +75,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatPasswordCannotBeEmpty()
         {
-
-            regtestBad = new Registration("email@email.com", "", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.password = "";
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
 
@@ -88,8 +83,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatPasswordCannotbe5CharactersLong()
         {
-
-            regtestBad = new Registration("email@email.com", "aaaaa", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.password = "aaaaa";
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
 
@@ -97,8 +91,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatPasswordisValidat8characters()
         {
-
-            regtestBad = new Registration("email@email.com", "aaaaaaaa", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.password = "aaaaaaaa";
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(0, results.Count());
 
@@ -106,8 +99,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatPasswordis50Characters()
         {
-
-            regtestBad = new Registration("email@email.com", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.password = new string('a', 50);
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(0, results.Count());
 
@@ -115,8 +107,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatPasswordCannotBeMorethan50Characters()
         {
-
-            regtestBad = new Registration("email@email.com", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.password = new string('a', 51);
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
 
@@ -124,8 +115,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatPhoneNumbercannotBeEmpty()
         {
-
-            regtestBad = new Registration("email@email.com", "asdadsasdas", "", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad.password = new string('a', 51);
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
 
