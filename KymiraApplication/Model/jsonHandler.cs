@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using Newtonsoft.Json;
 using System.Text;
 using System.Threading.Tasks;
 using Android.App;
@@ -13,28 +14,64 @@ using Android.Widget;
 
 namespace KymiraApplication.Model
 {
-    class jsonHandler
+    //This class will handle the creation, serialization, deserialzation, sending, and receiving of JSON objects in order for the
+    //android application to communicate with the back end controller.
+    public class jsonHandler
     {
-
+        // The class has a private HttpClient for POST and GET requests
         private HttpClient client;
 
-
+        // Constructor for the jsonHandler accepts a Uri and creates a new HttpClient
         public jsonHandler()
         {
-            
+            this.client = new HttpClient();
         }
 
-        public async Task<String> sendJsonAsync(Registration item)
+        //This method handles sending a serialized Registration json object to the uri specified
+        public async Task<String> sendJsonAsync(Registration item, Uri uri)
         {
+            // Serialize the Registration item into a JSON object
+            var json = JsonConvert.SerializeObject(item);
 
+            // Conver the JSON object to be StringContent
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            return "";
+            // Create an HttpResponseMessage to hold the response of the HttpClient's POST
+            HttpResponseMessage response = await client.PostAsync(uri, content);
+
+            // If JSON was sent successfully, return that
+            if(response.IsSuccessStatusCode)
+            {
+                return "Registration successful!";
+            }
+            // Else, notify user that it failed
+            else
+            {
+                return "Registration failed";
+            }
         }
 
-
-        public async Task<String> receiveJsonAsync()
+        // This method handles receiving json from the uri specified
+        public async Task<String> receiveJsonAsync(Uri uri)
         {
-            return "";
+            // Create an HttpResponse message to hold the response from the back end
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            // Check if the message was sent successfully
+            if(response.IsSuccessStatusCode)
+            {
+                //Create a varialbe to contain the response of the response's GET
+                var content = await response.Content.ReadAsStringAsync();
+
+                return content;
+            }
+            // If there were errors receiving the JSON, let the user know
+            else
+            {
+                return "Error receiving data";
+            }
+
+           
         }
         
 
