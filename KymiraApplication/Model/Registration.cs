@@ -21,8 +21,7 @@ namespace KymiraApplication.Model
         public String password { get; set; }
 
         [Required(ErrorMessage = "A phone number is required")]
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone number must be 10 digits")]
-        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number can only contain digits")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must contain 10 digits")]
         public String phoneNumber { get; set; }
 
         [Required(ErrorMessage = "A first name is required")]
@@ -35,7 +34,7 @@ namespace KymiraApplication.Model
 
         [Required(ErrorMessage = "A birth date is required")]
         [DataType (DataType.Date, ErrorMessage = "Was not in a Date format")]
-        [StringLength(8, MinimumLength = 8)]
+        [StringLength(8, MinimumLength = 8  , ErrorMessage ="Bith date must be 8 digits")]
         public String birthDate { get; set; }
 
         [Required(ErrorMessage = "An Address is required")]
