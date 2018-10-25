@@ -10,7 +10,7 @@ namespace kymiraAPITest
     {
         //Valid resident to use for testing
         Resident resident = new Resident{id = 1, firstName = "John", lastName = "Smith", birthDate = "1996-05-12",
-            email = "john.smith@hotmail.com",phoneNumber = "3061234780", addressLine1 = "Fairhaven", addressLine2 = "Unit 6",
+            emailAddress = "john.smith@hotmail.com",phoneNumber = "3061234780", addressLine1 = "Fairhaven", addressLine2 = "Unit 6",
             city = "Saskatoon", province = "Saskatchewan", postalCode = "S7L5W4", password = "P@ssw0rd"};
 
 
@@ -163,7 +163,7 @@ namespace kymiraAPITest
          */
         public void TestThatEmailFieldOf100CharsIsValid()
         {
-            resident.email = new string('d', 88) + "@sasktel.net";
+            resident.emailAddress = new string('d', 88) + "@sasktel.net";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
@@ -174,7 +174,7 @@ namespace kymiraAPITest
          */
         public void TestThatEmailFieldEmptyIsInvalid()
         {
-            resident.email = "";
+            resident.emailAddress = "";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Email is required.", results[0].ErrorMessage);
@@ -187,7 +187,7 @@ namespace kymiraAPITest
         public void TestThatEmailFieldOf101CharsIsInvalid()
         {
             //test that email of 101 characters (following the correct format) is invalid
-            resident.email = new string('y', 101) + "@sasktel.net";
+            resident.emailAddress = new string('y', 101) + "@sasktel.net";
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Email must be 100 characters or less.", results[0].ErrorMessage);
@@ -199,7 +199,7 @@ namespace kymiraAPITest
          */
         public void TestThatEmailFieldOfWrongFormatIsInvalid()
         {
-            resident.email = new string('o', 7);
+            resident.emailAddress = new string('o', 7);
             var results = HelperTestModel.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Email must be in email address format.", results[0].ErrorMessage);

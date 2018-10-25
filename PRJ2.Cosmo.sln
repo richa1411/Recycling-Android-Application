@@ -5,13 +5,7 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kymiraAPI", "kymiraAPI\kymiraAPI.csproj", "{437060E6-ED6E-4BF6-A333-406AD7D93A3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kymiraApp.Android", "kymiraApp\kymiraApp.Android\kymiraApp.Android.csproj", "{89894166-C872-480F-8626-D92B3E8D7DCC}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "kymiraApp", "kymiraApp\kymiraApp\kymiraApp.shproj", "{FA7CCFC4-CA7D-4D10-935D-7742564AA280}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kymiraAPITest", "kymiraAPITest\kymiraAPITest.csproj", "{80FC52CE-7F11-4186-AD68-052FC1208466}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kymiraAppTest", "kymiraAppTest\kymiraAppTest.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

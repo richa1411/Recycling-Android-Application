@@ -8,7 +8,7 @@ namespace kymiraAPI.Models
 {
     public class Resident
     {
-        [Range(1, 999999)]
+        [Key]
         public int id { get; set; }
 
         [Required(ErrorMessage = "First name is required.")]
@@ -26,7 +26,7 @@ namespace kymiraAPI.Models
         [MaxLength(100, ErrorMessage = "Email must be 100 characters or less.")]
         [EmailAddress(ErrorMessage = "Email must be in email address format.")]
         [Required(ErrorMessage = "Email is required.")]
-        public string email { get; set; }
+        public string emailAddress { get; set; }
 
         [RegularExpression("[0-9]{10}", ErrorMessage = "Phone number must be in phone number format.")]
         [Required(ErrorMessage = "Phone number is required.")]
