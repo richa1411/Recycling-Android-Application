@@ -15,11 +15,14 @@ namespace kymiraAPI
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
+
+            Console.Write("Hello World");
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseIISIntegration()
                 .Build();
     }
 }
