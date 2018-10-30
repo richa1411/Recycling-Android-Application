@@ -3,6 +3,21 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+  <string-array name="province_array">
+    <item>Alberta</item>
+    <item>British Columbia</item>
+    <item>Manitoba</item>
+    <item>New Brunswick</item>
+    <item>Newfoundland and Labrador</item>
+    <item>Nova Scotia</item>
+    <item>Ontario</item>
+    <item>Prince Edward Island</item>
+    <item>Quebec</item>
+    <item>Saskatchewan</item>
+    <item>Yukon</item>
+    <item>Nunavut</item>
+    <item>Northwest Territories</item>
+  </string-array>
   <string-array name="birthDateMonths_array">
     <item>January</item>
     <item>February</item>

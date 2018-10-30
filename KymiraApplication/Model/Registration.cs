@@ -38,7 +38,7 @@ namespace KymiraApplication.Model
         public String birthDate { get; set; }
 
         [Required(ErrorMessage = "An Address is required")]
-        [StringLength (200, MinimumLength=10, ErrorMessage ="The address must be between 1 and 200 characters")]
+        [StringLength (200, MinimumLength=10, ErrorMessage ="The address must be between 10 and 200 characters")]
         public String addressLine1 { get; set; }
 
         [StringLength(200, ErrorMessage ="Must be less than 200 characters")]
@@ -56,7 +56,7 @@ namespace KymiraApplication.Model
         [RegularExpression("^[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]$", ErrorMessage = "Postal code is required and must be 6 characters in the Canadian postal code format.")]
         public String postalCode { get; set; }
 
-        [Required(ErrorMessage = "You must agree to the terms and conditions")]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "You must agree to the terms and conditions")]
         public bool checkBox { get; set; }
 
 

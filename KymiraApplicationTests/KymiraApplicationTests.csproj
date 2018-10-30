@@ -69,9 +69,7 @@
   <ItemGroup>
     <Compile Include="HelperTestModel.cs" />
     <Compile Include="Model\RegistrationTests.cs" />
-    <Compile Include="Model\TestCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\TestCredential.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

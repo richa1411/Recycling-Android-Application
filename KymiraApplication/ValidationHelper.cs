@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KymiraApplication
 {
-    public class HelperTestModel
+    public class ValidationHelper
     {
         public static List<ValidationResult> Validate(object model)
         {

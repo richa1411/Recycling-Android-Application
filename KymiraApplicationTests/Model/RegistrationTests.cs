@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using KymiraApplicationTests;
 
 namespace KymiraApplication.Model.Tests
 {
