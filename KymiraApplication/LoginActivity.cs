@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Net.Http;
+using System.Text;
 using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Widget;
 using KymiraApplication.Model;
+using Newtonsoft.Json;
+
 namespace KymiraApplication
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
@@ -37,13 +41,52 @@ namespace KymiraApplication
 
             if (results.Count == 0)
             {
+
+
+                btnlogin.Click += async delegate
+                {
+                    using (var client = new HttpClient())
+                    {
+                        // Create a new post  
+                        var novoPost = new Credentials
+                        {
+                            
+                            phoneNumber = phone,
+                            password = password
+                        };
+
+                        // create the request content and define Json  
+                        var json = JsonConvert.SerializeObject(novoPost);
+                        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                        //  send a POST request  
+                        var uri = "Server=(localdb)\\mssqllocaldb;Database=kymiraAPIContext-bdae60b3-966d-4816-abfe-4aa9d23e2424;Trusted_Connection=True;MultipleActiveResultSets=true";
+                        var result = await client.PostAsync(uri, content);
+
+                        // on error throw a exception  
+                        result.EnsureSuccessStatusCode();
+
+                        // handling the answer  
+                        var resultString = await result.Content.ReadAsStringAsync();
+                        var post = JsonConvert.DeserializeObject<Credentials>(resultString);
+
+                        
+                    }
+                };
+
                 StartActivity(typeof(HomePage));
+
+
+
             }
             else 
             {
                 txtError.Text = results[0].ErrorMessage;
             }
         }
+
+
+
     }
 }
 
