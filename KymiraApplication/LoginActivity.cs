@@ -79,6 +79,7 @@ namespace KymiraApplication
 
                         // handling the answer  
                         var resultString = await result.Content.ReadAsStringAsync();
+                        //TODO get back resident object or authentication token
                         var post = JsonConvert.DeserializeObject<Credentials>(resultString);  
                     }
                 };
