@@ -40,7 +40,7 @@ namespace KymiraApplicationTests
 
             var results = HelperTestModel.Validate(objCred);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Phone number is required", results[0].ErrorMessage);
+            Assert.AreEqual("Please Enter your Phone Number", results[0].ErrorMessage);
         }
         [TestMethod]
         public void TestPhoneNumberIsNotEmpty()
@@ -63,13 +63,13 @@ namespace KymiraApplicationTests
             objCred.phoneNumber = "shahsjhghr";
             var results = HelperTestModel.Validate(objCred);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
+            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
 
             //Test phone number contains combination of charcatres and digits
             objCred.phoneNumber = "shahsjh678";
             results = HelperTestModel.Validate(objCred);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
+            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
         }
 
             [TestMethod]
@@ -99,7 +99,7 @@ namespace KymiraApplicationTests
             objCred.phoneNumber = "34567890965657";
             var results = HelperTestModel.Validate(objCred);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
+            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
         }
 
           [TestMethod]
@@ -109,7 +109,7 @@ namespace KymiraApplicationTests
             objCred.phoneNumber = "345678";
             var results = HelperTestModel.Validate(objCred);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
+            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
 
         }
 
@@ -125,7 +125,7 @@ namespace KymiraApplicationTests
             var results = HelperTestModel.Validate(objCred);
 
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password is required", results[0].ErrorMessage);
+            Assert.AreEqual("Please Enter your Password", results[0].ErrorMessage);
         }
 
         [TestMethod]
@@ -170,7 +170,7 @@ namespace KymiraApplicationTests
             var results = HelperTestModel.Validate(objCred);
 
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password must be in between 6 and 50 charcaters", results[0].ErrorMessage);
+            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
 
         }
 
@@ -194,7 +194,7 @@ namespace KymiraApplicationTests
             var results = HelperTestModel.Validate(objCred);
 
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password must be in between 6 and 50 charcaters", results[0].ErrorMessage);
+            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
         }
           }
 

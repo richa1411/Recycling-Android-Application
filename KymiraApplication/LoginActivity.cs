@@ -58,18 +58,12 @@ namespace KymiraApplication
                 {
                     using (var client = new HttpClient())
                     {
-                        // Create a new post  
-                        var novoPost = new Credentials
-                        {
-                            
-                            phoneNumber = phone,
-                            password = password
-                        };
+
 
                         // create the request content and define Json  
-                        var json = JsonConvert.SerializeObject(novoPost);
+                        var json = JsonConvert.SerializeObject(objCred);
                         var content = new StringContent(json, Encoding.UTF8, "application/json");
-
+                        //TODO: Add proper url 
                         //  send a POST request  
                         var uri = "Server=(localdb)\\mssqllocaldb;Database=kymiraAPIContext-bdae60b3-966d-4816-abfe-4aa9d23e2424;Trusted_Connection=True;MultipleActiveResultSets=true";
                         var result = await client.PostAsync(uri, content);
