@@ -259,7 +259,7 @@ namespace KymiraApplication.Model.Tests
 
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("The address must be between 1 and 200 characters", results[0].ErrorMessage);
+            Assert.AreEqual("The address must be between 10 and 200 characters", results[0].ErrorMessage);
         }
         [TestMethod()]
         public void testThatAddressLine1CanHave10Characters()
@@ -286,7 +286,7 @@ namespace KymiraApplication.Model.Tests
 
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("The address must be between 1 and 200 characters", results[0].ErrorMessage);
+            Assert.AreEqual("The address must be between 10 and 200 characters", results[0].ErrorMessage);
         }
         [TestMethod()]
         public void testThatAddressLine2CanNotHaveMoreThan200Characters()
@@ -420,7 +420,47 @@ namespace KymiraApplication.Model.Tests
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
         }
- 
+        [TestMethod()]
+        public void testThatPostalCodeisNotInValidForm()
+        {
+            regtestBad.postalCode = "s4t2n4a";
+
+
+            results = HelperTestModel.Validate(regtestBad);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
+        }
+        [TestMethod()]
+        public void TestThatPostalCodeisInValidFormat()
+        {
+            regtestBad.postalCode = "S4T7P8";
+
+
+            results = HelperTestModel.Validate(regtestBad);
+            Assert.AreEqual(0, results.Count());
+        }
+        [TestMethod()]
+        public void testThatTermsBoxIsChecked()
+        {
+            regtestBad.checkBox = true;
+
+
+            results = HelperTestModel.Validate(regtestBad);
+            Assert.AreEqual(0, results.Count());
+        }
+        [TestMethod()]
+        public void testThatTermsCheckBoxIsNotChecked()
+        {
+            regtestBad.checkBox = false;
+
+
+            results = HelperTestModel.Validate(regtestBad);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("You must agree to the terms and conditions", results[0].ErrorMessage);
+        }
+
+
+
 
 
 
