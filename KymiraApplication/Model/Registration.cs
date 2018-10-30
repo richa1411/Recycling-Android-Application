@@ -63,6 +63,8 @@ namespace KymiraApplication.Model
         {
 
         }
+
+        //Constructor for Registration object when the user only fills out addressLine1
         public Registration(String emailAddress, String Password, String PhoneNumber, String firstName, String lastName,
                                     String birthDate, String addressLine1, String addressLine2, String City, String province, String postalCode,
                                      bool checkBox)
@@ -82,6 +84,8 @@ namespace KymiraApplication.Model
             this.checkBox = checkBox;
 
         }
+
+        //Constructor for Registration object when the user fills out both addressLine1 and addressLine2
         public Registration(String emailAddress, String Password, String PhoneNumber, String firstName, String lastName,
                                     String birthDate, String addressLine1, String City, String province, String postalCode,
                                      bool checkBox)

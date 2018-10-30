@@ -16,7 +16,7 @@ using KymiraApplication.Model;
 namespace KymiraApplication
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity //, NavigationView.IOnNavigationItemSelectedListener
+    public class MainActivity : AppCompatActivity
     {
         //Declare edit text fields that we will need access to
         private EditText etEmail;
@@ -162,6 +162,8 @@ namespace KymiraApplication
         //Creates a registration object from the values in the edit text fields and calls the json handler to serialize and post it to specified uri
         private async void BtnSubmit_Click(object sender, EventArgs e)
         {
+            string strRegBirthDate = this.year + this.month + this.day;
+
             //Before validating, convert postal code to all upper case
             string strPostalCode = etPostalCode.Text.ToString().ToUpper();
 
