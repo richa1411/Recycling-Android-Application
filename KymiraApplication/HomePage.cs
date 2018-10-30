@@ -12,6 +12,9 @@ using Android.Widget;
 
 namespace KymiraApplication
 {
+    /*
+     * Temproarty activity class to prove that client side validation was a success 
+     * */
     [Activity(Label = "HomePage")]
     public class HomePage : Activity
     {
