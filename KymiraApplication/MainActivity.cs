@@ -100,6 +100,12 @@ namespace KymiraApplication
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
+        }
+
+        //Private helper method for assigning listeners and adapters to birth date and province spinners
+        private void createSpinners()
+        {
+            //Create listener and adapter for birth date spinner month
             birthDateSpinnerMonth = FindViewById<Spinner>(Resource.Id.birthDateSpinnerMonth);
             birthDateSpinnerMonth.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateMonthSpinner_ItemSelected);
             var monthAdapter = ArrayAdapter.CreateFromResource(
@@ -108,6 +114,7 @@ namespace KymiraApplication
             monthAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             birthDateSpinnerMonth.Adapter = monthAdapter;
 
+            //Create listener and adapter for birth day spinner day
             birthDateSpinnerDay = FindViewById<Spinner>(Resource.Id.birthDateSpinnerDay);
             birthDateSpinnerDay.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateDaySpinner_ItemSelected);
             var dayAdapter = ArrayAdapter.CreateFromResource(
@@ -116,7 +123,7 @@ namespace KymiraApplication
             dayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             birthDateSpinnerDay.Adapter = dayAdapter;
 
-
+            //Create listener and adapter for birth date spinner year
             birthDateSpinnerYear = FindViewById<Spinner>(Resource.Id.birthDateSpinnerYear);
             birthDateSpinnerYear.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateYearSpinner_ItemSelected);
             var yearAdapter = ArrayAdapter.CreateFromResource(
@@ -125,6 +132,7 @@ namespace KymiraApplication
             yearAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             birthDateSpinnerYear.Adapter = yearAdapter;
 
+            //Create listener and adapter for province spinner
             provinceSpinner = FindViewById<Spinner>(Resource.Id.provinceSpinner);
             provinceSpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(provinceSpinner_ItemSelected);
             var provinceAdapter = ArrayAdapter.CreateFromResource(
@@ -132,7 +140,6 @@ namespace KymiraApplication
 
             provinceAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             provinceSpinner.Adapter = provinceAdapter;
-
         }
 
         //Click handler for the terms checkbox - sets the private class variable to value of checkbox
@@ -140,6 +147,7 @@ namespace KymiraApplication
         {
             CheckBox checkbox = (CheckBox)sender;
 
+            //If the user has ticked the termsCheckbox
             if (checkbox.Checked)
             {
                 this.agreeToTerms = true;
@@ -154,27 +162,33 @@ namespace KymiraApplication
         //Creates a registration object from the values in the edit text fields and calls the json handler to serialize and post it to specified uri
         private async void BtnSubmit_Click(object sender, EventArgs e)
         {
-            //Concatenate birth date string
-            string strRegBirthDate = this.day + this.month + this.year;
-
+            //Before validating, convert postal code to all upper case
             string strPostalCode = etPostalCode.Text.ToString().ToUpper();
 
-
+            //Create a new Registration object from the populated edit text fields
             obRegistration = new Registration(etEmail.Text.ToString(), etPassword.Text.ToString(), etPhone.Text.ToString(), etFirstName.Text.ToString(), etLastName.Text.ToString(), strRegBirthDate, etAddressLine1.Text.ToString(), etCity.Text.ToString(), provinceSpinner.SelectedItem.ToString(), strPostalCode, this.agreeToTerms);
 
+            //Alter the form of the birth date
+            obRegistration.birthDate = this.year + "-" + this.month + "-" + this.day;
+
+            //Validate the Registration object
             validationResults = ValidationHelper.Validate(obRegistration);
 
+            //If the validationResults list has anything in it
             if (validationResults.Count > 0)
             {
+                //Output the first error message in the list
                 Toast.MakeText(this, validationResults[0].ErrorMessage, ToastLength.Long).Show();
             }
+            //Otherwise, create a JSON object from the form data and send a post request to the API
             else
             {
-                var success = await jsonHandler.sendJsonAsync(obRegistration, "https://jsonplaceholder.typicode.com/posts");
+                var success = await jsonHandler.sendJsonAsync(obRegistration, "http://kymiraapi20181030112027.azurewebsites.net/api/Residents");
                 Toast.MakeText(this, success, ToastLength.Short).Show();
             }
         }
 
+        //Birth date year spinner listener
         private void birthDateYearSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
@@ -182,18 +196,22 @@ namespace KymiraApplication
             this.year = spinner.SelectedItem.ToString();
         }
 
+        //Birth date day spinner listener
         private void birthDateDaySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
 
             int result;
 
+            //Parse the item in the spinner to an integer
             Int32.TryParse(spinner.SelectedItem.ToString(), out result);
 
+            //If the birth date day is below the 10th, zero pad the date
             if (result < 10)
             {
                 this.day = "0" + spinner.SelectedItem.ToString();
             }
+            //Otherwise, just save the birth date data to the class
             else
             {
                 this.day = spinner.SelectedItem.ToString();
@@ -202,6 +220,7 @@ namespace KymiraApplication
 
         }
 
+        //Birth date month spinner listener
         private void birthDateMonthSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
@@ -256,6 +275,7 @@ namespace KymiraApplication
 
         }
 
+        //Province spinner listener
         private void provinceSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
