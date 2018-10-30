@@ -14,10 +14,10 @@ namespace kymiraAPI.Models
             : base(options)
         {
         }
-
+        
+        public DbSet<kymiraAPI.Models.Resident> ResidentDBSet { get; set; }
         public DbSet<kymiraAPI.Models.Credentials> Credentials { get; set; }
-
-        public DbSet<kymiraAPI.Models.Resident> Resident { get; set; }
+        
         
     }
 }
