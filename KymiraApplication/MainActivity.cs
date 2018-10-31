@@ -59,7 +59,7 @@ namespace KymiraApplication
         private jsonHandler jsonHandler;
 
         //Declare the Registration object that will get created
-        private Registration obRegistration;
+        private Registration obRegistration = new Registration();
 
         //Declare a list to hold the results of validating registration information
         List<ValidationResult> validationResults;
@@ -84,7 +84,7 @@ namespace KymiraApplication
             etPostalCode = FindViewById<EditText>(Resource.Id.postalCode_value);
             termsCheckbox = FindViewById<CheckBox>(Resource.Id.termsCheckbox);
             btnSubmit = FindViewById<Button>(Resource.Id.btnSubmit);
-
+            createSpinners();
             this.agreeToTerms = false;
 
             //Create our JSON Handler
@@ -99,6 +99,8 @@ namespace KymiraApplication
 
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
+
+           
 
         }
 
