@@ -17,6 +17,7 @@ namespace kymiraAPI.Models
 
         public string picture { get; set; }
 
+        [Required]
         public bool isRecyclable { get; set; }
 
         public string recyclableReason { get; set; }
