@@ -58,12 +58,12 @@
   <ItemGroup>
     <Compile Include="HomePage.cs" />
     <Compile Include="LoginActivity.cs" />
-<<<<<<< HEAD
+
     <Compile Include="Model\Bin.cs" />
     <Compile Include="Model\Building.cs" />
-=======
+
     <Compile Include="MainActivity.cs" />
->>>>>>> master
+
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\jsonHandler.cs" />
     <Compile Include="Model\Registration.cs" />
