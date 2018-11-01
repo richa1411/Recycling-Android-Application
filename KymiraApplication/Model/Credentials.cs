@@ -3,42 +3,30 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
+
 namespace KymiraApplication.Model
 {
-   public class Credentials : IValidatableObject
+    /* Model class
+     * Properties: String Phonenumber, string Password
+     */
+   public class Credentials 
     {
+        //default constructor
+      public Credentials()
+      {
 
-        public Credentials()
-        {
+      }
+        //Data annotation for Required field
+        [Required(ErrorMessage = "Please Enter your Phone Number")]
+        //data annoatation with Regular expression that checks if phone number has all digits 
+                //and its 10 digits in length
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Incorrect Username or Password")]
+        public string phoneNumber { get; set; } //getter and setter for phone number field
 
-        }
-        [Required(ErrorMessage = "Phone number is required")]
-        [StringLength(10,MinimumLength =10, ErrorMessage = "Phonenumber Should be of 10 characters")]
-        [DataType(DataType.PhoneNumber)]
-        public string phoneNumber;
-
-
-        [Required(ErrorMessage = "Password is required")]
-        [StringLength(50,MinimumLength =6,ErrorMessage ="Password must be in between 6 and 50 charcaters")]
-        public string password;
-
-     
-
-        public string getPhone()
-        {
-            return this.phoneNumber;
-        }
-        public string getPassword()
-        {
-            return this.password;
-        }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-           if (password.Length < 6 )
-            {
-                yield return new ValidationResult("Invalid password", new List<string> { "password" });
-            }
-        }
+        //Data annoatation for Required field with error message
+        [Required(ErrorMessage = "Please Enter your Password")]
+        //Data annotation that checks string length for password string wheteher its 6 to 50 characters length
+        [StringLength(50, MinimumLength = 6, ErrorMessage = "Incorrect Username or Password")]
+        public string password { get; set; } ////getter and setter for password field
     }
 }
