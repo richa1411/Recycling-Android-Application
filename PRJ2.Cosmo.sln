@@ -5,7 +5,11 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kymiraAPI", "kymiraAPI\kymiraAPI.csproj", "{437060E6-ED6E-4BF6-A333-406AD7D93A3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kymiraAPITest", "kymiraAPITest\kymiraAPITest.csproj", "{80FC52CE-7F11-4186-AD68-052FC1208466}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kymiraAPITest", "kymiraAPITest\kymiraAPITest.csproj", "{679B2CFA-6E50-4D5D-AC25-9EFECCB350FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplication", "KymiraApplication\KymiraApplication.csproj", "{07272096-7498-4F50-B9FC-AA5202BDA99D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationTests", "KymiraApplicationTests\KymiraApplicationTests.csproj", "{61AD6B23-DE68-4873-BE47-44CC49DE7D9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +21,20 @@ Global
 		{437060E6-ED6E-4BF6-A333-406AD7D93A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{437060E6-ED6E-4BF6-A333-406AD7D93A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{437060E6-ED6E-4BF6-A333-406AD7D93A3E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80FC52CE-7F11-4186-AD68-052FC1208466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80FC52CE-7F11-4186-AD68-052FC1208466}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80FC52CE-7F11-4186-AD68-052FC1208466}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80FC52CE-7F11-4186-AD68-052FC1208466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{679B2CFA-6E50-4D5D-AC25-9EFECCB350FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{679B2CFA-6E50-4D5D-AC25-9EFECCB350FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{679B2CFA-6E50-4D5D-AC25-9EFECCB350FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{679B2CFA-6E50-4D5D-AC25-9EFECCB350FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07272096-7498-4F50-B9FC-AA5202BDA99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07272096-7498-4F50-B9FC-AA5202BDA99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07272096-7498-4F50-B9FC-AA5202BDA99D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{07272096-7498-4F50-B9FC-AA5202BDA99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07272096-7498-4F50-B9FC-AA5202BDA99D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07272096-7498-4F50-B9FC-AA5202BDA99D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{61AD6B23-DE68-4873-BE47-44CC49DE7D9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61AD6B23-DE68-4873-BE47-44CC49DE7D9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61AD6B23-DE68-4873-BE47-44CC49DE7D9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61AD6B23-DE68-4873-BE47-44CC49DE7D9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
