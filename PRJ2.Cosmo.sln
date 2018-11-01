@@ -7,7 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kymiraAPI", "kymiraAPI\kymi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kymiraAPITest", "kymiraAPITest\kymiraAPITest.csproj", "{80FC52CE-7F11-4186-AD68-052FC1208466}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationTests.Android", "KymiraApplicationTests\KymiraApplicationTests.Android\KymiraApplicationTests.Android.csproj", "{BD0F1C91-C1B6-403E-AC81-A52125D77C80}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "KymiraApplicationTests", "KymiraApplicationTests\KymiraApplicationTests\KymiraApplicationTests.shproj", "{968BC480-F076-4B1C-84FB-F58D0D58716F}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		KymiraApplicationTests\KymiraApplicationTests\KymiraApplicationTests.projitems*{968bc480-f076-4b1c-84fb-f58d0d58716f}*SharedItemsImports = 13
+		KymiraApplicationTests\KymiraApplicationTests\KymiraApplicationTests.projitems*{bd0f1c91-c1b6-403e-ac81-a52125d77c80}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -21,6 +29,12 @@ Global
 		{80FC52CE-7F11-4186-AD68-052FC1208466}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80FC52CE-7F11-4186-AD68-052FC1208466}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80FC52CE-7F11-4186-AD68-052FC1208466}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD0F1C91-C1B6-403E-AC81-A52125D77C80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD0F1C91-C1B6-403E-AC81-A52125D77C80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD0F1C91-C1B6-403E-AC81-A52125D77C80}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BD0F1C91-C1B6-403E-AC81-A52125D77C80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD0F1C91-C1B6-403E-AC81-A52125D77C80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD0F1C91-C1B6-403E-AC81-A52125D77C80}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
