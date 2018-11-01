@@ -12,59 +12,71 @@ namespace KymiraApplicationTests
     [TestClass]
     public class TestRecyclablesList
     {
-        RecyclablesList recList;
+        RecyclablesList recItem;
+        List<String> recyclables;
+        // List<String> nonRecyclables = new List<string> { "People", "knowledge" };
         //Test that the list is created
         public TestRecyclablesList()
         {
-            recList = new RecyclablesList { name = "Plastic", description = "Its Plastic", image= "G:\COSACPMG\prj2.cosmo\KymiraApplication\Resources\drawable\No_Image.png" };
-            }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
+            recyclables = new List<string>();
+            recItem = new RecyclablesList { name = "Plastic", description = "Its Plastic" };
         }
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void testEmptyList()
+        {
+            recyclables = new List<string>();
+            if (recyclables.Count == 0)
+            {
+                throw new Exception("There seems to be a problem with the items at this time");
+            }
+            Assert.IsTrue(recyclables.Count == 0);
+        }
+        [TestMethod]
+        public void testNonEmptyList()
+        {
+            recyclables = new List<string> { "Plastic", "Paper" };
 
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
+            Assert.IsTrue(recyclables.Count != 0);
+            Assert.IsTrue(recyclables.Contains("Plastic"));
+        }
+        [TestMethod]
+        public void testNoDescription()
+        {
+           
+          
+            recItem.description = "";
+            Assert.IsTrue(recItem.description == "");
+            
+            
+        }
 
         [TestMethod]
-        public void TestMethod1()
+        public void testDescription()
         {
-            //
-            // TODO: Add test logic here
-            //
+           
+            recItem.description = "It is Paper";
+            Assert.IsTrue(recItem.description == "It is Paper");
         }
+        [TestMethod]
+        public void testNoName()
+        {
+
+
+            recItem.name = "";
+            Assert.IsTrue(recItem.name == "");
+
+
+        }
+
+        [TestMethod]
+        public void testName()
+        {
+
+            recItem.name = "Paper";
+            Assert.IsTrue(recItem.name == "Paper");
+        }
+
+
     }
 }

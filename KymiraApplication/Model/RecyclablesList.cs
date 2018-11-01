@@ -14,10 +14,17 @@ namespace KymiraApplication.Model
 {
     public class RecyclablesList
     {
+
+        public RecyclablesList()
+        {
+
+        }
+
+        
         public string name { get; set; }
 
         public string description { get; set; }
 
-        public byte[] image { get; set; }
+       // public byte[] image { get; set; }
     }
 }
