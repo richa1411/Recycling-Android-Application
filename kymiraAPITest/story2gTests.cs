@@ -27,6 +27,8 @@ namespace kymiraAPITest
         [TestMethod]
         public void AllRecyclableInformationIsValidTest()
         {
+            Assert.IsNotNull(testDbItem.name);
+            Assert.AreEqual("Glass Bottles", testDbItem);
 
         }
 
