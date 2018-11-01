@@ -97,8 +97,8 @@ namespace KymiraApplication
             termsCheckbox.Click += TermsCheckbox_Click;
 
 
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
+            //Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            //SetSupportActionBar(toolbar);
 
            
 
@@ -164,7 +164,7 @@ namespace KymiraApplication
         //Creates a registration object from the values in the edit text fields and calls the json handler to serialize and post it to specified uri
         private async void BtnSubmit_Click(object sender, EventArgs e)
         {
-            string strRegBirthDate = this.year + this.month + this.day;
+            string strRegBirthDate = this.year + "-" + this.month + "-" + this.day;
 
             //Before validating, convert postal code to all upper case
             string strPostalCode = etPostalCode.Text.ToString().ToUpper();
@@ -175,8 +175,8 @@ namespace KymiraApplication
             //Validate the Registration object
             validationResults = ValidationHelper.Validate(obRegistration);
 
-            //Alter the form of the birth date
-            obRegistration.birthDate = this.year + "-" + this.month + "-" + this.day;
+            //Alter the form of the birth date -- CHANGE THIS
+            //obRegistration.birthDate = this.year + "-" + this.month + "-" + this.day;
 
             //If the validationResults list has anything in it
             if (validationResults.Count > 0)

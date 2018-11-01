@@ -33,8 +33,7 @@ namespace KymiraApplication.Model
         public String lastName { get; set; }
 
         [Required(ErrorMessage = "A birth date is required")]
-        [DataType (DataType.Date, ErrorMessage = "Was not in a Date format")]
-        [StringLength(8, MinimumLength = 8  , ErrorMessage ="Bith date must be 8 digits")]
+        [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", ErrorMessage = "Birth date must be a valid date.")]
         public String birthDate { get; set; }
 
         [Required(ErrorMessage = "An Address is required")]
@@ -57,7 +56,7 @@ namespace KymiraApplication.Model
         public String postalCode { get; set; }
 
         [Range(typeof(bool), "true", "true", ErrorMessage = "You must agree to the terms and conditions")]
-        public bool checkBox { get; set; }
+        public bool termsCheckBox { get; set; }
 
         public Registration()
         {
@@ -81,7 +80,7 @@ namespace KymiraApplication.Model
             this.city = City;
             this.province = province;
             this.postalCode = postalCode;
-            this.checkBox = checkBox;
+            this.termsCheckBox = checkBox;
 
         }
 
@@ -100,7 +99,7 @@ namespace KymiraApplication.Model
             this.city = City;
             this.province = province;
             this.postalCode = postalCode;
-            this.checkBox = checkBox;
+            this.termsCheckBox = checkBox;
         }
     }
 }

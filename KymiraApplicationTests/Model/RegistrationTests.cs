@@ -21,7 +21,7 @@ namespace KymiraApplication.Model.Tests
         public void setup()
         {
            results = new List<ValidationResult>();
-            regtestBad = new Registration("guy@email.com", "password1", "3066545456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
+            regtestBad = new Registration("guy@email.com", "password1", "3066545456", "Guy", "Dude", "2018-10-10", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
             //regtestBad = new Registration("guy@email.com", "password1", "3045456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T53", true);
         }
         [TestMethod()]
@@ -231,12 +231,12 @@ namespace KymiraApplication.Model.Tests
 
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Bith date must be 8 digits", results[0].ErrorMessage);
+            Assert.AreEqual("Birth date must be a valid date.", results[0].ErrorMessage);
         }
         [TestMethod()]
         public void testThatBirthDateHas8characters()
         {
-            regtestBad.birthDate = "10102000";
+            regtestBad.birthDate = "2000-10-10";
 
             results = HelperTestModel.Validate(regtestBad);
             Assert.AreEqual(0, results.Count());
@@ -442,7 +442,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatTermsBoxIsChecked()
         {
-            regtestBad.checkBox = true;
+            regtestBad.termsCheckBox = true;
 
 
             results = HelperTestModel.Validate(regtestBad);
@@ -451,7 +451,7 @@ namespace KymiraApplication.Model.Tests
         [TestMethod()]
         public void testThatTermsCheckBoxIsNotChecked()
         {
-            regtestBad.checkBox = false;
+            regtestBad.termsCheckBox = false;
 
 
             results = HelperTestModel.Validate(regtestBad);
