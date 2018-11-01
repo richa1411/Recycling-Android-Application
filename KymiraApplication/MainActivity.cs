@@ -172,11 +172,11 @@ namespace KymiraApplication
             //Create a new Registration object from the populated edit text fields
             obRegistration = new Registration(etEmail.Text.ToString(), etPassword.Text.ToString(), etPhone.Text.ToString(), etFirstName.Text.ToString(), etLastName.Text.ToString(), strRegBirthDate, etAddressLine1.Text.ToString(), etCity.Text.ToString(), provinceSpinner.SelectedItem.ToString(), strPostalCode, this.agreeToTerms);
 
-            //Alter the form of the birth date
-            obRegistration.birthDate = this.year + "-" + this.month + "-" + this.day;
-
             //Validate the Registration object
             validationResults = ValidationHelper.Validate(obRegistration);
+
+            //Alter the form of the birth date
+            obRegistration.birthDate = this.year + "-" + this.month + "-" + this.day;
 
             //If the validationResults list has anything in it
             if (validationResults.Count > 0)
