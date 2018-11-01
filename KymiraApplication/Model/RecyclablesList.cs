@@ -12,7 +12,12 @@ using Android.Widget;
 
 namespace KymiraApplication.Model
 {
-    class RecyclablesList
+    public class RecyclablesList
     {
+        public string name { get; set; }
+
+        public string description { get; set; }
+
+        public byte[] image { get; set; }
     }
 }

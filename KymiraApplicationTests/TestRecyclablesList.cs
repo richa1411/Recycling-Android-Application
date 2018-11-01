@@ -2,6 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using KymiraApplication.Model;
 
 namespace KymiraApplicationTests
 {
@@ -9,14 +10,14 @@ namespace KymiraApplicationTests
     /// Summary description for TestRecyclables
     /// </summary>
     [TestClass]
-    public class TestRecyclables
+    public class TestRecyclablesList
     {
-        public TestRecyclables()
+        RecyclablesList recList;
+        //Test that the list is created
+        public TestRecyclablesList()
         {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
+            recList = new RecyclablesList { name = "Plastic", description = "Its Plastic", image= "G:\COSACPMG\prj2.cosmo\KymiraApplication\Resources\drawable\No_Image.png" };
+            }
 
         private TestContext testContextInstance;
 
