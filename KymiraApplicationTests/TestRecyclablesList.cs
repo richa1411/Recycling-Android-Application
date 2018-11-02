@@ -19,7 +19,7 @@ namespace KymiraApplicationTests
         public TestRecyclablesList()
         {
             recyclables = new List<string>();
-            recItem = new RecyclablesList { name = "Plastic", description = "Its Plastic", imageURL = "image1.png", turnedInto = "Paper is turned into more paper"
+            recItem = new RecyclablesList { name = "Plastic", description = "Its Plastic", imageURL = "image1.png", turnedInto = "Paper is turned into more paper",
             itemQuantity = "10", recycleReason = "Paper can be re-used"};
             }
         [TestMethod]

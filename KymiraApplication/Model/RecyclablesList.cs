@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace KymiraApplication.Model
 {
-    public class RecyclablesList
+    public class RecyclablesList //change name MaterialInfo
     {
 
         public RecyclablesList()
