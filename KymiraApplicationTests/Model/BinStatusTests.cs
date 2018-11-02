@@ -15,14 +15,14 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        //tests that if an address given which is over 200 characters throws an error
+        //tests that an address given which is over 200 characters throws an error
         public void TestThat201CharAddressIsInvalid()
         {
 
         }
 
         [TestMethod]
-        //tests that if an address given which is in the database returns bins
+        //tests that an address given which is in the database returns bins
         public void TestThatKnownAddressIsValid()
         {
 
@@ -52,59 +52,6 @@ namespace KymiraApplicationTests
 
         }
 
-        //BINNAME
-
-        [TestMethod]
-        //tests that a bin object can have a binName
-        public void TestThatBinsWithStringBinNamesAreValid()
-        {
-
-        }
-
-        [TestMethod]
-        //tests that a bin object does not have to have a binName
-        public void TestThatBinsWithEmptyBinNamesAreValid()
-        {
-
-        }
-
-        [TestMethod]
-        //tests that a bin object binName has to be a string if it is not null
-        public void TestThatBinsWithNonStringBinNameAreInvalid()
-        {
-
-        }
-
-        //ADDRESSID
-
-        [TestMethod]
-        //tests that a proper bin object addressid is accepted
-        public void TestThatBinsWithNumAddressIdsAreValid()
-        {
-
-        }
-
-        [TestMethod]
-        //tests that a bin object can not have an empty AddressID
-        public void TestThatBinsWithEmptyAddressIdsAreInvalid()
-        {
-
-        }
-
-        [TestMethod]
-        //tests that a bin object addressid has to be within 0 and 200 chars long
-        public void TestThatBinsWith201CharAddressIdsAreInvalid()
-        {
-
-        }
-
-        [TestMethod]
-        //tests that a bin object addressid has to be a number
-        public void TestThatBinsWithNonNumAddressIdsAreInvalid()
-        {
-
-        }
-
         //BINSTATUS
 
         [TestMethod]
@@ -114,25 +61,26 @@ namespace KymiraApplicationTests
 
         }
 
-
-        //PICKUPFREQUENCY
-
         [TestMethod]
-        //tests that a bin object can only have an int as an id
-        public void TestThatBinsWithEmptyPickupFrequencysAreInvalid()
+        //tests that a bin object BinStatus of one of the valid numbers is valid
+        public void TestThatBinsWithProperBinStatusAreValid()
         {
 
         }
 
-
-        //PICKUPDAY
-
+        //ADDRESSNAME
         [TestMethod]
-        //tests that a bin object can only have an int as an id
-        public void TestThatBinsWithEmptyPickupDaysAreInvalid()
+        //tests that a bin object addressName cannot be empty
+        public void TestThatBinsWithEmptyAddressNameAreInvalid()
         {
 
         }
-        //************* BIULDING TESTS *************
+
+        [TestMethod]
+        //tests that a bin object addressName cannot be over 200 chars long
+        public void TestThatBinsWith201CharAddressNameAreInvalid()
+        {
+
+        }
     }
 }

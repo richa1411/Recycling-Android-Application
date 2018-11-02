@@ -56,21 +56,29 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="binStatusActivity.cs" />
+    <Compile Include="BinStatusActivity.cs" />
     <Compile Include="HomePage.cs" />
     <Compile Include="LoginActivity.cs" />
-    <Compile Include="Model\Bin.cs" />
+    <Compile Include="Model\BinStatus.cs" />
     <Compile Include="Model\Building.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\jsonHandler.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\ValidationHelper.cs" />
+    <Compile Include="obj\Debug\designtime\Resource.Designer.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="obj\KymiraApplication.csproj.nuget.cache" />
+    <None Include="obj\KymiraApplication.csproj.nuget.g.props" />
+    <None Include="obj\KymiraApplication.csproj.nuget.g.targets" />
+    <None Include="obj\project.assets.json" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
@@ -136,6 +144,34 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\logoWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\KymiraApplication.dll" />
+    <Content Include="bin\Debug\KymiraApplication.dll.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Debug\KymiraApplication.pdb" />
+    <Content Include="bin\Debug\Mono.Android.pdb" />
+    <Content Include="bin\Debug\Mono.Security.pdb" />
+    <Content Include="bin\Debug\mscorlib.pdb" />
+    <Content Include="bin\Debug\System.ComponentModel.Composition.pdb" />
+    <Content Include="bin\Debug\System.ComponentModel.DataAnnotations.pdb" />
+    <Content Include="bin\Debug\System.Core.pdb" />
+    <Content Include="bin\Debug\System.Data.pdb" />
+    <Content Include="bin\Debug\System.IO.Compression.FileSystem.pdb" />
+    <Content Include="bin\Debug\System.IO.Compression.pdb" />
+    <Content Include="bin\Debug\System.Net.Http.pdb" />
+    <Content Include="bin\Debug\System.Numerics.pdb" />
+    <Content Include="bin\Debug\System.pdb" />
+    <Content Include="bin\Debug\System.Runtime.Serialization.pdb" />
+    <Content Include="bin\Debug\System.ServiceModel.Internals.pdb" />
+    <Content Include="bin\Debug\System.Transactions.pdb" />
+    <Content Include="bin\Debug\System.Web.Services.pdb" />
+    <Content Include="bin\Debug\System.Xml.Linq.pdb" />
+    <Content Include="bin\Debug\System.Xml.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

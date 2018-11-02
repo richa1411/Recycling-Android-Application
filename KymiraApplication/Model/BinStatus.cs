@@ -13,15 +13,18 @@ using Android.Widget;
 
 namespace KymiraApplication.Model
 {
-    public class Building
+    public class BinStatus
     {
-        [Required(ErrorMessage = "addressID is invalid")]
-        public int addressID; //addressID number
 
+        [Required(ErrorMessage = "ID is invalid")]
+        public int binID;
 
         [Required(ErrorMessage = "addressName is invalid")]
-        [StringLength(1, ErrorMessage = "Must be a string")]
-        public string addressName; //to be compared to AddressLine1 and AddressLine2 in Resident
+        public string binAddress;
+
+        [Required(ErrorMessage = "status is invalid")]
+        public int status; //1 -> good, 2 -> blocked, 3 -> Contaminated
         
+     
     }
 }

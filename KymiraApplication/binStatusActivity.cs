@@ -12,8 +12,8 @@ using Android.Widget;
 
 namespace KymiraApplication
 {
-    [Activity(Label = "binStatusActivity")]
-    public class binStatusActivity : Activity
+    [Activity(Label = "BinStatusActivity")]
+    public class BinStatusActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
