@@ -56,14 +56,12 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="binStatusActivity.cs" />
     <Compile Include="HomePage.cs" />
     <Compile Include="LoginActivity.cs" />
-
     <Compile Include="Model\Bin.cs" />
     <Compile Include="Model\Building.cs" />
-
     <Compile Include="MainActivity.cs" />
-
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\jsonHandler.cs" />
     <Compile Include="Model\Registration.cs" />

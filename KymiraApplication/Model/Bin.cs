@@ -20,7 +20,6 @@ namespace KymiraApplication.Model
         public int binID;
 
 
-        [Required(ErrorMessage = "Name is Invalid")]
         public string binName; //user friendly bin name, something like: '[AddressName] Bin 1'
 
         [Required(ErrorMessage = "addressID is invalid")]
