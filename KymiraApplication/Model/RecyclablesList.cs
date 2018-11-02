@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -20,11 +21,16 @@ namespace KymiraApplication.Model
 
         }
 
-        
+
+        [Required]
         public string name { get; set; }
 
         public string description { get; set; }
 
-       // public byte[] image { get; set; }
+        public string imageURL { get; set; }
+
+        public string turnedInto { get; set; }
+        public string itemQuantity { get; set; }
+        public string recycleReason { get; set; }
     }
 }

@@ -19,8 +19,9 @@ namespace KymiraApplicationTests
         public TestRecyclablesList()
         {
             recyclables = new List<string>();
-            recItem = new RecyclablesList { name = "Plastic", description = "Its Plastic" };
-        }
+            recItem = new RecyclablesList { name = "Plastic", description = "Its Plastic", imageURL = "image1.png", turnedInto = "Paper is turned into more paper"
+            itemQuantity = "10", recycleReason = "Paper can be re-used"};
+            }
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void testEmptyList()
@@ -59,6 +60,24 @@ namespace KymiraApplicationTests
             Assert.IsTrue(recItem.description == "It is Paper");
         }
         [TestMethod]
+        public void testNoImage()
+        {
+
+            recItem.imageURL = "";
+            Assert.IsTrue(recItem.imageURL == "");
+        }
+
+        [TestMethod]
+        public void testImage()
+        {
+
+            recItem.imageURL = "image1.png";
+            Assert.IsTrue(recItem.imageURL == "image1.png");
+        }
+
+        
+
+        [TestMethod]
         public void testNoName()
         {
 
@@ -77,6 +96,64 @@ namespace KymiraApplicationTests
             Assert.IsTrue(recItem.name == "Paper");
         }
 
+        [TestMethod]
+        public void testNoTurnedInto()
+        {
+
+
+            recItem.turnedInto = "";
+            Assert.IsTrue(recItem.turnedInto == "");
+
+
+        }
+
+        [TestMethod]
+        public void testTurnedInto()
+        {
+
+            recItem.turnedInto = "Paper is turned into more paper";
+            Assert.IsTrue(recItem.turnedInto == "Paper is turned into more paper");
+        }
+
+
+        [TestMethod]
+        public void testNoitemQuantity()
+        {
+
+
+            recItem.itemQuantity = "";
+            Assert.IsTrue(recItem.itemQuantity == "");
+
+
+        }
+
+        [TestMethod]
+        public void testitemQuanity()
+        {
+
+            recItem.itemQuantity = "10 pieces of paper have been recycled";
+            Assert.IsTrue(recItem.itemQuantity == "10 pieces of paper have been recycled");
+        }
+
+
+        [TestMethod]
+        public void testNoRecyclableReason()
+        {
+
+
+            recItem.recycleReason = "";
+            Assert.IsTrue(recItem.recycleReason == "");
+
+
+        }
+
+        [TestMethod]
+        public void testRecyclableReason()
+        {
+
+            recItem.recycleReason = "Paper can be re-used";
+            Assert.IsTrue(recItem.recycleReason == "Paper can be re-used");
+        }
 
     }
 }
