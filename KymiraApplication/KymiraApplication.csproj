@@ -169,6 +169,7 @@
     <Content Include="bin\Debug\System.Web.Services.pdb" />
     <Content Include="bin\Debug\System.Xml.Linq.pdb" />
     <Content Include="bin\Debug\System.Xml.pdb" />
+    <AndroidResource Include="Resources\layout\binStatusLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Release\" />

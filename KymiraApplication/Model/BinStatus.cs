@@ -16,14 +16,17 @@ namespace KymiraApplication.Model
     public class BinStatus
     {
 
-        [Required(ErrorMessage = "ID is invalid")]
-        public int binID;
+        [Required(ErrorMessage = "No bin was registered to that address")]
+        [Range(0, int.MaxValue, ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
+        public int binID { get; set; }
 
-        [Required(ErrorMessage = "addressName is invalid")]
-        public string binAddress;
+        [Required(ErrorMessage = "Address is required")]
+        [StringLength(200, MinimumLength = 1, ErrorMessage = "Address must be 1 to 200 characters")]
+        public string binAddress { get; set; }
 
-        [Required(ErrorMessage = "status is invalid")]
-        public int status; //1 -> good, 2 -> blocked, 3 -> Contaminated
+        [Required(ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
+        [Range(1, 3, ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
+        public int status { get; set; } //1 -> good, 2 -> blocked, 3 -> Contaminated
         
      
     }
