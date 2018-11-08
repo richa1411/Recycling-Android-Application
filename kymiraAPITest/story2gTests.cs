@@ -10,19 +10,9 @@ namespace kymiraAPITest
     [TestClass]
     class story2gTests
     {
-        DisposableQuery testDbItem;
+        Disposable testDbItem = new Disposable{ name = "Glass Bottles", description = "These are Glass Bottles", pictureID = 1,
+            recyclableReason = "Glass Bottles Reason", endResult = "Glass Bottles End Result", qtyRecycled = 1000};
 
-       [TestInitialize]
-       public void TestInitialize()
-        {
-            testDbItem = new DisposableQuery();
-            testDbItem.name = "Glass Bottles";
-            testDbItem.description = "These are Glass Bottles";
-            testDbItem.picture = "../images/GlassBottles.jpg";
-            testDbItem.recyclableReason = "Glass Bottles Reason";
-            testDbItem.endResult = "Glass Bottles End Result";
-            testDbItem.qtyRecycled = 1000;
-        }
 
         [TestMethod]
         public void AllRecyclableInformationIsValidTest()
@@ -32,13 +22,89 @@ namespace kymiraAPITest
 
         }
 
+        ////*********** ID ***********
         [TestMethod]
-        public void NameIsNotValid()
+        public void IDIsEmpty()
+        {
+            
+            //Error
+
+        }
+
+
+
+        //*********** NAME ***********
+        //InValid
+        [TestMethod]
+        public void NameIsEmpty()
         {
             testDbItem.name = null;
+            //ErrorMessage = "Name is required"
 
-            
         }
+
+        [TestMethod]
+        public void InvalidNameIs51CharsLong()
+        {
+            
+            //ErrorMessage = "name must be 50 characters or less."
+
+        }
+
+        //Valid
+        [TestMethod]
+        public void ValidNameIs50CharsLong()
+        {
+          
+            //no errors
+
+        }
+
+        //*********** DESCRIPTION ***********
+
+
+        //*********** PICTURE ***********
+        //valid
+        [TestMethod]
+        public void ValidPictureIsEmpty()
+        {
+            
+            //no errors
+
+        }
+
+        [TestMethod]
+        public void ValidPictureIsANum()
+        {
+
+            //no errors
+
+        }
+
+        //invalid
+        [TestMethod]
+        public void InvalidPictureIsNOTANum()
+        {
+
+            //error
+
+        }
+
+        //*********** isRECYCLABLE ***********
+
+        [TestMethod]
+        public void ValidisRecyclableIsBool()
+        {
+
+            //error
+
+        }
+
+        //*********** RECYCLABLEREASON ***********
+
+        //*********** ENDRESULT ***********
+
+        //*********** NAME ***********
 
     }
 }

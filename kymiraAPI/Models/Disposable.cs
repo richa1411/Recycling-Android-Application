@@ -11,29 +11,35 @@ namespace kymiraAPI.Models
         [Key]
         public int ID { get; set; }
 
-        [Required(ErrorMessage ="")]
+
+        [Required(ErrorMessage = "Name is required")]
         [StringLength(50, ErrorMessage = "name must be 50 characters or less.")]
         public string name { get; set; }
 
 
-        [Required(ErrorMessage = "")]
+        [Required(ErrorMessage = "Description is required")]
         [StringLength(500, ErrorMessage = "Description must be 500 characters or less.")]
         public string description { get; set; }
 
-        public string picture { get; set; }
-        [Required(ErrorMessage = "")]
+        //Not required and not a string because in app we will use R.drawable.pictures.{DisposableID/pictureID}
+        public int pictureID { get; set; }
+
+
+        [Required(ErrorMessage = "Disposable must have a recyclable/non-recyclable option")]
         public bool isRecyclable { get; set; }
 
 
-        [Required(ErrorMessage = "")]
+        [Required(ErrorMessage = "Disposable must have a recyclable reason")]
+        [StringLength(500, ErrorMessage = "Reason must be 500 characters or less.")]
         public string recyclableReason { get; set; }
 
 
-        [Required(ErrorMessage = "")]
+        [Required(ErrorMessage = "An end result is required")]
+        [StringLength(500, ErrorMessage = "Result must be 500 characters or less.")]
         public string endResult { get; set; }
 
 
-        [Required(ErrorMessage = "")]
+        [Required(ErrorMessage = "A qty recycled is required")]
         public int qtyRecycled { get; set; }
 
     }
