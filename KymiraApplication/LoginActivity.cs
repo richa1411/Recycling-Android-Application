@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace KymiraApplication
 {
     //LoginActivity Page
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
     public class LoginActivity : AppCompatActivity
     {
         //private Fields / Properties 2 textfields for phonenumber and password one textview for error and button for login
