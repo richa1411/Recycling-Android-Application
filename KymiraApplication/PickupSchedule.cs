@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using KymiraApplication.Model;
 
 namespace KymiraApplication
 {
@@ -16,6 +17,7 @@ namespace KymiraApplication
     public class PickupSchedule : Activity
     {
         //Declare jsonHandler
+        private jsonHandler jsonHandler;
 
         //Declare UI controls
 
@@ -23,19 +25,15 @@ namespace KymiraApplication
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
-            
-            //Assign UI Control
-
-            //Call method to populate text view's with collection information
+            //Assign UI Controls
         }
 
         //Function that handles generating the text for the collection date text views
-        private async void setCollectionDateText()
+        private async void sendAddress(string address)
         {
-            //Request collection dates from the API/backend
+            //Request collection dates from the API/backend based on address
 
-            //Update text views with collection date information
+            //Update layout with bin collection information
         }
     }
 }
