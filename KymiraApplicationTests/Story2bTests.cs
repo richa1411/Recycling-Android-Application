@@ -22,8 +22,8 @@ namespace KymiraApplicationTests
         public TestRecyclablesList()
         {
             recyclables = new List<string>();
-            recItem = new Disposable { name = "Plastic", description = "Its Plastic", imageURL = "image1.png", turnedInto = "Paper is turned into more paper",
-            itemQuantity = "10", recycleReason = "Paper can be re-used"};
+            recItem = new Disposable { name = "Plastic", description = "Its Plastic", imageURL = "image1.png", isRecyclable = true, endResult = "Paper is turned into more paper",
+            qtyRecycled = 10, recycleReason = "Paper can be re-used"};
             }
         [TestMethod]
         [ExpectedException(typeof(Exception))]
@@ -63,7 +63,17 @@ namespace KymiraApplicationTests
         {
 
             recItem.imageURL = "";
-            Assert.IsTrue(recItem.imageURL == "");
+            var results = HelperTestModel.Validate(recItem);
+            if (results.Count() == 1)
+            {
+                Assert.AreEqual("No image", results[0].ErrorMessage);
+
+                results.Clear();
+                recItem.imageURL = "placeholder";
+                results = HelperTestModel.Validate(recItem);
+                Assert.AreEqual(0, results.Count);
+
+            }
         }
 
         [TestMethod]
@@ -72,12 +82,41 @@ namespace KymiraApplicationTests
 
             recItem.imageURL = "image1.png";
             Assert.IsTrue(recItem.imageURL == "image1.png");
+
+            var results = HelperTestModel.Validate(recItem);
+            Assert.AreEqual(0, results.Count());
         }
 
         
 
         [TestMethod]
         public void testNoName()
+        {
+
+
+            recItem.name = "";
+            Assert.IsTrue(recItem.name == "");
+
+            var results = HelperTestModel.Validate(recItem);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("No item name is present", results[0].ErrorMessage);
+
+
+        }
+
+        [TestMethod]
+        public void testReyclableStatusExists()
+        {
+            Assert.IsTrue(recItem.isRecyclable == true);
+
+            var results = HelperTestModel.Validate(recItem);
+            Assert.AreEqual(0, results.Count());
+
+
+        }
+
+        [TestMethod]
+        public void testRecyclableStatusDoesNotExist()
         {
 
 
@@ -104,8 +143,8 @@ namespace KymiraApplicationTests
         {
 
 
-            recItem.turnedInto = "";
-            Assert.IsTrue(recItem.turnedInto == "");
+            recItem.endResult = "";
+            Assert.IsTrue(recItem.endResult == "");
 
 
         }
@@ -114,8 +153,8 @@ namespace KymiraApplicationTests
         public void testTurnedInto()
         {
 
-            recItem.turnedInto = "Paper is turned into more paper";
-            Assert.IsTrue(recItem.turnedInto == "Paper is turned into more paper");
+            recItem.endResult = "Paper is turned into more paper";
+            Assert.IsTrue(recItem.endResult == "Paper is turned into more paper");
         }
 
 
@@ -124,8 +163,8 @@ namespace KymiraApplicationTests
         {
 
 
-            recItem.itemQuantity = "";
-            Assert.IsTrue(recItem.itemQuantity == "");
+            recItem.qtyRecycled = 0;
+            Assert.IsTrue(recItem.qtyRecycled == 0);
 
 
         }
@@ -134,8 +173,8 @@ namespace KymiraApplicationTests
         public void testitemQuanity()
         {
 
-            recItem.itemQuantity = "10 pieces of paper have been recycled";
-            Assert.IsTrue(recItem.itemQuantity == "10 pieces of paper have been recycled");
+            recItem.qtyRecycled = 10;
+            Assert.IsTrue(recItem.qtyRecycled == 10);
         }
 
 

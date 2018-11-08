@@ -62,7 +62,7 @@
     <Compile Include="HomePage.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="Model\Credentials.cs" />
-    <Compile Include="Model\RecyclablesList.cs" />
+    <Compile Include="Model\Disposable.cs" />
     <Compile Include="Model\ValidationHelper.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

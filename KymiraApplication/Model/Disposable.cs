@@ -29,6 +29,7 @@ namespace KymiraApplication.Model
 
         public string description { get; set; }
 
+        [Required]
         public string imageURL { get; set; }
 
         [Required]
