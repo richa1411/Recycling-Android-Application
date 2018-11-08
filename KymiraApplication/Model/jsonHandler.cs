@@ -73,11 +73,6 @@ namespace KymiraApplication.Model
             {
                 return "Error receiving data";
             }
-
-           
         }
-        
-
-
     }
 }

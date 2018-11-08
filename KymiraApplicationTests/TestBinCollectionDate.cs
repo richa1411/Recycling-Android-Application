@@ -2,15 +2,34 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using KymiraApplication.Model;
+using KymiraApplication;
+
 
 namespace KymiraApplicationTests
 {
-    /// <summary>
-    /// Summary description for TestBinCollectionDate
-    /// </summary>
     [TestClass]
     public class TestBinCollectionDate
     {
+        BinCollectionDate binColl;
+
+        [TestInitialize]
+        public void InitializeTest()
+        {
+            binColl = new BinCollectionDate { Address = "123 Test Dr", collectionDate = "11/30/2018" }; //date is just a string right now.
+        }
+
+        public void testAddressEmpty()
+        {
+            var results = HelperTestModel.Validate(binColl);
+            //Assert.AreEqual(1, results.Count());
+            //Assert.AreEqual("Please Enter your Phone Number", results[0].ErrorMessage);
+        }
+
+
+
+
+
         public TestBinCollectionDate()
         {
             //
