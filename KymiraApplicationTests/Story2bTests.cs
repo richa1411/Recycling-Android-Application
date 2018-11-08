@@ -3,6 +3,9 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KymiraApplication.Model;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace KymiraApplicationTests
 {
@@ -12,14 +15,14 @@ namespace KymiraApplicationTests
     [TestClass]
     public class TestRecyclablesList
     {
-        RecyclablesList recItem;
+        Disposable recItem;
         List<String> recyclables;
         // List<String> nonRecyclables = new List<string> { "People", "knowledge" };
         //Test that the list is created
         public TestRecyclablesList()
         {
             recyclables = new List<string>();
-            recItem = new RecyclablesList { name = "Plastic", description = "Its Plastic", imageURL = "image1.png", turnedInto = "Paper is turned into more paper",
+            recItem = new Disposable { name = "Plastic", description = "Its Plastic", imageURL = "image1.png", turnedInto = "Paper is turned into more paper",
             itemQuantity = "10", recycleReason = "Paper can be re-used"};
             }
         [TestMethod]
@@ -44,12 +47,8 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void testNoDescription()
         {
-           
-          
             recItem.description = "";
-            Assert.IsTrue(recItem.description == "");
-            
-            
+            Assert.IsTrue(recItem.description == "");   
         }
 
         [TestMethod]
@@ -84,6 +83,10 @@ namespace KymiraApplicationTests
 
             recItem.name = "";
             Assert.IsTrue(recItem.name == "");
+
+            var results = HelperTestModel.Validate(recItem);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("No item name is present", results[0].ErrorMessage);
 
 
         }

@@ -13,24 +13,28 @@ using Android.Widget;
 
 namespace KymiraApplication.Model
 {
-    public class RecyclablesList //change name MaterialInfo
+    public class Disposable //change name MaterialInfo
     {
 
-        public RecyclablesList()
+        public Disposable()
         {
 
         }
 
 
-        [Required]
+        [Required(ErrorMessage = "No name is present")]
+        [MinLength(3)]
+        [MaxLength(15)]
         public string name { get; set; }
 
         public string description { get; set; }
 
         public string imageURL { get; set; }
 
-        public string turnedInto { get; set; }
-        public string itemQuantity { get; set; }
+        [Required]
+        public bool isRecyclable { get; set; }
+        public string endResult { get; set; }
+        public int qtyRecycled { get; set; }
         public string recycleReason { get; set; }
     }
 }
