@@ -59,6 +59,7 @@
     <Compile Include="HomePage.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Model\BinCollectionDate.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\jsonHandler.cs" />
     <Compile Include="Model\Registration.cs" />
