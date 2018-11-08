@@ -23,8 +23,12 @@ namespace kymiraAPITest
         }
 
         ////*********** ID ***********
+
+        /**
+        * Test that ID cannot be empty. result is invalid.
+        * */
         [TestMethod]
-        public void IDIsEmpty()
+        public void TestThatIDIsEmpty()
         {
             
             //Error
@@ -34,26 +38,32 @@ namespace kymiraAPITest
 
 
         //*********** NAME ***********
-        //InValid
+        /**
+        * Test that name cannot be empty. result is invalid.
+        * */
         [TestMethod]
-        public void NameIsEmpty()
+        public void TestThatNameIsEmpty()
         {
             testDbItem.name = null;
             //ErrorMessage = "Name is required"
 
         }
-
+        /**
+        * Test that Name cannot be greater than 50 characters. result is invalid.
+        * */
         [TestMethod]
-        public void InvalidNameIs51CharsLong()
+        public void TestThatNameIs51CharsLong()
         {
             
             //ErrorMessage = "name must be 50 characters or less."
 
         }
 
-        //Valid
+        /**
+        * Test that Name is 50 charactesr long. result is valid
+        * */
         [TestMethod]
-        public void ValidNameIs50CharsLong()
+        public void TestThatNameIs50CharsLong()
         {
           
             //no errors
@@ -61,29 +71,64 @@ namespace kymiraAPITest
         }
 
         //*********** DESCRIPTION ***********
+        /**
+         * Test that the description is valid.
+         * */
+        [TestMethod]
+        public void TestThatDescriptionisValid()
+        {
 
+            //NoError
+
+        }
+        /**
+         * Test that Description is empty. result will be invalid.
+         * */
+        [TestMethod]
+        public void TestThatDescriptionisEmpty()
+        {
+
+            //error
+
+        }
+        /**
+         * Test that the description is greater than 500 chracters. result will be invalid
+         * */
+        [TestMethod]
+        public void TestThatDescriptionisGreaterThan500Characters()
+        {
+
+            //error
+
+        }
 
         //*********** PICTURE ***********
-        //valid
+        /**
+        * Tests that pictureID cannot be empty. result is invalid.
+        * */
         [TestMethod]
-        public void ValidPictureIsEmpty()
+        public void TestThatPictureIDIsEmpty()
         {
             
             //no errors
 
         }
-
+        /**
+        * Test that pictureID is a Number. result is valid
+        * */
         [TestMethod]
-        public void ValidPictureIsANum()
+        public void TestThatPictureIDIsANum()
         {
 
             //no errors
 
         }
 
-        //invalid
+        /**
+        * Test that Picture must be a number. result invalid.
+        * */
         [TestMethod]
-        public void InvalidPictureIsNOTANum()
+        public void TestThatPictureIDIsNOTANum()
         {
 
             //error
@@ -91,20 +136,131 @@ namespace kymiraAPITest
         }
 
         //*********** isRECYCLABLE ***********
-
+        /**
+         * Tests that is recyclable cannot be empty. Result is Invalid.
+         * */
         [TestMethod]
-        public void ValidisRecyclableIsBool()
+        public void TestThatisRecyclableIsEmpty()
         {
 
             //error
 
         }
+        /**
+         * Test that the disposable item is not recyclable. IsRecyclable set to false is Valid
+         * */
+        [TestMethod]
+        public void TestThatisRecyclableIsFalse()
+        {
+
+            //NoError
+
+        }
+        /**
+         * Test that the disposible item is recyclable. isRecyclable set to true is valid
+         * */
+        [TestMethod]
+        public void TestThatisRecyclableIsTrue()
+        {
+
+            //NoError
+
+        }
+
+
 
         //*********** RECYCLABLEREASON ***********
+        /**
+        * Tests that RecyclableReason passes validation and is valid. 
+        * */
+        [TestMethod]
+        public void TestThatRecyclableReasonIsValid()
+        {
+            //noerror
+            
+
+        }
+
+        /**
+        * Tests that recycable reason cannot be greater than 500 characters. result is invalid
+        * */
+        [TestMethod]
+        public void TestThatRecyclableReasonIsGreaterThan500Characters()
+        {
+            //error
+
+
+        }
+
+        /**
+        * Test that Recyable Reason cannot be empty. result is invalid
+        * */
+        [TestMethod]
+        public void TestThatRecyclableReasonIsEmpty()
+        {
+            //error
+
+
+        }
+
+
 
         //*********** ENDRESULT ***********
+        /**
+        * Tests that end result is valid and passes validations. 
+        * */
+        [TestMethod]
+        public void TestThatisEndResultisValid()
+        {
+            //Noerror
 
-        //*********** NAME ***********
 
+        }
+        /**
+        * Tests that the end result cannot be greater than 500 characters. Result is invalid
+        * */
+        [TestMethod]
+        public void TestThatisEndResultIsGreaterThan500Characters()
+        {
+            //error
+
+
+        }
+        /**
+         * Tests that the end result cannot be empty. Result is invalid
+         * */
+        [TestMethod]
+        public void TestThatisEndResultIsEmpty()
+        {
+            //error
+
+
+        }
+
+
+        //*********** qtyRecycled ***********
+        /**
+         * Tests that the qty Recycled cannot be empty. result is invalid.
+         * */
+        [TestMethod]
+        public void TestThatisqtyRecycledIsEmpty()
+        {
+            //error
+
+
+        }
+        /**
+         * Tests that the qty Recycled is a valid input ( int). result is valid
+         * */
+        [TestMethod]
+        public void TestThatisqtyRecycledIsValid()
+        {
+            //Noerror
+
+
+        }
+
+
+       
     }
 }
