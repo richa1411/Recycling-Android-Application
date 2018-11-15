@@ -39,8 +39,6 @@ namespace KymiraApplicationTests
         }
 
 
-
-
         [TestMethod]
         public void testValidAddress()
         {
@@ -52,7 +50,7 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void testValidDate()
         {
-            binColl.Address = "11/30/2018";
+            binColl.collectionDate = "11/30/2018";
             var results = HelperTestModel.Validate(binColl);
             Assert.AreEqual(0, results.Count());
         }
