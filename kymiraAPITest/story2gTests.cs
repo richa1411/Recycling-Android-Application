@@ -2,44 +2,34 @@
 using System;
 using kymiraAPI;
 using kymiraAPI.Models;
-using System.Collections.Generic;
-using System.Text;
 
 namespace kymiraAPITest
 {
     [TestClass]
-    class story2gTests
+    public class story2gTests
     {
-        Disposable testDbItem = new Disposable{ID=1, name = "Glass Bottles", description = "These are Glass Bottles", pictureID = "tomatoes",
-            isRecyclable = true, recyclableReason = "Glass Bottles Reason", endResult = "Glass Bottles End Result", qtyRecycled = 1000};
+        Disposable testDbItem = new Disposable{
+            ID = 1,
+            name = "Glass Bottles",
+            description = "These are Glass Bottles",
+            pictureID = "tomatoes",
+            isRecyclable = true,
+            recyclableReason = "Glass Bottles Reason",
+            endResult = "Glass Bottles End Result",
+            qtyRecycled = 1000
+        };
 
 
         [TestMethod]
         public void AllRecyclableInformationIsValidTest()
         {
             Assert.IsNotNull(testDbItem.name);
-            Assert.AreEqual("Glass Bottles", testDbItem);
+            Assert.AreEqual("Glass Bottles", testDbItem.name);
 
         }
 
         ////*********** ID ***********
 
-        /**
-        * Test that ID cannot be empty. result is invalid.
-        * */
-        //[TestMethod]
-        //public void TestThatIDIsEmpty()
-        //{
-
-        //    testDbItem.ID = 1;
-        //    var results = HelperTestModel.Validate(testDbItem);
-        //    Assert.AreEqual(1, results.Count);
-        //    Assert.AreEqual( "ID is required", results[0].ErrorMessage);
-
-
-        //    //Error
-
-       // }
         [TestMethod]
         public void TestThatIDIsValid()
         {
@@ -47,10 +37,7 @@ namespace kymiraAPITest
             testDbItem.ID = 1;
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
-            
 
-
-            
 
         }
 
@@ -144,9 +131,10 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatPictureIDIsEmpty()
         {
-            testDbItem.pictureID= null;
+            testDbItem.pictureID = null;
             var results = HelperTestModel.Validate(testDbItem);
-            Assert.AreEqual(0, results.Count);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("PictureID is required", results[0].ErrorMessage);
             //errors
 
         }
@@ -187,28 +175,7 @@ namespace kymiraAPITest
         }
 
         //*********** isRECYCLABLE ***********
-        /**
-         * Tests that is recyclable cannot be empty. Result is Invalid.
-         * */
-        [TestMethod]
-        public void TestThatisRecyclableIsEmpty()
-        {
-            Disposable testDbItem = new Disposable
-            {
-                name = "Glass Bottles",
-                description = "These are Glass Bottles",
-                pictureID = "tomatoes",
-                recyclableReason = "Glass Bottles Reason",
-                endResult = "Glass Bottles End Result",
-                qtyRecycled = 1000
-            };
-            var results = HelperTestModel.Validate(testDbItem);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Disposable must have a recyclable/non-recyclable option", results[0].ErrorMessage);
-
-            //error
-
-        }
+        
         /**
          * Test that the disposable item is not recyclable. IsRecyclable set to false is Valid
          * */
@@ -261,7 +228,7 @@ namespace kymiraAPITest
             testDbItem.recyclableReason = new string('a', 501);
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Reason must be 500 characters or less", results[0].ErrorMessage);
+            Assert.AreEqual("Reason must be 500 characters or less.", results[0].ErrorMessage);
 
             //error
 
@@ -335,28 +302,7 @@ namespace kymiraAPITest
 
 
         //*********** qtyRecycled ***********
-        /**
-         * Tests that the qty Recycled cannot be empty. result is invalid.
-         * */
-        [TestMethod]
-        public void TestThatisqtyRecycledIsEmpty()
-        {
-            Disposable testDbItem = new Disposable
-            {
-                name = "Glass Bottles",
-                description = "These are Glass Bottles",
-                pictureID = "tomatoes",
-                recyclableReason = "Glass Bottles Reason",
-                endResult = "Glass Bottles End Result",
-               
-            };
-            var results = HelperTestModel.Validate(testDbItem);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("A qty recycled is required", results[0].ErrorMessage);
-            //error
-
-
-        }
+      
         /**
          * Tests that the qty Recycled is a valid input ( int). result is valid
          * */
@@ -373,6 +319,7 @@ namespace kymiraAPITest
         }
 
 
-       
+
     }
 }
+
