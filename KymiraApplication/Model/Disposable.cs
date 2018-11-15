@@ -13,7 +13,7 @@ using Android.Widget;
 
 namespace KymiraApplication.Model
 {
-    public class Disposable //change name MaterialInfo
+    public class Disposable
     {
 
         public Disposable()
