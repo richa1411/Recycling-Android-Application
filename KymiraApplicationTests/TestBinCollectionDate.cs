@@ -37,8 +37,6 @@ namespace KymiraApplicationTests
             Assert.AreEqual("Date is Required", results[0].ErrorMessage);
 
         }
-
-
         [TestMethod]
         public void testValidAddress()
         {
@@ -53,6 +51,7 @@ namespace KymiraApplicationTests
             binColl.collectionDate = "11/30/2018";
             var results = HelperTestModel.Validate(binColl);
             Assert.AreEqual(0, results.Count());
+          
         }
 
     }
