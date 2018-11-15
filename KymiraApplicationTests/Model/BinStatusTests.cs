@@ -4,6 +4,7 @@ using KymiraApplication.Model;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 using System.Linq;
+using KymiraApplication;
 
 namespace KymiraApplicationTests
 {
@@ -25,7 +26,7 @@ namespace KymiraApplicationTests
 
         //************* ADDRESS TESTS *************
         [TestMethod]
-        //tests that if an address given which is not in the database throws an error and does not return any bins
+        //tests that if an address given which is not in the database does not return any bins
         public void TestThatUnknownAddressIsInvalid()
         {
             testBinStatus.binID = -1;
@@ -35,7 +36,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        //tests that an address given which is over 200 characters throws an error
+        //tests that an address of 201 characters is invalid
         public void TestThat201CharAddressIsInvalid()
         {
             testBinStatus.binAddress = new String('a', 201);
@@ -45,12 +46,11 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        //tests that an address given which is in the database returns bins
+        //tests that the BinStatus object's address is valid
         public void TestThatKnownAddressIsValid()
         {
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(0, results.Count());
-
         }
 
         [TestMethod]
@@ -63,7 +63,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        //tests that a bin object addressName cannot be empty
+        //tests that a bin object addressName cannot be an empty string
         public void TestThatBinsWithEmptyAddressNameAreInvalid()
         {
             testBinStatus.binAddress = "";
@@ -81,14 +81,35 @@ namespace KymiraApplicationTests
         {
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes");
+            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes",results[0].ErrorMessage);
 
         }
 
         [TestMethod]
-        //tests that a bin object can only have an int as an id and must have one
+        [ExpectedException(typeof(Exception))]
+        //tests that a bin object with a null binID will throw an exception (invalid)
         public void TestThatBinsWithNoIDsAreInvalid()
         {
+            testBinStatus.binID = null;
+            Assert.IsNotNull(testBinStatus.binID);
+        }
+
+        [TestMethod]
+        //tests that a bin object can only have an int as an id
+        public void TestThatBinsWithIntIDsAreValid()
+        {
+            //results = HelperTestModel.Validate(testBinStatus);
+            //Assert.AreEqual(0, results.Count());
+            int value;
+            int.TryParse(testBinStatus.binID,out value);
+            Assert.AreEqual(value, testBinStatus.binID);
+        }
+
+        [TestMethod]
+        //tests that a BinStatus status cannot be greater than 3 - acceptable statuses are 1, 2, and 3
+        public void TestThatBinStatusOfGreaterThan3IsInvalid()
+        {
+            testBinStatus.status = 4;
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
@@ -96,16 +117,8 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        //tests that a bin object can only have an int as an id
-        public void TestThatBinsWithIntIDsAreValid()
-        {          
-            results = HelperTestModel.Validate(testBinStatus);
-            Assert.AreEqual(0, results.Count());
-        }
-
-        [TestMethod]
-        //tests that a bin object BinStatus cannot be empty
-        public void TestThatBinsWithEmptyBinStatusAreInvalid()
+        //tests that a BinStatus status cannot be less than 1 - acceptable statuses are 1, 2, and 3
+        public void TestThatBinStatusOfLessThan1IsInvalid()
         {
             testBinStatus.status = 0;
             results = HelperTestModel.Validate(testBinStatus);
