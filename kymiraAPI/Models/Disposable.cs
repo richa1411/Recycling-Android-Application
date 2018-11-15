@@ -9,6 +9,7 @@ namespace kymiraAPI.Models
     public class Disposable
     {
         [Key]
+        [Required(ErrorMessage = "ID is required")]
         public int ID { get; set; }
 
 
@@ -21,8 +22,10 @@ namespace kymiraAPI.Models
         [StringLength(500, ErrorMessage = "Description must be 500 characters or less.")]
         public string description { get; set; }
 
-        //Not required and not a string because in app we will use R.drawable.pictures.{DisposableID/pictureID}
-        public int pictureID { get; set; }
+
+        [Required(ErrorMessage = "PictureID is required")]
+        [StringLength(90, ErrorMessage = "PictureID must be 90 characters or less")]
+        public string pictureID { get; set; }
 
 
         [Required(ErrorMessage = "Disposable must have a recyclable/non-recyclable option")]
