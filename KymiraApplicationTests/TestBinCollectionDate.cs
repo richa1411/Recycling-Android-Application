@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KymiraApplication.Model;
 using KymiraApplication;
-
+using System.Linq;
 
 namespace KymiraApplicationTests
 {
@@ -19,70 +19,43 @@ namespace KymiraApplicationTests
             binColl = new BinCollectionDate { Address = "123 Test Dr", collectionDate = "11/30/2018" }; //date is just a string right now.
         }
 
+        [TestMethod]
         public void testAddressEmpty()
         {
+            binColl.Address = "";
             var results = HelperTestModel.Validate(binColl);
-            //Assert.AreEqual(1, results.Count());
-            //Assert.AreEqual("Please Enter your Phone Number", results[0].ErrorMessage);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Address cannot be an empty field", results[0].ErrorMessage);
         }
-
-
-
-
-
-        public TestBinCollectionDate()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void testDateEmpty()
         {
-            //
-            // TODO: Add test logic here
-            //
+            binColl.collectionDate = "";
+            var results = HelperTestModel.Validate(binColl);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Date is Required", results[0].ErrorMessage);
+
         }
+
+
+
+
+        [TestMethod]
+        public void testValidAddress()
+        {
+            binColl.Address = "123 Test Dr";
+            var results = HelperTestModel.Validate(binColl);
+            Assert.AreEqual(0, results.Count());
+        }
+
+        [TestMethod]
+        public void testValidDate()
+        {
+            binColl.Address = "11/30/2018";
+            var results = HelperTestModel.Validate(binColl);
+            Assert.AreEqual(0, results.Count());
+        }
+
     }
 }
