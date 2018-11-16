@@ -6,6 +6,7 @@ using KymiraApplication.Model;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using KymiraApplication;
 
 namespace KymiraApplicationTests
 {
@@ -14,20 +15,140 @@ namespace KymiraApplicationTests
     /// </summary>
     [TestClass]
     public class TestRecyclablesList
-    { //TODO: Make usre the methods used in ListDisposable are called in the tests, finish adding Objects and arrays for them to work
-        Disposable recItem1;
-        Disposable recItem2;
-        string[] jsonArray;
-        string jsonObject1 = "{ 'name' : 'Paper', 'description' : 'itemDesc', 'imageURL' : 'paper'," +
-            " 'isReyclable' : 'true', 'endResult' : 'Paper is turned into more paper', 'qtyRecycled' : '10', 'recycleReason' : 'Paper can be re-used'}";
-        string jsonObject2 = "{ 'name' : 'Plastic', 'description' : 'itemDesc', 'imageURL' : 'plastic'," +
-            " 'isReyclable' : 'true', 'endResult' : 'plastic is turned into more plastic', 'qtyRecycled' : '10', 'recycleReason' : 'plastic can be re-used'}";
+    { //TODO: Make sure the methods used in ListDisposable are called in the tests, finish adding Objects and arrays for them to work
+        
 
-        string jsonObject3 = "{ 'name' : 'Food', 'description' : 'itemDesc', 'imageURL' : 'food'," +
-            " 'isReyclable' : 'false', 'endResult' : 'food is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'food cannot be re-used'}";
-        string jsonObject4 = "{ 'name' : 'Pizza', 'description' : 'itemDesc', 'imageURL' : 'plastic'," +
-            " 'isReyclable' : 'true', 'endResult' : 'plastic is turned into more plastic', 'qtyRecycled' : '10', 'recycleReason' : 'plastic can be re-used'}";
-        Disposable[] disposables;
+        string[] jsonArray; // This is the JSON Array that we receive from the backend
+
+        string jsonObject1; // This is a JSON Object in the JSON Array
+        string jsonObject2; // This is a JSON Object in the JSON Array
+        string jsonObject3; // This is a JSON Object in the JSON Array
+        string jsonObject4; // This is a JSON Object in the JSON Array
+
+        Disposable[] disposables; // This is an array of disposables, that is returned from the parseDisposable() method
+
+        Disposable recItem1; // This is a Disposable Object in the Disposables Array
+        Disposable recItem2; // This is a Disposable Object in the Disposables Array
+        Disposable recItem3; // This is a Disposable Object in the Disposables Array
+        Disposable recItem4; // This is a Disposable Object in the Disposables Array
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            // Define the JSON Array
+            jsonArray = new string[4]; 
+
+            // Create JSON Objects based off of disposable items, i.e. items that could be pulled from the DB
+             jsonObject1 = "{ 'name' : 'Paper', 'description' : 'itemDesc', 'imageURL' : 'paper'," +
+            " 'isReyclable' : 'true', 'endResult' : 'Paper is turned into more paper', 'qtyRecycled' : '10', 'recycleReason' : 'Paper can be re-used'}";
+
+             jsonObject2 = "{ 'name' : 'Plastic', 'description' : 'itemDesc', 'imageURL' : 'plastic'," +
+                " 'isReyclable' : 'true', 'endResult' : 'plastic is turned into more plastic', 'qtyRecycled' : '10', 'recycleReason' : 'plastic can be re-used'}";
+
+             jsonObject3 = "{ 'name' : 'Food', 'description' : 'itemDesc', 'imageURL' : 'food'," +
+                " 'isReyclable' : 'false', 'endResult' : 'food is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'food cannot be re-used'}";
+
+             jsonObject4 = "{ 'name' : 'Pizza', 'description' : 'itemDesc', 'imageURL' : 'plastic'," +
+                " 'isReyclable' : 'false', 'endResult' : 'pizza is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'pizza cannot be re-used'}";
+
+        }
+
+        /**SendRequestToBackendForRecyclablesTest
+         * 
+         * This test will send a request to the backend
+         * for a list of recyclable items.
+         * The backend will then query the DB for a list
+         * of recyclable materials. These materials will
+         * be returned as an array of JSON Objects. 
+         * 
+         * This test will pass if it receives items in an Array,
+         * and if those items are recyclable.
+         * 
+         * *Note: This Test needs to be done in a way, that will
+         *        check if every object is recyclable rather then
+         *        if objects are equal to pre-defined ones.
+         */
+        [TestMethod]
+        public void SendRequestToBackendForRecyclablesTest()
+        {
+            Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
+
+            jsonArray = requestDisposableList(true); // Call the method to request a list of recyclable items
+
+            Assert.AreEqual(jsonArray[0], jsonObject1); // Test if the Object in the Array, is equal to the premade Object
+            Assert.AreEqual(jsonArray[1], jsonObject2); // May need to be changed, Size of the array, and need to ensure every item is recyclable
+
+            Assert.IsTrue(jsonArray.Length == 2); // Ensure the JSON Array has only the necessary objects in it
+        }
+
+
+        /**SendRequestToBackendForNonRecyclablesTest
+         * 
+         * This test will send a request to the backend
+         * for a list of recyclable items.
+         * The backend will then query the DB for a list
+         * of recyclable materials. These materials will
+         * be returned as an array of JSON Objects. 
+         * 
+         * This test will pass if it receives items in an Array,
+         * and if those items are recyclable.
+         * 
+         * *Note: This Test needs to be done in a way, that will
+         *        check if every object is recyclable rather then
+         *        if objects are equal to pre-defined ones.
+         */
+        [TestMethod]
+        public void SendRequestToBackendForNonRecyclablesTest()
+        {
+            Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
+
+            jsonArray = requestDisposableList(false); // Call the method to request a list of non-recyclable items
+
+            Assert.AreEqual(jsonArray[0], jsonObject3); // Test if the Object in the Array, is equal to the premade Object
+            Assert.AreEqual(jsonArray[1], jsonObject4); // May need to be changed, Size of the array, and need to ensure every item is recyclable
+
+            Assert.IsTrue(jsonArray.Length == 2); // Ensure the JSON Array has only the necessary objects in it
+        }
+
+
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
+        [TestMethod]
+        public void ConvertJsonArrayToDisposablesArrayTest()
+        {
+            jsonArray = requestDisposables(true); // Call requestDisposables() to acquire the data for the JSON array
+
+            Assert.IsTrue(disposables.Length == 0); // Ensure the disposable array is empty
+            Assert.IsTrue(jsonArray.Length != 0); // Ensure JSON Array has data in it
+
+            disposables = parseDisposable(jsonArray); // Call the parseDisposable() Method to generate an Array of Disposable Objects
+
+        }
+
+        /*
+         * We require tests that:
+         * 
+         * -- Check each of the validation rules, and ensure:
+         * 1. Objects cannot be created if they're missing a required attribute
+         * 2. Missing - but not required - attributes are given the correct placeholder information
+         *  These tests will involve using the parseDisposable() method.
+         *  The validation itself, i.e. calling the Validate method, will likely happen in parseDisposable()
+         *  
+         * -- cont.
+         */
+
+
+
+        #region Old Tests -- TODO
         // List<String> nonRecyclables = new List<string> { "People", "knowledge" };
         //Test that the list is created
         public TestRecyclablesList()
@@ -220,5 +341,6 @@ namespace KymiraApplicationTests
             var results = HelperTestModel.Validate(recItem);
             Assert.AreEqual(0, results.Count);
         }
+        #endregion Old Tests
     }
 }

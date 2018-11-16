@@ -31,7 +31,7 @@ namespace KymiraApplication
          *  they press. The backend will then return an array of JSON objects, (array of strings)
          *  to the app. The app then returns this array.
          */
-        private string[] requestDisposableList(bool isReyclable)
+        public string[] requestDisposableList(bool isReyclable)
         {
             return null;
         }
@@ -41,7 +41,7 @@ namespace KymiraApplication
          * It takes each JSON object, and turns it into a Disposable Object. It then adds each object
          * to an array of Disposables. This array is returned
          */
-        private Disposable[] parseDisposable(string[] jsonArray)
+        public Disposable[] parseDisposable(string[] jsonArray)
         {
             return null; 
         }
@@ -50,7 +50,7 @@ namespace KymiraApplication
          *  This method will take in an array of disposable objects, which was acqquired from parseDisposable.
          *  This method will take the disposable objects and display a list of them to the user.
          */
-        private void displayDisposableList(Disposable[] disposables)
+        public void displayDisposableList(Disposable[] disposables)
         {
 
         }
