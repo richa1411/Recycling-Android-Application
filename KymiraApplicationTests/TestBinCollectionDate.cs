@@ -54,5 +54,24 @@ namespace KymiraApplicationTests
           
         }
 
+        [TestMethod]
+        public void testinValidDate()
+        {
+            binColl.collectionDate = "This is not a date";
+            var results = HelperTestModel.Validate(binColl);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Invalid Date format", results[0].ErrorMessage);
+
+        }
+
+        [TestMethod]
+        public void testinValidAddress()
+        {
+            binColl.Address = "this is not a valid address";
+            var results = HelperTestModel.Validate(binColl);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Invalid Address", results[0].ErrorMessage);
+        }
+
     }
 }
