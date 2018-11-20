@@ -16,30 +16,30 @@ namespace KymiraApplication
     {
         private EditText addressField;
        
-        private Button btnlogin;
+        private Button btnLogin;
         private TextView txtDate;
         private TextView txtError;
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            //We have two activities
+
+            //The first activity (addressForCollection) is for non-logged in users which will have a textview for an address field to fill in
+            //and also a button that will submit the address provided. 
+            //Then the application will check the given address with the backend to verify that address exists in the database.
+            //If the address exists, and it is valid a collection date for that address will be displayed in another activity 
+            //(CollectionDate) for the user.
+
+            //The Second Activity (CollectionDate) will have no inputs, but instead will just automatically
+            //check the given address linked to the users account or specified by a non-logged in user with the backend to verify 
+            //that address exists in the database. If the address exists, a collection date for that address will be displayed to the user.
+
+            //Logged in users will automatically be shown the second activity and will never see the first activity unless they log out.
 
 
-            /*if(user is logged in)
-         {
-              //calls json from backend 
-              //checks validatation(Non empty, format) on received date using BinCollectionDate Model class
-              //and displays date with textview 
-               StartActivity(typeof(CollectionDate));
-          }
-          else
-            {
-             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.addressForCollectionPage); //content view is got from Resource that contains layout for our login page
-            btnAddress = (Button)FindViewById(Resource.Id.btnAddress);
-        addressField = (EditText)FindViewById(Resource.Id.etxtAddress);
-            txtDate = (TextView)FindViewById(Resource.Id.tvDate);
-             txtError = (TextView)FindViewById(Resource.Id.tvError);
 
-            btnAddress.Click += btnAddress_Click; //Onclick listener for button
+
+            /*
+
                 //activity displays textview for address
                 //activity displays button to submit entered address
                 //a method for onsubmit button that checks valid address(non empty, format) using BinCollectionDate Model Class
@@ -51,47 +51,10 @@ namespace KymiraApplication
 
             private void btnAddress_Click(object sender, EventArgs e)
             {
-                String address = addressField.Text;
                
-
-                BinCollectionDate objDate = new Credentials { Address = address, collectionDate = ""};
-                var results = ValidationHelper.Validate(objDate);
-
-                if (results.Count == 0)
-                {
-                    btnAddress.Click += async delegate
-                    {
-                        using (var client = new HttpClient())
-                        {
-
-
-                            // create the request content and define Json  
-                            var json = JsonConvert.SerializeObject(objDate);
-                            var content = new StringContent(json, Encoding.UTF8, "application/json");
-                            //TODO: Add proper url 
-                            //  send a POST request  
-                            var uri = "Server=(localdb)\\mssqllocaldb;Database=kymiraAPIContext-bdae60b3-966d-4816-abfe-4aa9d23e2424;Trusted_Connection=True;MultipleActiveResultSets=true";
-                            var result = await client.PostAsync(uri, content);
-
-                            // on error throw a exception  
-                            result.EnsureSuccessStatusCode();
-
-                            // handling the answer  
-                            var resultString = await result.Content.ReadAsStringAsync();
-                            //TODO get back resident object or authentication token
-                            var post = JsonConvert.DeserializeObject<Credentials>(resultString);
-                        }
-                    };
-
-                    StartActivity(typeof(CollectionDate));
-                }
-                else
-                {
-                    txtError.Text = results[0].ErrorMessage;
-                }
             }
             */
-         
+
         }
 
 
