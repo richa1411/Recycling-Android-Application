@@ -21,6 +21,17 @@ namespace KymiraApplication.Model
 
         }
 
+        public Disposable(string name, string description, string imageURL, bool isRecycable, string endResult, int qtyRecycled, string recycleReason )
+        {
+            this.name = name;
+            this.description = description;
+            this.endResult = endResult;
+            this.isRecyclable = isRecyclable;
+            this.qtyRecycled = qtyRecycled;
+            this.recycleReason = recycleReason;
+            this.imageURL = imageURL;
+        }
+
         //The name is required to be a valid disposable 
         //The name must be at least 3 characters long and cannot exceed 15
         [Required(ErrorMessage = "No name is present")]

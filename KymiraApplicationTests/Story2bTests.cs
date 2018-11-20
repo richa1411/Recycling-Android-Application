@@ -24,6 +24,8 @@ namespace KymiraApplicationTests
         string jsonObject2; // This is a JSON Object in the JSON Array
         string jsonObject3; // This is a JSON Object in the JSON Array
         string jsonObject4; // This is a JSON Object in the JSON Array
+        string jsonObject5; // This is a JSON Object in the JSON Array
+        string jsonObject6; // This is a JSON Object in the JSON Array
 
         Disposable[] disposables; // This is an array of disposables, that is returned from the parseDisposable() method
 
@@ -36,7 +38,7 @@ namespace KymiraApplicationTests
         public void TestInitialize()
         {
             // Define the JSON Array
-            jsonArray = new string[4]; 
+            jsonArray = new string[6]; 
 
             // Create JSON Objects based off of disposable items, i.e. items that could be pulled from the DB
              jsonObject1 = "{ 'name' : 'Paper', 'description' : 'itemDesc', 'imageURL' : 'paper'," +
@@ -48,7 +50,13 @@ namespace KymiraApplicationTests
              jsonObject3 = "{ 'name' : 'Food', 'description' : 'itemDesc', 'imageURL' : 'food'," +
                 " 'isReyclable' : 'false', 'endResult' : 'food is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'food cannot be re-used'}";
 
-             jsonObject4 = "{ 'name' : 'Pizza', 'description' : 'itemDesc', 'imageURL' : 'plastic'," +
+             jsonObject4 = "{ 'name' : 'Pizza', 'description' : 'itemDesc', 'imageURL' : 'Pizza'," +
+                " 'isReyclable' : 'false', 'endResult' : 'pizza is not recyclable', 'qtyRecycled' : '0', 'recycleReason' : 'pizza cannot be re-used'}";
+
+            jsonObject5 = "{ 'name' : '', 'description' : 'itemDesc', 'imageURL' : 'plastic'," +
+                 " 'isReyclable' : 'false', 'endResult' : 'pizza is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'pizza cannot be re-used'}";
+
+            jsonObject6 = "{ 'name' : 'Pop tarts', 'description' : '', 'imageURL' : 'plastic'," +
                 " 'isReyclable' : 'false', 'endResult' : 'pizza is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'pizza cannot be re-used'}";
 
         }
@@ -147,6 +155,73 @@ namespace KymiraApplicationTests
          */
 
 
+        /*
+         * This test will test to see if a passed in array of JSON objects is successfully
+         * parsed and turned into an array of Disposable Objects. This test will call
+         * parseDisposables() taking in an array with invalid information. One of the objects
+         * jsonObject5, is missing a name attribute, which is required.
+         * 
+         * This test will pass if the newly created disposables array does not have any objects with
+         * invalid information in it.
+         */
+        public void missingRequiredAttributesTest()
+        {
+            // Create Disposable items to test against
+            recItem1 = new Disposable("Food", "itemDesc", "food", false, "food is not recyclable", 10, "food cannot be re-used");
+            recItem2 = new Disposable("Pizza", "itemDesc", "Pizza", false, "pizza is not recyclable", 0, "pizza cannot be re-used");
+
+            // Add dummy objects to an array - for testing purposes
+            jsonArray[0] = jsonObject3;
+            jsonArray[1] = jsonObject4;
+            jsonArray[2] = jsonObject5;
+
+            // Call parse disposables
+            disposables = parsediposable(jsonArray);
+
+            // Assert that the disposables array only has 2 objects in it
+            Assert.AreEqual(2, disposables.Length);
+
+            // Assert that the objects in the disposables array match our test objects 
+            Assert.AreEqual(disposables[0], recItem1);
+            Assert.AreEqual(disposables[1], recItem2);
+
+
+        }
+
+        /*
+        *  This test will test to see if a passed in array of JSON objects is successfully
+        * parsed and turned into an array of Disposable Objects. This test will call
+        * parseDisposables() taking in an array with invalid information. One of the objects
+        * jsonObject5, is missing a name attribute, which is required.
+        * 
+        * This test will pass if the newly created disposables array does not have any objects with
+        * invalid information in it but has some fields that are not required as empty .
+        */
+        public void missingNonReqiredAttributes()
+        {
+            // Create Disposable items to test against
+            recItem1 = new Disposable("Food", "itemDesc", "food", false, "food is not recyclable", 10, "food cannot be re-used");
+            recItem2 = new Disposable("Pizza", "itemDesc", "Pizza", false, "pizza is not recyclable", 0, "pizza cannot be re-used");
+            recItem3 = new Disposable("Pop tarts", "", "plastic", false, "pizza is not recyclable", 10, "pizza cannot be re-used");
+
+            // Add dummy objects to an array - for testing purposes
+            jsonArray[0] = jsonObject3;
+            jsonArray[1] = jsonObject4;
+            jsonArray[2] = jsonObject6;
+
+            // Call parse disposables
+            disposables = parsediposable(jsonArray);
+
+            // Assert that the disposables array only has 2 objects in it
+            Assert.AreEqual(3, disposables.Length);
+
+            // Assert that the objects in the disposables array match our test objects 
+            Assert.AreEqual(disposables[0], recItem1);
+            Assert.AreEqual(disposables[1], recItem2);
+            Assert.AreEqual(disposables[3], recItem3);
+        }
+
+     
 
         #region Old Tests -- TODO
         // List<String> nonRecyclables = new List<string> { "People", "knowledge" };
@@ -180,6 +255,7 @@ namespace KymiraApplicationTests
         public void testNonEmptyList()
         {
             requestDisposable()
+
         }
 
         //Test that an item has no description
