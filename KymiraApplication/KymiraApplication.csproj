@@ -58,7 +58,8 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ListDisposable.cs" />
+    <Compile Include="ListDisposableActivity.cs" />
+    <Compile Include="Model\ListDisposable.cs" />
     <Compile Include="RecycleActivity.cs" />
     <Compile Include="HomePage.cs" />
     <Compile Include="LoginActivity.cs" />

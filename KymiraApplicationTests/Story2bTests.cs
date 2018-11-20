@@ -16,16 +16,16 @@ namespace KymiraApplicationTests
     [TestClass]
     public class TestRecyclablesList
     { //TODO: Make sure the methods used in ListDisposable are called in the tests, finish adding Objects and arrays for them to work
-        
 
         string[] jsonArray; // This is the JSON Array that we receive from the backend
-
-        string jsonObject1; // This is a JSON Object in the JSON Array
-        string jsonObject2; // This is a JSON Object in the JSON Array
-        string jsonObject3; // This is a JSON Object in the JSON Array
-        string jsonObject4; // This is a JSON Object in the JSON Array
-        string jsonObject5; // This is a JSON Object in the JSON Array
-        string jsonObject6; // This is a JSON Object in the JSON Array
+         
+        string jsonObject1; // This is a JSON Object in the JSON Array that represents a recycable object with valid information
+        string jsonObject2; // This is a JSON Object in the JSON Array that represents a recycable object with valid information
+        string jsonObject3; // This is a JSON Object in the JSON Array that represents a non-recycable object with valid information
+        string jsonObject4; // This is a JSON Object in the JSON Array that represents a non-recycable object with valid information
+        string jsonObject5; // This is a JSON Object in the JSON Array that represents a non-recycable with a missing name attribute
+        string jsonObject6; // This is a JSON Object in the JSON Array that represents a non-recycable with a missing description attribute
+        string jsonObject7; // This is a JSON Object in the JSON Array that represents a recyclable with no ImageURL property
 
         Disposable[] disposables; // This is an array of disposables, that is returned from the parseDisposable() method
 
@@ -59,7 +59,19 @@ namespace KymiraApplicationTests
             jsonObject6 = "{ 'name' : 'Pop tarts', 'description' : '', 'imageURL' : 'plastic'," +
                 " 'isReyclable' : 'false', 'endResult' : 'pizza is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'pizza cannot be re-used'}";
 
+            jsonObject7 = "{ 'name' : 'Cardboard', 'description' : 'itemDesc', 'imageURL' : ''," +
+                " 'isReyclable' : 'true', 'endResult' : 'cardboard is turned into more cardboard', 'qtyRecycled' : '20', 'recycleReason' : 'cardboard can be re-used'}";
+
+
+            recItem1 = new Disposable("Food", "itemDesc", "food", false, "food is not recyclable", 10, "food cannot be re-used");
+            recItem2 = new Disposable("Pizza", "itemDesc", "Pizza", false, "pizza is not recyclable", 0, "pizza cannot be re-used");
+            recItem3 = new Disposable("Pop tarts", "", "plastic", false, "pizza is not recyclable", 10, "pizza cannot be re-used");
+            recItem4 = new Disposable("Cardboard", "itemDesc", "No_Image", true, "cardboard is turned into more cardboard", 20, "cardboard can be re-used");
+
         }
+
+        #region ListDisposable Method Tests
+
 
         /**SendRequestToBackendForRecyclablesTest
          * 
@@ -81,7 +93,7 @@ namespace KymiraApplicationTests
         {
             Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
 
-            jsonArray = requestDisposableList(true); // Call the method to request a list of recyclable items
+            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableList(true); // Call the method to request a list of recyclable items
 
             Assert.AreEqual(jsonArray[0], jsonObject1); // Test if the Object in the Array, is equal to the premade Object
             Assert.AreEqual(jsonArray[1], jsonObject2); // May need to be changed, Size of the array, and need to ensure every item is recyclable
@@ -110,7 +122,7 @@ namespace KymiraApplicationTests
         {
             Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
 
-            jsonArray = requestDisposableList(false); // Call the method to request a list of non-recyclable items
+            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableList(false); // Call the method to request a list of non-recyclable items
 
             Assert.AreEqual(jsonArray[0], jsonObject3); // Test if the Object in the Array, is equal to the premade Object
             Assert.AreEqual(jsonArray[1], jsonObject4); // May need to be changed, Size of the array, and need to ensure every item is recyclable
@@ -133,29 +145,20 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void ConvertJsonArrayToDisposablesArrayTest()
         {
-            jsonArray = requestDisposables(true); // Call requestDisposables() to acquire the data for the JSON array
+            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableList(true); // Call requestDisposables() to acquire the data for the JSON array
 
             Assert.IsTrue(disposables.Length == 0); // Ensure the disposable array is empty
             Assert.IsTrue(jsonArray.Length != 0); // Ensure JSON Array has data in it
 
-            disposables = parseDisposable(jsonArray); // Call the parseDisposable() Method to generate an Array of Disposable Objects
+            disposables = KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray); // Call the parseDisposable() Method to generate an Array of Disposable Objects
 
         }
 
-        /*
-         * We require tests that:
+
+
+
+        /* missingRequiredAttributesTest
          * 
-         * -- Check each of the validation rules, and ensure:
-         * 1. Objects cannot be created if they're missing a required attribute
-         * 2. Missing - but not required - attributes are given the correct placeholder information
-         *  These tests will involve using the parseDisposable() method.
-         *  The validation itself, i.e. calling the Validate method, will likely happen in parseDisposable()
-         *  
-         * -- cont.
-         */
-
-
-        /*
          * This test will test to see if a passed in array of JSON objects is successfully
          * parsed and turned into an array of Disposable Objects. This test will call
          * parseDisposables() taking in an array with invalid information. One of the objects
@@ -166,9 +169,6 @@ namespace KymiraApplicationTests
          */
         public void missingRequiredAttributesTest()
         {
-            // Create Disposable items to test against
-            recItem1 = new Disposable("Food", "itemDesc", "food", false, "food is not recyclable", 10, "food cannot be re-used");
-            recItem2 = new Disposable("Pizza", "itemDesc", "Pizza", false, "pizza is not recyclable", 0, "pizza cannot be re-used");
 
             // Add dummy objects to an array - for testing purposes
             jsonArray[0] = jsonObject3;
@@ -176,7 +176,7 @@ namespace KymiraApplicationTests
             jsonArray[2] = jsonObject5;
 
             // Call parse disposables
-            disposables = parsediposable(jsonArray);
+            disposables = KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray);
 
             // Assert that the disposables array only has 2 objects in it
             Assert.AreEqual(2, disposables.Length);
@@ -188,21 +188,20 @@ namespace KymiraApplicationTests
 
         }
 
-        /*
+        /* missingNonReqiredAttributesTest
+         * 
         *  This test will test to see if a passed in array of JSON objects is successfully
         * parsed and turned into an array of Disposable Objects. This test will call
-        * parseDisposables() taking in an array with invalid information. One of the objects
-        * jsonObject5, is missing a name attribute, which is required.
+        * parseDisposables() taking in an array with missing information. One of the objects
+        * jsonObject6, is missing a description attribute. However, since this attribute is not required
+        * it will still be able to add that object to the disposables Array.
         * 
-        * This test will pass if the newly created disposables array does not have any objects with
-        * invalid information in it but has some fields that are not required as empty .
+        * This test will pass if the newly created disposables array only has
+        * JSON objects in it that either have all the information, or are only missing
+        * non-mandatory information; like the description.
         */
-        public void missingNonReqiredAttributes()
+        public void missingNonReqiredAttributesTest()
         {
-            // Create Disposable items to test against
-            recItem1 = new Disposable("Food", "itemDesc", "food", false, "food is not recyclable", 10, "food cannot be re-used");
-            recItem2 = new Disposable("Pizza", "itemDesc", "Pizza", false, "pizza is not recyclable", 0, "pizza cannot be re-used");
-            recItem3 = new Disposable("Pop tarts", "", "plastic", false, "pizza is not recyclable", 10, "pizza cannot be re-used");
 
             // Add dummy objects to an array - for testing purposes
             jsonArray[0] = jsonObject3;
@@ -210,7 +209,7 @@ namespace KymiraApplicationTests
             jsonArray[2] = jsonObject6;
 
             // Call parse disposables
-            disposables = parsediposable(jsonArray);
+            disposables = KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray);
 
             // Assert that the disposables array only has 2 objects in it
             Assert.AreEqual(3, disposables.Length);
@@ -221,202 +220,330 @@ namespace KymiraApplicationTests
             Assert.AreEqual(disposables[3], recItem3);
         }
 
-     
 
-        #region Old Tests -- TODO
-        // List<String> nonRecyclables = new List<string> { "People", "knowledge" };
-        //Test that the list is created
-        public TestRecyclablesList()
+        /* missingImageAttributeTest
+         * 
+        *  This test will test to see if a passed in array of JSON objects is successfully
+        * parsed and turned into an array of Disposable Objects. This test will call
+        * parseDisposables() taking in an array with missing information. One of the objects
+        * jsonObject7, is missing an image attribute. If the image attribute is missing, it will
+        * be replaced with a placeholder image. 
+        * 
+        * This test will pass if the newly created disposables array has valid objects
+        * in it, no objects have an empty string or a non-existant image as their ImageUrl property,
+        * and any invalid ImageURL properties are set to a placeholder image.
+        */
+        public void missingImageAttributeTest()
         {
-            recyclables = new List<Disposable>();
-            recItem = new Disposable { name = "Paper", description = null, imageURL = "image1.png", isRecyclable = true, endResult = "Paper is turned into more paper",
-            qtyRecycled = 10, recycleReason = "Paper can be re-used"};
+
+            // Add dummy objects to an array - for testing purposes
+            jsonArray[0] = jsonObject1;
+            jsonArray[1] = jsonObject2;
+            jsonArray[2] = jsonObject7;
+
+            // Call parse disposables
+            disposables = KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray);
+
+            // Assert that the disposables array only has 2 objects in it
+            Assert.AreEqual(3, disposables.Length);
+
+            // Assert that the objects in the disposables array match our test objects 
+            Assert.AreEqual(disposables[0], recItem1);
+            Assert.AreEqual(disposables[1], recItem2);
+            Assert.AreEqual(disposables[2], recItem3);
+
         }
 
-        //Test for empty list
-        //Input: an empty list
-        //Expectation: an exception that tells the user there was a problem 
+        #endregion ListDisposable Method Tests
+
+
+        #region Validation Tests
+
+
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void testEmptyList()
         {
-            recyclables = new List<Disposable>();
-            if (recyclables.Count == 0)
+            disposables = new Disposable[0];
+            if (disposables.Length < 1)
             {
                 throw new Exception("There seems to be a problem with the items at this time");
             }
-            Assert.IsTrue(recyclables.Count == 0);
+            Assert.IsTrue(disposables.Length < 1);
         }
 
-        //Test that a list is not empty
-        //Input: a list with a disposable item
-        //Expectation: The recycables list has a count greater than 0
-        [TestMethod]
-        public void testNonEmptyList()
-        {
-            requestDisposable()
 
-        }
-
-        //Test that an item has no description
-        //Input: a recItem with no description.
-        //Expectation: recItem's description is empty and should still pass validation
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testNoDescription()
         {
-            Assert.IsNull(recItem.description);
-            var results = HelperTestModel.Validate(recItem);
+            Assert.IsNull(recItem1.description);
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
 
         }
 
-        //Test that an item with a description is valid
-        //Input: A recycable item with a desription
-        //Expectation: The item is valid 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testDescription()
         {         
-            recItem.description = "It is Paper";
-            Assert.IsTrue(recItem.description == "It is Paper");
-            var results = HelperTestModel.Validate(recItem);
+            recItem1.description = "It is Paper";
+            Assert.IsTrue(recItem1.description == "It is Paper");
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
         }
 
-        //Test that an entry with no item will be replaced with a placeholder 
-        //Input: an item with no image url
-        //Expectation: if the item has no image url, set it to the default
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testNoImage()
         {
-            recItem.imageURL = "";
-            var results = HelperTestModel.Validate(recItem);
-            if (results.Count() == 1)
-            {
-                Assert.AreEqual("The imageURL field is required.", results[0].ErrorMessage);
-                results.Clear();
-                recItem.imageURL = "/prj2.cosmo/KymiraApplication/Resources/drawable/No_Image.png";
-                results = HelperTestModel.Validate(recItem);
-                Assert.AreEqual(0, results.Count);
-            }
+            recItem1.imageURL = "";
+            var results = HelperTestModel.Validate(recItem1);
+            Assert.AreEqual(1, results.Count());
         }
 
-        //Test that an item with an image is valid
-        //Input: an item with an image
-        //Expectation: The item passes validation 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testImage()
         {
-            recItem.imageURL = "image1.png";
-            Assert.IsTrue(recItem.imageURL == "image1.png");
+            recItem1.imageURL = "Paper";
+            Assert.IsTrue(recItem1.imageURL == "image1.png");
 
-            var results = HelperTestModel.Validate(recItem);
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count());
         }
 
-        //Test if an entry has no name
-        //Input: an item with no name
-        //Expectation: The item fails validation with the error "no name is present" 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testNoName()
         {
-            recItem.name = "";
-            Assert.IsTrue(recItem.name == "");
-            var results = HelperTestModel.Validate(recItem);
+            recItem1.name = "";
+            Assert.IsTrue(recItem1.name == "");
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("No name is present", results[0].ErrorMessage);
         }
 
-        //Test that a recycalbe status exists
-        //Input: an item with a status
-        //Expectation: item passes validation
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testReyclableStatusExists()
         {
-            Assert.IsTrue(recItem.isRecyclable == true);
-            var results = HelperTestModel.Validate(recItem);
+            Assert.IsTrue(recItem1.isRecyclable == true);
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count());
         }
 
-        //Test that a status does 
-        [TestMethod]
-        public void testRecyclableStatusDoesNotExist()
-        {
-            var results = HelperTestModel.Validate(recItem);
-            Assert.AreEqual(1, results.Count());
-           // Assert.AreEqual("No name is present", results[0].ErrorMessage);
-        }
 
-        //Test an item with a name
-        //Input: an item with a name of Paper
-        //Expectation: The item passes validation 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testName()
         {
-            recItem.name = "Paper";
-            Assert.IsTrue(recItem.name == "Paper");
-            var results = HelperTestModel.Validate(recItem);
+            recItem1.name = "Paper";
+            Assert.IsTrue(recItem1.name == "Paper");
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
         }
 
-        //Test an item with no record for turned into
-        //Expectation: still passes validation 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testNoTurnedInto()
         {
-            recItem.endResult = "";
-            Assert.IsTrue(recItem.endResult == "");
-            var results = HelperTestModel.Validate(recItem);
+            recItem1.endResult = "";
+            Assert.IsTrue(recItem1.endResult == "");
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
         }
 
-        //Test that item has something to turn into
-        //Expectation: passes validation 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testTurnedInto()
         {
-            recItem.endResult = "Paper is turned into more paper";
-            Assert.IsTrue(recItem.endResult == "Paper is turned into more paper");
-            var results = HelperTestModel.Validate(recItem);
+            recItem1.endResult = "Paper is turned into more paper";
+            Assert.IsTrue(recItem1.endResult == "Paper is turned into more paper");
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
         }
 
-        //Test that item doesnt have a quantity
-        //Expectation: still passes validation 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testNoitemQuantity()
         {
-            recItem.qtyRecycled = 0;
-            Assert.IsTrue(recItem.qtyRecycled == 0);
-            var results = HelperTestModel.Validate(recItem);
+            recItem1.qtyRecycled = 0;
+            Assert.IsTrue(recItem1.qtyRecycled == 0);
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
         }
 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testitemQuanity()
         {
-            recItem.qtyRecycled = 10;
-            Assert.IsTrue(recItem.qtyRecycled == 10);
-            var results = HelperTestModel.Validate(recItem);
+            recItem1.qtyRecycled = 10;
+            Assert.IsTrue(recItem1.qtyRecycled == 10);
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
         }
 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testNoRecyclableReason()
         {
-            recItem.recycleReason = "";
-            Assert.IsTrue(recItem.recycleReason == "");
-            var results = HelperTestModel.Validate(recItem);
+            recItem1.recycleReason = "";
+            Assert.IsTrue(recItem1.recycleReason == "");
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
         }
 
+        /** ConvertJsonArrayToDisposablesArrayTest
+         * 
+         * This test will test to see if the array of JSON Objects 
+         * acquired from requestDisposables() can be successfully
+         * converted into an array of Disposable Objects.
+         * 
+         * This test will pass if it is able to receive an array
+         * of Disposable Objects that has the same data from the JSON
+         * Array that was sent in the praseDisposable() Method.
+         *
+         */
         [TestMethod]
         public void testRecyclableReason()
         {
-            recItem.recycleReason = "Paper can be re-used";
-            Assert.IsTrue(recItem.recycleReason == "Paper can be re-used");
-            var results = HelperTestModel.Validate(recItem);
+            recItem1.recycleReason = "Paper can be re-used";
+            Assert.IsTrue(recItem1.recycleReason == "Paper can be re-used");
+            var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
         }
-        #endregion Old Tests
+        #endregion Validation Tests
     }
 }
