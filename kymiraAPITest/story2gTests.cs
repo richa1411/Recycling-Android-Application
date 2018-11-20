@@ -2,12 +2,15 @@
 using System;
 using kymiraAPI;
 using kymiraAPI.Models;
+using System.Threading.Tasks;
 
 namespace kymiraAPITest
 {
     [TestClass]
     public class story2gTests
     {
+        string dispURL = "http://localhost:55085/api/Disposables/5/";
+
         Disposable testDbItem = new Disposable{
             ID = 1,
             name = "Glass Bottles",
@@ -18,6 +21,28 @@ namespace kymiraAPITest
             endResult = "Glass Bottles End Result",
             qtyRecycled = 1000
         };
+
+        Disposable sendTest = new Disposable
+        {
+            name = "Glass Bottles",
+            description = "These are Glass Bottles",
+            pictureID = "tomatoes",
+            isRecyclable = true,
+            recyclableReason = "Glass Bottles Reason",
+            endResult = "Glass Bottles End Result",
+            qtyRecycled = 1000
+        };
+
+        //************ FUNCTIONAL TESTS ************
+
+        [TestMethod]
+        public async Task TestSendValidJson()
+        {
+            jsonHandler testJSON = new jsonHandler();
+            var success = await testJSON.sendJsonAsync(sendTest, dispURL);
+            Assert.AreEqual("Registration successful!", success);
+        }
+
 
 
         [TestMethod]
