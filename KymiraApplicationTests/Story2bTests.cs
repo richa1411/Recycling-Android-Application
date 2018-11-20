@@ -93,7 +93,7 @@ namespace KymiraApplicationTests
         {
             Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
 
-            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableList(true); // Call the method to request a list of recyclable items
+            jsonArray = KymiraApplication.Model. requestDisposableList(true); // Call the method to request a list of recyclable items
 
             Assert.AreEqual(jsonArray[0], jsonObject1); // Test if the Object in the Array, is equal to the premade Object
             Assert.AreEqual(jsonArray[1], jsonObject2); // May need to be changed, Size of the array, and need to ensure every item is recyclable

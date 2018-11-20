@@ -2337,11 +2337,7 @@ namespace KymiraApplication
 			public const int logoWhite = 2130837603;
 			
 			// aapt resource value: 0x7f020064
-<<<<<<< HEAD
-			public const int No_Image = 2130837604;
-=======
 			public const int navigation_empty_icon = 2130837604;
->>>>>>> master
 			
 			// aapt resource value: 0x7f020065
 			public const int notification_action_background = 2130837605;
@@ -2422,13 +2418,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080037
 			public const int SYM = 2131230775;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800b3
-			public const int action0 = 2131230899;
-=======
 			// aapt resource value: 0x7f0800bf
 			public const int action0 = 2131230911;
->>>>>>> master
 			
 			// aapt resource value: 0x7f08007c
 			public const int action_bar = 2131230844;
@@ -2451,30 +2442,17 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08005a
 			public const int action_bar_title = 2131230810;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800b0
-			public const int action_container = 2131230896;
-=======
 			// aapt resource value: 0x7f0800bc
 			public const int action_container = 2131230908;
->>>>>>> master
 			
 			// aapt resource value: 0x7f08007d
 			public const int action_context_bar = 2131230845;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800b7
-			public const int action_divider = 2131230903;
-			
-			// aapt resource value: 0x7f0800b1
-			public const int action_image = 2131230897;
-=======
 			// aapt resource value: 0x7f0800c3
 			public const int action_divider = 2131230915;
 			
 			// aapt resource value: 0x7f0800bd
 			public const int action_image = 2131230909;
->>>>>>> master
 			
 			// aapt resource value: 0x7f080003
 			public const int action_menu_divider = 2131230723;
@@ -2491,16 +2469,6 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08005c
 			public const int action_mode_close_button = 2131230812;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800cc
-			public const int action_settings = 2131230924;
-			
-			// aapt resource value: 0x7f0800b2
-			public const int action_text = 2131230898;
-			
-			// aapt resource value: 0x7f0800c0
-			public const int actions = 2131230912;
-=======
 			// aapt resource value: 0x7f0800d8
 			public const int action_settings = 2131230936;
 			
@@ -2509,7 +2477,6 @@ namespace KymiraApplication
 			
 			// aapt resource value: 0x7f0800cc
 			public const int actions = 2131230924;
->>>>>>> master
 			
 			// aapt resource value: 0x7f08005d
 			public const int activity_chooser_view_content = 2131230813;
@@ -2565,19 +2532,6 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f0800bb
 			public const int btnLogin = 2131230907;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800ae
-			public const int btnNonRecyclable = 2131230894;
-			
-			// aapt resource value: 0x7f0800ad
-			public const int btnRecyclable = 2131230893;
-			
-			// aapt resource value: 0x7f080070
-			public const int buttonPanel = 2131230832;
-			
-			// aapt resource value: 0x7f0800b4
-			public const int cancel_action = 2131230900;
-=======
 			// aapt resource value: 0x7f0800a6
 			public const int btnSubmit = 2131230886;
 			
@@ -2586,7 +2540,6 @@ namespace KymiraApplication
 			
 			// aapt resource value: 0x7f0800c0
 			public const int cancel_action = 2131230912;
->>>>>>> master
 			
 			// aapt resource value: 0x7f080045
 			public const int center = 2131230789;
@@ -2603,16 +2556,11 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f0800c8
 			public const int chronometer = 2131230920;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800bc
-			public const int chronometer = 2131230908;
-=======
 			// aapt resource value: 0x7f08009f
 			public const int city_label = 2131230879;
 			
 			// aapt resource value: 0x7f0800a0
 			public const int city_value = 2131230880;
->>>>>>> master
 			
 			// aapt resource value: 0x7f08004e
 			public const int clip_horizontal = 2131230798;
@@ -2674,13 +2622,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080030
 			public const int end = 2131230768;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800c2
-			public const int end_padder = 2131230914;
-=======
 			// aapt resource value: 0x7f0800ce
 			public const int end_padder = 2131230926;
->>>>>>> master
 			
 			// aapt resource value: 0x7f08003f
 			public const int enterAlways = 2131230783;
@@ -2736,13 +2679,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080062
 			public const int icon = 2131230818;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800c1
-			public const int icon_group = 2131230913;
-=======
 			// aapt resource value: 0x7f0800cd
 			public const int icon_group = 2131230925;
->>>>>>> master
 			
 			// aapt resource value: 0x7f08003a
 			public const int ifRoom = 2131230778;
@@ -2750,13 +2688,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08005f
 			public const int image = 2131230815;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800bd
-			public const int info = 2131230909;
-=======
 			// aapt resource value: 0x7f0800b7
 			public const int imgLogo = 2131230903;
->>>>>>> master
 			
 			// aapt resource value: 0x7f0800c9
 			public const int info = 2131230921;
@@ -2791,19 +2724,6 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080061
 			public const int list_item = 2131230817;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800af
-			public const int lvMaterials = 2131230895;
-			
-			// aapt resource value: 0x7f0800c5
-			public const int masked = 2131230917;
-			
-			// aapt resource value: 0x7f0800b6
-			public const int media_actions = 2131230902;
-			
-			// aapt resource value: 0x7f0800c3
-			public const int message = 2131230915;
-=======
 			// aapt resource value: 0x7f0800d1
 			public const int masked = 2131230929;
 			
@@ -2812,7 +2732,6 @@ namespace KymiraApplication
 			
 			// aapt resource value: 0x7f0800cf
 			public const int message = 2131230927;
->>>>>>> master
 			
 			// aapt resource value: 0x7f080031
 			public const int middle = 2131230769;
@@ -2823,25 +2742,6 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080028
 			public const int multiply = 2131230760;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800c6
-			public const int nav_camera = 2131230918;
-			
-			// aapt resource value: 0x7f0800c7
-			public const int nav_gallery = 2131230919;
-			
-			// aapt resource value: 0x7f0800c9
-			public const int nav_manage = 2131230921;
-			
-			// aapt resource value: 0x7f0800cb
-			public const int nav_send = 2131230923;
-			
-			// aapt resource value: 0x7f0800ca
-			public const int nav_share = 2131230922;
-			
-			// aapt resource value: 0x7f0800c8
-			public const int nav_slideshow = 2131230920;
-=======
 			// aapt resource value: 0x7f0800d2
 			public const int nav_camera = 2131230930;
 			
@@ -2859,7 +2759,6 @@ namespace KymiraApplication
 			
 			// aapt resource value: 0x7f0800d4
 			public const int nav_slideshow = 2131230932;
->>>>>>> master
 			
 			// aapt resource value: 0x7f0800af
 			public const int navigation_header_container = 2131230895;
@@ -2873,22 +2772,11 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08001e
 			public const int normal = 2131230750;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800bf
-			public const int notification_background = 2131230911;
-			
-			// aapt resource value: 0x7f0800b9
-			public const int notification_main_column = 2131230905;
-			
-			// aapt resource value: 0x7f0800b8
-			public const int notification_main_column_container = 2131230904;
-=======
 			// aapt resource value: 0x7f0800cb
 			public const int notification_background = 2131230923;
 			
 			// aapt resource value: 0x7f0800c5
 			public const int notification_main_column = 2131230917;
->>>>>>> master
 			
 			// aapt resource value: 0x7f0800c4
 			public const int notification_main_column_container = 2131230916;
@@ -2944,19 +2832,11 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08004a
 			public const int right = 2131230794;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800be
-			public const int right_icon = 2131230910;
-			
-			// aapt resource value: 0x7f0800ba
-			public const int right_side = 2131230906;
-=======
 			// aapt resource value: 0x7f0800ca
 			public const int right_icon = 2131230922;
 			
 			// aapt resource value: 0x7f0800c6
 			public const int right_side = 2131230918;
->>>>>>> master
 			
 			// aapt resource value: 0x7f08000c
 			public const int save_image_matrix = 2131230732;
@@ -3060,13 +2940,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08004b
 			public const int start = 2131230795;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800b5
-			public const int status_bar_latest_event_content = 2131230901;
-=======
 			// aapt resource value: 0x7f0800c1
 			public const int status_bar_latest_event_content = 2131230913;
->>>>>>> master
 			
 			// aapt resource value: 0x7f080076
 			public const int submenuarrow = 2131230838;
@@ -3107,13 +2982,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080015
 			public const int textinput_error = 2131230741;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800bb
-			public const int time = 2131230907;
-=======
 			// aapt resource value: 0x7f0800c7
 			public const int time = 2131230919;
->>>>>>> master
 			
 			// aapt resource value: 0x7f08001c
 			public const int title = 2131230748;
@@ -3169,13 +3039,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080016
 			public const int view_offset_helper = 2131230742;
 			
-<<<<<<< HEAD
-			// aapt resource value: 0x7f0800c4
-			public const int visible = 2131230916;
-=======
 			// aapt resource value: 0x7f0800d0
 			public const int visible = 2131230928;
->>>>>>> master
 			
 			// aapt resource value: 0x7f08003c
 			public const int withText = 2131230780;
@@ -3366,11 +3231,7 @@ namespace KymiraApplication
 			public const int HomePage = 2130968617;
 			
 			// aapt resource value: 0x7f04002a
-<<<<<<< HEAD
-			public const int MaterialInfo = 2130968618;
-=======
 			public const int LoginPage = 2130968618;
->>>>>>> master
 			
 			// aapt resource value: 0x7f04002b
 			public const int notification_action = 2130968619;
