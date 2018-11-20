@@ -23,8 +23,9 @@ namespace kymiraAPITest
         [TestMethod]
         public void AllRecyclableInformationIsValidTest()
         {
-            Assert.IsNotNull(testDbItem.name);
-            Assert.AreEqual("Glass Bottles", testDbItem.name);
+
+            var results = HelperTestModel.Validate(testDbItem);
+            Assert.AreEqual(0, results.Count);
 
         }
 
@@ -121,6 +122,16 @@ namespace kymiraAPITest
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Description must be 500 characters or less.", results[0].ErrorMessage);
             //error
+
+        }
+        [TestMethod]
+        public void TestThatDescriptionis500Characters()
+        {
+            testDbItem.description = new string('a', 500);
+            var results = HelperTestModel.Validate(testDbItem);
+            Assert.AreEqual(0, results.Count);
+            
+           
 
         }
 
@@ -234,6 +245,16 @@ namespace kymiraAPITest
 
 
         }
+        [TestMethod]
+        public void TestThatRecyclableReasonIs500Characters()
+        {
+            testDbItem.recyclableReason = new string('a', 500);
+            var results = HelperTestModel.Validate(testDbItem);
+            Assert.AreEqual(0, results.Count);
+         
+
+
+        }
 
         /**
         * Test that Recyable Reason cannot be empty. result is invalid
@@ -283,6 +304,17 @@ namespace kymiraAPITest
 
 
         }
+        [TestMethod]
+        public void TestThatisEndResultIs500Characters()
+        {
+
+            testDbItem.endResult = new string('a', 500);
+            var results = HelperTestModel.Validate(testDbItem);
+            Assert.AreEqual(0, results.Count);
+          
+
+
+        }
         /**
          * Tests that the end result cannot be empty. Result is invalid
          * */
@@ -317,6 +349,9 @@ namespace kymiraAPITest
 
 
         }
+
+
+
 
 
 

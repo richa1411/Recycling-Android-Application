@@ -36,7 +36,8 @@ namespace kymiraAPI.Controllers
             //    return BadRequest(ModelState);
             //}
 
-            var disposable = await _context.DisposableDBSet.SingleOrDefaultAsync(m => m.isRecyclable == isDisposable);
+            //var disposable = await _context.DisposableDBSet.LoadAsync(m => m.isRecyclable == isDisposable);
+            var disposable = await _context.DisposableDBSet.Where(m => m.isRecyclable == isDisposable).ToListAsync();
 
             if (disposable == null)
             {
@@ -81,20 +82,20 @@ namespace kymiraAPI.Controllers
         //    return NoContent();
         //}
 
-        //// POST: api/Disposables
-        //[HttpPost]
-        //public async Task<IActionResult> PostDisposable([FromBody] Disposable disposable)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // POST: api/Disposables
+        [HttpPost]
+        public async Task<IActionResult> PostDisposable([FromBody] Disposable disposable)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    _context.Disposable.Add(disposable);
-        //    await _context.SaveChangesAsync();
+            _context.DisposableDBSet.Add(disposable);
+            await _context.SaveChangesAsync();
 
-        //    return CreatedAtAction("GetDisposable", new { id = disposable.ID }, disposable);
-        //}
+            return CreatedAtAction("GetDisposable", new { id = disposable.ID }, disposable);
+        }
 
         //// DELETE: api/Disposables/5
         //[HttpDelete("{id}")]
