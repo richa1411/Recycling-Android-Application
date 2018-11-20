@@ -13,16 +13,28 @@ namespace KymiraApplication.Model.Tests
     public class BinStatusTests
     {
         BinStatus testBinStatus;
+        BinStatus testBinStatusBad;
         public List<ValidationResult> results;
+        public List<ValidationResult> moreResults;
+        BinStatus[] binArray = new BinStatus[2];
 
         [TestInitialize()]
-        //this setup method runs for each test and creates a valid BinStatus object to be tested against
+        //this setup method runs for each test and creates a valid BinStatus and an invalid object to be tested against (also an array of both)
         public void setup()
         {
             testBinStatus = new BinStatus();
             testBinStatus.binID = 1;
             testBinStatus.binAddress = "123 Test Street";
             testBinStatus.status = 2;
+
+            testBinStatusBad = new BinStatus();
+            testBinStatusBad.binID = -1;
+            testBinStatusBad.binAddress = "123 Example Street";
+            testBinStatusBad.status = 2;
+
+            binArray[0] = testBinStatus;
+            binArray[1] = testBinStatusBad;
+
         }
 
         //************* ADDRESS TESTS *************
@@ -80,6 +92,7 @@ namespace KymiraApplication.Model.Tests
         //tests that the bin object ID is valid
         public void TestThatBinWithPosIDIsValid()
         {
+            //backend will return a BinStatus object with a binID of 1 if the address has a match in the database
             testBinStatus.binID = 1;
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(0, results.Count());
@@ -93,17 +106,6 @@ namespace KymiraApplication.Model.Tests
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
-        }
-
-        [TestMethod]
-        //tests that a bin object can only have an int as an id
-        public void TestThatBinsWithIntIDsAreValid()
-        {
-            //results = HelperTestModel.Validate(testBinStatus);
-            //Assert.AreEqual(0, results.Count());
-            //int value;
-            //int.TryParse(testBinStatus.binID, out value);
-            //Assert.AreEqual(value, testBinStatus.binID);
         }
 
         [TestMethod]
@@ -129,11 +131,42 @@ namespace KymiraApplication.Model.Tests
         }
 
         [TestMethod]
-        //tests that a bin object BinStatus of one of the valid numbers is valid
+        //tests that a bin object BinStatus of one of the valid numbers is valid (1, 2, or 3)
         public void TestThatBinsWithProperBinStatusAreValid()
         {
+            testBinStatus.status = 2;
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(0, results.Count());
         }
+
+        [TestMethod]
+        //Tests that one invalid bin in an array of received bins will display an error message
+        public void TestThatInvalidBinInArrayIsInvalid()
+        {
+            results = HelperTestModel.Validate(binArray[0]);
+            moreResults = HelperTestModel.Validate(binArray[1]);
+
+            Assert.AreEqual(0, results.Count());
+            Assert.AreEqual(1, moreResults.Count());
+            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", moreResults[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        //Tests that an array containing all valid bins is valid
+        public void TestThatValidBinArrayIsValid()
+        {
+            testBinStatusBad.binID = 2;
+
+            binArray[0] = testBinStatus;
+            binArray[1] = testBinStatusBad;
+
+            results = HelperTestModel.Validate(binArray[0]);
+            moreResults = HelperTestModel.Validate(binArray[1]);
+
+            Assert.AreEqual(0, results.Count());
+            Assert.AreEqual(0, moreResults.Count());
+        }
+
+
     }
 }
