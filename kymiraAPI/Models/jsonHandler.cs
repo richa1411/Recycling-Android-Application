@@ -49,8 +49,10 @@ namespace kymiraAPI.Models
         }
 
         // This method handles receiving json from the uri specified
-        public async Task<String> receiveJsonAsync(Uri uri)
+        public async Task<String> receiveJsonAsync(String strUri)
         {
+
+            Uri uri = new Uri(strUri, UriKind.Absolute);
             // Create an HttpResponse message to hold the response from the back end
             HttpResponseMessage response = await client.GetAsync(uri);
 
@@ -70,7 +72,30 @@ namespace kymiraAPI.Models
 
            
         }
-        
+
+        // This method handles receiving json from the uri specified
+        public async Task<String> receiveSpecJsonAsync(Uri uri, Object o)
+        {
+            // Create an HttpResponse message to hold the response from the back end
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            // Check if the message was sent successfully
+            if (response.IsSuccessStatusCode)
+            {
+                //Create a varialbe to contain the response of the response's GET
+                var content = await response.Content.ReadAsStringAsync();
+
+                return content;
+            }
+            // If there were errors receiving the JSON, let the user know
+            else
+            {
+                return "Error receiving data";
+            }
+
+
+        }
+
 
 
     }
