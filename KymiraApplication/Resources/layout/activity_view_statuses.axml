@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="@string/binStatusLayoutTitle"
+        android:id="@+id/binStatusTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+    <TextView
+        android:text="@string/address"
+        android:id="@+id/addressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/binStatusTitle" />
+    <EditText
+        android:id="@+id/addressEntry"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:inputType="text"
+        android:layout_toRightOf="@+id/addressLabel" />
+    <Button
+        android:id="@+id/submitAddress"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/submitAddress"
+        android:layout_below="@+id/addressEntry" />
+    <ListView
+        android:id="@+id/binStatusList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/submitAddress" />
+</RelativeLayout>
