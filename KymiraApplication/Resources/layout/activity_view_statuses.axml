@@ -27,9 +27,16 @@
         android:layout_width="wrap_content"
         android:text="@string/submitAddress"
         android:layout_below="@+id/addressEntry" />
+    <TextView
+        android:text="Bins: "
+        android:id="@+id/binAddressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/submitAddress"
+        android:gravity="center" />
     <ListView
         android:id="@+id/binStatusList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/submitAddress" />
+        android:layout_below="@+id/binAddressLabel" />
 </RelativeLayout>
