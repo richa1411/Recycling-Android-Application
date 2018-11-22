@@ -9,7 +9,7 @@ namespace kymiraAPITest
     [TestClass]
     public class story2gTests
     {
-        string dispURL = "http://localhost:55085/api/Disposables/5/";
+        string dispURL = "http://localhost:55085/api/Disposables/";
 
         Disposable testDbItem = new Disposable{
             ID = 1,
@@ -40,7 +40,7 @@ namespace kymiraAPITest
         {
             jsonHandler testJSON = new jsonHandler();
             var success = await testJSON.sendJsonAsync(sendTest, dispURL);
-            Assert.AreEqual("Registration successful!", success);
+            Assert.AreEqual("Success", success);
         }
 
 

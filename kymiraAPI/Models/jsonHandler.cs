@@ -39,12 +39,12 @@ namespace kymiraAPI.Models
             // If JSON was sent successfully, return that
             if(response.IsSuccessStatusCode)
             {
-                return response.ToString();
+                return "Success";
             }
             // Else, notify user that it failed
             else
             {
-                return response.ToString();
+                return response.StatusCode.ToString();
             }
         }
 
