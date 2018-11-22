@@ -44,5 +44,14 @@ namespace KymiraApplication.Model
         {
 
         }
+
+        /**
+         * This method will take in an array of disposable objects, and add placeholder images to them if
+         * any objects in the array don't have images assigned to them. It then returns the disposables array, with images.
+         */ 
+        public static Disposable[] addPlaceholders(Disposable[] disposables)
+        {
+            return null;
+        }
     }
 }

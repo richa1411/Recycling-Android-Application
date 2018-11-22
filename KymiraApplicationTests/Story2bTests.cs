@@ -93,7 +93,7 @@ namespace KymiraApplicationTests
         {
             Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
 
-            jsonArray = KymiraApplication.Model. requestDisposableList(true); // Call the method to request a list of recyclable items
+            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableList(true); // Call the method to request a list of recyclable items
 
             Assert.AreEqual(jsonArray[0], jsonObject1); // Test if the Object in the Array, is equal to the premade Object
             Assert.AreEqual(jsonArray[1], jsonObject2); // May need to be changed, Size of the array, and need to ensure every item is recyclable
@@ -260,15 +260,12 @@ namespace KymiraApplicationTests
         #region Validation Tests
 
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestEmptyList
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if an exception occurs if no information can be retrieved
+         * for the list of Recyclables.
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will throw an Exception stating there is a problem retrieving the items.
          *
          */
         [TestMethod]
@@ -284,15 +281,13 @@ namespace KymiraApplicationTests
         }
 
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestNoDescription
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to make sure no errors are thrown if the description
+         * field is left blank.
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if a blank description is added, and if
+         * no errors are thrown when validation is performed on that description.
          *
          */
         [TestMethod]
@@ -304,15 +299,13 @@ namespace KymiraApplicationTests
 
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestDescription
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see that no errors are thrown if the
+         * description field exists.
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if an item has a description and no errors
+         * occur. 
          *
          */
         [TestMethod]
@@ -324,55 +317,58 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestNoImage
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to make sure an error is thrown if an object
+         * has no image. This test will make use of addPlaceholders() to
+         * add in our placeholder image to the necessary objects.
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if a Disposable Object without an image
+         * is given an image after calling addPlaceholders()
          *
          */
         [TestMethod]
         public void testNoImage()
         {
-            recItem1.imageURL = "";
-            var results = HelperTestModel.Validate(recItem1);
+            disposables[0].imageURL = "";
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count());
+
+            KymiraApplication.Model.ListDisposable.addPlaceholders(disposables);
+
+            Assert.AreEqual(disposables[0].imageURL, "No_Image.png");
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestImage
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if no errors are thrown
+         * when a disposable object has a valid image.
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if no errors occur when a disposable object
+         * has a valid image.
          *
          */
         [TestMethod]
         public void testImage()
         {
-            recItem1.imageURL = "Paper";
-            Assert.IsTrue(recItem1.imageURL == "image1.png");
+            disposables[0].imageURL = "Paper.png";
+            Assert.IsTrue(disposables[0].imageURL == "Paper.png");
 
-            var results = HelperTestModel.Validate(recItem1);
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count());
+
+            KymiraApplication.Model.ListDisposable.addPlaceholders(disposables);
+
+            Assert.AreEqual(disposables[0].imageURL, "Paper.png");
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestNoName()
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if an error is thrown properly when
+         * a disposable object has no name.
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if it is able to throw an error when
+         * an object with no name is found.
          *
          */
         [TestMethod]
@@ -385,15 +381,13 @@ namespace KymiraApplicationTests
             Assert.AreEqual("No name is present", results[0].ErrorMessage);
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestReyclableStatusExists()
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if no errors are thrown
+         * when an item has a valid isRecyclable status
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if no errors occur when an object with an isRecyclable 
+         * status is found.
          *
          */
         [TestMethod]
@@ -405,15 +399,12 @@ namespace KymiraApplicationTests
         }
 
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestName()
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if no errors are thrown
+         * when an item has a valid name
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if no errors occur when an object with a name is found. 
          *
          */
         [TestMethod]
@@ -425,15 +416,12 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestNoTurnedInto()
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if no errors are thrown
+         * when an item has a no endResult field
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if no errors occur when an object with no endResult is found. 
          *
          */
         [TestMethod]
@@ -445,15 +433,12 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestTurnedInto
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if no errors are thrown
+         * when an item has a valid endResult field
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if no errors occur when an object with an endResult is found. 
          *
          */
         [TestMethod]
@@ -465,15 +450,12 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestNoItemQuantity
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if no errors are thrown
+         * when an item has no qtyRecycled field.
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if no errors occur when an object with an empty qtyRecycled is found
          *
          */
         [TestMethod]
@@ -485,15 +467,12 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestItemQuantity
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if no errors are thrown
+         * when an item has a valid qtyRecycled
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if no errors occur when an object with a valid qtyRecycled is found. 
          *
          */
         [TestMethod]
@@ -505,15 +484,12 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestNoRecyclableReason
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if no errors are thrown
+         * when an item has an empty recycleReason
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if no errors occur when an object with an empty recycleReason is found. 
          *
          */
         [TestMethod]
@@ -525,15 +501,12 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
-        /** ConvertJsonArrayToDisposablesArrayTest
+        /** TestRecyclable
          * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
+         * This test will test to see if no errors are thrown
+         * when an item has a valid RecycleReason
          * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This test will pass if no errors occur when an object with a valid RecycleReason is found. 
          *
          */
         [TestMethod]
