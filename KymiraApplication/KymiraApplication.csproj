@@ -138,17 +138,12 @@
     <AndroidResource Include="Resources\drawable\logoWhite.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\activity_collectionDates.axml">
+    <AndroidResource Include="Resources\layout\AddressForCollection.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\addressForCollection.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\BinCollectionDate.axml">
+    <AndroidResource Include="Resources\layout\CollectionDate.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

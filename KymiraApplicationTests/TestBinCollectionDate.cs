@@ -83,7 +83,7 @@ namespace KymiraApplicationTests
             //the application will show an error message specifying an invalid address
         }
 
-        public void testvalidAddress()
+        public void testValidAddress()
         {
             //when the user enters a valid address string in the address textView field and the user taps the submit button
             //the application will take the user to the second activity which will display the next two collection dates

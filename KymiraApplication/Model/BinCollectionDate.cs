@@ -16,6 +16,9 @@ namespace KymiraApplication.Model
 {
    public class BinCollectionDate
     {
+        //add comments
+
+        
         [Required(ErrorMessage = "Address cannot be an empty field")]
         [RegularExpression(@"^\d+\s[A-z]+\s[A-z]+", ErrorMessage = "Invalid Address")]
         public string Address { get; set; }
