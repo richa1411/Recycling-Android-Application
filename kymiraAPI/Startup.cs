@@ -29,9 +29,7 @@ namespace kymiraAPI
 
             services.AddDbContext<kymiraAPIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("kymiraAPIContext")));
-
-
-           
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

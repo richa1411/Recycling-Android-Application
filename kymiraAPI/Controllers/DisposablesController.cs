@@ -28,8 +28,8 @@ namespace kymiraAPI.Controllers
         }
 
         // GET: api/Disposables/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDisposable([FromRoute] bool isDisposable)
+        [HttpGet("{isRecyclable}")]
+        public async Task<IActionResult> GetDisposable([FromRoute] bool isRecyclable)
         {
             //if (!ModelState.IsValid)
             //{
@@ -37,7 +37,7 @@ namespace kymiraAPI.Controllers
             //}
 
             //var disposable = await _context.DisposableDBSet.LoadAsync(m => m.isRecyclable == isDisposable);
-            var disposable = await _context.DisposableDBSet.Where(m => m.isRecyclable == isDisposable).ToListAsync();
+            var disposable = await _context.DisposableDBSet.Where(m => m.isRecyclable == isRecyclable).ToListAsync();
 
             if (disposable == null)
             {
