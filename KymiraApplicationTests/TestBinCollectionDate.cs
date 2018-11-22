@@ -31,6 +31,7 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void testDateEmpty()
         {
+            //This will be seem by the backend
             binColl.collectionDate = "";
             var results = HelperTestModel.Validate(binColl);
             Assert.AreEqual(1, results.Count());
@@ -72,6 +73,44 @@ namespace KymiraApplicationTests
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Invalid Address", results[0].ErrorMessage);
         }
+
+
+        //UI Tests
+          
+        public void testEmptyAddress()
+        {
+            //when the there is an empty string in the address textView field and the user taps the submit button
+            //the application will show an error message specifying an invalid address
+        }
+
+        public void testvalidAddress()
+        {
+            //when the user enters a valid address string in the address textView field and the user taps the submit button
+            //the application will take the user to the second activity which will display the next two collection dates
+        }
+
+        public void testInvalidAddress()
+        {
+            //when the user enters an invalid address string in the address textView field (address is in the incorrect format) 
+            //and the user taps the submit button, the application will show an error message specifying an invalid address
+        }
+
+        public void testUserNavigatesToSecondActivity()
+        {
+            //when the user enters a valid address (correct format) and taps the submit button
+            //as a result the user will be taken to a new page (second activity) that will display the next two collection dates if in the database
+        }
+
+        public void testNoAvailableDates()
+        {
+            //when the user enters a valid address (correct format) and taps the submit button
+            //as a result the user will be taken to a new page (second activity) that will display an error message "No dates available, please try again later"
+            //if there are no dates in the database
+        }
+
+
+
+
 
     }
 }
