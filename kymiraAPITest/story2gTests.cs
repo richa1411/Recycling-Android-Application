@@ -27,7 +27,7 @@ namespace kymiraAPITest
             name = "Glass Bottles",
             description = "These are Glass Bottles",
             pictureID = "tomatoes",
-            isRecyclable = true,
+            isRecyclable = false,
             recyclableReason = "Glass Bottles Reason",
             endResult = "Glass Bottles End Result",
             qtyRecycled = 1000
@@ -39,14 +39,14 @@ namespace kymiraAPITest
         public async Task TestSendValidJson()
         {
             jsonHandler testJSON = new jsonHandler();
-            //var success = await testJSON.sendJsonAsync(sendTest, dispURL);
-            //Assert.AreEqual("Success", success);
+            var success = await testJSON.sendJsonAsync(sendTest, dispURL);
+            Assert.AreEqual("Success", success);
         }
         [TestMethod]
         public async Task TestGetValidJson()
         {
             jsonHandler testJSON = new jsonHandler();
-            var success = await testJSON.receiveJsonAsync(dispURL);
+            var success = await testJSON.receiveSpecJsonAsync(dispURL, true);
             Assert.AreEqual("Success", success);
 
             

@@ -74,10 +74,17 @@ namespace kymiraAPI.Models
         }
 
         // This method handles receiving json from the uri specified
-        public async Task<String> receiveSpecJsonAsync(Uri uri, Object o)
+        public async Task<String> receiveSpecJsonAsync(String strUri, bool isResc)
         {
+
+            Uri uri = new Uri(strUri, UriKind.Absolute);
+
+            var json = JsonConvert.SerializeObject(new { isRecyclable = isResc});
+
+
+            var contents = new StringContent(json, Encoding.UTF8, "application/json");
             // Create an HttpResponse message to hold the response from the back end
-            HttpResponseMessage response = await client.GetAsync(uri);
+            HttpResponseMessage response = await client.PostAsync(uri, contents);
 
             // Check if the message was sent successfully
             if (response.IsSuccessStatusCode)
