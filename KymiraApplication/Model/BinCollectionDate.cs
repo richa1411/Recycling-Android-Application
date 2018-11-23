@@ -19,10 +19,16 @@ namespace KymiraApplication.Model
         //add comments
 
         
+        //Validators:
+            //Address must be required. If it is empty an error message will be displayed.
+            //Also uses a regular expression for input that will allow for addresses in the format '### Address Dr"
         [Required(ErrorMessage = "Address cannot be an empty field")]
         [RegularExpression(@"^\d+\s[A-z]+\s[A-z]+", ErrorMessage = "Invalid Address")]
         public string Address { get; set; }
 
+        //Validators:
+        //Address must be required. If it is empty an error message will be displayed.
+        //Also uses a regular expression for input that will allow for addresses in the format '### Address Dr"
         [Required(ErrorMessage = "Date is Required")]
         //Will Accept MM/DD/YYYY format
         [RegularExpression(@"^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$", ErrorMessage = "Invalid Date format")]
