@@ -275,7 +275,7 @@ namespace KymiraApplicationTests
             disposables = new Disposable[0];
             if (disposables.Length < 1)
             {
-                throw new Exception("There seems to be a problem with the items at this time");
+                throw new Exception("Error connecting to server, please try again later.");
             }
             Assert.IsTrue(disposables.Length < 1);
         }

@@ -17,15 +17,21 @@ namespace KymiraApplication
     public class ListDisposable : Activity
     {
         string[] jsonArray;
+        private Button btnRec;
+        private Button btnNonRec;
+        private ListView lvItems;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            SetContentView(Resource.Layout.ItemListPage); 
+            btnRec = (Button)FindViewById(Resource.Id.btnRecyclable);
+            btnNonRec = (Button)FindViewById(Resource.Id.btnNonRecyclable);
+            lvItems = (ListView)FindViewById(Resource.Id.lvItemList);
 
-            // Create your application here
 
             //KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray);
-            
+
         }
 
        
