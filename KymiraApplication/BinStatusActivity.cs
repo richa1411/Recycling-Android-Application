@@ -30,16 +30,23 @@ namespace KymiraApplication.Resources
         private IListAdapter listAdapter;
 
         private ArrayList binStatusObjects;
-        private string[] binStatusArray;
+        private string[] binsReceived;
+        private string[] listPlaceholder;
+        //private string[] binStatusArray;
 
         List<ValidationResult> validationResults;
 
         private jsonHandler jsonHandler;
+        private SimBinStatusBackend simBinStatusBackend;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            binStatusObjects= new ArrayList();
 
+            
+            binStatusObjects= new ArrayList();
+            listPlaceholder = new string[1];
+            listPlaceholder[0] = "Discovered bins will be displayed here";
+            /*
             BinStatus a = new BinStatus();
             BinStatus b = new BinStatus();
             BinStatus c = new BinStatus();
@@ -66,14 +73,14 @@ namespace KymiraApplication.Resources
                 string binStr = "Bin ID: " + bs.binID + "\t" + "Status: " + convertBinStatusToString(bs.status);
                 binStatusArray[i] = binStr;
                 
-            }
+            } */
 
 
           
            // binStatusArray[0] = "BIN ID: 1837\tStatus: CLEAN!!!";
 
             base.OnCreate(savedInstanceState);
-            listAdapter = new ArrayAdapter<string>(this,Resource.Layout.bin_status_list_item, binStatusArray);
+            listAdapter = new ArrayAdapter<string>(this,Resource.Layout.bin_status_list_item, listPlaceholder);
 
             SetContentView(Resource.Layout.activity_view_statuses);
 
@@ -86,7 +93,7 @@ namespace KymiraApplication.Resources
             lvBins = FindViewById<ListView>(Resource.Id.binStatusList);
             lvBins.Adapter = listAdapter;
 
-            tvAddressLabel.Text = "Bins found at: " + a.binAddress;
+            //tvAddressLabel.Text = "Bins found at: " + a.binAddress;
 
             //click events
             btnSubmit.Click += BtnSubmit_Click;
@@ -129,10 +136,36 @@ namespace KymiraApplication.Resources
             }
             else
             {
-                var sendSuccess = await jsonHandler.sendJsonAsync(binStatusSend, "https://jsonplaceholder.typicode.com/posts");
+                //var sendSuccess = await jsonHandler.sendJsonAsync(binStatusSend, "https://jsonplaceholder.typicode.com/posts");
 
-                checkReceivedObject(sendSuccess);
-                
+                //checkReceivedObject(sendSuccess);
+
+                //Simulated call to the back end
+                simBinStatusBackend = new SimBinStatusBackend();
+
+                BinStatus binReceived = new BinStatus();
+
+                binReceived = simBinStatusBackend.checkListOfBins(binStatusSend);
+
+                if(binReceived.binID != -1)
+                {
+                    binStatusObjects.Add(binReceived);
+                    BinStatus bs = (BinStatus)binStatusObjects[0];
+                    binsReceived = new string[binStatusObjects.Count];                  
+                    string binStr = "Bin ID: " + bs.binID + "\t" + "Status: " + convertBinStatusToString(bs.status);
+                    binsReceived[0] = binStr;
+                    listAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
+                    lvBins.Adapter = listAdapter;
+
+                }
+                else if(binReceived.binID == -1)
+                {
+                    Toast.MakeText(this, "No bins associated with that address.", ToastLength.Long).Show();
+                }
+                else
+                {
+                    Toast.MakeText(this, "Something went wrong, try again in a few minutes", ToastLength.Long).Show();
+                }
             }
 
         }

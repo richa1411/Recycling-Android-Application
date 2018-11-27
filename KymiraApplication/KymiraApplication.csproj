@@ -67,6 +67,7 @@
     <Compile Include="BinStatusActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimBinStatusBackend.cs" />
     <Compile Include="ValidationHelper.cs" />
   </ItemGroup>
   <ItemGroup>
