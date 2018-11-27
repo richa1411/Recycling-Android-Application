@@ -74,8 +74,11 @@ namespace kymiraAPI.Models
         }
 
         // This method handles receiving json from the uri specified
-        public async Task<String> receiveSpecJsonAsync(String strUri, bool isResc)
+        public async Task<DisposableList> receiveSpecJsonAsync(String strUri, bool isResc)
         {
+           
+
+            strUri += isResc ? "true" : "false";
 
             Uri uri = new Uri(strUri, UriKind.Absolute);
 
@@ -84,7 +87,7 @@ namespace kymiraAPI.Models
 
             var contents = new StringContent(json, Encoding.UTF8, "application/json");
             // Create an HttpResponse message to hold the response from the back end
-            HttpResponseMessage response = await client.PostAsync(uri, contents);
+            HttpResponseMessage response = await client.GetAsync(uri);
 
             // Check if the message was sent successfully
             if (response.IsSuccessStatusCode)
@@ -92,12 +95,16 @@ namespace kymiraAPI.Models
                 //Create a varialbe to contain the response of the response's GET
                 var content = await response.Content.ReadAsStringAsync();
 
-                return content;
+
+                return  JsonConvert.DeserializeObject<DisposableList>(content);
+                
+
+               
             }
             // If there were errors receiving the JSON, let the user know
             else
             {
-                return "Error receiving data";
+               throw new Exception("no work");
             }
 
 
@@ -105,5 +112,10 @@ namespace kymiraAPI.Models
 
 
 
+    }
+    public class DisposableList
+    {
+        [JsonProperty("Disposable")]
+        public IList<Disposable> Disposables { get; set; }
     }
 }

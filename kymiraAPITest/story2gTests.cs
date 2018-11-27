@@ -24,12 +24,12 @@ namespace kymiraAPITest
 
         Disposable sendTest = new Disposable
         {
-            name = "Glass Bottles",
-            description = "These are Glass Bottles",
-            pictureID = "tomatoes",
-            isRecyclable = false,
-            recyclableReason = "Glass Bottles Reason",
-            endResult = "Glass Bottles End Result",
+            name = "Hey",
+            description = "I'm a Potatoe",
+            pictureID = "Potatoe",
+            isRecyclable = true,
+            recyclableReason = "Cause",
+            endResult = "tomatoe sauce",
             qtyRecycled = 1000
         };
 
@@ -46,8 +46,11 @@ namespace kymiraAPITest
         public async Task TestGetValidJson()
         {
             jsonHandler testJSON = new jsonHandler();
-            var success = await testJSON.receiveSpecJsonAsync(dispURL, true);
-            Assert.AreEqual("Success", success);
+
+            DisposableList success = await testJSON.receiveSpecJsonAsync(dispURL, true);
+
+            Assert.IsTrue(success.Disposables.Count > 0);
+            
 
             
         }

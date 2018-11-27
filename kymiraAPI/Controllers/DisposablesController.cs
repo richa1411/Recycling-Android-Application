@@ -36,9 +36,9 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var disposable = await _context.DisposableDBSet.SingleOrDefaultAsync(m => m.isRecyclable == isRecyclable);
+          
             
-            //var disposable = await _context.DisposableDBSet.Where(m => m.isRecyclable == isRecyclable).ToListAsync();
+            var disposable = await _context.DisposableDBSet.Where(m => m.isRecyclable == isRecyclable).ToListAsync();
 
             if (disposable == null)
             {
