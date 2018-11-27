@@ -10,9 +10,10 @@ using Android.Views;
 using Android.Widget;
 using Newtonsoft.Json;
 using KymiraApplication.Model;
-
+using Org.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
+
 
 namespace KymiraApplication
 {
@@ -24,15 +25,15 @@ namespace KymiraApplication
         private jsonHandler jsonHandler;
 
         List<ValidationResult> validationResult;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
-
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.CollectionDate);
 
-            var receivedObject = Intent.GetSerializableExtra("RecievedJSON");
+            var receivedObject = JsonConvert.DeserializeObject<BinCollectionDate>(Intent.GetStringExtra("ReceivedJSON"));
+
+            //receivedObject.collectionDate1;
 
             tvCollectionDate1 = FindViewById<EditText>(Resource.Id.tvCollectionDate1);
             tvCollectionDate2 = FindViewById<EditText>(Resource.Id.tvCollectionDate2);

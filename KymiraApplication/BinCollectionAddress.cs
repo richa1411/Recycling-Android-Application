@@ -126,7 +126,9 @@ namespace KymiraApplication
                         Intent intent = new Intent(this, typeof(DisplayBinCollectionDate));
 
                         //Serializing takes an object and turns it into a string
-                        intent.PutExtra("RecievedJSON", JsonConvert.SerializeObject(receivedObject));
+                        intent.PutExtra("ReceivedJSON", JsonConvert.SerializeObject(receivedObject));
+
+                        this.StartActivity(intent);
 
                     }
                 }

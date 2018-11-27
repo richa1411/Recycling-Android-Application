@@ -32,6 +32,14 @@ namespace KymiraApplication.Model
         [Required(ErrorMessage = "Date is Required")]
         //Will Accept MM/DD/YYYY format
         [RegularExpression(@"^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$", ErrorMessage = "Invalid Date format")]
-        public string collectionDate { get; set; }
+        public string collectionDate1 { get; set; }
+
+
+        [Required(ErrorMessage = "Date is Required")]
+        //Will Accept MM/DD/YYYY format
+        [RegularExpression(@"^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$", ErrorMessage = "Invalid Date format")]
+        public string collectionDate2 { get; set; }
+
+
     }
 }

@@ -16,7 +16,7 @@ namespace KymiraApplicationTests
         [TestInitialize]
         public void InitializeTest()
         {
-            binColl = new BinCollectionDate { Address = "123 Test Dr", collectionDate = "11/30/2018" }; //date is just a string right now.
+            binColl = new BinCollectionDate { Address = "123 Test Dr", collectionDate1 = "11/30/2018" }; //date is just a string right now.
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace KymiraApplicationTests
         public void testDateEmpty()
         {
             //This will be seem by the backend
-            binColl.collectionDate = "";
+            binColl.collectionDate1 = "";
             var results = HelperTestModel.Validate(binColl);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Date is Required", results[0].ErrorMessage);
@@ -49,7 +49,7 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void testValidDate()
         {
-            binColl.collectionDate = "11/30/2018";
+            binColl.collectionDate1 = "11/30/2018";
             var results = HelperTestModel.Validate(binColl);
             Assert.AreEqual(0, results.Count());
           
@@ -58,7 +58,7 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void testInValidDate()
         {
-            binColl.collectionDate = "This is not a valid date";
+            binColl.collectionDate1 = "This is not a valid date";
             var results = HelperTestModel.Validate(binColl);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Invalid Date format", results[0].ErrorMessage);
