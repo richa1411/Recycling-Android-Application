@@ -76,7 +76,35 @@ namespace KymiraApplication.Model
 
            
         }
-        
+
+
+        //This method handles sending a serialized json object to the uri specified
+        public async Task<HttpResponseMessage> sendJsonAsync(Object obj, String strUri)
+        {
+            //Conver the given string to a URI
+            Uri uri = new Uri(strUri, UriKind.Absolute);
+
+            // Serialize the Registration item into a JSON object
+            var json = JsonConvert.SerializeObject(obj);
+
+            // Convert the JSON object to be StringContent
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // Create an HttpResponseMessage to hold the response of the HttpClient's POST
+            HttpResponseMessage response = await client.PostAsync(uri, content);
+
+            // If JSON was sent successfully, return that
+            if (response.IsSuccessStatusCode)
+            {
+                return response;
+            }
+            // Else, notify user that it failed
+            else
+            {
+                return response;
+            }
+        }
+
 
 
     }
