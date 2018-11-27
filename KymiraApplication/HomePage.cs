@@ -21,7 +21,8 @@ namespace KymiraApplication
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.HomePage);
+            SetContentView(Resource.Layout.addressForCollection);
+            StartActivity(typeof(BinCollectionAddress));
         }
     }
 }
