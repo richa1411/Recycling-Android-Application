@@ -12,7 +12,6 @@ namespace TestGUIBinCollectionDate
 
             //get the app manifest that will have the name of the file
             return ConfigureApp.Android.InstalledApp("com.cosmoindustries.kymira").StartApp();
-
         }
     }
 }

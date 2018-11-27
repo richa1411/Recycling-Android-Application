@@ -11,7 +11,6 @@ using Android.Widget;
 using Newtonsoft.Json;
 using KymiraApplication.Model;
 
-
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 
@@ -47,12 +46,15 @@ namespace KymiraApplication
         private TextView tvError;
         private jsonHandler jsonHandler;
         List<ValidationResult> validationResult;
+        DisplayBinCollectionDate displayBinCollectionDate;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             BinCollectionDate objCollection = new BinCollectionDate();
             objCollection.Address = "123 test";
+
+
             
             //assign values to private properties of the class
             //activity displays textview for address
@@ -60,7 +62,7 @@ namespace KymiraApplication
             base.OnCreate(savedInstanceState);
            // listAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binStatusArray);
 
-            SetContentView(Resource.Layout.AddressForCollection);
+            SetContentView(Resource.Layout.addressForCollection);
 
             //Assigning UI controls
            
@@ -95,7 +97,7 @@ namespace KymiraApplication
                 var sendSuccess = await jsonHandler.sendJsonAsync(binCollectionDate, "https://jsonplaceholder.typicode.com/posts");
 
                 checkReceivedObject(sendSuccess);
-
+                
             }
 
         }
@@ -103,14 +105,17 @@ namespace KymiraApplication
         {
             if (sendSuccess.IsSuccessStatusCode)
             {
-                var receivedObject = await jsonHandler.receiveJsonAsync(https://jsonplaceholder.typicode.com/posts/1);
+                var receivedObject = await jsonHandler.receiveJsonAsync("https://jsonplaceholder.typicode.com/posts/1");
 
                 //Toast.MakeText(this, receiveSuccess, ToastLength.Long).Show();
                 if (receivedObject.IsSuccessStatusCode)
                 {
                     string binCollectionJSON = await receivedObject.Content.ReadAsStringAsync();
-                    BinCollectionAddress binStatusReceived = JsonConvert.DeserializeObject<BinCollectionAddress>(binCollectionJSON);
-                    validationResult = ValidationHelper.Validate(binStatusReceived);
+
+                    //Deserialization takes a string and puts it back into an object
+                    BinCollectionAddress binCollectionDateReceived = JsonConvert.DeserializeObject<BinCollectionAddress>(binCollectionJSON);
+
+                    validationResult = ValidationHelper.Validate(binCollectionDateReceived);
 
                     if (validationResult.Count > 0)
                     {
@@ -118,8 +123,10 @@ namespace KymiraApplication
                     }
                     else
                     {
-                        StartActivity(typeof(DisplayBinCollectionDate));
-                   
+                        Intent intent = new Intent(this, typeof(DisplayBinCollectionDate));
+
+                        //Serializing takes an object and turns it into a string
+                        intent.PutExtra("RecievedJSON", JsonConvert.SerializeObject(receivedObject));
 
                     }
                 }
@@ -165,7 +172,7 @@ namespace KymiraApplication
 
 
 
-    }
+    
 }
  
  
