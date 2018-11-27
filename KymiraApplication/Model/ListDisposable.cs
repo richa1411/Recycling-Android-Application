@@ -14,10 +14,6 @@ namespace KymiraApplication.Model
 {
     public class ListDisposable
     {
-
-        
-        
-
         /**
         *  This method will send a request to the backend, asking for a list of the
         *  disposables. isRecyclable is either true if the user wants a list of recyclable
@@ -29,20 +25,20 @@ namespace KymiraApplication.Model
         {
             string[] jsonArray;
             string stringToJson = "";
-            
+            jsonHandler jsonHandler = new jsonHandler();
 
             // Send a Request, with the isReyclable set.
             if (isReyclable == true)
             {
-                stringToJson = @"{ isRecyclable: 'true' }";
+                jsonArray = jsonHandler.receiveSpecJsonAsync("localhost", true);
 
             }
             else
             {
-                stringToJson = @"{ isRecyclable: 'false' }";
+                jsonArray = jsonHandler.receiveSpecJsonAsync("localhost", false);
             }
 
-            jsonHandler jsonHandler = new jsonHandler();
+            
 
             jsonHandler.sendJsonAsync(stringToJson, );
 
