@@ -93,7 +93,7 @@ namespace KymiraApplicationTests
         {
             Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
 
-            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableList(true); // Call the method to request a list of recyclable items
+            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(true); // Call the method to request a list of recyclable items
 
             Assert.AreEqual(jsonArray[0], jsonObject1); // Test if the Object in the Array, is equal to the premade Object
             Assert.AreEqual(jsonArray[1], jsonObject2); // May need to be changed, Size of the array, and need to ensure every item is recyclable
@@ -122,7 +122,7 @@ namespace KymiraApplicationTests
         {
             Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
 
-            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableList(false); // Call the method to request a list of non-recyclable items
+            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(false); // Call the method to request a list of non-recyclable items
 
             Assert.AreEqual(jsonArray[0], jsonObject3); // Test if the Object in the Array, is equal to the premade Object
             Assert.AreEqual(jsonArray[1], jsonObject4); // May need to be changed, Size of the array, and need to ensure every item is recyclable
@@ -145,7 +145,7 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void ConvertJsonArrayToDisposablesArrayTest()
         {
-            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableList(true); // Call requestDisposables() to acquire the data for the JSON array
+            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(true); // Call requestDisposables() to acquire the data for the JSON array
 
             Assert.IsTrue(disposables.Length == 0); // Ensure the disposable array is empty
             Assert.IsTrue(jsonArray.Length != 0); // Ensure JSON Array has data in it

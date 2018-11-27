@@ -63,6 +63,7 @@
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\Disposable.cs" />
     <Compile Include="Model\jsonHandler.cs" />
+    <Compile Include="Model\jsonHandlerDisposable.cs" />
     <Compile Include="Model\ListDisposable.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\ValidationHelper.cs" />

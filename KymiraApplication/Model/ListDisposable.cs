@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,41 +22,37 @@ namespace KymiraApplication.Model
         *  they press. The backend will then return an array of JSON objects, (array of strings)
         *  to the app. The app then returns this array.
         */
-        public static string[] requestDisposableList(bool isReyclable)
+        public static async void requestDisposableListAsync(bool isReyclable)
         {
-            string[] jsonArray;
+            List<Disposable> disposablesList;
             string stringToJson = "";
-            jsonHandler jsonHandler = new jsonHandler();
+            jsonHandlerDisposable jsonHandler = new jsonHandlerDisposable();
 
             // Send a Request, with the isReyclable set.
             if (isReyclable == true)
             {
-                jsonArray = jsonHandler.receiveSpecJsonAsync("localhost", true);
+                disposablesList = await jsonHandler.receiveSpecJsonAsync("localhost", true);
 
             }
             else
             {
-                jsonArray = jsonHandler.receiveSpecJsonAsync("localhost", false);
+                disposablesList = await jsonHandler.receiveSpecJsonAsync("localhost", false);
             }
-
-            
-
-            jsonHandler.sendJsonAsync(stringToJson, );
-
-            jsonHandler.receiveJsonAsync();
 
             //Check to see if the returned JSON Object has data in it
 
             // If it doesn't have data
-            if (jsonArray.Length == 0)
+            if (disposablesList.Count() == 0)
             {
                 // Throw an exception -- Cannot retrieve data at this time
                 throw new Exception("Error connecting to server, please try again later.");
             }
 
+           
+
             // else
             // Take the array of JSON objects and call parseDisposable
-            parseDisposable(jsonArray);
+            parseDisposable(disposablesList);
 
             
 
@@ -66,20 +63,21 @@ namespace KymiraApplication.Model
          * It takes each JSON object, and turns it into a Disposable Object. It then adds each object
          * to an array of Disposables. This array is returned
          */
-        public static Disposable[] parseDisposable(string[] jsonArray)
+        public static List<Disposable> parseDisposable(List<Disposable> disposablesList)
         {
-            Disposable[] disposables = new Disposable[jsonArray.Length];
+            Disposable[] disposables = disposablesList.ToArray();
+
 
             // For each JSON Object in the array
-            for (int i = 0; i < jsonArray.Length; i++)
+            for (int i = 0; i < disposables.Length; i++)
             {
-                // Convert object to a Disposable Object
-                Disposable disposable = new Disposable(); //TODO
-                // Validation
-
 
                 // Add Object to a Disposables Array
                 disposables[i] = disposable;
+
+                // We need to recreate this disposable obejcts, which will double check the validation
+
+                
             }
 
             // Go through the disposables array and only call addPlaceholders
