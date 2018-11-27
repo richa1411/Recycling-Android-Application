@@ -43,19 +43,37 @@ namespace kymiraAPITest
             var success = await testJSON.sendJsonAsync(sendTest, dispURL);
             Assert.AreEqual("Success", success);
         }
+
         [TestMethod]
-        public async Task TestGetValidJson()
+        public async Task TestGetValidJsonRecyclable()
         {
             jsonHandler testJSON = new jsonHandler();
 
             List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, true);
 
             Assert.IsTrue(success.Count > 0);
-            
 
+            foreach (Disposable item in success) {
+                Assert.AreEqual(true, item.isRecyclable);
+            }
             
         }
 
+        [TestMethod]
+        public async Task TestGetValidJsonNotRecyclable()
+        {
+            jsonHandler testJSON = new jsonHandler();
+
+            List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, false);
+
+            Assert.IsTrue(success.Count > 0);
+
+            foreach (Disposable item in success)
+            {
+                Assert.AreEqual(false, item.isRecyclable);
+            }
+
+        }
 
 
 
