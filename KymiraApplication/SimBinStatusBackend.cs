@@ -24,14 +24,13 @@ namespace KymiraApplication
             bin1.binAddress = "123 Test Street";
             bin1.status = 1;
 
-            binArray = new BinStatus[3];
+            binArray = new BinStatus[1];
 
             binArray[0] = bin1;
         }
 
         public BinStatus checkListOfBins(BinStatus bin)
         {
-
             for (int i = 0; i < binArray.Length; i++)
             {
                 if(binArray[i].binAddress.Equals(bin.binAddress))

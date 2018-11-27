@@ -10,6 +10,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using KymiraApplication.Model;
@@ -20,6 +21,7 @@ namespace KymiraApplication.Resources
     [Activity(Label = "BinStatusActivity",MainLauncher = true)]
     public class BinStatusActivity : Activity
     {
+        //UI controls for this activity
         private TextView tvTitle;
         private TextView tvAddress;
         private TextView tvAddressLabel;
@@ -27,17 +29,29 @@ namespace KymiraApplication.Resources
         private Button btnSubmit;
         private ListView lvBins;
 
+        //adapter for the list view of bin objects to display
         private IListAdapter listAdapter;
+        private IListAdapter listAdapterPopulated;
 
         private ArrayList binStatusObjects;
         private string[] binsReceived;
         private string[] listPlaceholder;
         //private string[] binStatusArray;
 
+        //the BinStatus object created by user's entered data to send to the backend
+        private BinStatus binStatusSend;
+
+        //list to hold results when validating BinStatus objects
         List<ValidationResult> validationResults;
 
         private jsonHandler jsonHandler;
+
+        //class to simulate the backend (contains objects to compare)
         private SimBinStatusBackend simBinStatusBackend;
+
+        //the BinStatus object received from the backend (results)
+        private BinStatus binReceived;
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -75,10 +89,7 @@ namespace KymiraApplication.Resources
                 
             } */
 
-
-          
-           // binStatusArray[0] = "BIN ID: 1837\tStatus: CLEAN!!!";
-
+            
             base.OnCreate(savedInstanceState);
             listAdapter = new ArrayAdapter<string>(this,Resource.Layout.bin_status_list_item, listPlaceholder);
 
@@ -94,6 +105,9 @@ namespace KymiraApplication.Resources
             lvBins.Adapter = listAdapter;
 
             //tvAddressLabel.Text = "Bins found at: " + a.binAddress;
+
+            simBinStatusBackend = new SimBinStatusBackend();
+            binReceived = new BinStatus();
 
             //click events
             btnSubmit.Click += BtnSubmit_Click;
@@ -117,11 +131,17 @@ namespace KymiraApplication.Resources
             }
         }
 
+        /**
+         *  This method executes when the user clicks the Submit button. It creates a BinStatus object with
+         *  that address and sends it to the backend to compare addresses. When the method receives an object from the 
+         *  backend, it displays it to the listview.
+         */
         private async void BtnSubmit_Click(object sender, EventArgs e)
         {
+            //gather text from the UI control
             string addressStr = etAddress.Text;
 
-            BinStatus binStatusSend = new BinStatus();
+            binStatusSend = new BinStatus();
             jsonHandler = new jsonHandler();
 
             binStatusSend.binAddress = addressStr;
@@ -141,22 +161,24 @@ namespace KymiraApplication.Resources
                 //checkReceivedObject(sendSuccess);
 
                 //Simulated call to the back end
-                simBinStatusBackend = new SimBinStatusBackend();
+                //simBinStatusBackend = new SimBinStatusBackend();
 
-                BinStatus binReceived = new BinStatus();
+                //BinStatus binReceived = new BinStatus();
 
                 binReceived = simBinStatusBackend.checkListOfBins(binStatusSend);
 
+               Toast.MakeText(this, binReceived.binID.ToString(), ToastLength.Short).Show();
+                
                 if(binReceived.binID != -1)
                 {
                     binStatusObjects.Add(binReceived);
-                    BinStatus bs = (BinStatus)binStatusObjects[0];
-                    binsReceived = new string[binStatusObjects.Count];                  
+                    BinStatus bs = new BinStatus();
+                    bs = (BinStatus)binStatusObjects[0];                   
+                    binsReceived = new string[binStatusObjects.Count];
                     string binStr = "Bin ID: " + bs.binID + "\t" + "Status: " + convertBinStatusToString(bs.status);
                     binsReceived[0] = binStr;
-                    listAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
-                    lvBins.Adapter = listAdapter;
-
+                    listAdapterPopulated = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
+                    lvBins.Adapter = listAdapterPopulated;
                 }
                 else if(binReceived.binID == -1)
                 {
@@ -166,6 +188,8 @@ namespace KymiraApplication.Resources
                 {
                     Toast.MakeText(this, "Something went wrong, try again in a few minutes", ToastLength.Long).Show();
                 }
+
+
             }
 
         }
