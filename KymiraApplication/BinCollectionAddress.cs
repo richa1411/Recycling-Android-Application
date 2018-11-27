@@ -47,12 +47,12 @@ namespace KymiraApplication
         private jsonHandler jsonHandler;
         List<ValidationResult> validationResult;
         DisplayBinCollectionDate displayBinCollectionDate;
+      
 
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            BinCollectionDate objCollection = new BinCollectionDate();
-            objCollection.Address = "123 test";
+            
 
 
             
@@ -62,7 +62,7 @@ namespace KymiraApplication
             base.OnCreate(savedInstanceState);
            // listAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binStatusArray);
 
-            SetContentView(Resource.Layout.addressForCollection);
+            SetContentView(Resource.Layout.AddressForCollection);
 
             //Assigning UI controls
            
@@ -94,7 +94,7 @@ namespace KymiraApplication
             }
             else
             {
-                var sendSuccess = await jsonHandler.sendJsonAsync(binCollectionDate, "https://jsonplaceholder.typicode.com/posts");
+                var sendSuccess = await jsonHandler.sendJsonAsync(binCollectionDate, "https://jsoneditoronline.org/?id=f1cea6d4e84d42658db6e12862ee8187");
 
                 checkReceivedObject(sendSuccess);
                 
@@ -105,7 +105,7 @@ namespace KymiraApplication
         {
             if (sendSuccess.IsSuccessStatusCode)
             {
-                var receivedObject = await jsonHandler.receiveJsonAsync("https://jsonplaceholder.typicode.com/posts/1");
+                var receivedObject = await jsonHandler.receiveJsonAsync("https://jsoneditoronline.org/?id=f1cea6d4e84d42658db6e12862ee8187");
 
                 //Toast.MakeText(this, receiveSuccess, ToastLength.Long).Show();
                 if (receivedObject.IsSuccessStatusCode)
