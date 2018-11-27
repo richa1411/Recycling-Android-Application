@@ -74,7 +74,7 @@ namespace kymiraAPI.Models
         }
 
         // This method handles receiving json from the uri specified
-        public async Task<DisposableList> receiveSpecJsonAsync(String strUri, bool isResc)
+        public async Task<List<Disposable>> receiveSpecJsonAsync(String strUri, bool isResc)
         {
            
 
@@ -96,7 +96,7 @@ namespace kymiraAPI.Models
                 var content = await response.Content.ReadAsStringAsync();
 
 
-                return  JsonConvert.DeserializeObject<DisposableList>(content);
+                return  JsonConvert.DeserializeObject<List<Disposable>>(content);
                 
 
                
@@ -112,10 +112,5 @@ namespace kymiraAPI.Models
 
 
 
-    }
-    public class DisposableList
-    {
-        [JsonProperty("Disposable")]
-        public IList<Disposable> Disposables { get; set; }
     }
 }

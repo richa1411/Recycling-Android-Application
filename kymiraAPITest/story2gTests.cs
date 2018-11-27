@@ -3,6 +3,7 @@ using System;
 using kymiraAPI;
 using kymiraAPI.Models;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace kymiraAPITest
 {
@@ -47,9 +48,9 @@ namespace kymiraAPITest
         {
             jsonHandler testJSON = new jsonHandler();
 
-            DisposableList success = await testJSON.receiveSpecJsonAsync(dispURL, true);
+            List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, true);
 
-            Assert.IsTrue(success.Disposables.Count > 0);
+            Assert.IsTrue(success.Count > 0);
             
 
             
