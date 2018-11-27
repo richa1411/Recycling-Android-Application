@@ -28,7 +28,7 @@ namespace KymiraApplication.Model
         }
 
         //This method handles sending a serialized Registration json object to the uri specified
-        public async Task<String> sendJsonAsync(Registration item, String strUri)
+        public async Task<String> sendJsonAsync( T<> item, String strUri)
         {
             //Conver the given string to a URI
             Uri uri = new Uri(strUri, UriKind.Absolute);

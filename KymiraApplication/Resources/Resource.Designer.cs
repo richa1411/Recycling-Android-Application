@@ -2631,6 +2631,9 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080040
 			public const int enterAlwaysCollapsed = 2131230784;
 			
+			// aapt resource value: 0x7f0800a7
+			public const int etAddress = 2131230887;
+			
 			// aapt resource value: 0x7f0800bd
 			public const int etxtPassword = 2131230909;
 			
@@ -3017,9 +3020,6 @@ namespace KymiraApplication
 			
 			// aapt resource value: 0x7f080013
 			public const int transition_transform = 2131230739;
-			
-			// aapt resource value: 0x7f0800a7
-			public const int tvAddress = 2131230887;
 			
 			// aapt resource value: 0x7f0800a9
 			public const int tvCollectionDate1 = 2131230889;
