@@ -14,7 +14,7 @@ using KymiraApplication.Model;
 namespace KymiraApplication
 {
     [Activity(Label = "ListDisposable")]
-    public class ListDisposable : Activity
+    public class ListDisposable : ListActivity
     {
         string[] jsonArray;
         private Button btnRec;
@@ -22,14 +22,34 @@ namespace KymiraApplication
         private ListView lvItems;
         private Disposable[] disposables;
 
+        static readonly string[] countries = new String[] {
+    "Afghanistan","Albania","Algeria","American Samoa","Andorra",
+    "Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina",
+    "Armenia","Aruba","Australia","Austria","Azerbaijan",
+    "Bahrain","Bangladesh","Barbados","Belarus","Belgium",
+    "Belize","Benin","Bermuda","Bhutan","Bolivia",
+    "Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory",
+    "British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi",
+    "Cote d'Ivoire","Cambodia","Cameroon","Canada","Cape Verde"
+
+  };
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.ItemListPage); 
-            btnRec = (Button)FindViewById(Resource.Id.btnRecyclable);
+
+            string[] items;
+            items = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
+            ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, items);
+
+
+        btnRec = (Button)FindViewById(Resource.Id.btnRecyclable);
             btnNonRec = (Button)FindViewById(Resource.Id.btnNonRecyclable);
             lvItems = (ListView)FindViewById(Resource.Id.lvItemList);
+
+            
 
             btnRec.Click += btnRec_Click;
 
@@ -45,7 +65,7 @@ namespace KymiraApplication
         // Event handler for "Get Recyclables" button
         private void btnRec_Click(object sender, EventArgs e)
         {
-            disposables = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(true);
+            //disposables = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(true);
             displayDisposablesList(disposables);
 
         }
@@ -53,7 +73,7 @@ namespace KymiraApplication
         // Event handler for "Get Non-Recyclables" button
         private void btnNonRec_Click(object sender, EventArgs e)
         {
-            disposables = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(false);
+            //disposables = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(false);
             displayDisposablesList(disposables);
 
         }

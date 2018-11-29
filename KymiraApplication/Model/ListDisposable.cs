@@ -22,12 +22,12 @@ namespace KymiraApplication.Model
         *  they press. The backend will then return an array of JSON objects, (array of strings)
         *  to the app. The app then returns this array.
         */
-        public static async Disposable[] requestDisposableListAsync(bool isReyclable)
+        public static async void requestDisposableListAsync(bool isReyclable)
         {
             Disposable[] disposables;
 
             List<Disposable> disposablesList;
-            string stringToJson = "";
+            //string stringToJson = "";
             jsonHandlerDisposable jsonHandler = new jsonHandlerDisposable();
 
             // Send a Request, with the isReyclable set.
@@ -55,6 +55,8 @@ namespace KymiraApplication.Model
             // else
             // Take the array of JSON objects and call parseDisposable
             disposables = parseDisposable(disposablesList);
+
+            
 
             
 
