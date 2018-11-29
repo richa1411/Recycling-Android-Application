@@ -31,12 +31,9 @@ namespace KymiraApplication.Resources
 
         //adapter for the list view of bin objects to display
         private IListAdapter listAdapter;
-        private IListAdapter listAdapterPopulated;
 
         private ArrayList binStatusObjects;
         private string[] binsReceived;
-        private string[] listPlaceholder;
-        //private string[] binStatusArray;
 
         //the BinStatus object created by user's entered data to send to the backend
         private BinStatus binStatusSend;
@@ -54,12 +51,7 @@ namespace KymiraApplication.Resources
 
 
         protected override void OnCreate(Bundle savedInstanceState)
-        {
-
-            
-            binStatusObjects= new ArrayList();
-            listPlaceholder = new string[1];
-            listPlaceholder[0] = "Discovered bins will be displayed here";
+        {      
             /*
             BinStatus a = new BinStatus();
             BinStatus b = new BinStatus();
@@ -91,9 +83,18 @@ namespace KymiraApplication.Resources
 
             
             base.OnCreate(savedInstanceState);
-            listAdapter = new ArrayAdapter<string>(this,Resource.Layout.bin_status_list_item, listPlaceholder);
 
             SetContentView(Resource.Layout.activity_view_statuses);
+
+            binStatusObjects = new ArrayList();
+
+            //listAdapter = new ArrayAdapter<String>(this, Resource.Layout.bin_status_list_item, binsReceived);
+
+            binsReceived = new string[100];
+
+            listAdapter = new ArrayAdapter(this, Resource.Layout.bin_status_list_item, binsReceived);
+         
+            binsReceived[0] = "Discovered bins will be displayed here";
 
             //Assigning UI controls
             tvTitle = FindViewById<TextView>(Resource.Id.binStatusTitle);
@@ -173,12 +174,9 @@ namespace KymiraApplication.Resources
                 {
                     binStatusObjects.Add(binReceived);
                     BinStatus bs = new BinStatus();
-                    bs = (BinStatus)binStatusObjects[0];                   
-                    binsReceived = new string[binStatusObjects.Count];
+                    bs = (BinStatus)binStatusObjects[0];                                      
                     string binStr = "Bin ID: " + bs.binID + "\t" + "Status: " + convertBinStatusToString(bs.status);
                     binsReceived[0] = binStr;
-                    listAdapterPopulated = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
-                    lvBins.Adapter = listAdapterPopulated;
                 }
                 else if(binReceived.binID == -1)
                 {
