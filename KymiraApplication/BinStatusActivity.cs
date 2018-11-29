@@ -31,9 +31,11 @@ namespace KymiraApplication.Resources
 
         //adapter for the list view of bin objects to display
         private IListAdapter listAdapter;
+        private IListAdapter listAdapterPopulated;
 
         private ArrayList binStatusObjects;
         private string[] binsReceived;
+        private string[] listPlaceholder;
 
         //the BinStatus object created by user's entered data to send to the backend
         private BinStatus binStatusSend;
@@ -87,14 +89,21 @@ namespace KymiraApplication.Resources
             SetContentView(Resource.Layout.activity_view_statuses);
 
             binStatusObjects = new ArrayList();
+            listPlaceholder = new string[1];
+            listPlaceholder[0] = "Discovered bins will be displayed here";
 
-            //listAdapter = new ArrayAdapter<String>(this, Resource.Layout.bin_status_list_item, binsReceived);
+            binsReceived = new string[1];
 
-            binsReceived = new string[100];
+            //binsReceived = new string[100];
 
-            listAdapter = new ArrayAdapter(this, Resource.Layout.bin_status_list_item, binsReceived);
+            //binsReceived[0] = "Discovered bins will be displayed here";
+            IListAdapter listAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, listPlaceholder);
+
+            
+
+            //listAdapter = new ArrayAdapter(this, Resource.Layout.bin_status_list_item, binsReceived);
          
-            binsReceived[0] = "Discovered bins will be displayed here";
+            
 
             //Assigning UI controls
             tvTitle = FindViewById<TextView>(Resource.Id.binStatusTitle);
@@ -114,23 +123,7 @@ namespace KymiraApplication.Resources
             btnSubmit.Click += BtnSubmit_Click;
         }
 
-        /**
-         * This method converts an int bin status to a string.
-         * Input: int status - the status of the BinStatus object (1, 2, or 3)
-         * Returns: string - the corresponding value of the status passed in (2 -> blocked, 3 -> Contaminated, default (1) -> good)
-         **/
-        private string convertBinStatusToString(int status)
-        {
-            switch(status)
-            {
-                case 2:
-                    return "Blocked";
-                case 3:
-                    return "Contaminated";
-                default:
-                    return "Good";
-            }
-        }
+
 
         /**
          *  This method executes when the user clicks the Submit button. It creates a BinStatus object with
@@ -140,7 +133,7 @@ namespace KymiraApplication.Resources
         private async void BtnSubmit_Click(object sender, EventArgs e)
         {
             //gather text from the UI control
-            string addressStr = etAddress.Text;
+            string addressStr = etAddress.Text.Trim();
 
             binStatusSend = new BinStatus();
             jsonHandler = new jsonHandler();
@@ -166,17 +159,23 @@ namespace KymiraApplication.Resources
 
                 //BinStatus binReceived = new BinStatus();
 
-                binReceived = simBinStatusBackend.checkListOfBins(binStatusSend);
-
-               Toast.MakeText(this, binReceived.binID.ToString(), ToastLength.Short).Show();
+               binReceived = simBinStatusBackend.checkListOfBins(binStatusSend);
+               
+               //Toast.MakeText(this, binReceived.binID.ToString(), ToastLength.Short).Show();
                 
                 if(binReceived.binID != -1)
                 {
                     binStatusObjects.Add(binReceived);
                     BinStatus bs = new BinStatus();
-                    bs = (BinStatus)binStatusObjects[0];                                      
+                    bs.binID = ((BinStatus)binStatusObjects[0]).binID;        
+                    bs.status = ((BinStatus)binStatusObjects[0]).status;
                     string binStr = "Bin ID: " + bs.binID + "\t" + "Status: " + convertBinStatusToString(bs.status);
+                    Toast.MakeText(this, binStr, ToastLength.Short).Show();
                     binsReceived[0] = binStr;
+
+                    //listAdapterPopulated = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
+                    IListAdapter listPopulatedAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
+                    lvBins.Adapter = listPopulatedAdapter;
                 }
                 else if(binReceived.binID == -1)
                 {
@@ -187,9 +186,26 @@ namespace KymiraApplication.Resources
                     Toast.MakeText(this, "Something went wrong, try again in a few minutes", ToastLength.Long).Show();
                 }
 
-
             }
 
+        }
+
+        /**
+        * This method converts an int bin status to a string.
+        * Input: int status - the status of the BinStatus object (1, 2, or 3)
+        * Returns: string - the corresponding value of the status passed in (2 -> blocked, 3 -> Contaminated, default (1) -> good)
+        **/
+        private string convertBinStatusToString(int status)
+        {
+            switch (status)
+            {
+                case 2:
+                    return "Blocked";
+                case 3:
+                    return "Contaminated";
+                default:
+                    return "Good";
+            }
         }
 
         private async void checkReceivedObject(HttpResponseMessage sendSuccess)

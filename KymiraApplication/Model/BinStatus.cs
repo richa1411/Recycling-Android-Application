@@ -24,6 +24,10 @@ namespace KymiraApplication.Model
  
         [Range(1, 3, ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
         public int status { get; set; } //1 -> good, 2 -> blocked, 3 -> Contaminated
-
+        public override string ToString()
+        {
+            return "";// "Bin ID: " + this.binID + "\t" + "Status: " + convertBinStatusToString(this.status); ;
+        }
     }
+   
 }
