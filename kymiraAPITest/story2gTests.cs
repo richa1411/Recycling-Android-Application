@@ -80,6 +80,20 @@ namespace kymiraAPITest
             }
 
         }
+        /**
+         * 
+         * */
+         [ExpectedException(typeof(Exception))]
+        [TestMethod]
+        public async Task TestSendInvalidRequest()
+        {
+            jsonHandler testJSON = new jsonHandler();
+            //see json handler for info on method call
+            List<Disposable> success = await testJSON.testSendInvalidJsonHandler(dispURL, true);
+
+          
+
+        }
 
 
 
