@@ -73,7 +73,7 @@ namespace kymiraAPI.Models
            
         }
 
-        // This method handles receiving json from the uri specified
+        // This method handles receiving Disposbale json from the uri specified
         public async Task<List<Disposable>> receiveSpecJsonAsync(String strUri, bool isResc)
         {
            

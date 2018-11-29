@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace kymiraAPI.Models
 {
+    /**
+     * This class is a disposable object used to store information to be displayed in an app, or stored in a database.
+     * */
     public class Disposable
     {
         [Key]

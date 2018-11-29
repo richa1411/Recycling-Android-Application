@@ -35,7 +35,9 @@ namespace kymiraAPITest
         };
 
         //************ FUNCTIONAL TESTS ************
-
+        /**
+         * this Test will test if our POST request is succesful
+         * */
         [TestMethod]
         public async Task TestSendValidJson()
         {
@@ -43,7 +45,9 @@ namespace kymiraAPITest
             var success = await testJSON.sendJsonAsync(sendTest, dispURL);
             Assert.AreEqual("Success", success);
         }
-
+        /**
+         * This tests, tests that if given true, the api will return only recyclable objects from the db.
+         * */
         [TestMethod]
         public async Task TestGetValidJsonRecyclable()
         {
@@ -58,7 +62,9 @@ namespace kymiraAPITest
             }
             
         }
-
+        /**
+         * This tests that if given false, our API will only return non-recyclable objects from the db
+         * */
         [TestMethod]
         public async Task TestGetValidJsonNotRecyclable()
         {
@@ -77,7 +83,9 @@ namespace kymiraAPITest
 
 
 
-
+        /**
+         * Tests that the model allows a valid object
+         * */
         [TestMethod]
         public void AllRecyclableInformationIsValidTest()
         {
@@ -88,7 +96,9 @@ namespace kymiraAPITest
         }
 
         ////*********** ID ***********
-
+        /**
+         * Tests that the model allows a valid id.
+         * */
         [TestMethod]
         public void TestThatIDIsValid()
         {
@@ -182,6 +192,9 @@ namespace kymiraAPITest
             //error
 
         }
+        /**
+         * Tests the boundary case that the disposable description can be 500 characters.
+         * */
         [TestMethod]
         public void TestThatDescriptionis500Characters()
         {
@@ -233,6 +246,9 @@ namespace kymiraAPITest
             //error
 
         }
+        /**
+         * Tests that the disposable picture id is valid at 90 characters
+         * */
         [TestMethod]
         public void TestThatPictureIDis90Characters()
         {
@@ -303,6 +319,9 @@ namespace kymiraAPITest
 
 
         }
+        /**
+         * Tests that the dispoable recyclable reason is valid at 500 characters.
+         * */
         [TestMethod]
         public void TestThatRecyclableReasonIs500Characters()
         {
@@ -362,6 +381,9 @@ namespace kymiraAPITest
 
 
         }
+        /**
+         * Tests that the disposable object end result is valid at 500 charactesr.
+         * */
         [TestMethod]
         public void TestThatisEndResultIs500Characters()
         {
