@@ -26,11 +26,11 @@ namespace kymiraAPITest
         Disposable sendTest = new Disposable
         {
             name = "Hey",
-            description = "I'm a Potatoe",
-            pictureID = "Potatoe",
+            description = "I'm a Potato",
+            pictureID = "Potato",
             isRecyclable = true,
             recyclableReason = "Cause",
-            endResult = "tomatoe sauce",
+            endResult = "tomato sauce",
             qtyRecycled = 1000
         };
 
@@ -81,7 +81,7 @@ namespace kymiraAPITest
 
         }
         /**
-         * 
+         * Tests that invalid sent values will result in an error
          * */
          [ExpectedException(typeof(Exception))]
         [TestMethod]
@@ -90,8 +90,6 @@ namespace kymiraAPITest
             jsonHandler testJSON = new jsonHandler();
             //see json handler for info on method call
             List<Disposable> success = await testJSON.testSendInvalidJsonHandler(dispURL, true);
-
-          
 
         }
 
@@ -443,10 +441,6 @@ namespace kymiraAPITest
 
 
         }
-
-
-
-
 
 
     }
