@@ -30,16 +30,18 @@ namespace KymiraApplication
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.CollectionDate);
-
-            var receivedObject = JsonConvert.DeserializeObject<BinCollectionDate>(Intent.GetStringExtra("ReceivedJSON"));
-
-            //receivedObject.collectionDate1;
-
             tvCollectionDate1 = FindViewById<EditText>(Resource.Id.tvCollectionDate1);
             tvCollectionDate2 = FindViewById<EditText>(Resource.Id.tvCollectionDate2);
 
+            var receivedObject = JsonConvert.DeserializeObject<BinCollectionDate>(Intent.GetStringExtra("ReceivedJSON"));
 
-            
+            tvCollectionDate1.Text += receivedObject.collectionDate1;
+            tvCollectionDate2.Text += receivedObject.collectionDate2;
+
+
+
+
+
         }
 
         

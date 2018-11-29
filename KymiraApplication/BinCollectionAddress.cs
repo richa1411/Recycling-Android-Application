@@ -62,7 +62,7 @@ namespace KymiraApplication
             base.OnCreate(savedInstanceState);
            // listAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binStatusArray);
 
-            SetContentView(Resource.Layout.addressForCollection);
+            SetContentView(Resource.Layout.AddressForCollection);
 
             //Assigning UI controls
            
