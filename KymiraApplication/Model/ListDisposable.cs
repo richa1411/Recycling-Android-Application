@@ -22,8 +22,10 @@ namespace KymiraApplication.Model
         *  they press. The backend will then return an array of JSON objects, (array of strings)
         *  to the app. The app then returns this array.
         */
-        public static async void requestDisposableListAsync(bool isReyclable)
+        public static async Disposable[] requestDisposableListAsync(bool isReyclable)
         {
+            Disposable[] disposables;
+
             List<Disposable> disposablesList;
             string stringToJson = "";
             jsonHandlerDisposable jsonHandler = new jsonHandlerDisposable();
@@ -52,7 +54,7 @@ namespace KymiraApplication.Model
 
             // else
             // Take the array of JSON objects and call parseDisposable
-            parseDisposable(disposablesList);
+            disposables = parseDisposable(disposablesList);
 
             
 
@@ -63,21 +65,17 @@ namespace KymiraApplication.Model
          * It takes each JSON object, and turns it into a Disposable Object. It then adds each object
          * to an array of Disposables. This array is returned
          */
-        public static List<Disposable> parseDisposable(List<Disposable> disposablesList)
+        private static Disposable[] parseDisposable(List<Disposable> disposablesList)
         {
             Disposable[] disposables = disposablesList.ToArray();
 
 
-            // For each JSON Object in the array
-            for (int i = 0; i < disposables.Length; i++)
+            int nCounter = 0;
+
+            foreach (Disposable disposable in disposables)
             {
-
-                // Add Object to a Disposables Array
-                disposables[i] = disposable;
-
-                // We need to recreate this disposable obejcts, which will double check the validation
-
-                
+                disposables[nCounter] = new Disposable(disposable.name, disposable.description, disposable.imageURL,
+                                                        disposable.isRecyclable, disposable.endResult, disposable.qtyRecycled, disposable.recycleReason);
             }
 
             // Go through the disposables array and only call addPlaceholders
@@ -87,7 +85,7 @@ namespace KymiraApplication.Model
             {
                 if(disposables[i].imageURL == "")
                 {
-                    addPlaceholders(disposables);
+                    disposables = addPlaceholders(disposables);
                 }
                 
                 
@@ -96,16 +94,18 @@ namespace KymiraApplication.Model
             // If this statement is reached, it means that the
             // objects in the disposables array all have a valid ImageURL
             // So we can skip right to displaying the list
-            displayDisposableList(disposables);
+            return disposables;
         }
 
         /**
          *  This method will take in an array of disposable objects, which was acqquired from parseDisposable.
          *  This method will take the disposable objects and display a list of them to the user.
          */
-        public static void displayDisposableList(Disposable[] disposables)
+        private static Disposable[] getDisposableList(Disposable[] disposables)
         {
             // Add the items in the array to the listView
+            return disposables;
+
 
         }
 
@@ -113,7 +113,7 @@ namespace KymiraApplication.Model
          * This method will take in an array of disposable objects, and add placeholder images to them if
          * any objects in the array don't have images assigned to them. It then returns the disposables array, with images.
          */ 
-        public static Disposable[] addPlaceholders(Disposable[] disposables)
+        private static Disposable[] addPlaceholders(Disposable[] disposables)
         {
             // For each Disposable Object in the array
             for (int i = 0; i < disposables.Length; i++)
@@ -126,7 +126,7 @@ namespace KymiraApplication.Model
             }
 
             // Call this method to display our list of disposables
-            displayDisposableList(disposables);
+            return disposables;
             
         }
     }
