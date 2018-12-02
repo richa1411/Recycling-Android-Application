@@ -26,16 +26,18 @@ namespace kymiraAPITest
         Disposable sendTest = new Disposable
         {
             name = "Hey",
-            description = "I'm a Potatoe",
-            pictureID = "Potatoe",
+            description = "I'm a Potato",
+            pictureID = "Potato",
             isRecyclable = true,
             recyclableReason = "Cause",
-            endResult = "tomatoe sauce",
+            endResult = "tomato sauce",
             qtyRecycled = 1000
         };
 
         //************ FUNCTIONAL TESTS ************
-
+        /**
+         * this Test will test if our POST request is succesful
+         * */
         [TestMethod]
         public async Task TestSendValidJson()
         {
@@ -43,23 +45,59 @@ namespace kymiraAPITest
             var success = await testJSON.sendJsonAsync(sendTest, dispURL);
             Assert.AreEqual("Success", success);
         }
+        /**
+         * This tests, tests that if given true, the api will return only recyclable objects from the db.
+         * */
         [TestMethod]
-        public async Task TestGetValidJson()
+        public async Task TestGetValidJsonRecyclable()
         {
             jsonHandler testJSON = new jsonHandler();
 
             List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, true);
 
             Assert.IsTrue(success.Count > 0);
-            
 
+            foreach (Disposable item in success) {
+                Assert.AreEqual(true, item.isRecyclable);
+            }
             
+        }
+        /**
+         * This tests that if given false, our API will only return non-recyclable objects from the db
+         * */
+        [TestMethod]
+        public async Task TestGetValidJsonNotRecyclable()
+        {
+            jsonHandler testJSON = new jsonHandler();
+
+            List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, false);
+
+            Assert.IsTrue(success.Count > 0);
+
+            foreach (Disposable item in success)
+            {
+                Assert.AreEqual(false, item.isRecyclable);
+            }
+
+        }
+        /**
+         * Tests that invalid sent values will result in an error
+         * */
+         [ExpectedException(typeof(Exception))]
+        [TestMethod]
+        public async Task TestSendInvalidRequest()
+        {
+            jsonHandler testJSON = new jsonHandler();
+            //see json handler for info on method call
+            List<Disposable> success = await testJSON.testSendInvalidJsonHandler(dispURL, true);
+
         }
 
 
 
-
-
+        /**
+         * Tests that the model allows a valid object
+         * */
         [TestMethod]
         public void AllRecyclableInformationIsValidTest()
         {
@@ -70,7 +108,9 @@ namespace kymiraAPITest
         }
 
         ////*********** ID ***********
-
+        /**
+         * Tests that the model allows a valid id.
+         * */
         [TestMethod]
         public void TestThatIDIsValid()
         {
@@ -164,6 +204,9 @@ namespace kymiraAPITest
             //error
 
         }
+        /**
+         * Tests the boundary case that the disposable description can be 500 characters.
+         * */
         [TestMethod]
         public void TestThatDescriptionis500Characters()
         {
@@ -215,6 +258,9 @@ namespace kymiraAPITest
             //error
 
         }
+        /**
+         * Tests that the disposable picture id is valid at 90 characters
+         * */
         [TestMethod]
         public void TestThatPictureIDis90Characters()
         {
@@ -285,6 +331,9 @@ namespace kymiraAPITest
 
 
         }
+        /**
+         * Tests that the dispoable recyclable reason is valid at 500 characters.
+         * */
         [TestMethod]
         public void TestThatRecyclableReasonIs500Characters()
         {
@@ -344,6 +393,9 @@ namespace kymiraAPITest
 
 
         }
+        /**
+         * Tests that the disposable object end result is valid at 500 charactesr.
+         * */
         [TestMethod]
         public void TestThatisEndResultIs500Characters()
         {
@@ -389,10 +441,6 @@ namespace kymiraAPITest
 
 
         }
-
-
-
-
 
 
     }
