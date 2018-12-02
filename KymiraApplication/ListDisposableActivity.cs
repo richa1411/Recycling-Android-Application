@@ -14,25 +14,16 @@ using KymiraApplication.Model;
 namespace KymiraApplication
 {
     [Activity(Label = "ListDisposable")]
-    public class ListDisposable : ListActivity
+    public class ListDisposable : Activity
     {
         string[] jsonArray;
         private Button btnRec;
         private Button btnNonRec;
-        private ListView lvItems;
+        //private ListView lvItems;
         private Disposable[] disposables;
 
-        static readonly string[] countries = new String[] {
-    "Afghanistan","Albania","Algeria","American Samoa","Andorra",
-    "Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina",
-    "Armenia","Aruba","Australia","Austria","Azerbaijan",
-    "Bahrain","Bangladesh","Barbados","Belarus","Belgium",
-    "Belize","Benin","Bermuda","Bhutan","Bolivia",
-    "Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory",
-    "British Virgin Islands","Brunei","Bulgaria","Burkina Faso","Burundi",
-    "Cote d'Ivoire","Cambodia","Cameroon","Canada","Cape Verde"
-
-  };
+        private List<Disposable> lstDisposables;
+        private ListView listView;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -40,26 +31,26 @@ namespace KymiraApplication
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.ItemListPage); 
 
-            string[] items;
-            items = new string[] { "Vegetables", "Fruits", "Flower Buds", "Legumes", "Bulbs", "Tubers" };
-            ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, items);
-
-
-        btnRec = (Button)FindViewById(Resource.Id.btnRecyclable);
+            btnRec = (Button)FindViewById(Resource.Id.btnRecyclable);
             btnNonRec = (Button)FindViewById(Resource.Id.btnNonRecyclable);
-            lvItems = (ListView)FindViewById(Resource.Id.lvItemList);
 
-            
+            listView = (ListView)FindViewById(Resource.Id.listView);
+
+            lstDisposables = new List<Disposable>();
+
+            lstDisposables.Add(new Disposable("Paper", "used to write things on", "", true, "", 10, ""));
+            lstDisposables.Add(new Disposable("Cardboard", "used to hold things", "", true, "", 10, ""));
+            lstDisposables.Add(new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
+
+
+            RecNonRecListViewAdapter adapter = new RecNonRecListViewAdapter(this, lstDisposables);
+
+            listView.Adapter = adapter;
+
 
             btnRec.Click += btnRec_Click;
-
             btnNonRec.Click += btnNonRec_Click;
-
-
-
             //KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray);
-
-
         }
 
         // Event handler for "Get Recyclables" button
