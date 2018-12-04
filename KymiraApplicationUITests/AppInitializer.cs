@@ -8,7 +8,7 @@ namespace KymiraApplicationUITests
 	{
 		public static IApp StartApp(Platform platform)
 		{
-            return ConfigureApp.Android.EnableLocalScreenshots().ApkFile("G:\\pr2cosmo\\prj2.cosmo\\KymiraApplication\\bin\\Release\\com.cosmoindustries.kymira-Signed.apk").StartApp();
+            return ConfigureApp.Android.EnableLocalScreenshots().ApkFile("G:\\PRJ2.Cosmo\\prj2.cosmo\\KymiraApplication\\bin\\Release\\com.cosmoindustries.kymira-Signed.apk").StartApp();
 		}
 	}
 }

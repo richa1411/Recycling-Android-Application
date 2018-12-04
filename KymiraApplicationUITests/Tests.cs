@@ -44,48 +44,44 @@ namespace KymiraApplicationUITests
         }
 
         [Test]
-        //test that after tapping the Submit button, the listview is populated
+        //test that after tapping the Submit button with no address entered, the list view does not change
         public void TestThatListViewNotChangedOnEmptyAddress()
         {
+            ArrayList results = new ArrayList();
+
             app.Tap(c => c.Marked("submitAddress"));
 
-            //var appResult = app.Query(c => c.Id("returnedAddress").Descendant().Id("returnedAddress"));
+            results.Add(app.WaitForElement(c => c.Marked("Discovered bins will be displayed here")));
 
-            //AppResult[] appResults = app.Query("Discovered bins will be displayed here");
-
-            //Assert.IsTrue(appResults != null && appResults[0].Equals(true));
-
-            Assert.IsTrue(true);
+            Assert.AreEqual(1, results.Count);
         }
 
         [Test]
         //test that correct address updates the listview with the correct information
         public void TestThatCorrectAddressUpdatesListView()
         {
-            app.Tap(c => c.Marked("addressEntry"));
+            ArrayList results = new ArrayList();
+
             app.EnterText("123 Test Street");
             app.Tap(c => c.Marked("submitAddress"));
 
+            results.Add(app.WaitForElement(c => c.Marked("Bin ID: 1\tStatus: Good")));
 
+            Assert.AreEqual(1, results.Count);
         }
 
         [Test]
         //test that incorrect address leaves the listview unchanged
         public void TestThatIncorrectAddressDoesNotAffectListView()
         {
-            app.Tap(c => c.Marked("addressEntry"));
+            ArrayList results = new ArrayList();
+
             app.EnterText("12345 Fake Street");
             app.Tap(c => c.Marked("submitAddress"));
 
+            results.Add(app.WaitForElement(c => c.Marked("Discovered bins will be displayed here")));
 
-        }
-
-        [Test]
-        //test that tapping the listview does nothing
-        public void TestThatTappingListViewDoesNothing()
-        {
-            app.Tap(c => c.Marked("binStatusList").Parent());
-
+            Assert.AreEqual(1, results.Count);
         }
 	}
 }

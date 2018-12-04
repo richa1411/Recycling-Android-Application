@@ -88,6 +88,7 @@ namespace KymiraApplication.Resources
 
             SetContentView(Resource.Layout.activity_view_statuses);
 
+
             binStatusObjects = new ArrayList();
             listPlaceholder = new string[1];
             listPlaceholder[0] = "Discovered bins will be displayed here";
