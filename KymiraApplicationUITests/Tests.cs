@@ -26,6 +26,7 @@ namespace KymiraApplicationUITests
 		}
 
 		[Test]
+        //test that all elements load onto the app upon startup
 		public void TestThatAppInterfaceLoadsCorrectly()
 		{
             ArrayList results = new ArrayList();
@@ -38,10 +39,12 @@ namespace KymiraApplicationUITests
             results.Add(app.WaitForElement(c => c.Marked("addressEntry").Text("")));
             results.Add(app.WaitForElement(c => c.Marked("submitAddress")));
 
+            //check that all elements are here
             Assert.AreEqual(7, results.Count);
         }
 
         [Test]
+        //test that after tapping the Submit button, the listview is populated
         public void TestThatListViewNotChangedOnEmptyAddress()
         {
             app.Tap(c => c.Marked("submitAddress"));
@@ -53,6 +56,36 @@ namespace KymiraApplicationUITests
             //Assert.IsTrue(appResults != null && appResults[0].Equals(true));
 
             Assert.IsTrue(true);
+        }
+
+        [Test]
+        //test that correct address updates the listview with the correct information
+        public void TestThatCorrectAddressUpdatesListView()
+        {
+            app.Tap(c => c.Marked("addressEntry"));
+            app.EnterText("123 Test Street");
+            app.Tap(c => c.Marked("submitAddress"));
+
+
+        }
+
+        [Test]
+        //test that incorrect address leaves the listview unchanged
+        public void TestThatIncorrectAddressDoesNotAffectListView()
+        {
+            app.Tap(c => c.Marked("addressEntry"));
+            app.EnterText("12345 Fake Street");
+            app.Tap(c => c.Marked("submitAddress"));
+
+
+        }
+
+        [Test]
+        //test that tapping the listview does nothing
+        public void TestThatTappingListViewDoesNothing()
+        {
+            app.Tap(c => c.Marked("binStatusList").Parent());
+
         }
 	}
 }
