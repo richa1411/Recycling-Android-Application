@@ -15,7 +15,7 @@ using KymiraApplication.Model;
 
 namespace KymiraApplication
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
     public class MainActivity : AppCompatActivity
     {
         //Declare edit text fields that we will need access to

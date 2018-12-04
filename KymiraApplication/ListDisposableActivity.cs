@@ -13,7 +13,7 @@ using KymiraApplication.Model;
 
 namespace KymiraApplication
 {
-    [Activity(Label = "ListDisposable")]
+    [Activity(Label = "ListDisposable", MainLauncher = true)]
     public class ListDisposable : Activity
     {
         string[] jsonArray;
@@ -32,20 +32,26 @@ namespace KymiraApplication
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.ItemListPage); 
 
-            btnRec = (Button)FindViewById(Resource.Id.btnRecyclable);
-            btnNonRec = (Button)FindViewById(Resource.Id.btnNonRecyclable);
+            btnRec = (Button)FindViewById(Resource.Id.btnRec);
+            btnNonRec = (Button)FindViewById(Resource.Id.btnNonRec);
 
             listView = (ListView)FindViewById(Resource.Id.listView);
-            
 
-            lstDisposables = new List<Disposable>();
+            disposables = new Disposable[3];
 
-            lstDisposables.Add(new Disposable("Paper", "used to write things on", "", true, "", 10, ""));
-            lstDisposables.Add(new Disposable("Cardboard", "used to hold things", "", true, "", 10, ""));
-            lstDisposables.Add(new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
+            disposables[0] = (new Disposable("Paper", "used to write things on", "G:/COSACPMG/prj2.cosmo/KymiraApplication/Resources/drawable/No_Image.png", true, "", 10, ""));
+            disposables[1] = (new Disposable("Cardboard", "used to hold things", "", true, "", 10, ""));
+            disposables[2] = (new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
+          
+
+            //lstDisposables = new List<Disposable>();
+
+            //lstDisposables.Add(new Disposable("Paper", "used to write things on", "", true, "", 10, ""));
+            //lstDisposables.Add(new Disposable("Cardboard", "used to hold things", "", true, "", 10, ""));
+            //lstDisposables.Add(new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
 
 
-            RecNonRecListViewAdapter adapter = new RecNonRecListViewAdapter(this, lstDisposables);
+            RecNonRecListViewAdapter adapter = new RecNonRecListViewAdapter(this, disposables);
 
             listView.Adapter = adapter;
 

@@ -16,10 +16,10 @@ namespace KymiraApplication
     public class RecNonRecListViewAdapter : BaseAdapter<Disposable>
     {
 
-        public List<Disposable> listDisposables;
+        public Disposable[] listDisposables;
         private Context cContext;
 
-        public RecNonRecListViewAdapter(Context context, List<Disposable> items)
+        public RecNonRecListViewAdapter(Context context, Disposable[] items)
         {
             listDisposables = items;
             cContext = context;
@@ -27,7 +27,7 @@ namespace KymiraApplication
 
         public override int Count
         {
-            get { return listDisposables.Count; }
+            get { return listDisposables.Length; }
         }
 
         public override long GetItemId(int position)
@@ -48,12 +48,12 @@ namespace KymiraApplication
                 row = LayoutInflater.From(cContext).Inflate(Resource.Layout.listviewRow, null, false);
             }
 
-            TextView txName = row.FindViewById<TextView>(Resource.Id.tvName);
+            TextView txName = row.FindViewById<TextView>(Resource.Id.tvDespName);
             txName.Text = listDisposables[position].name;
 
+            //ImageView imgPic = row.FindViewById<ImageView>(Resource.Id.ivDespPic);
+            
 
-            TextView txDesc = row.FindViewById<TextView>(Resource.Id.tvDesc);
-            txDesc.Text = listDisposables[position].description;
 
 
             return row;
