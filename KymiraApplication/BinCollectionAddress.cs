@@ -92,6 +92,7 @@ namespace KymiraApplication
             if (validationResult.Count > 0)
             {
                 Toast.MakeText(this, validationResult[0].ErrorMessage, ToastLength.Short).Show();
+                tvError.Text = validationResult[0].ErrorMessage;
             }
             else
             {
@@ -103,11 +104,13 @@ namespace KymiraApplication
                 string binStr = obj.checkAddress(binCollectionDate);
                 if (binStr.Equals("Address Found"))
                 {
-                    string displayDate = obj.displayDate(binCollectionDate);
+                    string displayDate1 = obj.displayDate1(binCollectionDate);
+                    string displayDate2 = obj.displayDate2(binCollectionDate);
                     Intent intent = new Intent(this, typeof(DisplayBinCollectionDate));
 
                     //                //Serializing takes an object and turns it into a string
-                    intent.PutExtra("ReceivedJSON", displayDate);
+                    intent.PutExtra("ReceivedJSON1", displayDate1);
+                    intent.PutExtra("ReceivedJSON2", displayDate2);
                     StartActivity(intent);
 
 
@@ -117,6 +120,7 @@ namespace KymiraApplication
                 else
                 {
                     Toast.MakeText(this, binStr, ToastLength.Long).Show();
+                    tvError.Text = binStr;
                 }
 
 

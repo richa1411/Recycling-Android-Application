@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light">
     <TextView
-        android:text="Your next two garbage bin collection dates "
+        android:text="Your upcoming recycling bin collection dates are.. "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/background_dark"
@@ -20,7 +20,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_red_dark"
-        android:id="@+id/tvCollectionDate"
+        android:id="@+id/tvCollectionDate1"
+        android:textSize="@dimen/abc_dialog_padding_top_material"
+        android:textStyle="italic|bold"
+        android:textAlignment="center"
+        android:textColorHighlight="@android:color/holo_red_light"
+        android:inputType="none|date" />
+    <TextView
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:id="@+id/tvCollectionDate2"
         android:textSize="@dimen/abc_dialog_padding_top_material"
         android:textStyle="italic|bold"
         android:textAlignment="center"
