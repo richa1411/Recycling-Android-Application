@@ -13,11 +13,12 @@ using KymiraApplication.Model;
 
 using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
+using Android.Support.V7.App;
 
 namespace KymiraApplication
 {
-    [Activity(Label = "BinCollection")]
-    public class BinCollectionAddress : Activity
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    public class BinCollectionAddress : AppCompatActivity
     {
 
         //We have two activities
@@ -41,12 +42,12 @@ namespace KymiraApplication
         private EditText addressField;
        
         private Button btnSubmitAddress;
-        private TextView tvDisplayDate;
+       
        
         private TextView tvError;
         private jsonHandler jsonHandler;
         List<ValidationResult> validationResult;
-        DisplayBinCollectionDate displayBinCollectionDate;
+      
       
 
 
@@ -68,7 +69,7 @@ namespace KymiraApplication
            
           
             addressField = FindViewById<EditText>(Resource.Id.etAddress);
-            tvError = FindViewById<EditText>(Resource.Id.tvError);
+            tvError = FindViewById<TextView>(Resource.Id.tvError);
             btnSubmitAddress = FindViewById<Button>(Resource.Id.btnSubmit);
 
 
@@ -79,7 +80,7 @@ namespace KymiraApplication
             btnSubmitAddress.Click += BtnAddress_Click;
 
         }
-        private async void BtnAddress_Click(object sender, EventArgs e)
+        private  void BtnAddress_Click(object sender, EventArgs e)
         {
             string addressStr = addressField.Text;
 
@@ -94,13 +95,41 @@ namespace KymiraApplication
             }
             else
             {
-                var sendSuccess = await jsonHandler.sendJsonAsync(binCollectionDate, "https://jsoneditoronline.org/?id=f1cea6d4e84d42658db6e12862ee8187");
+                backEnd obj = new backEnd();
+                binCollectionDate.Address = addressStr;
+                binCollectionDate.id = 1;
 
-                checkReceivedObject(sendSuccess);
-                
+
+                string binStr = obj.checkAddress(binCollectionDate);
+                if (binStr.Equals("Address Found"))
+                {
+                    string displayDate = obj.displayDate(binCollectionDate);
+                    Intent intent = new Intent(this, typeof(DisplayBinCollectionDate));
+
+                    //                //Serializing takes an object and turns it into a string
+                    intent.PutExtra("ReceivedJSON", displayDate);
+                    StartActivity(intent);
+
+
+
+                    //  Toast.MakeText(this, displayDate, ToastLength.Long).Show();
+                }
+                else
+                {
+                    Toast.MakeText(this, binStr, ToastLength.Long).Show();
+                }
+
+
+                /**JSON sending to the Web API **/
+                //var sendSuccess = await jsonHandler.sendJsonAsync(binCollectionDate, "https://jsoneditoronline.org/?id=f1cea6d4e84d42658db6e12862ee8187");
+
+                //checkReceivedObject(sendSuccess);
+
             }
 
         }
+        /* JSON Receiving*/
+        /*
         private async void checkReceivedObject(HttpResponseMessage sendSuccess)
         {
             if (sendSuccess.IsSuccessStatusCode)

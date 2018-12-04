@@ -2,23 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light">
     <TextView
         android:text="Your next two garbage bin collection dates "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
-        android:id="@+id/tvTitle" />
+        android:textColor="@android:color/background_dark"
+        android:id="@+id/tvTitle"
+        android:layout_marginBottom="16.0dp"
+        android:fontFamily="@string/abc_font_family_title_material"
+        android:textAlignment="center"
+        android:textSize="@dimen/abc_action_button_min_width_overflow_material"
+        android:textStyle="bold" />
     <TextView
-        android:text="CollectionDate 1"
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_red_dark"
+        android:id="@+id/tvCollectionDate"
+        android:textSize="@dimen/abc_dialog_padding_top_material"
+        android:textStyle="italic|bold"
+        android:textAlignment="center"
+        android:textColorHighlight="@android:color/holo_red_light"
+        android:inputType="none|date" />
+    <TextView
+        android:text=""
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#FF0000"
-        android:id="@+id/tvCollectionDate1" />
-    <TextView
-        android:text="CollectionDate 2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#FF0000"
-        android:id="@+id/tvCollectionDate2" />
+        android:id="@+id/tvError"
+        android:textAlignment="center"
+        android:textSize="@dimen/abc_dialog_padding_top_material" />
 </LinearLayout>

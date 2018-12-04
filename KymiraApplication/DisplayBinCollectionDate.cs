@@ -20,23 +20,35 @@ namespace KymiraApplication
     [Activity(Label = "DisplayBinCollectionDate")]
     public class DisplayBinCollectionDate : Activity
     {
-        private TextView tvCollectionDate1;
-        private TextView tvCollectionDate2;
-        private jsonHandler jsonHandler;
+        private TextView tvCollectionDate;
+        private TextView tvError;
+        //private jsonHandler jsonHandler;
 
-        List<ValidationResult> validationResult;
+       // List<ValidationResult> validationResult;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.CollectionDate);
-            tvCollectionDate1 = FindViewById<EditText>(Resource.Id.tvCollectionDate1);
-            tvCollectionDate2 = FindViewById<EditText>(Resource.Id.tvCollectionDate2);
+            tvCollectionDate = FindViewById<TextView>(Resource.Id.tvCollectionDate);
+            tvError = FindViewById<TextView>(Resource.Id.tvError);
 
-            var receivedObject = JsonConvert.DeserializeObject<BinCollectionDate>(Intent.GetStringExtra("ReceivedJSON"));
+            // var receivedObject = JsonConvert.DeserializeObject<BinCollectionDate>(Intent.GetStringExtra("ReceivedJSON"));
+            //tvCollectionDate.Text += receivedObject.collectionDate1;
+           
+            string receivedObject = Intent.GetStringExtra("ReceivedJSON");
+            if (receivedObject.Equals(""))
+            {
+                tvError.Text += "Sorry!!!No dates are assigned for this address yet!! Try later";
+            }
+            else
+            {
+                Toast.MakeText(this, receivedObject, ToastLength.Long).Show();
 
-            tvCollectionDate1.Text += receivedObject.collectionDate1;
-            tvCollectionDate2.Text += receivedObject.collectionDate2;
+                tvCollectionDate.Text += receivedObject;
+            }
+            
+            
 
 
 
