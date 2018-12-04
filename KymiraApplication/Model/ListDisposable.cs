@@ -15,6 +15,8 @@ namespace KymiraApplication.Model
 {
     public class ListDisposable
     {
+        private static Disposable[] disposables;
+
         /**
         *  This method will send a request to the backend, asking for a list of the
         *  disposables. isRecyclable is either true if the user wants a list of recyclable
@@ -24,7 +26,7 @@ namespace KymiraApplication.Model
         */
         public static async void requestDisposableListAsync(bool isReyclable)
         {
-            Disposable[] disposables;
+            
 
             List<Disposable> disposablesList;
             //string stringToJson = "";
@@ -78,6 +80,7 @@ namespace KymiraApplication.Model
             {
                 disposables[nCounter] = new Disposable(disposable.name, disposable.description, disposable.imageURL,
                                                         disposable.isRecyclable, disposable.endResult, disposable.qtyRecycled, disposable.recycleReason);
+                nCounter++;
             }
 
             // Go through the disposables array and only call addPlaceholders
@@ -103,7 +106,7 @@ namespace KymiraApplication.Model
          *  This method will take in an array of disposable objects, which was acqquired from parseDisposable.
          *  This method will take the disposable objects and display a list of them to the user.
          */
-        private static Disposable[] getDisposableList(Disposable[] disposables)
+        public static Disposable[] getDisposableList()
         {
             // Add the items in the array to the listView
             return disposables;

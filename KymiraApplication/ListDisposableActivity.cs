@@ -21,6 +21,7 @@ namespace KymiraApplication
         private Button btnNonRec;
         private ListView lvItems;
         private Disposable[] disposables;
+        KymiraApplication.Model.ListDisposable listDisposableHelper;
 
         static readonly string[] countries = new String[] {
     "Afghanistan","Albania","Algeria","American Samoa","Andorra",
@@ -51,6 +52,8 @@ namespace KymiraApplication
 
             
 
+            
+
             btnRec.Click += btnRec_Click;
 
             btnNonRec.Click += btnNonRec_Click;
@@ -65,7 +68,13 @@ namespace KymiraApplication
         // Event handler for "Get Recyclables" button
         private void btnRec_Click(object sender, EventArgs e)
         {
-            //disposables = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(true);
+            // This calls the method that will request a list
+            KymiraApplication.Model.ListDisposable.requestDisposableListAsync(true);
+
+            // This will set the disposables array to the disposables array saved in the ListDisposable model
+            disposables = KymiraApplication.Model.ListDisposable.getDisposableList();
+
+            // This will display the list for the user
             displayDisposablesList(disposables);
 
         }
@@ -73,7 +82,13 @@ namespace KymiraApplication
         // Event handler for "Get Non-Recyclables" button
         private void btnNonRec_Click(object sender, EventArgs e)
         {
-            //disposables = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(false);
+            // This calls the method that will request a list
+            KymiraApplication.Model.ListDisposable.requestDisposableListAsync(false);
+
+            // This will set the disposables array to the disposables array saved in the ListDisposable model
+            disposables = KymiraApplication.Model.ListDisposable.getDisposableList();
+
+            // This will display the list for the user
             displayDisposablesList(disposables);
 
         }
