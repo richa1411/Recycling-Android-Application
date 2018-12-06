@@ -33,14 +33,13 @@ namespace KymiraApplicationUITests
 
             results.Add(app.WaitForElement(c => c.Marked("Discovered bins will be displayed here")));
             results.Add(app.WaitForElement(c => c.Marked("Bin Statuses")));
-            results.Add(app.WaitForElement(c => c.Marked("Discovered bins will be displayed here")));
             results.Add(app.WaitForElement(c => c.Marked("Address")));
             results.Add(app.WaitForElement(c => c.Marked("Bins: ")));
             results.Add(app.WaitForElement(c => c.Marked("addressEntry").Text("")));
             results.Add(app.WaitForElement(c => c.Marked("submitAddress")));
 
             //check that all elements are here
-            Assert.AreEqual(7, results.Count);
+            Assert.AreEqual(6, results.Count);
         }
 
         [Test]

@@ -33,78 +33,40 @@ namespace KymiraApplication.Resources
         private IListAdapter listAdapter;
         private IListAdapter listAdapterPopulated;
 
-        private ArrayList binStatusObjects;
-        private string[] binsReceived;
         private string[] listPlaceholder;
 
         //the BinStatus object created by user's entered data to send to the backend
         private BinStatus binStatusSend;
 
         //list to hold results when validating BinStatus objects
-        List<ValidationResult> validationResults;
+        private List<ValidationResult> validationResults;
 
         private jsonHandler jsonHandler;
 
         //class to simulate the backend (contains objects to compare)
         private SimBinStatusBackend simBinStatusBackend;
 
-        //the BinStatus object received from the backend (results)
-        private BinStatus binReceived;
+        //the BinStatus objects received from the simulated backend (results)
+        private ArrayList binsReceived;
 
+        //The actual array list that will be used to store the returned BinStatus objects
+        private ArrayList binStatusObjects;
+
+        //The primitive array of binStatuses received to display to the application's ListView
+        private string[] binsToDisplay;
 
         protected override void OnCreate(Bundle savedInstanceState)
-        {      
-            /*
-            BinStatus a = new BinStatus();
-            BinStatus b = new BinStatus();
-            BinStatus c = new BinStatus();
-
-            a.binID = 1;
-            a.status = 1;
-            a.binAddress = "123 Test St.";
-
-            b.binID = 2;
-            b.status = 3;
-
-            c.status = 2;
-            c.binID = 3;
-
-            binStatusObjects.Add(a);
-            binStatusObjects.Add(b);
-            binStatusObjects.Add(c);
-
-            binStatusArray = new string[binStatusObjects.Count];
-
-            for (int i=0;i<binStatusObjects.Count;i++)
-            {
-                BinStatus bs = (BinStatus)binStatusObjects[i];
-                string binStr = "Bin ID: " + bs.binID + "\t" + "Status: " + convertBinStatusToString(bs.status);
-                binStatusArray[i] = binStr;
-                
-            } */
-
-            
+        {   
             base.OnCreate(savedInstanceState);
-
             SetContentView(Resource.Layout.activity_view_statuses);
 
-
-            binStatusObjects = new ArrayList();
+            //placeholders for the listview upon activity start
             listPlaceholder = new string[1];
             listPlaceholder[0] = "Discovered bins will be displayed here";
 
-            binsReceived = new string[1];
-
-            //binsReceived = new string[100];
-
-            //binsReceived[0] = "Discovered bins will be displayed here";
+            
+            //setting the correct listview
             IListAdapter listAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, listPlaceholder);
-
-            
-
-            //listAdapter = new ArrayAdapter(this, Resource.Layout.bin_status_list_item, binsReceived);
-         
-            
 
             //Assigning UI controls
             tvTitle = FindViewById<TextView>(Resource.Id.binStatusTitle);
@@ -114,11 +76,9 @@ namespace KymiraApplication.Resources
             btnSubmit = FindViewById<Button>(Resource.Id.submitAddress);
             lvBins = FindViewById<ListView>(Resource.Id.binStatusList);
             lvBins.Adapter = listAdapter;
-
-            //tvAddressLabel.Text = "Bins found at: " + a.binAddress;
-
+            
+            //Object used to simulate the backend
             simBinStatusBackend = new SimBinStatusBackend();
-            binReceived = new BinStatus();
 
             //click events
             btnSubmit.Click += BtnSubmit_Click;
@@ -136,48 +96,84 @@ namespace KymiraApplication.Resources
             //gather text from the UI control
             string addressStr = etAddress.Text.Trim();
 
+            //BinStatus object that will be sent to the backend
             binStatusSend = new BinStatus();
+
+            //Open the backend sim to send JSON
             jsonHandler = new jsonHandler();
 
+            //Create a BinStatus object to send to the backend with default attributes of 1 with 
+            //an address of the address the user typed in
             binStatusSend.binAddress = addressStr;
             binStatusSend.binID = 1;
             binStatusSend.status = 1;
 
+            //Check if the BinStatus object that we are sending is valid
             validationResults = ValidationHelper.Validate(binStatusSend);
 
             if(validationResults.Count > 0)
             {
+                //If there are validation errors with the object, display the certain messages to the user
                 Toast.MakeText(this, validationResults[0].ErrorMessage, ToastLength.Short).Show();
             }
             else
             {
                 //var sendSuccess = await jsonHandler.sendJsonAsync(binStatusSend, "https://jsonplaceholder.typicode.com/posts");
-
                 //checkReceivedObject(sendSuccess);
 
                 //Simulated call to the back end
-                //simBinStatusBackend = new SimBinStatusBackend();
+               binsReceived = simBinStatusBackend.checkListOfBins(binStatusSend);
 
-                //BinStatus binReceived = new BinStatus();
+                //Toast.MakeText(this, binReceived.binID.ToString(), ToastLength.Short).Show();
 
-               binReceived = simBinStatusBackend.checkListOfBins(binStatusSend);
-               
-               //Toast.MakeText(this, binReceived.binID.ToString(), ToastLength.Short).Show();
+                binsToDisplay = new string[binsReceived.Count];
+
                 
-                if(binReceived.binID != -1)
+                if((binsReceived[0] as BinStatus).binID == -1)
                 {
-                    binStatusObjects.Add(binReceived);
-                    BinStatus bs = new BinStatus();
-                    bs.binID = ((BinStatus)binStatusObjects[0]).binID;        
-                    bs.status = ((BinStatus)binStatusObjects[0]).status;
-                    string binStr = "Bin ID: " + bs.binID + "\t" + "Status: " + convertBinStatusToString(bs.status);
-                    Toast.MakeText(this, binStr, ToastLength.Short).Show();
-                    binsReceived[0] = binStr;
-
-                    //listAdapterPopulated = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
-                    IListAdapter listPopulatedAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
-                    lvBins.Adapter = listPopulatedAdapter;
+                    Toast.MakeText(this, "No bins associated with that address.", ToastLength.Long).Show();
                 }
+                else if((binsReceived[0] as BinStatus).binID != -1)
+                {
+                    int counter = 0;
+
+                    foreach (var bin in binsReceived)
+                    {
+                        if((bin as BinStatus).binID != -1)
+                        {
+                            string binStr = "Bin ID: " + (bin as BinStatus).binID + "\t" + "Status: " + convertBinStatusToString((bin as BinStatus).status);
+                            binsToDisplay[counter] = binStr;
+                        }
+
+                        counter++;
+                    }
+                }
+                else
+                {
+                    Toast.MakeText(this, "Something went wrong, try again in a few minutes", ToastLength.Long).Show();
+                }
+
+                //Populate the listview with the bins received from the backend that are valid
+                IListAdapter listPopulatedAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsToDisplay);
+                lvBins.Adapter = listPopulatedAdapter;
+                /*
+                if ((bin as BinStatus).binID != -1)
+                    {
+                        binStatusObjects.Add(bin);
+                        BinStatus bs = new BinStatus();
+                        bs.binID = ((BinStatus)binStatusObjects[0]).binID;        
+                        bs.status = ((BinStatus)binStatusObjects[0]).status;
+                        string binStr = "Bin ID: " + bs.binID + "\t" + "Status: " + convertBinStatusToString(bs.status);
+                        Toast.MakeText(this, binStr, ToastLength.Short).Show();
+                        binsReceived[0] = binStr;
+
+                        //listAdapterPopulated = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
+                        IListAdapter listPopulatedAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
+                        lvBins.Adapter = listPopulatedAdapter;
+                    }
+
+
+                
                 else if(binReceived.binID == -1)
                 {
                     Toast.MakeText(this, "No bins associated with that address.", ToastLength.Long).Show();
@@ -186,7 +182,7 @@ namespace KymiraApplication.Resources
                 {
                     Toast.MakeText(this, "Something went wrong, try again in a few minutes", ToastLength.Long).Show();
                 }
-
+                */
             }
 
         }
@@ -209,13 +205,16 @@ namespace KymiraApplication.Resources
             }
         }
 
+        /**
+         * This method will be used for checking the response from the backend after a BinStatus
+         * object is sent.
+         */
         private async void checkReceivedObject(HttpResponseMessage sendSuccess)
         {
             if(sendSuccess.IsSuccessStatusCode)
             {
                 var receivedObject = await jsonHandler.receiveJsonAsync("https://jsonplaceholder.typicode.com/posts/1");
-
-                //Toast.MakeText(this, receiveSuccess, ToastLength.Long).Show();
+                
                 if(receivedObject.IsSuccessStatusCode)
                 {
                     string binStatusJson = await receivedObject.Content.ReadAsStringAsync();
@@ -230,7 +229,6 @@ namespace KymiraApplication.Resources
                     {
                         //add valid bin status object to arraylist 
                         binStatusObjects.Add(binStatusReceived);
-                        
                     }
                 }
                 else
