@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplication", "Kymira
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationTests", "KymiraApplicationTests\KymiraApplicationTests.csproj", "{61AD6B23-DE68-4873-BE47-44CC49DE7D9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestGUIBinCollectionDate", "TestGUIBinCollectionDate\TestGUIBinCollectionDate.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationUITests", "TestGUIBinCollectionDate\KymiraApplicationUITests.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

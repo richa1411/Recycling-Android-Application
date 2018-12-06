@@ -11,7 +11,11 @@ namespace TestGUIBinCollectionDate
             //deploy the app to the emulator and the emulator has to be running
 
             //get the app manifest that will have the name of the file
-            return ConfigureApp.Android.InstalledApp("com.cosmoindustries.kymira").StartApp();
+            //return ConfigureApp.Android.InstalledApp("com.cosmoindustries.kymira").StartApp();
+
+            return ConfigureApp.Android.EnableLocalScreenshots().ApkFile("G:\\KymiraApp\\prj2.cosmo\\KymiraApplication\\bin\\Release\\com.cosmoindustries.kymira-Signed.apk").StartApp();
         }
+
+
     }
 }
