@@ -28,15 +28,34 @@ namespace kymiraAPI.Controllers
         }
 
         // GET: api/BinStatus/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetBinStatus([FromRoute] int id)
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetBinStatus([FromRoute] int id)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    var binStatus = await _context.BinStatus.Where(m => m.binAddress == bin.binAddress).ToListAsync();
+
+        //    if (binStatus == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return Ok(binStatus);
+        //}
+
+        // PUT: api/BinStatus/5
+        [HttpPut]
+        public async Task<IActionResult> PutBinStatus( [FromBody] BinStatus bin)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var binStatus = await _context.BinStatus.SingleOrDefaultAsync(m => m.binID == id);
+            var binStatus = await _context.BinStatus.Where(m => m.binAddress == bin.binAddress).ToListAsync();
 
             if (binStatus == null)
             {
@@ -45,41 +64,37 @@ namespace kymiraAPI.Controllers
 
             return Ok(binStatus);
         }
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-        // PUT: api/BinStatus/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBinStatus([FromRoute] int id, [FromBody] BinStatus binStatus)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    if (id != binStatus.binID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            if (id != binStatus.binID)
-            {
-                return BadRequest();
-            }
+        //    _context.Entry(binStatus).State = EntityState.Modified;
 
-            _context.Entry(binStatus).State = EntityState.Modified;
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!BinStatusExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BinStatusExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         // POST: api/BinStatus
         [HttpPost]
