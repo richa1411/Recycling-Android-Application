@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -50,10 +51,15 @@ namespace KymiraApplication
 
             TextView txName = row.FindViewById<TextView>(Resource.Id.tvDespName);
             txName.Text = listDisposables[position].name;
+       
 
-            //ImageView imgPic = row.FindViewById<ImageView>(Resource.Id.ivDespPic);
+            ImageView imgPic = row.FindViewById<ImageView>(Resource.Id.ivDispPic);
+
+            string imagename = "Resource.Drawable." + listDisposables[position].imageURL;
+
             
-
+            
+            //imgPic.SetImageURI();
 
 
             return row;

@@ -3,16 +3,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Button
-        android:text="Button"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnRec" />
-    <Button
-        android:text="Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnNonRec" />
+        android:id="@+id/linearLayout1">
+        <Button
+            android:text="Recyclables"
+            android:id="@+id/btnRec"
+            android:layout_width="190dp"
+            android:layout_height="72.0dp" />
+        <Button
+            android:text="Non-Recyclables"
+            android:id="@+id/btnNonRec"
+            android:layout_width="190.0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
     <ListView
         android:minWidth="25px"
         android:minHeight="25px"
