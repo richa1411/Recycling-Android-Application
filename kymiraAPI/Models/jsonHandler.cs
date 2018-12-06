@@ -147,6 +147,12 @@ namespace kymiraAPI.Models
 
 
         }
+
+
+        /**
+         * This function is used to receive a list of BinStatus Objects from the Database.
+         * Takes in a URI and a BinStatus object to make the request to the API
+         * */
         public async Task<List<BinStatus>> receiveSpecBinStatusJsonAsync(String strUri, BinStatus bin)
         {
 

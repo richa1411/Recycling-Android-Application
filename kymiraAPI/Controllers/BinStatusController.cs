@@ -27,25 +27,12 @@ namespace kymiraAPI.Controllers
             return _context.BinStatus;
         }
 
-        // GET: api/BinStatus/5
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetBinStatus([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    var binStatus = await _context.BinStatus.Where(m => m.binAddress == bin.binAddress).ToListAsync();
-
-        //    if (binStatus == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return Ok(binStatus);
-        //}
-
+       
+        /**
+         * This method will take a binStatus Object from the application and return a List of binStatus objects that have a matching 
+         * binStatus Address. 
+         * will return a 404 not found if nothing is matching.
+         * */
         // PUT: api/BinStatus/5
         [HttpPut]
         public async Task<IActionResult> PutBinStatus( [FromBody] BinStatus bin)
@@ -64,38 +51,10 @@ namespace kymiraAPI.Controllers
 
             return Ok(binStatus);
         }
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != binStatus.binID)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(binStatus).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!BinStatusExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
+       
+        /**
+         * This function takes in a binStatus object and will post it to the Database.
+         * */
         // POST: api/BinStatus
         [HttpPost]
         public async Task<IActionResult> PostBinStatus([FromBody] BinStatus binStatus)
@@ -111,27 +70,10 @@ namespace kymiraAPI.Controllers
             return CreatedAtAction("GetBinStatus", new { id = binStatus.binID }, binStatus);
         }
 
-        // DELETE: api/BinStatus/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBinStatus([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var binStatus = await _context.BinStatus.SingleOrDefaultAsync(m => m.binID == id);
-            if (binStatus == null)
-            {
-                return NotFound();
-            }
-
-            _context.BinStatus.Remove(binStatus);
-            await _context.SaveChangesAsync();
-
-            return Ok(binStatus);
-        }
-
+       
+        /**
+         * Checks the database if a BinStatus exists with the given ID.
+         * */
         private bool BinStatusExists(int id)
         {
             return _context.BinStatus.Any(e => e.binID == id);
