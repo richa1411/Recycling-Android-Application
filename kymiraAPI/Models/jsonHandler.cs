@@ -147,6 +147,13 @@ namespace kymiraAPI.Models
 
 
         }
+        public async Task<List<BinStatus>> receiveSpecBinStatusJsonAsync(String strUri, string address)
+        {
+
+            return new List<BinStatus>();
+
+
+        }
 
 
     }

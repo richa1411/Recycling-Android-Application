@@ -32,45 +32,17 @@ namespace kymiraAPITest
             binAddress = "a"
         };
 
+        string address1 = "123 fake Street";
+        string address2 = "321 fake Street";
+        string address3 = "456 fake Street";
+
 
         /**
  * Tests that the model allows a valid object
  * */
 
 
-        ////*********** ID ***********
-        /**
-         * Tests that the model allows a valid id.
-         * */
-        [TestMethod]
-        public void TestThatIDIsValid()
-        {
 
-            testStatus.binID = 1;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(0, results.Count);
-
-
-        }
-
-        ////*********** ID ***********
-        /**
-         * Tests that the model does not allow an invalid id.
-         * */
-        [TestMethod]
-        public void TestThatIDIsInvalid()
-        {
-
-            testStatus.binID = -1;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
-           
-
-        }
-
-    
-  
 
         ////*********** address ***********
         /**
@@ -128,52 +100,7 @@ namespace kymiraAPITest
 
 
         }
-        /**Tests that the Bins status is valid at 1 == good
-     * 
-     * */
-        [TestMethod]
-        public void TestThatBinStatusIsValidAt1()
-        {
-            testStatus.status = 1;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(0, results.Count);
-
-        }
-        /**
-        * tests that the bin status is valid at 2 == blocked
-        * */
-        [TestMethod]
-        public void TestThatBinStatusIsValidAt2()
-        {
-            testStatus.status = 2;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(0, results.Count);
-
-        }
-        /**
-        * test that the bin status is valid at 3 == contaminated.
-        * */
-        [TestMethod]
-        public void TestThatBinStatusIsValidAt3()
-        {
-            testStatus.status = 3;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(0, results.Count);
-
-        }
-        /**
-        * test that the bin status is NOT valid at 4
-        * */
-        [TestMethod]
-        public void TestThatBinStatusIsInvalidAt4()
-        {
-            testStatus.status = 4;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
-        }
-
-
+    
         //-------------------functional----------------
         /**
          * Test that API can receive a Binstatus to put in DB, ( mainly used for testing)
@@ -192,15 +119,55 @@ namespace kymiraAPITest
          * Test that the API can return a list of bin/s with a matching address of the sent binstatus object
          * */
         [TestMethod]
-        public async Task testThatAPIGetsBinStatusSuccessfully()
+        public async Task testThatAPIGetsBinStatusSuccessfullyAndContains1BinStatus()
         {
 
             jsonHandler testJson = new jsonHandler();
 
-            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, sendTest);
+            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
 
           
-            Assert.IsTrue(Success.Count > 0);
+            Assert.IsTrue(Success.Count ==1);
+
+            foreach (BinStatus item in Success)
+            {
+                Assert.AreEqual(sendTest.binAddress, item.binAddress);
+            }
+
+        }
+        /**
+     * Test that the API can return a list of bin/s with a matching address of the sent binstatus object
+     * */
+        [TestMethod]
+        public async Task testThatAPIGetsBinStatusSuccessfullyAndContains2BinStatus()
+        {
+
+            jsonHandler testJson = new jsonHandler();
+
+            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
+
+
+            Assert.IsTrue(Success.Count == 2);
+
+            foreach (BinStatus item in Success)
+            {
+                Assert.AreEqual(sendTest.binAddress, item.binAddress);
+            }
+
+        }
+        /**
+     * Test that the API can return a list of bin/s with a matching address of the sent binstatus object
+     * */
+        [TestMethod]
+        public async Task testThatAPIGetsBinStatusSuccessfullyAndContains3BinStatus()
+        {
+
+            jsonHandler testJson = new jsonHandler();
+
+            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
+
+
+            Assert.IsTrue(Success.Count == 3);
 
             foreach (BinStatus item in Success)
             {
@@ -211,14 +178,18 @@ namespace kymiraAPITest
         /**
          * Tests that the API does not return any objects if the binstatus address does not exist in the system
          * */
-         [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(Exception))]
         [TestMethod]
         public async Task testThatAPIGetsBinStatusWithAddressNotFoundInSystem()
         {
 
             jsonHandler testJson = new jsonHandler();
 
-            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, badStatus);
+            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
+
+            
+
+          
 
         }
         /**
@@ -226,12 +197,12 @@ namespace kymiraAPITest
  * */
        
         [TestMethod]
-        public async Task testThatAPIGetsBinStatusWithID()
+        public async Task testThatAPIGetsBinStatus()
         {
 
             jsonHandler testJson = new jsonHandler();
 
-            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, testStatus);
+            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
 
             Assert.IsTrue(Success.Count > 0);
 
