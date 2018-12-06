@@ -57,8 +57,18 @@ namespace KymiraApplication
 
             string imagename = "Resource.Drawable." + listDisposables[position].imageURL;
 
-            
-            
+            string inputurl = "G:\\COSACPMG\\prj2.cosmo\\KymiraApplication\\Resources\\drawable\\" + listDisposables[position].imageURL;
+
+            URL url = new URL(inputurl);
+
+            Object content = url.getContent();
+
+            inputStream = (InputStream)content;
+
+            avatar = Drawable.CreateFromStream(inputStream, "src");
+
+            imgPic.SetImageDrawable(avatar);
+
             //imgPic.SetImageURI();
 
 

@@ -39,7 +39,7 @@ namespace KymiraApplication
 
             disposables = new Disposable[3];
 
-            disposables[0] = (new Disposable("Paper", "used to write things on", "G:/COSACPMG/prj2.cosmo/KymiraApplication/Resources/drawable/No_Image.png", true, "", 10, ""));
+            disposables[0] = (new Disposable("Paper", "used to write things on", "No_Image.png", true, "", 10, ""));
             disposables[1] = (new Disposable("Cardboard", "used to hold things", "", true, "", 10, ""));
             disposables[2] = (new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
           
