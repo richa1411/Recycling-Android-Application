@@ -21,7 +21,7 @@ namespace kymiraAPI.Models
         //address is restricted to 300 characters
         [Required(ErrorMessage = "Address cannot be an empty field")]
         [RegularExpression(@"^[\d\sA-z]+$", ErrorMessage = "Invalid Address")]
-        [StringLength(300, ErrorMessage = "Address must be 300 characters or less")]
+        [StringLength(200, ErrorMessage = "Address must be 200 characters or less")]
         public string binAddress { get; set; }
 
         //Validators:

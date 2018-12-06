@@ -27,9 +27,7 @@ namespace kymiraAPITest
         [TestMethod]
         public async Task TestSendValidJson()
         {
-            jsonHandler testJSON = new jsonHandler();
-            var success = await testJSON.sendJsonAsync(testDbItem, dispURL);
-            Assert.AreEqual("Success", success);
+            throw new NotImplementedException();
         }
         /**
          * This tests, tests that if given true, the api will return only bins from the given address
@@ -37,17 +35,7 @@ namespace kymiraAPITest
         [TestMethod]
         public async Task TestGetValidJsonRecyclable()
         {
-            jsonHandler testJSON = new jsonHandler();
-
-            List<PickupDate> success = await testJSON.receiveSpecJsonAsyncPickup(dispURL, "426 Spadina Cres W");
-
-            Assert.IsTrue(success.Count > 0);
-
-            foreach (PickupDate item in success)
-            {
-                Assert.AreEqual("426 Spadina Cres W", item.binAddress);
-            }
-
+            throw new NotImplementedException();
         }
 
         //Model Tests
@@ -99,10 +87,10 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestInvalid301CharacterAddress()
         {
-            testDbItem.binAddress = new string('a', 301);
+            testDbItem.binAddress = new string('a', 201);
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Address must be 300 characters or less", results[0].ErrorMessage);
+            Assert.AreEqual("Address must be 200 characters or less", results[0].ErrorMessage);
         }
 
         /**
