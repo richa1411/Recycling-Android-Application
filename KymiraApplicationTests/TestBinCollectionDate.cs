@@ -29,16 +29,6 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void testDateEmpty()
-        {
-            //This will be seem by the backend
-            binColl.collectionDate1 = "";
-            var results = HelperTestModel.Validate(binColl);
-            Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Date is Required", results[0].ErrorMessage);
-
-        }
-        [TestMethod]
         public void testValidAddress()
         {
             binColl.Address = "123 Test Dr";
