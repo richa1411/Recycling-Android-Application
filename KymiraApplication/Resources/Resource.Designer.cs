@@ -2709,6 +2709,9 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080000
 			public const int item_touch_helper_previous_elevation = 2131230720;
 			
+			// aapt resource value: 0x7f0800ba
+			public const int ivDispPic = 2131230906;
+			
 			// aapt resource value: 0x7f0800a8
 			public const int largeLabel = 2131230888;
 			
@@ -3031,13 +3034,10 @@ namespace KymiraApplication
 			public const int transition_transform = 2131230739;
 			
 			// aapt resource value: 0x7f0800bb
-			public const int tvDesc = 2131230907;
+			public const int tvDespName = 2131230907;
 			
 			// aapt resource value: 0x7f0800bf
 			public const int tvError = 2131230911;
-			
-			// aapt resource value: 0x7f0800ba
-			public const int tvName = 2131230906;
 			
 			// aapt resource value: 0x7f0800b6
 			public const int txtUserPhone = 2131230902;
