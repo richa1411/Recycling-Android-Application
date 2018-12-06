@@ -44,34 +44,24 @@ namespace KymiraApplication
 
         /**
          * This method simulates the backend checking matching bins for the address given.
+         * It will return an empty ArrayList if there were no matching bins.
          */
-        public ArrayList checkListOfBins(BinStatus bin)
+        public ArrayList checkListOfBins(string binAddress)
         {
             ArrayList discoveredBins = new ArrayList();
 
+            //Loops through each BinStatus in the array of BinStatuses
             for (int i = 0; i < binArray.Length; i++)
             {
-                if(binArray[i].binAddress.Equals(bin.binAddress))
+                //Check if the addresses are the same
+                if(binArray[i].binAddress.Equals(binAddress))
                 {
-                    //return the matched BinStatus object
+                    //Adds the matched BinStatus object to the ArrayList to return to the front end
                     discoveredBins.Add(binArray[i]);
                 }
             }
 
-            //check count of arraylist of matched bins -- if there are none, add one 
-            //BinStatus with an id of -1
-            //if(discoveredBins.Count == 0)
-            //{
-                //Setting up and returning a BinStatus with an id of -1 if there was no match
-               // BinStatus binStatusNoMatch = new BinStatus();
-               // binStatusNoMatch.binID = -1;
-               // binStatusNoMatch.binAddress = "";
-               // binStatusNoMatch.status = 3;
-
-                //Returns a BinStatus with an id of -1 to indicate that there was no match for this address
-               // discoveredBins.Add(binStatusNoMatch);
-           // }
-
+            //Return ArrayList that is either empty or contains BinStatuses
             return discoveredBins;
         }
     }

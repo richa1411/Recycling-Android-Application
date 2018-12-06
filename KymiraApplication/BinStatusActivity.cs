@@ -31,7 +31,7 @@ namespace KymiraApplication.Resources
 
         //adapter for the list view of bin objects to display
         private IListAdapter listAdapter;
-        private IListAdapter listAdapterPopulated;
+        private IListAdapter listPopulatedAdapter;
 
         private string[] listPlaceholder;
 
@@ -66,7 +66,7 @@ namespace KymiraApplication.Resources
 
             
             //setting the correct listview
-            IListAdapter listAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, listPlaceholder);
+            listAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, listPlaceholder);
 
             //Assigning UI controls
             tvTitle = FindViewById<TextView>(Resource.Id.binStatusTitle);
@@ -88,8 +88,8 @@ namespace KymiraApplication.Resources
 
         /**
          *  This method executes when the user clicks the Submit button. It creates a BinStatus object with
-         *  that address and sends it to the backend to compare addresses. When the method receives an object from the 
-         *  backend, it displays it to the listview.
+         *  that address (used to validate what the user entered) and sends only the address string to the backend to compare addresses. 
+         *  It then receives an Arraylist from the backend, checks those results and then displays it to the listview accordingly.
          */
         private async void BtnSubmit_Click(object sender, EventArgs e)
         {
@@ -102,13 +102,12 @@ namespace KymiraApplication.Resources
             //Open the backend sim to send JSON
             jsonHandler = new jsonHandler();
 
-            //Create a BinStatus object to send to the backend with default attributes of 1 with 
-            //an address of the address the user typed in
+            //Create a BinStatus object with default attributes -- used for validating what the user entered
             binStatusSend.binAddress = addressStr;
             binStatusSend.binID = 1;
             binStatusSend.status = 1;
 
-            //Check if the BinStatus object that we are sending is valid
+            //Check if the BinStatus object created is valid
             validationResults = ValidationHelper.Validate(binStatusSend);
 
             if(validationResults.Count > 0)
@@ -122,10 +121,9 @@ namespace KymiraApplication.Resources
                 //checkReceivedObject(sendSuccess);
 
                 //Simulated call to the back end
-               binsReceived = simBinStatusBackend.checkListOfBins(binStatusSend);
-
-                //Toast.MakeText(this, binReceived.binID.ToString(), ToastLength.Short).Show();
-
+                binsReceived = simBinStatusBackend.checkListOfBins(binStatusSend.binAddress);
+                
+                //Check the results of the call to the backend -- if there were no matches, an empty arraylist is sent back
                 if(binsReceived.Count == 0)
                 {
                     binsToDisplay = new string[1];
@@ -135,7 +133,7 @@ namespace KymiraApplication.Resources
                     binsToDisplay = new string[binsReceived.Count];
                 }
 
-                //If no bins were returned by the simulated back end
+                //If no bins were returned by the simulated back end, display appropriate message
                 if(binsReceived.Count == 0)
                 {
                     binsToDisplay[0] = "No bins associated with that address.";
@@ -143,16 +141,16 @@ namespace KymiraApplication.Resources
                 //Else if there was a match with the address the user sent to bins in the back end
                 else if(binsReceived.Count > 0)
                 {
+                    //Variable to track the index of the array to insert into
                     int counter = 0;
 
-                    //For each bin found, create a display string and add it to a display array
+                    //Loop for each bin found 
                     foreach (var bin in binsReceived)
                     {
-
+                        //Create a display string and add it to a display array
                          string binStr = "Bin ID: " + (bin as BinStatus).binID + "\t" + "Status: " + convertBinStatusToString((bin as BinStatus).status);
                          binsToDisplay[counter] = binStr;
-
-                        counter++;
+                         counter++; //increase the index by 1
                     }
                 }
                 //If something else went wrong, let the user know (catch all case)
@@ -163,37 +161,9 @@ namespace KymiraApplication.Resources
                 }
 
                 //Populate the listview with the bins received from the backend that are valid
-                IListAdapter listPopulatedAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsToDisplay);
+                listPopulatedAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsToDisplay);
                 lvBins.Adapter = listPopulatedAdapter;
-                /*
-                if ((bin as BinStatus).binID != -1)
-                    {
-                        binStatusObjects.Add(bin);
-                        BinStatus bs = new BinStatus();
-                        bs.binID = ((BinStatus)binStatusObjects[0]).binID;        
-                        bs.status = ((BinStatus)binStatusObjects[0]).status;
-                        string binStr = "Bin ID: " + bs.binID + "\t" + "Status: " + convertBinStatusToString(bs.status);
-                        Toast.MakeText(this, binStr, ToastLength.Short).Show();
-                        binsReceived[0] = binStr;
-
-                        //listAdapterPopulated = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
-                        IListAdapter listPopulatedAdapter = new ArrayAdapter<string>(this, Resource.Layout.bin_status_list_item, binsReceived);
-                        lvBins.Adapter = listPopulatedAdapter;
-                    }
-
-
-                
-                else if(binReceived.binID == -1)
-                {
-                    Toast.MakeText(this, "No bins associated with that address.", ToastLength.Long).Show();
-                }
-                else
-                {
-                    Toast.MakeText(this, "Something went wrong, try again in a few minutes", ToastLength.Long).Show();
-                }
-                */
             }
-
         }
 
         /**
