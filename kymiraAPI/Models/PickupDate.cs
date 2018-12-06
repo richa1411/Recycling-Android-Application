@@ -14,26 +14,23 @@ namespace kymiraAPI.Models
     {
         [Key]
         public int binID { get; set; }
+
         //Validators:
         //Address is required. If it is empty an error message will be displayed.
         //Also uses a regular expression for input that will allow for addresses in the format '### Address Dr"
+        //address is restricted to 300 characters
         [Required(ErrorMessage = "Address cannot be an empty field")]
-        [RegularExpression(@"^\d+\s[A-z]+\s[A-z]+", ErrorMessage = "Invalid Address")]
-        public string Address { get; set; }
+        [RegularExpression(@"^[\d\sA-z]+$", ErrorMessage = "Invalid Address")]
+        [StringLength(300, ErrorMessage = "Address must be 300 characters or less")]
+        public string binAddress { get; set; }
 
         //Validators:
         //Collection date is required. If it is empty an error message will be displayed.
-        //Also uses a regular expression for input that will allow for addresses in the format '### Address Dr"
-        // [Required(ErrorMessage = "Date is Required")]
         //Will Accept MM/DD/YYYY format
+        [Required(ErrorMessage = "Collection Date cannot be an empty field")]
         [RegularExpression(@"^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$", ErrorMessage = "Invalid Date format")]
-        public string collectionDate1 { get; set; }
+        public string collectionDate { get; set; }
 
-
-        // [Required(ErrorMessage = "Date is Required")]
-        //Will Accept MM/DD/YYYY format
-        [RegularExpression(@"^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$", ErrorMessage = "Invalid Date format")]
-        public string collectionDate2 { get; set; }
 
     }
 }

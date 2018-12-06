@@ -83,7 +83,7 @@ namespace kymiraAPITest
         /**
          * Tests that invalid sent values will result in an error
          * */
-         [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(Exception))]
         [TestMethod]
         public async Task TestSendInvalidRequest()
         {
