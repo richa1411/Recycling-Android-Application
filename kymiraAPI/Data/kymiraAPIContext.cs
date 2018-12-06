@@ -13,10 +13,12 @@ namespace kymiraAPI.Models
         public kymiraAPIContext (DbContextOptions<kymiraAPIContext> options)
             : base(options)
         {
+
         }
         
         public DbSet<kymiraAPI.Models.Resident> ResidentDBSet { get; set; }
         public DbSet<kymiraAPI.Models.Credentials> Credentials { get; set; }
+        public DbSet<kymiraAPI.Models.Disposable> DisposableDBSet { get; set; }
         
         
     }
