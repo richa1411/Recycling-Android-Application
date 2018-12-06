@@ -38,10 +38,6 @@ namespace KymiraApplication
             listView = (ListView)FindViewById(Resource.Id.listView);
 
             disposables = new Disposable[3];
-
-            disposables[0] = (new Disposable("Paper", "used to write things on", "No_Image.png", true, "", 10, ""));
-            disposables[1] = (new Disposable("Cardboard", "used to hold things", "", true, "", 10, ""));
-            disposables[2] = (new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
           
 
             //lstDisposables = new List<Disposable>();
@@ -51,9 +47,7 @@ namespace KymiraApplication
             //lstDisposables.Add(new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
 
 
-            RecNonRecListViewAdapter adapter = new RecNonRecListViewAdapter(this, disposables);
-
-            listView.Adapter = adapter;
+            
 
 
             btnRec.Click += btnRec_Click;
@@ -64,6 +58,14 @@ namespace KymiraApplication
         // Event handler for "Get Recyclables" button
         private void btnRec_Click(object sender, EventArgs e)
         {
+
+            disposables[0] = (new Disposable("Paper", "used to write things on", "No_Image.png", true, "", 10, ""));
+            disposables[1] = (new Disposable("Cardboard", "used to hold things", "", true, "", 10, ""));
+            disposables[2] = (new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
+
+            displayDisposablesList(disposables);
+
+            /**
             // This calls the method that will request a list
             KymiraApplication.Model.ListDisposable.requestDisposableListAsync(true);
 
@@ -72,12 +74,21 @@ namespace KymiraApplication
 
             // This will display the list for the user
             displayDisposablesList(disposables);
+            */
 
         }
 
         // Event handler for "Get Non-Recyclables" button
         private void btnNonRec_Click(object sender, EventArgs e)
         {
+
+            disposables[0] = (new Disposable("Food", "Food", "No_Image.png", false, "", 10, ""));
+            disposables[1] = (new Disposable("Pizza", "Pizza", "", false, "", 10, ""));
+            disposables[2] = (new Disposable("Garbage", "Garbage", "", false, "", 10, ""));
+
+            displayDisposablesList(disposables);
+
+            /**
             // This calls the method that will request a list
             KymiraApplication.Model.ListDisposable.requestDisposableListAsync(false);
 
@@ -86,6 +97,7 @@ namespace KymiraApplication
 
             // This will display the list for the user
             displayDisposablesList(disposables);
+            */
 
         }
 
@@ -96,7 +108,9 @@ namespace KymiraApplication
          */ 
         private void displayDisposablesList(Disposable[] disposables)
         {
+            RecNonRecListViewAdapter adapter = new RecNonRecListViewAdapter(this, disposables);
 
+            listView.Adapter = adapter;
         }
 
 

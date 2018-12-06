@@ -95,11 +95,7 @@ namespace KymiraApplication.Model
                 //Create a varialbe to contain the response of the response's GET
                 var content = await response.Content.ReadAsStringAsync();
 
-
                 return  JsonConvert.DeserializeObject<List<Disposable>>(content);
-                
-
-               
             }
             // If there were errors receiving the JSON, let the user know
             else

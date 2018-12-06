@@ -6,6 +6,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -53,23 +54,20 @@ namespace KymiraApplication
             txName.Text = listDisposables[position].name;
        
 
-            ImageView imgPic = row.FindViewById<ImageView>(Resource.Id.ivDispPic);
+            ImageView ivBackup = row.FindViewById<ImageView>(Resource.Id.ivDispPic);
 
-            string imagename = "Resource.Drawable." + listDisposables[position].imageURL;
+            ImageView ivURLImage = new ImageView(cContext);
 
-            string inputurl = "G:\\COSACPMG\\prj2.cosmo\\KymiraApplication\\Resources\\drawable\\" + listDisposables[position].imageURL;
+            ivBackup.SetImageResource(Resource.Drawable.No_Image);
 
-            URL url = new URL(inputurl);
+          
+            /**
+             *  Set an ImageView pointing to our placeholder. 
+             *  ImageURL in the Disposable.ImageURL will be a full URL pointing to a place 
+             *  on the internet. If ImageURL can find a valid image, replace our old imageView.
+             *  Use a webserver to test images
+             */ 
 
-            Object content = url.getContent();
-
-            inputStream = (InputStream)content;
-
-            avatar = Drawable.CreateFromStream(inputStream, "src");
-
-            imgPic.SetImageDrawable(avatar);
-
-            //imgPic.SetImageURI();
 
 
             return row;
