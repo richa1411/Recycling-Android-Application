@@ -26,6 +26,7 @@ namespace KymiraApplication.Model
         //Also uses a regular expression for input that will allow for addresses in the format '### Address Dr"
         [Required(ErrorMessage = "Address cannot be an empty field")]
         [RegularExpression(@"^\d+\s[A-z]+\s[A-z]+", ErrorMessage = "Invalid Address")]
+        [StringLength(200)]
         public string Address { get; set; }
 
         //Validators:
