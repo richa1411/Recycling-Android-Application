@@ -126,31 +126,40 @@ namespace KymiraApplication.Resources
 
                 //Toast.MakeText(this, binReceived.binID.ToString(), ToastLength.Short).Show();
 
-                binsToDisplay = new string[binsReceived.Count];
-
-                
-                if((binsReceived[0] as BinStatus).binID == -1)
+                if(binsReceived.Count == 0)
                 {
-                    Toast.MakeText(this, "No bins associated with that address.", ToastLength.Long).Show();
+                    binsToDisplay = new string[1];
                 }
-                else if((binsReceived[0] as BinStatus).binID != -1)
+                else
+                {
+                    binsToDisplay = new string[binsReceived.Count];
+                }
+
+                //If no bins were returned by the simulated back end
+                if(binsReceived.Count == 0)
+                {
+                    binsToDisplay[0] = "No bins associated with that address.";
+                }
+                //Else if there was a match with the address the user sent to bins in the back end
+                else if(binsReceived.Count > 0)
                 {
                     int counter = 0;
 
+                    //For each bin found, create a display string and add it to a display array
                     foreach (var bin in binsReceived)
                     {
-                        if((bin as BinStatus).binID != -1)
-                        {
-                            string binStr = "Bin ID: " + (bin as BinStatus).binID + "\t" + "Status: " + convertBinStatusToString((bin as BinStatus).status);
-                            binsToDisplay[counter] = binStr;
-                        }
+
+                         string binStr = "Bin ID: " + (bin as BinStatus).binID + "\t" + "Status: " + convertBinStatusToString((bin as BinStatus).status);
+                         binsToDisplay[counter] = binStr;
 
                         counter++;
                     }
                 }
+                //If something else went wrong, let the user know (catch all case)
                 else
                 {
-                    Toast.MakeText(this, "Something went wrong, try again in a few minutes", ToastLength.Long).Show();
+                    //Toast.MakeText(this, "Something went wrong, try again in a few minutes", ToastLength.Long).Show();
+                    binsToDisplay[0] = "Something went wrong, try again in a few minutes";
                 }
 
                 //Populate the listview with the bins received from the backend that are valid

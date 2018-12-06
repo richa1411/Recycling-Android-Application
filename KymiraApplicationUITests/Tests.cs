@@ -65,20 +65,21 @@ namespace KymiraApplicationUITests
             app.Tap(c => c.Marked("submitAddress"));
 
             results.Add(app.WaitForElement(c => c.Marked("Bin ID: 1\tStatus: Good")));
+            results.Add(app.WaitForElement(c => c.Marked("Bin ID: 2\tStatus: Contaminated")));
 
-            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual(2, results.Count);
         }
 
         [Test]
         //test that incorrect address leaves the listview unchanged
-        public void TestThatIncorrectAddressDoesNotAffectListView()
+        public void TestThatIncorrectAddressAffectsListView()
         {
             ArrayList results = new ArrayList();
 
             app.EnterText("12345 Fake Street");
             app.Tap(c => c.Marked("submitAddress"));
 
-            results.Add(app.WaitForElement(c => c.Marked("Discovered bins will be displayed here")));
+            results.Add(app.WaitForElement(c => c.Marked("No bins associated with that address.")));
 
             Assert.AreEqual(1, results.Count);
         }

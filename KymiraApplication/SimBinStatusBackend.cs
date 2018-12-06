@@ -60,17 +60,17 @@ namespace KymiraApplication
 
             //check count of arraylist of matched bins -- if there are none, add one 
             //BinStatus with an id of -1
-            if(discoveredBins.Count == 0)
-            {
+            //if(discoveredBins.Count == 0)
+            //{
                 //Setting up and returning a BinStatus with an id of -1 if there was no match
-                BinStatus binStatusNoMatch = new BinStatus();
-                binStatusNoMatch.binID = -1;
-                binStatusNoMatch.binAddress = "";
-                binStatusNoMatch.status = 3;
+               // BinStatus binStatusNoMatch = new BinStatus();
+               // binStatusNoMatch.binID = -1;
+               // binStatusNoMatch.binAddress = "";
+               // binStatusNoMatch.status = 3;
 
                 //Returns a BinStatus with an id of -1 to indicate that there was no match for this address
-                discoveredBins.Add(binStatusNoMatch);
-            }
+               // discoveredBins.Add(binStatusNoMatch);
+           // }
 
             return discoveredBins;
         }
