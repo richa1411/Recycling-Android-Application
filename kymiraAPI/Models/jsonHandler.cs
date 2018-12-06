@@ -149,44 +149,5 @@ namespace kymiraAPI.Models
         }
 
 
-        /**
-         * This function is used to receive a list of BinStatus Objects from the Database.
-         * Takes in a URI and a BinStatus object to make the request to the API
-         * */
-        public async Task<List<BinStatus>> receiveSpecBinStatusJsonAsync(String strUri, BinStatus bin)
-        {
-
-
-          
-
-            Uri uri = new Uri(strUri, UriKind.Absolute);
-
-            var json = JsonConvert.SerializeObject(bin);
-
-
-            var contents = new StringContent(json, Encoding.UTF8, "application/json");
-            // Create an HttpResponse message to hold the response from the back end
-            HttpResponseMessage response = await client.PutAsync(uri,contents);
-
-            // Check if the message was sent successfully
-            if (response.IsSuccessStatusCode)
-            {
-                //Create a varialbe to contain the response of the response's GET
-                var content = await response.Content.ReadAsStringAsync();
-
-
-                return JsonConvert.DeserializeObject<List<BinStatus>>(content);
-
-
-
-            }
-            // If there were errors receiving the JSON, let the user know
-            else
-            {
-                throw new Exception("no work");
-            }
-
-
-        }
     }
 }

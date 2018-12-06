@@ -19,7 +19,10 @@ namespace kymiraAPI.Controllers
         {
             _context = context;
         }
-
+        /**
+         * 
+         * gets all binStatus objects from DB
+         * */
         // GET: api/BinStatus
         [HttpGet]
         public IEnumerable<BinStatus> GetBinStatus()
@@ -44,7 +47,7 @@ namespace kymiraAPI.Controllers
 
             var binStatus = await _context.BinStatus.Where(m => m.binAddress == bin.binAddress).ToListAsync();
 
-            if (binStatus == null)
+            if (binStatus == null || binStatus.Count <=0)
             {
                 return NotFound();
             }

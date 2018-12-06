@@ -13,7 +13,7 @@ namespace kymiraAPITest
         //setup
         string dispURL = "http://localhost:55085/api/BinStatus/";
 
-        BinStatus testStatus = new BinStatus //bin status object that is good for validation but not good to send.
+        BinStatus testStatus = new BinStatus //bin status object that is good for validation .
         {
             binID = 1,
             status = 1,
@@ -128,13 +128,58 @@ namespace kymiraAPITest
 
 
         }
+        /**Tests that the Bins status is valid at 1 == good
+     * 
+     * */
+        [TestMethod]
+        public void TestThatBinStatusIsValidAt1()
+        {
+            testStatus.status = 1;
+            var results = HelperTestModel.Validate(testStatus);
+            Assert.AreEqual(0, results.Count);
+
+        }
+        /**
+        * tests that the bin status is valid at 2 == blocked
+        * */
+        [TestMethod]
+        public void TestThatBinStatusIsValidAt2()
+        {
+            testStatus.status = 2;
+            var results = HelperTestModel.Validate(testStatus);
+            Assert.AreEqual(0, results.Count);
+
+        }
+        /**
+        * test that the bin status is valid at 3 == contaminated.
+        * */
+        [TestMethod]
+        public void TestThatBinStatusIsValidAt3()
+        {
+            testStatus.status = 3;
+            var results = HelperTestModel.Validate(testStatus);
+            Assert.AreEqual(0, results.Count);
+
+        }
+        /**
+        * test that the bin status is NOT valid at 4
+        * */
+        [TestMethod]
+        public void TestThatBinStatusIsInvalidAt4()
+        {
+            testStatus.status = 4;
+            var results = HelperTestModel.Validate(testStatus);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
+        }
+
 
         //-------------------functional----------------
         /**
          * Test that API can receive a Binstatus to put in DB, ( mainly used for testing)
          * */
         [TestMethod]
-         public async Task testThatAPISendsBinStatusSuccessfully()
+         public async Task testThatAPISendsBinStatusSuccessfullyWithNoID()
         {
 
             jsonHandler testJson = new jsonHandler();
@@ -166,62 +211,35 @@ namespace kymiraAPITest
         /**
          * Tests that the API does not return any objects if the binstatus address does not exist in the system
          * */
+         [ExpectedException(typeof(Exception))]
         [TestMethod]
-        public async Task testThatAPIGetsBinStatusUnsuccessfully()
+        public async Task testThatAPIGetsBinStatusWithAddressNotFoundInSystem()
         {
 
             jsonHandler testJson = new jsonHandler();
 
             List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, badStatus);
 
-            Assert.IsTrue(Success.Count == 0);
+        }
+        /**
+ * Tests that the API can send a Json object with an ID, as long as Address is valid.
+ * */
+       
+        [TestMethod]
+        public async Task testThatAPIGetsBinStatusWithID()
+        {
 
-          
+            jsonHandler testJson = new jsonHandler();
 
-        }
-        /**Tests that the Bins status is valid at 1 == good
-         * 
-         * */
-        [TestMethod]
-        public void TestThatBinStatusIsValidAt1()
-        {
-            testStatus.status = 1;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(0, results.Count);
-          
-        }
-        /**
-        * tests that the bin status is valid at 2 == blocked
-        * */
-        [TestMethod]
-        public void TestThatBinStatusIsValidAt2()
-        {
-            testStatus.status = 2;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(0, results.Count);
-          
-        }
-        /**
-        * test that the bin status is valid at 3 == contaminated.
-        * */
-        [TestMethod]
-        public void TestThatBinStatusIsValidAt3()
-        {
-            testStatus.status = 3;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(0, results.Count);
-         
-        }
-        /**
-        * test that the bin status is NOT valid at 4
-        * */
-        [TestMethod]
-        public void TestThatBinStatusIsInvalidAt4()
-        {
-            testStatus.status = 4;
-            var results = HelperTestModel.Validate(testStatus);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
+            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, testStatus);
+
+            Assert.IsTrue(Success.Count > 0);
+
+            foreach (BinStatus item in Success)
+            {
+                Assert.AreEqual(sendTest.binAddress, item.binAddress);
+            }
+
         }
 
     }
