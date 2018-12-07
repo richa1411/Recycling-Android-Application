@@ -13,12 +13,14 @@ namespace KymiraApplicationTests
     {
         BinCollectionDate binColl;
 
+        //Set up some initial data for our BinCollectionDate object
         [TestInitialize]
         public void InitializeTest()
         {
             binColl = new BinCollectionDate { Address = "123 Test Dr", collectionDate1 = "11/30/2018" }; //date is just a string right now.
         }
 
+        //Test if the address field is Empty, will result in an error if it is empty
         [TestMethod]
         public void testAddressEmpty()
         {
@@ -28,6 +30,7 @@ namespace KymiraApplicationTests
             Assert.AreEqual("Address cannot be an empty field", results[0].ErrorMessage);
         }
 
+        //Test if the address field is a valid format as specified by our Regular Expression
         [TestMethod]
         public void testValidAddress()
         {
@@ -36,6 +39,7 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count());
         }
 
+        //Test if the address field is a valid format as specified by our Regular Expression
         [TestMethod]
         public void testValidDate()
         {
@@ -44,7 +48,7 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count());
           
         }
-
+        //Test if the address field is an invalid format as specified by our Regular Expression 
         [TestMethod]
         public void testInValidDate()
         {
@@ -55,6 +59,7 @@ namespace KymiraApplicationTests
 
         }
 
+        //Test if the Address is invalid (from the backend)
         [TestMethod]
         public void testInValidAddress()
         {

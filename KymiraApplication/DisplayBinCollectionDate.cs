@@ -35,7 +35,7 @@ namespace KymiraApplication
             tvCollectionDate2 = FindViewById<TextView>(Resource.Id.tvCollectionDate2);
             tvError = FindViewById<TextView>(Resource.Id.tvError);
 
-            // var receivedObject = JsonConvert.DeserializeObject<BinCollectionDate>(Intent.GetStringExtra("ReceivedJSON"));
+            //var receivedObject = JsonConvert.DeserializeObject<BinCollectionDate>(Intent.GetStringExtra("ReceivedJSON"));
             //tvCollectionDate.Text += receivedObject.collectionDate1;
            
             string receivedObject1 = Intent.GetStringExtra("ReceivedJSON1");

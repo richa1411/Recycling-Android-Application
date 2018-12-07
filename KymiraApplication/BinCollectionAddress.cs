@@ -108,17 +108,18 @@ namespace KymiraApplication
                     string displayDate2 = obj.displayDate2(binCollectionDate);
                     Intent intent = new Intent(this, typeof(DisplayBinCollectionDate));
 
-                    //                //Serializing takes an object and turns it into a string
+                    //Serializing takes an object and turns it into a string
                     intent.PutExtra("ReceivedJSON1", displayDate1);
                     intent.PutExtra("ReceivedJSON2", displayDate2);
                     StartActivity(intent);
 
 
 
-                    //  Toast.MakeText(this, displayDate, ToastLength.Long).Show();
+                    // Toast.MakeText(this, displayDate, ToastLength.Long).Show();
                 }
                 else
                 {
+                    //Will generate a toast message to help with status messages
                     Toast.MakeText(this, binStr, ToastLength.Long).Show();
                     tvError.Text = binStr;
                 }

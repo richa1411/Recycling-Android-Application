@@ -13,12 +13,12 @@ namespace TestGUIBinCollectionDate
 {
 	[TestFixture(Platform.Android)]
 
-	public class Tests
+	public class Tests1
 	{
 		IApp app;
 		Platform platform;
 
-		public Tests(Platform platform)
+		public Tests1(Platform platform)
 		{
 			this.platform = platform;
 		}
@@ -29,7 +29,7 @@ namespace TestGUIBinCollectionDate
 			app = AppInitializer.StartApp(platform);
 		}
 
-		
+		//Test that the elements exist in the current page and store them into an Array to check
         [Test]
         public void TestThatBinCollectionAddressPageLoadsCorrectly()
         {
@@ -41,6 +41,7 @@ namespace TestGUIBinCollectionDate
             Assert.AreEqual(3, results.Count);
         }
 
+        //Test that the elements exist in the current page and store them into an Array to check
         [Test]
         public void TestThatEmptyAddressFieldShowsError()
         {
@@ -53,6 +54,7 @@ namespace TestGUIBinCollectionDate
             Assert.AreEqual(2, results.Count);
         }
 
+        //Test that the elements exist in the current page and store them into an Array to check
         [Test]
         public void TestThatAddressNotInDatabaseShowsError()
         {
@@ -67,6 +69,7 @@ namespace TestGUIBinCollectionDate
             Assert.AreEqual(2, results.Count);
         }
 
+        //Test that the elements exist in the current page and store them into an Array to check
         [Test]
         public void TestThatAddressNotValidShowsError()
         {
@@ -81,6 +84,8 @@ namespace TestGUIBinCollectionDate
             Assert.AreEqual(2, results.Count);
         }
 
+        //Test that the elements exist in the page that is navigated to after a successful login 
+        //and store them into an Array to check.
         [Test]
         public void TestThatAddresValidLoadsNextPage()
         {
