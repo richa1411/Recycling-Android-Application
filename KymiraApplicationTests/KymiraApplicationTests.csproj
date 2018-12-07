@@ -66,6 +66,7 @@
     <Compile Include="TestBinCollectionDate.cs" />
     <Compile Include="TestCredential.cs" />
     <Compile Include="TestPickupScheduleData.cs" />
+    <Compile Include="TestViewPropertyStats.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

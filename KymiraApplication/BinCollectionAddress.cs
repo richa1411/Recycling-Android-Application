@@ -23,13 +23,13 @@ namespace KymiraApplication
 
         //We have two activities
 
-        //The first activity (addressForCollection) is for non-logged in users which will have a textview for an address field to fill in
+        //The first activity (BinCollectionAddress) is for non-logged in users which will have a textview for an address field to fill in
         //and also a button that will submit the address provided. 
         //Then the application will check the given address with the backend to verify that address exists in the database.
         //If the address exists, and it is valid a collection date for that address will be displayed in another activity 
-        //(CollectionDate) for the user.
+        //(DisplayBinCollectionDate) for the user.
 
-        //The Second Activity (CollectionDate) will have no inputs, but instead will just automatically
+        //The Second Activity (DisplayBinCollectionDate) will have no inputs, but instead will just automatically
         //check the given address linked to the users account or specified by a non-logged in user with the backend to verify 
         //that address exists in the database. If the address exists, a collection date for that address will be displayed to the user.
 
@@ -40,7 +40,6 @@ namespace KymiraApplication
         //and displays date with textview 
 
         private EditText addressField;
-       
         private Button btnSubmitAddress;
        
        

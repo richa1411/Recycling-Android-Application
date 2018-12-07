@@ -66,11 +66,13 @@
     <Compile Include="Model\BinCollectionDate.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\jsonHandler.cs" />
+    <Compile Include="Model\PropertyStats.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\ValidationHelper.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationHelper.cs" />
+    <Compile Include="ViewPropertyStatsAddress.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -144,6 +146,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CollectionDate.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\AddressForPropertyStats.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\PropertyStats.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
