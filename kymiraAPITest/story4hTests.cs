@@ -4,6 +4,9 @@ using kymiraAPI;
 using kymiraAPI.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Net.Http;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace kymiraAPITest
 {
@@ -12,31 +15,60 @@ namespace kymiraAPITest
     {
         //setup
         string dispURL = "http://localhost:55085/api/BinStatus/";
+        private HttpClient client;
+        Uri uri;
+
 
         BinStatus testStatus = new BinStatus //bin status object that is good for validation .
         {
-            binID = 1,
+           
             status = 1,
             binAddress = "123 fake Street"
         };
-        BinStatus sendTest = new BinStatus // binstatus object that is good to send over the internet
+        BinStatus testStatus2 = new BinStatus //bin status object that is good for validation .
         {
-            
+
             status = 1,
-            binAddress = "123 fake Street"
+            binAddress = "321 fake Street"
         };
+        BinStatus testStatus3 = new BinStatus //bin status object that is good for validation .
+        {
+
+            status = 1,
+            binAddress = "456 fake Street"
+        };
+      
         BinStatus badStatus = new BinStatus // bin status with an address not in the database
         {
 
             status = 1,
-            binAddress = "a"
+            binAddress = ""
         };
 
         string address1 = "123 fake Street";
         string address2 = "321 fake Street";
         string address3 = "456 fake Street";
 
+        string badAddress = "";
 
+
+
+
+        [TestInitialize]
+        public  void Setup()
+        {
+
+
+            client = new HttpClient();
+            uri = new Uri(dispURL, UriKind.Absolute);
+
+
+           
+
+
+        }
+
+ 
         /**
  * Tests that the model allows a valid object
  * */
@@ -106,13 +138,54 @@ namespace kymiraAPITest
          * Test that API can receive a Binstatus to put in DB, ( mainly used for testing)
          * */
         [TestMethod]
-         public async Task testThatAPISendsBinStatusSuccessfullyWithNoID()
+         public async Task setUpDBForTests()
         {
+            //deletes the database so when running tests on other computers with local DB. they do not have to manually add
+            //entries to pass tests
+            HttpResponseMessage r = await client.DeleteAsync(uri);
 
-            jsonHandler testJson = new jsonHandler();
 
-            var success = await testJson.sendJsonAsync( sendTest,dispURL);
-            Assert.AreEqual("Success", success);
+            //adds testStatus1
+            var json = JsonConvert.SerializeObject(testStatus);
+            var contents = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(uri,contents);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+
+
+            ////adds testStatus2 entry 1
+            json = JsonConvert.SerializeObject(testStatus2);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            ////adds testStatus2 entry 2
+            json = JsonConvert.SerializeObject(testStatus2);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            //adds testStatus3 entry 1
+            json = JsonConvert.SerializeObject(testStatus3);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            //adds testStatus3 enty 2
+            json = JsonConvert.SerializeObject(testStatus3);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+            //adds testStatus3 entry 3
+            json = JsonConvert.SerializeObject(testStatus3);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
+            Assert.IsTrue(response.IsSuccessStatusCode);
+
+
+
+
+
+
+
+
+
 
         }
         /**
@@ -122,17 +195,30 @@ namespace kymiraAPITest
         public async Task testThatAPIGetsBinStatusSuccessfullyAndContains1BinStatus()
         {
 
-            jsonHandler testJson = new jsonHandler();
-
-            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
-
           
-            Assert.IsTrue(Success.Count ==1);
 
-            foreach (BinStatus item in Success)
+            // sends address string 1
+            var json = JsonConvert.SerializeObject(address1);
+            var contents = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PutAsync(uri, contents);
+
+            if (response.IsSuccessStatusCode)
             {
-                Assert.AreEqual(sendTest.binAddress, item.binAddress);
+                var content = await response.Content.ReadAsStringAsync();
+
+                List<BinStatus> binList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
+
+
+                Assert.IsTrue(binList.Count == 1);
+                
+                foreach (BinStatus item in binList)
+                {
+                    Assert.AreEqual(address1, item.binAddress);
+                }
+
+
             }
+
 
         }
         /**
@@ -142,18 +228,28 @@ namespace kymiraAPITest
         public async Task testThatAPIGetsBinStatusSuccessfullyAndContains2BinStatus()
         {
 
-            jsonHandler testJson = new jsonHandler();
 
-            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
+            // sends address string 2
+            var json = JsonConvert.SerializeObject(address2);
+            var contents = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PutAsync(uri, contents);
 
-
-            Assert.IsTrue(Success.Count == 2);
-
-            foreach (BinStatus item in Success)
+            if (response.IsSuccessStatusCode)
             {
-                Assert.AreEqual(sendTest.binAddress, item.binAddress);
-            }
+                var content = await response.Content.ReadAsStringAsync();
 
+                List<BinStatus> binList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
+
+
+                Assert.IsTrue(binList.Count == 2);
+
+                foreach (BinStatus item in binList)
+                {
+                    Assert.AreEqual(address2, item.binAddress);
+                }
+
+
+            }
         }
         /**
      * Test that the API can return a list of bin/s with a matching address of the sent binstatus object
@@ -162,34 +258,50 @@ namespace kymiraAPITest
         public async Task testThatAPIGetsBinStatusSuccessfullyAndContains3BinStatus()
         {
 
-            jsonHandler testJson = new jsonHandler();
 
-            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
+            // sends address string 3
+            var json = JsonConvert.SerializeObject(address3);
+            var contents = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PutAsync(uri, contents);
 
-
-            Assert.IsTrue(Success.Count == 3);
-
-            foreach (BinStatus item in Success)
+            if (response.IsSuccessStatusCode)
             {
-                Assert.AreEqual(sendTest.binAddress, item.binAddress);
+                var content = await response.Content.ReadAsStringAsync();
+
+                List<BinStatus> binList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
+
+
+                Assert.IsTrue(binList.Count == 3);
+
+                foreach (BinStatus item in binList)
+                {
+                    Assert.AreEqual(address3, item.binAddress);
+                }
+
+
             }
 
         }
         /**
          * Tests that the API does not return any objects if the binstatus address does not exist in the system
          * */
-        [ExpectedException(typeof(Exception))]
+      
         [TestMethod]
         public async Task testThatAPIGetsBinStatusWithAddressNotFoundInSystem()
         {
 
-            jsonHandler testJson = new jsonHandler();
+            // sends address string 3
+            var json = JsonConvert.SerializeObject(badAddress);
+            var contents = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PutAsync(uri, contents);
 
-            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
 
-            
 
-          
+            Assert.AreEqual("Bad Request", response.ReasonPhrase);
+
+
+
+
 
         }
         /**
@@ -200,18 +312,30 @@ namespace kymiraAPITest
         public async Task testThatAPIGetsBinStatus()
         {
 
-            jsonHandler testJson = new jsonHandler();
+            
 
-            List<BinStatus> Success = await testJson.receiveSpecBinStatusJsonAsync(dispURL, address1);
+            var json = JsonConvert.SerializeObject(address1);
+            var contents = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PutAsync(uri, contents);
 
-            Assert.IsTrue(Success.Count > 0);
-
-            foreach (BinStatus item in Success)
+            if (response.IsSuccessStatusCode)
             {
-                Assert.AreEqual(sendTest.binAddress, item.binAddress);
+                var content = await response.Content.ReadAsStringAsync();
+
+                List<BinStatus> binList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
+
+                foreach (BinStatus item in binList)
+                {
+                    Assert.AreEqual(address1, item.binAddress);
+                }
+
+
             }
 
+
         }
+
+     
 
     }
 }

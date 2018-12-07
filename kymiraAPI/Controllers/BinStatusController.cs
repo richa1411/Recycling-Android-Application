@@ -38,21 +38,42 @@ namespace kymiraAPI.Controllers
          * */
         // PUT: api/BinStatus/5
         [HttpPut]
-        public async Task<IActionResult> PutBinStatus( [FromBody] BinStatus bin)
+        public async Task<IActionResult> PutBinStatus( [FromBody] string binAddress)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var binStatus = await _context.BinStatus.Where(m => m.binAddress == bin.binAddress).ToListAsync();
+            if(binAddress == "" || binAddress.Length >200)
+            {
+                return BadRequest("Bad Request");
 
-            if (binStatus == null || binStatus.Count <=0)
+            }
+            
+
+            var binStatus = await _context.BinStatus.Where(m => m.binAddress == binAddress).ToListAsync();
+
+            if (binStatus == null)
             {
                 return NotFound();
             }
 
             return Ok(binStatus);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteBinStatus([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            _context.Database.ExecuteSqlCommand("TRUNCATE TABLE[binStatus]");
+            await _context.SaveChangesAsync();
+            
+            return Ok();
         }
        
         /**
@@ -62,6 +83,8 @@ namespace kymiraAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> PostBinStatus([FromBody] BinStatus binStatus)
         {
+       
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -73,6 +96,7 @@ namespace kymiraAPI.Controllers
             return CreatedAtAction("GetBinStatus", new { id = binStatus.binID }, binStatus);
         }
 
+
        
         /**
          * Checks the database if a BinStatus exists with the given ID.
@@ -82,4 +106,7 @@ namespace kymiraAPI.Controllers
             return _context.BinStatus.Any(e => e.binID == id);
         }
     }
+
+
+
 }
