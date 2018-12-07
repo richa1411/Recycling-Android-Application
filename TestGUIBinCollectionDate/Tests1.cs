@@ -100,6 +100,22 @@ namespace TestGUIBinCollectionDate
 
             Assert.AreEqual(3, results.Count);
         }
+       /* [Test]
+        public void TestThatAddresValidLoadsNextPageButNoDatesShowsError()
+        {
+            ArrayList results = new ArrayList();
+
+            app.EnterText("123 Test Street");
+            app.Tap(c => c.Marked("btnSubmit"));
+
+            results.Add(app.WaitForElement(c => c.Marked("Your upcoming recycling bin collection dates are.. ")));
+            results.Add(app.WaitForElement(c => c.Marked("tvCollectionDate1")));
+            results.Add(app.WaitForElement(c => c.Marked("tvCollectionDate2")));
+            results.Add(app.WaitForElement(c => c.Marked("tvError")));
+          
+
+            Assert.AreEqual(4, results.Count);
+        }*/
 
 
 

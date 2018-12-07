@@ -15,7 +15,7 @@ namespace TestGUIBinCollectionDate
 
 
             //Will need to change this for the time being to our individual apk location on our PC
-            return ConfigureApp.Android.EnableLocalScreenshots().ApkFile("G:\\COSACPMG\\prj2.cosmo\\KymiraApplication\\bin\\Release\\com.cosmoindustries.kymira-Signed.apk").StartApp();
+            return ConfigureApp.Android.EnableLocalScreenshots().ApkFile("G:\\KymiraApp\\prj2.cosmo\\KymiraApplication\\bin\\Release\\com.cosmoindustries.kymira-Signed.apk").StartApp();
             
             //TAYLOR: //G:\\COSACPMG\\prj2.cosmo\\KymiraApplication\\bin\\Release\\
 

@@ -59,17 +59,14 @@ namespace KymiraApplication
                     {
                         return (binArray[0].collectionDate1 );
                     }
-                    else
-                    {
-                        return "No dates are associated with this address yet";
-                    }
+                    
                 }
 
             }
 
 
 
-            return "No dates are associated with this address yet";
+            return "";
         }
 
         public String displayDate2(BinCollectionDate bin)
@@ -82,17 +79,14 @@ namespace KymiraApplication
                     {
                         return (binArray[0].collectionDate2 );
                     }
-                    else
-                    {
-                        return "No dates are associated with this address yet";
-                    }
+                    
                 }
 
             }
 
 
 
-            return "No dates are associated with this address yet";
+            return "";
         }
 
 

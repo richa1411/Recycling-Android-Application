@@ -38,8 +38,10 @@ namespace KymiraApplication
             //var receivedObject = JsonConvert.DeserializeObject<BinCollectionDate>(Intent.GetStringExtra("ReceivedJSON"));
             //tvCollectionDate.Text += receivedObject.collectionDate1;
            
+            //receives dates from intent 
             string receivedObject1 = Intent.GetStringExtra("ReceivedJSON1");
             string receivedObject2 = Intent.GetStringExtra("ReceivedJSON2");
+            //if string got from intent is nonempty then shows dates otherwise displays error
             if (receivedObject1.Equals("") && receivedObject2.Equals(""))
             {
                 tvError.Text += "Sorry!!!No dates are assigned for this address yet!! Try later";
