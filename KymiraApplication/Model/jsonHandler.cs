@@ -78,7 +78,7 @@ namespace KymiraApplication.Model
             }*/
             return response;
 
-           
+
         }
 
         //This method handles sending a serialized json object to the uri specified

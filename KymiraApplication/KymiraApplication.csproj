@@ -45,9 +45,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
-    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
-    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>armeabi-v7a;x86</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
@@ -58,9 +58,13 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="backEnd.cs" />
+    <Compile Include="BinCollectionAddress.cs" />
+    <Compile Include="DisplayBinCollectionDate.cs" />
     <Compile Include="HomePage.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Model\BinCollectionDate.cs" />
     <Compile Include="Model\BinStatus.cs" />
     <Compile Include="Model\Credentials.cs" />
     <Compile Include="Model\jsonHandler.cs" />
@@ -143,6 +147,11 @@
     <AndroidResource Include="Resources\drawable\logoWhite.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\AddressForCollection.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CollectionDate.axml" />
+  </ItemGroup>
     <AndroidResource Include="Resources\layout\activity_view_statuses.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
