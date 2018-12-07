@@ -152,6 +152,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CollectionDate.axml" />
   </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_view_statuses.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
