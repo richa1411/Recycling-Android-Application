@@ -60,6 +60,7 @@
     <Compile Include="backEnd.cs" />
     <Compile Include="BinCollectionAddress.cs" />
     <Compile Include="DisplayBinCollectionDate.cs" />
+    <Compile Include="DisplayPropertyStats.cs" />
     <Compile Include="HomePage.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
@@ -72,7 +73,7 @@
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidationHelper.cs" />
-    <Compile Include="ViewPropertyStatsAddress.cs" />
+    <Compile Include="PropertyStatsAddress.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
