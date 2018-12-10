@@ -21,7 +21,7 @@ namespace KymiraApplication.Model
 
         }
 
-        public Disposable(string name, string description, string imageURL, bool isRecycable, string endResult, int qtyRecycled, string recycleReason )
+        public Disposable(string name, string description, string imageURL, bool isRecyclable, string endResult, int qtyRecycled, string recycleReason )
         {
             this.name = name;
             this.description = description;

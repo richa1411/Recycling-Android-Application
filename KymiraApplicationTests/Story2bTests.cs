@@ -87,9 +87,9 @@ namespace KymiraApplicationTests
 
             disposables = KymiraApplication.Model.ListDisposable.getDisposableList();
 
-            Assert.AreEqual(disposables[0].isRecyclable, true);
-            Assert.AreEqual(disposables[1].isRecyclable, true);
-            Assert.AreEqual(disposables[2].isRecyclable, true);
+            Assert.IsTrue(disposables[0].isRecyclable);
+            Assert.IsTrue(disposables[1].isRecyclable);
+            Assert.IsTrue(disposables[2].isRecyclable);
 
             KymiraApplication.Model.ListDisposable.requestDisposableListAsyncDemo(false);
 
@@ -138,7 +138,8 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void testNoDescription()
         {
-            Assert.IsNull(recItem1.description);
+            recItem1.description = "";
+            Assert.AreEqual("", recItem1.description);
             var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count);
 
@@ -194,7 +195,7 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void testReyclableStatusExists()
         {
-            Assert.IsTrue(recItem1.isRecyclable == true);
+            Assert.IsTrue(recItem4.isRecyclable);
             var results = HelperTestModel.Validate(recItem1);
             Assert.AreEqual(0, results.Count());
         }

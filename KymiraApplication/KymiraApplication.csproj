@@ -146,7 +146,6 @@
     <AndroidResource Include="Resources\drawable\logoWhite.png" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <AndroidResource Include="Resources\drawable\No_Image.png" />
   </ItemGroup>
   <ItemGroup>

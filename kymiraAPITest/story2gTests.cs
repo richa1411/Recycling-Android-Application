@@ -28,7 +28,7 @@ namespace kymiraAPITest
             name = "Hey",
             description = "I'm a Potato",
             pictureID = "Potato",
-            isRecyclable = true,
+            isRecyclable = false,
             recyclableReason = "Cause",
             endResult = "tomato sauce",
             qtyRecycled = 1000

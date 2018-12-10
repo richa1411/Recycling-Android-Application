@@ -74,7 +74,7 @@ namespace KymiraApplication.Model
                 disposablesList = new List<Disposable>();
                 disposablesList.Add(new Disposable("Paper", "used to write things on", "No_Image.png", true, "", 10, ""));
                 disposablesList.Add(new Disposable("Cardboard", "used to hold things", "", true, "", 10, ""));
-                disposablesList.Add(new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
+                disposablesList.Add(new Disposable("milk cartont", "used to hold milk", "", true, "", 10, ""));
                 //disposablesList = await jsonHandler.receiveSpecJsonAsync("localhost", true);
 
             }

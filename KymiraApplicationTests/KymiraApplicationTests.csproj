@@ -66,16 +66,14 @@
     <Compile Include="TestBinCollectionDate.cs" />
     <Compile Include="TestCredential.cs" />
     <Compile Include="Story2bTests.cs" />
-
     <Compile Include="TestPickupScheduleData.cs" />
-
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\KymiraApplication\KymiraApplication.csproj">
-      <Project>{07272096-7498-4F50-B9FC-AA5202BDA99D}</Project>
+      <Project>{07272096-7498-4f50-b9fc-aa5202bda99d}</Project>
       <Name>KymiraApplication</Name>
     </ProjectReference>
   </ItemGroup>
