@@ -27,7 +27,6 @@ namespace KymiraApplication.Model
         public static async void requestDisposableListAsync(bool isReyclable)
         {
             
-
             List<Disposable> disposablesList;
             //string stringToJson = "";
             jsonHandlerDisposable jsonHandler = new jsonHandlerDisposable();
