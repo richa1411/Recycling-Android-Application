@@ -58,11 +58,51 @@ namespace KymiraApplication.Model
             // Take the array of JSON objects and call parseDisposable
             disposables = parseDisposable(disposablesList);
 
-            
+        }
 
-            
+
+        public static async void requestDisposableListAsyncDemo(bool isReyclable)
+        {
+
+            List<Disposable> disposablesList;
+            //string stringToJson = "";
+            jsonHandlerDisposable jsonHandler = new jsonHandlerDisposable();
+
+            // Send a Request, with the isReyclable set.
+            if (isReyclable == true)
+            {
+                disposablesList = new List<Disposable>();
+                disposablesList.Add(new Disposable("Paper", "used to write things on", "No_Image.png", true, "", 10, ""));
+                disposablesList.Add(new Disposable("Cardboard", "used to hold things", "", true, "", 10, ""));
+                disposablesList.Add(new Disposable("milk carton", "used to hold milk", "", true, "", 10, ""));
+                //disposablesList = await jsonHandler.receiveSpecJsonAsync("localhost", true);
+
+            }
+            else
+            {
+                disposablesList = new List<Disposable>();
+                // disposablesList = await jsonHandler.receiveSpecJsonAsync("localhost", false);
+                disposablesList.Add(new Disposable("Food", "Food", "No_Image.png", false, "", 10, ""));
+                disposablesList.Add(new Disposable("Pizza", "Pizza", "", false, "", 10, ""));
+                disposablesList.Add(new Disposable("Garbage", "Garbage", "", false, "", 10, ""));
+            }
+
+            //Check to see if the returned JSON Object has data in it
+
+            // If it doesn't have data
+            if (disposablesList.Count() == 0)
+            {
+                // Throw an exception -- Cannot retrieve data at this time
+                throw new Exception("Error connecting to server, please try again later.");
+            }
+
+
+            // else
+            // Take the array of JSON objects and call parseDisposable
+            disposables = parseDisposable(disposablesList);
 
         }
+
 
         /**
          * This method will take the array returned from requestDisposableList() and parse through it.

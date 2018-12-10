@@ -70,191 +70,36 @@ namespace KymiraApplicationTests
 
         }
 
-        #region ListDisposable Method Tests
-
-
-        /**SendRequestToBackendForRecyclablesTest
+        /** TestRetrieveRecyclables
          * 
-         * This test will send a request to the backend
-         * for a list of recyclable items.
-         * The backend will then query the DB for a list
-         * of recyclable materials. These materials will
-         * be returned as an array of JSON Objects. 
-         * 
-         * This test will pass if it receives items in an Array,
-         * and if those items are recyclable.
-         * 
-         * *Note: This Test needs to be done in a way, that will
-         *        check if every object is recyclable rather then
-         *        if objects are equal to pre-defined ones.
-         */
-        [TestMethod]
-        public void SendRequestToBackendForRecyclablesTest()
-        {
-            Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
-
-            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(true); // Call the method to request a list of recyclable items
-
-            Assert.AreEqual(jsonArray[0], jsonObject1); // Test if the Object in the Array, is equal to the premade Object
-            Assert.AreEqual(jsonArray[1], jsonObject2); // May need to be changed, Size of the array, and need to ensure every item is recyclable
-
-            Assert.IsTrue(jsonArray.Length == 2); // Ensure the JSON Array has only the necessary objects in it
-        }
-
-
-        /**SendRequestToBackendForNonRecyclablesTest
-         * 
-         * This test will send a request to the backend
-         * for a list of recyclable items.
-         * The backend will then query the DB for a list
-         * of recyclable materials. These materials will
-         * be returned as an array of JSON Objects. 
-         * 
-         * This test will pass if it receives items in an Array,
-         * and if those items are recyclable.
-         * 
-         * *Note: This Test needs to be done in a way, that will
-         *        check if every object is recyclable rather then
-         *        if objects are equal to pre-defined ones.
-         */
-        [TestMethod]
-        public void SendRequestToBackendForNonRecyclablesTest()
-        {
-            Assert.IsTrue(jsonArray.Length == 0); // Test that nothing is in the array
-
-            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(false); // Call the method to request a list of non-recyclable items
-
-            Assert.AreEqual(jsonArray[0], jsonObject3); // Test if the Object in the Array, is equal to the premade Object
-            Assert.AreEqual(jsonArray[1], jsonObject4); // May need to be changed, Size of the array, and need to ensure every item is recyclable
-
-            Assert.IsTrue(jsonArray.Length == 2); // Ensure the JSON Array has only the necessary objects in it
-        }
-
-
-        /** ConvertJsonArrayToDisposablesArrayTest
-         * 
-         * This test will test to see if the array of JSON Objects 
-         * acquired from requestDisposables() can be successfully
-         * converted into an array of Disposable Objects.
-         * 
-         * This test will pass if it is able to receive an array
-         * of Disposable Objects that has the same data from the JSON
-         * Array that was sent in the praseDisposable() Method.
+         * This Test will use a "demo" method to retrieve a list of disposables.
+         * This demo method will call the methods required to generate an array
+         * of disposables that are recyclable or non recyclable depending on the input.
+         * The only difference between this method and our actual method that receives data
+         * is that this demo method retrieves constant information, rather than trying to
+         * retrieve it from the database.
          *
          */
         [TestMethod]
-        public void ConvertJsonArrayToDisposablesArrayTest()
+        public void testRetrieveRecyclables()
         {
-            jsonArray = KymiraApplication.Model.ListDisposable.requestDisposableListAsync(true); // Call requestDisposables() to acquire the data for the JSON array
+            KymiraApplication.Model.ListDisposable.requestDisposableListAsyncDemo(true);
 
-            Assert.IsTrue(disposables.Length == 0); // Ensure the disposable array is empty
-            Assert.IsTrue(jsonArray.Length != 0); // Ensure JSON Array has data in it
+            disposables = KymiraApplication.Model.ListDisposable.getDisposableList();
 
-            disposables = KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray); // Call the parseDisposable() Method to generate an Array of Disposable Objects
+            Assert.AreEqual(disposables[0].isRecyclable, true);
+            Assert.AreEqual(disposables[1].isRecyclable, true);
+            Assert.AreEqual(disposables[2].isRecyclable, true);
+
+            KymiraApplication.Model.ListDisposable.requestDisposableListAsyncDemo(false);
+
+            disposables = KymiraApplication.Model.ListDisposable.getDisposableList();
+
+            Assert.AreEqual(disposables[0].isRecyclable, false);
+            Assert.AreEqual(disposables[1].isRecyclable, false);
+            Assert.AreEqual(disposables[2].isRecyclable, false);
 
         }
-
-
-
-
-        /* missingRequiredAttributesTest
-         * 
-         * This test will test to see if a passed in array of JSON objects is successfully
-         * parsed and turned into an array of Disposable Objects. This test will call
-         * parseDisposables() taking in an array with invalid information. One of the objects
-         * jsonObject5, is missing a name attribute, which is required.
-         * 
-         * This test will pass if the newly created disposables array does not have any objects with
-         * invalid information in it.
-         */
-        public void missingRequiredAttributesTest()
-        {
-
-            // Add dummy objects to an array - for testing purposes
-            jsonArray[0] = jsonObject3;
-            jsonArray[1] = jsonObject4;
-            jsonArray[2] = jsonObject5;
-
-            // Call parse disposables
-            disposables = KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray);
-
-            // Assert that the disposables array only has 2 objects in it
-            Assert.AreEqual(2, disposables.Length);
-
-            // Assert that the objects in the disposables array match our test objects 
-            Assert.AreEqual(disposables[0], recItem1);
-            Assert.AreEqual(disposables[1], recItem2);
-
-
-        }
-
-        /* missingNonReqiredAttributesTest
-         * 
-        *  This test will test to see if a passed in array of JSON objects is successfully
-        * parsed and turned into an array of Disposable Objects. This test will call
-        * parseDisposables() taking in an array with missing information. One of the objects
-        * jsonObject6, is missing a description attribute. However, since this attribute is not required
-        * it will still be able to add that object to the disposables Array.
-        * 
-        * This test will pass if the newly created disposables array only has
-        * JSON objects in it that either have all the information, or are only missing
-        * non-mandatory information; like the description.
-        */
-        public void missingNonReqiredAttributesTest()
-        {
-
-            // Add dummy objects to an array - for testing purposes
-            jsonArray[0] = jsonObject3;
-            jsonArray[1] = jsonObject4;
-            jsonArray[2] = jsonObject6;
-
-            // Call parse disposables
-            disposables = KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray);
-
-            // Assert that the disposables array only has 2 objects in it
-            Assert.AreEqual(3, disposables.Length);
-
-            // Assert that the objects in the disposables array match our test objects 
-            Assert.AreEqual(disposables[0], recItem1);
-            Assert.AreEqual(disposables[1], recItem2);
-            Assert.AreEqual(disposables[3], recItem3);
-        }
-
-
-        /* missingImageAttributeTest
-         * 
-        *  This test will test to see if a passed in array of JSON objects is successfully
-        * parsed and turned into an array of Disposable Objects. This test will call
-        * parseDisposables() taking in an array with missing information. One of the objects
-        * jsonObject7, is missing an image attribute. If the image attribute is missing, it will
-        * be replaced with a placeholder image. 
-        * 
-        * This test will pass if the newly created disposables array has valid objects
-        * in it, no objects have an empty string or a non-existant image as their ImageUrl property,
-        * and any invalid ImageURL properties are set to a placeholder image.
-        */
-        public void missingImageAttributeTest()
-        {
-
-            // Add dummy objects to an array - for testing purposes
-            jsonArray[0] = jsonObject1;
-            jsonArray[1] = jsonObject2;
-            jsonArray[2] = jsonObject7;
-
-            // Call parse disposables
-            disposables = KymiraApplication.Model.ListDisposable.parseDisposable(jsonArray);
-
-            // Assert that the disposables array only has 2 objects in it
-            Assert.AreEqual(3, disposables.Length);
-
-            // Assert that the objects in the disposables array match our test objects 
-            Assert.AreEqual(disposables[0], recItem1);
-            Assert.AreEqual(disposables[1], recItem2);
-            Assert.AreEqual(disposables[2], recItem3);
-
-        }
-
-        #endregion ListDisposable Method Tests
 
 
         #region Validation Tests
@@ -317,50 +162,6 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
-        /** TestNoImage
-         * 
-         * This test will test to make sure an error is thrown if an object
-         * has no image. This test will make use of addPlaceholders() to
-         * add in our placeholder image to the necessary objects.
-         * 
-         * This test will pass if a Disposable Object without an image
-         * is given an image after calling addPlaceholders()
-         *
-         */
-        [TestMethod]
-        public void testNoImage()
-        {
-            disposables[0].imageURL = "";
-            var results = HelperTestModel.Validate(disposables[0]);
-            Assert.AreEqual(1, results.Count());
-
-            KymiraApplication.Model.ListDisposable.addPlaceholders(disposables);
-
-            Assert.AreEqual(disposables[0].imageURL, "No_Image.png");
-        }
-
-        /** TestImage
-         * 
-         * This test will test to see if no errors are thrown
-         * when a disposable object has a valid image.
-         * 
-         * This test will pass if no errors occur when a disposable object
-         * has a valid image.
-         *
-         */
-        [TestMethod]
-        public void testImage()
-        {
-            disposables[0].imageURL = "Paper.png";
-            Assert.IsTrue(disposables[0].imageURL == "Paper.png");
-
-            var results = HelperTestModel.Validate(disposables[0]);
-            Assert.AreEqual(0, results.Count());
-
-            KymiraApplication.Model.ListDisposable.addPlaceholders(disposables);
-
-            Assert.AreEqual(disposables[0].imageURL, "Paper.png");
-        }
 
         /** TestNoName()
          * 
