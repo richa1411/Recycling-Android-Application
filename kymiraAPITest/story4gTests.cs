@@ -4,6 +4,7 @@ using kymiraAPI;
 using kymiraAPI.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace kymiraAPITest
 {
@@ -33,14 +34,16 @@ namespace kymiraAPITest
         {
             jsonHandler testJSON = new jsonHandler();
 
-            List<PickupDate> success = await testJSON.receiveSpecJsonAsyncPickup(dispURL, "426 Spadina Cres W");
+            HttpResponseMessage response = await testJSON.receiveSpecJsonAsyncPickup(dispURL, "426 Spadina Cres W");
 
-            Assert.IsTrue(success.Count > 0);
+            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
 
-            foreach (PickupDate item in success)
-            {
-                Assert.AreEqual("426 Spadina Cres W", item.binAddress);
-            }
+            var content = await response.Content.ReadAsStringAsync();
+
+            //foreach(PickupDate item in content.)
+            //{
+                //Assert.AreEqual("426 Spadina Cres W", item.binAddress);
+            //}
         }
 
 

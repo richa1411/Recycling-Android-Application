@@ -24,7 +24,7 @@ namespace kymiraAPI.Controllers
         [HttpGet]
         public IEnumerable<PickupDate> GetPickupDate()
         {
-            return _context.PickupDate;
+            return _context.PickupDateDBSet;
         }
 
         // GET: api/PickupDates/5
@@ -36,7 +36,7 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var pickupDate = await _context.PickupDate.SingleOrDefaultAsync(m => m.binID == id);
+            var pickupDate = await _context.PickupDateDBSet.SingleOrDefaultAsync(m => m.binID == id);
 
             if (pickupDate == null)
             {
@@ -47,8 +47,29 @@ namespace kymiraAPI.Controllers
         }
 
         [HttpGet("{address}")]
-        public async Task<IActionResult> GetPickupDate([FromRoute] int id, [FromBody] PickupDate pickupDate)
+        public async Task<IActionResult> GetPickupDate([FromRoute]string address)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if(_context.PickupDateDBSet.Any(m => m.binAddress == address))
+            {
+                var pickupDate = await _context.PickupDateDBSet.Where(m => m.binAddress == address).ToListAsync();
+
+                if (pickupDate == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(pickupDate);
+            }
+            else
+            {
+                return BadRequest();
+            }
+
 
         }
     }
