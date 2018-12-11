@@ -70,10 +70,10 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
             
-            _context.Database.ExecuteSqlCommand("TRUNCATE TABLE[binStatus]");
+            var response = _context.Database.ExecuteSqlCommand("TRUNCATE TABLE[binStatus]");
             await _context.SaveChangesAsync();
             
-            return Ok();
+            return Ok(response);
         }
        
         /**

@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181211192923_Initial1.cs" />
+    <Compile Remove="Migrations\20181211192923_Initial1.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Server\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>

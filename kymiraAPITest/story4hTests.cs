@@ -149,7 +149,7 @@ namespace kymiraAPITest
             var json = JsonConvert.SerializeObject(testStatus);
             var contents = new StringContent(json, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await client.PostAsync(uri,contents);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.AreEqual(response.StatusCode,"");
 
 
             ////adds testStatus2 entry 1
