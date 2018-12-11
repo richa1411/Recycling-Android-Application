@@ -3,6 +3,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
+  <string name="binStatusLayoutTitle">Bin Statuses</string>
+  <string name="address">Address</string>
+  <string name="submitAddress">Submit</string>
   <string-array name="province_array">
     <item>Alberta</item>
     <item>British Columbia</item>
