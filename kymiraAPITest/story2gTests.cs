@@ -4,6 +4,7 @@ using kymiraAPI;
 using kymiraAPI.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace kymiraAPITest
 {
@@ -34,17 +35,65 @@ namespace kymiraAPITest
             qtyRecycled = 1000
         };
 
+
+        public async Task setupDatabase()
+        {
+
+            jsonHandler testJSON = new jsonHandler();
+            var successReceived = await testJSON.receiveJsonAsync(dispURL);
+
+
+            //takes list of json objects, converts it to list of binStatus
+            List<Disposable> binList = JsonConvert.DeserializeObject<List<Disposable>>(successReceived);
+
+            var countTrue = 0;  //count of how many objects in list contains true as isRecyclable
+            var countFalse = 0; //count of how many objects in list contains false as isRecyclable
+
+            //loop through all objects received, counting how many true and false isRecyclable objects are in the list
+            foreach (Disposable item in binList)
+            {
+                //increase the count depending on this item's property value
+                if (item.isRecyclable == true)
+                {
+                    countTrue++;
+                }
+                else
+                {
+                    countFalse++;
+                }
+
+            }
+
+            //add object with isRecyclable as true if count of true in list is not 1
+            if(countTrue != 1)
+            {
+                sendTest.isRecyclable = true;
+                var success = await testJSON.sendJsonAsync(sendTest, dispURL);
+                Assert.AreEqual("Success", success);    //check that sending object was successful
+            }
+
+            //add object with isRecyclable as false if count of false in list is not 1
+            if(countFalse != 1)
+            {
+                sendTest.isRecyclable = false;
+                var success = await testJSON.sendJsonAsync(sendTest, dispURL);
+                Assert.AreEqual("Success", success);    //check that sending object was successful
+            }
+        }
+        
+
+
         //************ FUNCTIONAL TESTS ************
         /**
          * this Test will test if our POST request is succesful
          * */
-        [TestMethod]
-        public async Task TestSendValidJson()
-        {
-            jsonHandler testJSON = new jsonHandler();
-            var success = await testJSON.sendJsonAsync(sendTest, dispURL);
-            Assert.AreEqual("Success", success);
-        }
+        //[TestMethod]
+        //public async Task TestSendValidJson()
+        //{
+        //    jsonHandler testJSON = new jsonHandler();
+        //    var success = await testJSON.sendJsonAsync(sendTest, dispURL);
+        //    Assert.AreEqual("Success", success);
+        //}
         /**
          * This tests, tests that if given true, the api will return only recyclable objects from the db.
          * */
@@ -53,10 +102,7 @@ namespace kymiraAPITest
         {
             jsonHandler testJSON = new jsonHandler();
 
-            sendTest.isRecyclable = true;
-            var sendTrue = await testJSON.sendJsonAsync(sendTest, dispURL);
-            Assert.AreEqual("Success", sendTrue);
-
+         
 
             List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, true);
 

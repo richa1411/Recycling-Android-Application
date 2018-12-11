@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 
 namespace KymiraApplication.Resources
 {
-    [Activity(Label = "BinStatusActivity",MainLauncher = true)]
+    [Activity(Label = "BinStatusActivity",MainLauncher = false)]
     public class BinStatusActivity : Activity
     {
         //UI controls for this activity

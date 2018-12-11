@@ -81,6 +81,7 @@ namespace KymiraApplicationUITests
 
             results.Add(app.WaitForElement(c => c.Marked("No bins associated with that address.")));
 
+
             Assert.AreEqual(1, results.Count);
         }
     }
