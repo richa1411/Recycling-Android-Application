@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace kymiraAPITest
 {
+    /**
+     * Test class for Pickupdate object and controller
+     **/
     [TestClass]
     public class storyg4gTests
     {
@@ -27,20 +30,34 @@ namespace kymiraAPITest
         [TestMethod]
         public async Task TestSendValidJson()
         {
-            throw new NotImplementedException();
+            jsonHandler testJSON = new jsonHandler();
+            var success = await testJSON.sendJsonAsync(testDbItem, dispURL);
+            Assert.AreEqual("Success", success);
         }
+
         /**
          * This tests, tests that if given true, the api will return only bins from the given address
          * */
         [TestMethod]
         public async Task TestGetValidJsonRecyclable()
         {
-            throw new NotImplementedException();
+            jsonHandler testJSON = new jsonHandler();
+
+            List<PickupDate> success = await testJSON.receiveSpecJsonAsyncPickup(dispURL, "426 Spadina Cres W");
+
+            Assert.IsTrue(success.Count > 0);
+
+            foreach (PickupDate item in success)
+            {
+                Assert.AreEqual("426 Spadina Cres W", item.binAddress);
+            }
         }
 
-        //Model Tests
 
-        ////*********** ID ***********
+
+        //************ Model Tests ************
+
+        //*********** ID ***********
         /**
          * Tests that the model allows a valid id.
          * */
@@ -52,7 +69,7 @@ namespace kymiraAPITest
             Assert.AreEqual(0, results.Count);
         }
 
-        ////*********** Address ***********
+        //*********** Address ***********
 
         /**
         * Tests that an empty address will be rejected
@@ -105,7 +122,7 @@ namespace kymiraAPITest
             Assert.AreEqual(0, results.Count);
         }        
 
-        ////*********** Collection Date ***********
+        //*********** Collection Date ***********
 
          /**
          * Tests that an invalid collection date will be rejected
