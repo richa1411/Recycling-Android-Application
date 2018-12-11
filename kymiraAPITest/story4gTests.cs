@@ -24,17 +24,7 @@ namespace kymiraAPITest
         };
 
         //************ FUNCTIONAL TESTS ************
-        /**
-          * this Test will test if our POST request is succesful
-          * */
-        [TestMethod]
-        public async Task TestSendValidJson()
-        {
-            jsonHandler testJSON = new jsonHandler();
-            var success = await testJSON.sendJsonAsync(testDbItem, dispURL);
-            Assert.AreEqual("Success", success);
-        }
-
+        
         /**
          * This tests, tests that if given true, the api will return only bins from the given address
          * */
