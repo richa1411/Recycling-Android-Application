@@ -15,7 +15,7 @@ using KymiraApplication.Model;
 
 namespace KymiraApplication
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
     public class MainActivity : AppCompatActivity
     {
         //Declare edit text fields that we will need access to
@@ -42,9 +42,9 @@ namespace KymiraApplication
         private bool agreeToTerms;
 
         //Declare container variables for items selected from the spinners
-        private int birthMonth;
-        private int birthDay;
-        private int birthYear;
+        //private int birthMonth;
+        //private int birthDay;
+        //private int birthYear;
 
         //Declare variables to hold the values of the selected items from the spinners
         private string month;
@@ -70,8 +70,8 @@ namespace KymiraApplication
             base.OnCreate(savedInstanceState);
 
             // Set the content view to our Registration Activity
-            SetContentView(Resource.Layout.activity_registration);
-
+             SetContentView(Resource.Layout.activity_registration);
+           // SetContentView(Resource.Layout.HomePage);
             // Assign UI controls
             etEmail = FindViewById<EditText>(Resource.Id.email_value);
             etPassword = FindViewById<EditText>(Resource.Id.password_value);
@@ -100,7 +100,7 @@ namespace KymiraApplication
             //Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             //SetSupportActionBar(toolbar);
 
-           
+
 
         }
 

@@ -2418,8 +2418,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080037
 			public const int SYM = 2131230775;
 			
-			// aapt resource value: 0x7f0800bf
-			public const int action0 = 2131230911;
+			// aapt resource value: 0x7f0800ca
+			public const int action0 = 2131230922;
 			
 			// aapt resource value: 0x7f08007c
 			public const int action_bar = 2131230844;
@@ -2442,17 +2442,17 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08005a
 			public const int action_bar_title = 2131230810;
 			
-			// aapt resource value: 0x7f0800bc
-			public const int action_container = 2131230908;
+			// aapt resource value: 0x7f0800c7
+			public const int action_container = 2131230919;
 			
 			// aapt resource value: 0x7f08007d
 			public const int action_context_bar = 2131230845;
 			
-			// aapt resource value: 0x7f0800c3
-			public const int action_divider = 2131230915;
+			// aapt resource value: 0x7f0800ce
+			public const int action_divider = 2131230926;
 			
-			// aapt resource value: 0x7f0800bd
-			public const int action_image = 2131230909;
+			// aapt resource value: 0x7f0800c8
+			public const int action_image = 2131230920;
 			
 			// aapt resource value: 0x7f080003
 			public const int action_menu_divider = 2131230723;
@@ -2469,20 +2469,26 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08005c
 			public const int action_mode_close_button = 2131230812;
 			
-			// aapt resource value: 0x7f0800d8
-			public const int action_settings = 2131230936;
+			// aapt resource value: 0x7f0800e3
+			public const int action_settings = 2131230947;
 			
-			// aapt resource value: 0x7f0800be
-			public const int action_text = 2131230910;
+			// aapt resource value: 0x7f0800c9
+			public const int action_text = 2131230921;
 			
-			// aapt resource value: 0x7f0800cc
-			public const int actions = 2131230924;
+			// aapt resource value: 0x7f0800d7
+			public const int actions = 2131230935;
 			
 			// aapt resource value: 0x7f08005d
 			public const int activity_chooser_view_content = 2131230813;
 			
 			// aapt resource value: 0x7f080027
 			public const int add = 2131230759;
+			
+			// aapt resource value: 0x7f0800a9
+			public const int addressEntry = 2131230889;
+			
+			// aapt resource value: 0x7f0800a8
+			public const int addressLabel = 2131230888;
 			
 			// aapt resource value: 0x7f08009b
 			public const int addressLine1_label = 2131230875;
@@ -2514,6 +2520,15 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08002f
 			public const int beginning = 2131230767;
 			
+			// aapt resource value: 0x7f0800ab
+			public const int binAddressLabel = 2131230891;
+			
+			// aapt resource value: 0x7f0800ac
+			public const int binStatusList = 2131230892;
+			
+			// aapt resource value: 0x7f0800a7
+			public const int binStatusTitle = 2131230887;
+			
 			// aapt resource value: 0x7f080099
 			public const int birthDateSpinnerDay = 2131230873;
 			
@@ -2529,8 +2544,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08003d
 			public const int bottom = 2131230781;
 			
-			// aapt resource value: 0x7f0800bb
-			public const int btnLogin = 2131230907;
+			// aapt resource value: 0x7f0800c6
+			public const int btnLogin = 2131230918;
 			
 			// aapt resource value: 0x7f0800a6
 			public const int btnSubmit = 2131230886;
@@ -2538,8 +2553,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080063
 			public const int buttonPanel = 2131230819;
 			
-			// aapt resource value: 0x7f0800c0
-			public const int cancel_action = 2131230912;
+			// aapt resource value: 0x7f0800cb
+			public const int cancel_action = 2131230923;
 			
 			// aapt resource value: 0x7f080045
 			public const int center = 2131230789;
@@ -2553,8 +2568,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080073
 			public const int checkbox = 2131230835;
 			
-			// aapt resource value: 0x7f0800c8
-			public const int chronometer = 2131230920;
+			// aapt resource value: 0x7f0800d3
+			public const int chronometer = 2131230931;
 			
 			// aapt resource value: 0x7f08009f
 			public const int city_label = 2131230879;
@@ -2571,14 +2586,14 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080039
 			public const int collapseActionView = 2131230777;
 			
-			// aapt resource value: 0x7f0800a9
-			public const int container = 2131230889;
+			// aapt resource value: 0x7f0800b5
+			public const int container = 2131230901;
 			
 			// aapt resource value: 0x7f080066
 			public const int contentPanel = 2131230822;
 			
-			// aapt resource value: 0x7f0800aa
-			public const int coordinator = 2131230890;
+			// aapt resource value: 0x7f0800b6
+			public const int coordinator = 2131230902;
 			
 			// aapt resource value: 0x7f08006d
 			public const int custom = 2131230829;
@@ -2592,20 +2607,20 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080060
 			public const int default_activity_button = 2131230816;
 			
-			// aapt resource value: 0x7f0800ac
-			public const int design_bottom_sheet = 2131230892;
+			// aapt resource value: 0x7f0800b8
+			public const int design_bottom_sheet = 2131230904;
 			
-			// aapt resource value: 0x7f0800b3
-			public const int design_menu_item_action_area = 2131230899;
+			// aapt resource value: 0x7f0800bf
+			public const int design_menu_item_action_area = 2131230911;
 			
-			// aapt resource value: 0x7f0800b2
-			public const int design_menu_item_action_area_stub = 2131230898;
+			// aapt resource value: 0x7f0800be
+			public const int design_menu_item_action_area_stub = 2131230910;
 			
-			// aapt resource value: 0x7f0800b1
-			public const int design_menu_item_text = 2131230897;
+			// aapt resource value: 0x7f0800bd
+			public const int design_menu_item_text = 2131230909;
 			
-			// aapt resource value: 0x7f0800b0
-			public const int design_navigation_view = 2131230896;
+			// aapt resource value: 0x7f0800bc
+			public const int design_navigation_view = 2131230908;
 			
 			// aapt resource value: 0x7f080020
 			public const int disableHome = 2131230752;
@@ -2622,8 +2637,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080030
 			public const int end = 2131230768;
 			
-			// aapt resource value: 0x7f0800ce
-			public const int end_padder = 2131230926;
+			// aapt resource value: 0x7f0800d9
+			public const int end_padder = 2131230937;
 			
 			// aapt resource value: 0x7f08003f
 			public const int enterAlways = 2131230783;
@@ -2631,11 +2646,14 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080040
 			public const int enterAlwaysCollapsed = 2131230784;
 			
-			// aapt resource value: 0x7f0800b9
-			public const int etxtPassword = 2131230905;
+			// aapt resource value: 0x7f0800ad
+			public const int etAddress = 2131230893;
 			
-			// aapt resource value: 0x7f0800b8
-			public const int etxtPhone = 2131230904;
+			// aapt resource value: 0x7f0800c5
+			public const int etxtPassword = 2131230917;
+			
+			// aapt resource value: 0x7f0800c4
+			public const int etxtPhone = 2131230916;
 			
 			// aapt resource value: 0x7f080041
 			public const int exitUntilCollapsed = 2131230785;
@@ -2679,8 +2697,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080062
 			public const int icon = 2131230818;
 			
-			// aapt resource value: 0x7f0800cd
-			public const int icon_group = 2131230925;
+			// aapt resource value: 0x7f0800d8
+			public const int icon_group = 2131230936;
 			
 			// aapt resource value: 0x7f08003a
 			public const int ifRoom = 2131230778;
@@ -2688,11 +2706,11 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08005f
 			public const int image = 2131230815;
 			
-			// aapt resource value: 0x7f0800b7
-			public const int imgLogo = 2131230903;
+			// aapt resource value: 0x7f0800c3
+			public const int imgLogo = 2131230915;
 			
-			// aapt resource value: 0x7f0800c9
-			public const int info = 2131230921;
+			// aapt resource value: 0x7f0800d4
+			public const int info = 2131230932;
 			
 			// aapt resource value: 0x7f080059
 			public const int italic = 2131230809;
@@ -2700,8 +2718,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080000
 			public const int item_touch_helper_previous_elevation = 2131230720;
 			
-			// aapt resource value: 0x7f0800a8
-			public const int largeLabel = 2131230888;
+			// aapt resource value: 0x7f0800b4
+			public const int largeLabel = 2131230900;
 			
 			// aapt resource value: 0x7f080095
 			public const int lastName_label = 2131230869;
@@ -2724,14 +2742,14 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080061
 			public const int list_item = 2131230817;
 			
-			// aapt resource value: 0x7f0800d1
-			public const int masked = 2131230929;
+			// aapt resource value: 0x7f0800dc
+			public const int masked = 2131230940;
 			
-			// aapt resource value: 0x7f0800c2
-			public const int media_actions = 2131230914;
+			// aapt resource value: 0x7f0800cd
+			public const int media_actions = 2131230925;
 			
-			// aapt resource value: 0x7f0800cf
-			public const int message = 2131230927;
+			// aapt resource value: 0x7f0800da
+			public const int message = 2131230938;
 			
 			// aapt resource value: 0x7f080031
 			public const int middle = 2131230769;
@@ -2742,26 +2760,26 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080028
 			public const int multiply = 2131230760;
 			
-			// aapt resource value: 0x7f0800d2
-			public const int nav_camera = 2131230930;
+			// aapt resource value: 0x7f0800dd
+			public const int nav_camera = 2131230941;
 			
-			// aapt resource value: 0x7f0800d3
-			public const int nav_gallery = 2131230931;
+			// aapt resource value: 0x7f0800de
+			public const int nav_gallery = 2131230942;
 			
-			// aapt resource value: 0x7f0800d5
-			public const int nav_manage = 2131230933;
+			// aapt resource value: 0x7f0800e0
+			public const int nav_manage = 2131230944;
 			
-			// aapt resource value: 0x7f0800d7
-			public const int nav_send = 2131230935;
+			// aapt resource value: 0x7f0800e2
+			public const int nav_send = 2131230946;
 			
-			// aapt resource value: 0x7f0800d6
-			public const int nav_share = 2131230934;
+			// aapt resource value: 0x7f0800e1
+			public const int nav_share = 2131230945;
 			
-			// aapt resource value: 0x7f0800d4
-			public const int nav_slideshow = 2131230932;
+			// aapt resource value: 0x7f0800df
+			public const int nav_slideshow = 2131230943;
 			
-			// aapt resource value: 0x7f0800af
-			public const int navigation_header_container = 2131230895;
+			// aapt resource value: 0x7f0800bb
+			public const int navigation_header_container = 2131230907;
 			
 			// aapt resource value: 0x7f08003b
 			public const int never = 2131230779;
@@ -2772,14 +2790,14 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08001e
 			public const int normal = 2131230750;
 			
-			// aapt resource value: 0x7f0800cb
-			public const int notification_background = 2131230923;
+			// aapt resource value: 0x7f0800d6
+			public const int notification_background = 2131230934;
 			
-			// aapt resource value: 0x7f0800c5
-			public const int notification_main_column = 2131230917;
+			// aapt resource value: 0x7f0800d0
+			public const int notification_main_column = 2131230928;
 			
-			// aapt resource value: 0x7f0800c4
-			public const int notification_main_column_container = 2131230916;
+			// aapt resource value: 0x7f0800cf
+			public const int notification_main_column_container = 2131230927;
 			
 			// aapt resource value: 0x7f08004c
 			public const int parallax = 2131230796;
@@ -2829,14 +2847,17 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08008c
 			public const int registrationTitle = 2131230860;
 			
+			// aapt resource value: 0x7f0800af
+			public const int returnedAddress = 2131230895;
+			
 			// aapt resource value: 0x7f08004a
 			public const int right = 2131230794;
 			
-			// aapt resource value: 0x7f0800ca
-			public const int right_icon = 2131230922;
+			// aapt resource value: 0x7f0800d5
+			public const int right_icon = 2131230933;
 			
-			// aapt resource value: 0x7f0800c6
-			public const int right_side = 2131230918;
+			// aapt resource value: 0x7f0800d1
+			public const int right_side = 2131230929;
 			
 			// aapt resource value: 0x7f08000c
 			public const int save_image_matrix = 2131230732;
@@ -2910,14 +2931,14 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080025
 			public const int showTitle = 2131230757;
 			
-			// aapt resource value: 0x7f0800a7
-			public const int smallLabel = 2131230887;
+			// aapt resource value: 0x7f0800b3
+			public const int smallLabel = 2131230899;
 			
-			// aapt resource value: 0x7f0800ae
-			public const int snackbar_action = 2131230894;
+			// aapt resource value: 0x7f0800ba
+			public const int snackbar_action = 2131230906;
 			
-			// aapt resource value: 0x7f0800ad
-			public const int snackbar_text = 2131230893;
+			// aapt resource value: 0x7f0800b9
+			public const int snackbar_text = 2131230905;
 			
 			// aapt resource value: 0x7f080043
 			public const int snap = 2131230787;
@@ -2940,11 +2961,14 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08004b
 			public const int start = 2131230795;
 			
-			// aapt resource value: 0x7f0800c1
-			public const int status_bar_latest_event_content = 2131230913;
+			// aapt resource value: 0x7f0800cc
+			public const int status_bar_latest_event_content = 2131230924;
 			
 			// aapt resource value: 0x7f080076
 			public const int submenuarrow = 2131230838;
+			
+			// aapt resource value: 0x7f0800aa
+			public const int submitAddress = 2131230890;
 			
 			// aapt resource value: 0x7f080087
 			public const int submit_area = 2131230855;
@@ -2973,8 +2997,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080069
 			public const int textSpacerNoTitle = 2131230825;
 			
-			// aapt resource value: 0x7f0800b4
-			public const int text_input_password_toggle = 2131230900;
+			// aapt resource value: 0x7f0800c0
+			public const int text_input_password_toggle = 2131230912;
 			
 			// aapt resource value: 0x7f080014
 			public const int textinput_counter = 2131230740;
@@ -2982,8 +3006,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080015
 			public const int textinput_error = 2131230741;
 			
-			// aapt resource value: 0x7f0800c7
-			public const int time = 2131230919;
+			// aapt resource value: 0x7f0800d2
+			public const int time = 2131230930;
 			
 			// aapt resource value: 0x7f08001c
 			public const int title = 2131230748;
@@ -3000,8 +3024,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08006e
 			public const int topPanel = 2131230830;
 			
-			// aapt resource value: 0x7f0800ab
-			public const int touch_outside = 2131230891;
+			// aapt resource value: 0x7f0800b7
+			public const int touch_outside = 2131230903;
 			
 			// aapt resource value: 0x7f08000f
 			public const int transition_current_scene = 2131230735;
@@ -3018,14 +3042,23 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080013
 			public const int transition_transform = 2131230739;
 			
-			// aapt resource value: 0x7f0800ba
-			public const int tvError = 2131230906;
+			// aapt resource value: 0x7f0800b1
+			public const int tvCollectionDate1 = 2131230897;
 			
-			// aapt resource value: 0x7f0800b6
-			public const int txtUserPhone = 2131230902;
+			// aapt resource value: 0x7f0800b2
+			public const int tvCollectionDate2 = 2131230898;
 			
-			// aapt resource value: 0x7f0800b5
-			public const int txtWelcome = 2131230901;
+			// aapt resource value: 0x7f0800ae
+			public const int tvError = 2131230894;
+			
+			// aapt resource value: 0x7f0800b0
+			public const int tvTitle = 2131230896;
+			
+			// aapt resource value: 0x7f0800c2
+			public const int txtUserPhone = 2131230914;
+			
+			// aapt resource value: 0x7f0800c1
+			public const int txtWelcome = 2131230913;
 			
 			// aapt resource value: 0x7f08002d
 			public const int uniform = 2131230765;
@@ -3039,8 +3072,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080016
 			public const int view_offset_helper = 2131230742;
 			
-			// aapt resource value: 0x7f0800d0
-			public const int visible = 2131230928;
+			// aapt resource value: 0x7f0800db
+			public const int visible = 2131230939;
 			
 			// aapt resource value: 0x7f08003c
 			public const int withText = 2131230780;
@@ -3186,112 +3219,124 @@ namespace KymiraApplication
 			public const int activity_registration = 2130968602;
 			
 			// aapt resource value: 0x7f04001b
-			public const int design_bottom_navigation_item = 2130968603;
+			public const int activity_view_statuses = 2130968603;
 			
 			// aapt resource value: 0x7f04001c
-			public const int design_bottom_sheet_dialog = 2130968604;
+			public const int AddressForCollection = 2130968604;
 			
 			// aapt resource value: 0x7f04001d
-			public const int design_layout_snackbar = 2130968605;
+			public const int bin_status_list_item = 2130968605;
 			
 			// aapt resource value: 0x7f04001e
-			public const int design_layout_snackbar_include = 2130968606;
+			public const int CollectionDate = 2130968606;
 			
 			// aapt resource value: 0x7f04001f
-			public const int design_layout_tab_icon = 2130968607;
+			public const int design_bottom_navigation_item = 2130968607;
 			
 			// aapt resource value: 0x7f040020
-			public const int design_layout_tab_text = 2130968608;
+			public const int design_bottom_sheet_dialog = 2130968608;
 			
 			// aapt resource value: 0x7f040021
-			public const int design_menu_item_action_area = 2130968609;
+			public const int design_layout_snackbar = 2130968609;
 			
 			// aapt resource value: 0x7f040022
-			public const int design_navigation_item = 2130968610;
+			public const int design_layout_snackbar_include = 2130968610;
 			
 			// aapt resource value: 0x7f040023
-			public const int design_navigation_item_header = 2130968611;
+			public const int design_layout_tab_icon = 2130968611;
 			
 			// aapt resource value: 0x7f040024
-			public const int design_navigation_item_separator = 2130968612;
+			public const int design_layout_tab_text = 2130968612;
 			
 			// aapt resource value: 0x7f040025
-			public const int design_navigation_item_subheader = 2130968613;
+			public const int design_menu_item_action_area = 2130968613;
 			
 			// aapt resource value: 0x7f040026
-			public const int design_navigation_menu = 2130968614;
+			public const int design_navigation_item = 2130968614;
 			
 			// aapt resource value: 0x7f040027
-			public const int design_navigation_menu_item = 2130968615;
+			public const int design_navigation_item_header = 2130968615;
 			
 			// aapt resource value: 0x7f040028
-			public const int design_text_input_password_icon = 2130968616;
+			public const int design_navigation_item_separator = 2130968616;
 			
 			// aapt resource value: 0x7f040029
-			public const int HomePage = 2130968617;
+			public const int design_navigation_item_subheader = 2130968617;
 			
 			// aapt resource value: 0x7f04002a
-			public const int LoginPage = 2130968618;
+			public const int design_navigation_menu = 2130968618;
 			
 			// aapt resource value: 0x7f04002b
-			public const int notification_action = 2130968619;
+			public const int design_navigation_menu_item = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
-			public const int notification_action_tombstone = 2130968620;
+			public const int design_text_input_password_icon = 2130968620;
 			
 			// aapt resource value: 0x7f04002d
-			public const int notification_media_action = 2130968621;
+			public const int HomePage = 2130968621;
 			
 			// aapt resource value: 0x7f04002e
-			public const int notification_media_cancel_action = 2130968622;
+			public const int LoginPage = 2130968622;
 			
 			// aapt resource value: 0x7f04002f
-			public const int notification_template_big_media = 2130968623;
+			public const int notification_action = 2130968623;
 			
 			// aapt resource value: 0x7f040030
-			public const int notification_template_big_media_custom = 2130968624;
+			public const int notification_action_tombstone = 2130968624;
 			
 			// aapt resource value: 0x7f040031
-			public const int notification_template_big_media_narrow = 2130968625;
+			public const int notification_media_action = 2130968625;
 			
 			// aapt resource value: 0x7f040032
-			public const int notification_template_big_media_narrow_custom = 2130968626;
+			public const int notification_media_cancel_action = 2130968626;
 			
 			// aapt resource value: 0x7f040033
-			public const int notification_template_custom_big = 2130968627;
+			public const int notification_template_big_media = 2130968627;
 			
 			// aapt resource value: 0x7f040034
-			public const int notification_template_icon_group = 2130968628;
+			public const int notification_template_big_media_custom = 2130968628;
 			
 			// aapt resource value: 0x7f040035
-			public const int notification_template_lines_media = 2130968629;
+			public const int notification_template_big_media_narrow = 2130968629;
 			
 			// aapt resource value: 0x7f040036
-			public const int notification_template_media = 2130968630;
+			public const int notification_template_big_media_narrow_custom = 2130968630;
 			
 			// aapt resource value: 0x7f040037
-			public const int notification_template_media_custom = 2130968631;
+			public const int notification_template_custom_big = 2130968631;
 			
 			// aapt resource value: 0x7f040038
-			public const int notification_template_part_chronometer = 2130968632;
+			public const int notification_template_icon_group = 2130968632;
 			
 			// aapt resource value: 0x7f040039
-			public const int notification_template_part_time = 2130968633;
+			public const int notification_template_lines_media = 2130968633;
 			
 			// aapt resource value: 0x7f04003a
-			public const int select_dialog_item_material = 2130968634;
+			public const int notification_template_media = 2130968634;
 			
 			// aapt resource value: 0x7f04003b
-			public const int select_dialog_multichoice_material = 2130968635;
+			public const int notification_template_media_custom = 2130968635;
 			
 			// aapt resource value: 0x7f04003c
-			public const int select_dialog_singlechoice_material = 2130968636;
+			public const int notification_template_part_chronometer = 2130968636;
 			
 			// aapt resource value: 0x7f04003d
-			public const int support_simple_spinner_dropdown_item = 2130968637;
+			public const int notification_template_part_time = 2130968637;
 			
 			// aapt resource value: 0x7f04003e
-			public const int tooltip = 2130968638;
+			public const int select_dialog_item_material = 2130968638;
+			
+			// aapt resource value: 0x7f04003f
+			public const int select_dialog_multichoice_material = 2130968639;
+			
+			// aapt resource value: 0x7f040040
+			public const int select_dialog_singlechoice_material = 2130968640;
+			
+			// aapt resource value: 0x7f040041
+			public const int support_simple_spinner_dropdown_item = 2130968641;
+			
+			// aapt resource value: 0x7f040042
+			public const int tooltip = 2130968642;
 			
 			static Layout()
 			{
@@ -3437,11 +3482,17 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f09002a
 			public const int action_settings = 2131296298;
 			
+			// aapt resource value: 0x7f09002c
+			public const int address = 2131296300;
+			
 			// aapt resource value: 0x7f090027
 			public const int app_name = 2131296295;
 			
 			// aapt resource value: 0x7f09001e
 			public const int appbar_scrolling_view_behavior = 2131296286;
+			
+			// aapt resource value: 0x7f09002b
+			public const int binStatusLayoutTitle = 2131296299;
 			
 			// aapt resource value: 0x7f09001f
 			public const int bottom_sheet_behavior = 2131296287;
@@ -3475,6 +3526,9 @@ namespace KymiraApplication
 			
 			// aapt resource value: 0x7f090026
 			public const int status_bar_notification_info_overflow = 2131296294;
+			
+			// aapt resource value: 0x7f09002d
+			public const int submitAddress = 2131296301;
 			
 			static String()
 			{

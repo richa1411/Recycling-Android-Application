@@ -22,6 +22,7 @@ namespace KymiraApplication
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.HomePage);
+            StartActivity(typeof(BinCollectionAddress));
         }
     }
 }
