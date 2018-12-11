@@ -17,7 +17,7 @@ using Android.Support.V7.App;
 
 namespace KymiraApplication
 {
-    //[Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class PropertyStatsAddress : AppCompatActivity
     {
         //We have two activities
@@ -46,10 +46,12 @@ namespace KymiraApplication
             //activity displays a button to submit entered address
 
             //Assigning UI controls (FindViewById)
-
+            base.OnCreate(savedInstanceState);
             //need a click event for the button
 
-            
+            SetContentView(Resource.Layout.AddressForPropertyStats);
+
+
         }
         private void BtnAddress_Click(object sender, EventArgs e)
         {

@@ -43,38 +43,32 @@ namespace KymiraApplicationTests
 
         //Test if the Address is invalid (from the backend)
         [TestMethod]
-        public void testInValidAddress()
+        public void testInValidAddressFormat()
         {
-            propertyStats.Address = "this is not a valid address";
+            propertyStats.Address = "fff Test34";
             var results = HelperTestModel.Validate(propertyStats);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Invalid Address", results[0].ErrorMessage);
         }
 
-
-        //UI Tests
-        public void testUIEmptyAddress()
+        //Test if the Address is invalid (from the backend)
+        [TestMethod]
+        public void testInValidAddress()
         {
-            //when the there is an empty string in the address textView field and the user taps the submit button
-            //the application will show an error message specifying an invalid address
+            propertyStats.Address = "AddressNotInDatabase";
+            var results = HelperTestModel.Validate(propertyStats);
+            Assert.AreEqual(1, results.Count());
+            Assert.AreEqual("Invalid Address", results[0].ErrorMessage);
         }
 
-        public void testUIValidAddress()
+        //Will test if the points are integers
+        [TestMethod]
+        public void testValidPoints()
         {
-            //when the user enters a valid address string in the address textView field and the user taps the submit button
-            //the application will take the user to the second activity which will display the next two collection dates
-        }
+            propertyStats.PropertyPoints = 123456;
+            var results = HelperTestModel.Validate(propertyStats);
+            Assert.AreEqual(0, results.Count());
 
-        public void testUIInvalidAddress()
-        {
-            //when the user enters an invalid address string in the address textView field (address is in the incorrect format) 
-            //and the user taps the submit button, the application will show an error message specifying an invalid address
-        }
-
-        public void testUserNavigatesToSecondActivity()
-        {
-            //when the user enters a valid address (correct format) and taps the submit button
-            //as a result the user will be taken to a new page (second activity) that will display the next two collection dates if in the database
         }
 
     }

@@ -156,6 +156,16 @@
     <AndroidResource Include="Resources\layout\CollectionDate.axml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_view_statuses.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\bin_status_list_item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\layout\AddressForPropertyStats.axml">
       <SubType>Designer</SubType>
     </AndroidResource>

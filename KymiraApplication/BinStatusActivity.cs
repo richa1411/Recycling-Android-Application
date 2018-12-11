@@ -18,7 +18,7 @@ using Newtonsoft.Json;
 
 namespace KymiraApplication.Resources
 {
-    [Activity(Label = "BinStatusActivity",MainLauncher = true)]
+    [Activity(Label = "BinStatusActivity", MainLauncher = false)]
     public class BinStatusActivity : Activity
     {
         //UI controls for this activity
@@ -76,7 +76,7 @@ namespace KymiraApplication.Resources
             btnSubmit = FindViewById<Button>(Resource.Id.submitAddress);
             lvBins = FindViewById<ListView>(Resource.Id.binStatusList);
             lvBins.Adapter = listAdapter;
-            
+
             //Object used to simulate the backend
             simBinStatusBackend = new SimBinStatusBackend();
 

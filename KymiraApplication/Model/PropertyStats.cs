@@ -25,6 +25,10 @@ namespace KymiraApplication.Model
         [RegularExpression(@"^\d+\s[A-z]+\s[A-z]+", ErrorMessage = "Invalid Address")]
         public string Address { get; set; }
 
+        //Will display the properties current points. Must be an integer
+        [RegularExpression(@"^\d+$")]
+        public int PropertyPoints { get; set; }
+
 
 
     }
