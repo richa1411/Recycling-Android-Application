@@ -30,7 +30,7 @@ namespace kymiraAPI.Controllers
             return _context.BinStatus;
         }
 
-       
+
         /**
          * This method will take a binStatus Object from the application and return a List of binStatus objects that have a matching 
          * binStatus Address. 
@@ -62,20 +62,7 @@ namespace kymiraAPI.Controllers
             return Ok(binStatus);
         }
 
-        [HttpDelete]
-        public async Task<IActionResult> DeleteBinStatus([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
-            var response = _context.Database.ExecuteSqlCommand("TRUNCATE TABLE[binStatus]");
-            await _context.SaveChangesAsync();
-            
-            return Ok(response);
-        }
-       
+  
         /**
          * This function takes in a binStatus object and will post it to the Database.
          * */

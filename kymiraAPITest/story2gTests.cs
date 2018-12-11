@@ -28,7 +28,7 @@ namespace kymiraAPITest
             name = "Hey",
             description = "I'm a Potato",
             pictureID = "Potato",
-            isRecyclable = true,
+            isRecyclable = false,
             recyclableReason = "Cause",
             endResult = "tomato sauce",
             qtyRecycled = 1000
@@ -52,6 +52,11 @@ namespace kymiraAPITest
         public async Task TestGetValidJsonRecyclable()
         {
             jsonHandler testJSON = new jsonHandler();
+
+            sendTest.isRecyclable = true;
+            var sendTrue = await testJSON.sendJsonAsync(sendTest, dispURL);
+            Assert.AreEqual("Success", sendTrue);
+
 
             List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, true);
 

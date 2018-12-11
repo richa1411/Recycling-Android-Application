@@ -92,6 +92,10 @@ namespace kymiraAPITest
 
         }
 
+        /**
+         * Tests that a binstatus object is valid with an address of 200 characters.
+         * 
+         * */
         [TestMethod]
         public void TestThatAddressIsValidAt200Characters()
         {
@@ -142,41 +146,137 @@ namespace kymiraAPITest
         {
             //deletes the database so when running tests on other computers with local DB. they do not have to manually add
             //entries to pass tests
-            HttpResponseMessage r = await client.DeleteAsync(uri);
 
 
-            //adds testStatus1
-            var json = JsonConvert.SerializeObject(testStatus);
-            var contents = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync(uri,contents);
-            Assert.AreEqual(response.StatusCode,"");
+
+            //HttpResponseMessage r = await client.DeleteAsync(uri);
 
 
-            ////adds testStatus2 entry 1
-            json = JsonConvert.SerializeObject(testStatus2);
-            contents = new StringContent(json, Encoding.UTF8, "application/json");
-            response = await client.PostAsync(uri, contents);
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            ////adds testStatus2 entry 2
-            json = JsonConvert.SerializeObject(testStatus2);
-            contents = new StringContent(json, Encoding.UTF8, "application/json");
-            response = await client.PostAsync(uri, contents);
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            //adds testStatus3 entry 1
-            json = JsonConvert.SerializeObject(testStatus3);
-            contents = new StringContent(json, Encoding.UTF8, "application/json");
-            response = await client.PostAsync(uri, contents);
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            //adds testStatus3 enty 2
-            json = JsonConvert.SerializeObject(testStatus3);
-            contents = new StringContent(json, Encoding.UTF8, "application/json");
-            response = await client.PostAsync(uri, contents);
-            Assert.IsTrue(response.IsSuccessStatusCode);
-            //adds testStatus3 entry 3
-            json = JsonConvert.SerializeObject(testStatus3);
-            contents = new StringContent(json, Encoding.UTF8, "application/json");
-            response = await client.PostAsync(uri, contents);
-            Assert.IsTrue(response.IsSuccessStatusCode);
+
+            // sends address string 1
+
+            HttpResponseMessage getResponse = await client.GetAsync(uri);
+
+            if (getResponse.IsSuccessStatusCode)
+            {
+                var content = await getResponse.Content.ReadAsStringAsync();
+
+                List<BinStatus> binList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
+
+                var count1 = 0;
+                var count2 = 0;
+                var count3 = 0;
+                foreach (BinStatus item in binList)
+                {
+                    if (item.binAddress == address1)
+                    {
+                        count1++;
+                    }
+                    else if (item.binAddress == address2)
+                    {
+                        count2++;
+                    }
+                    else if (item.binAddress == address3)
+                    {
+                        count3++;
+                    }
+
+
+
+                }
+
+                if(count1 == 0)
+                {
+
+                    //adds testStatus1
+                    var json = JsonConvert.SerializeObject(testStatus);
+                    var contents = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(uri, contents);
+                    Assert.IsTrue(response.IsSuccessStatusCode);
+
+                }
+
+                if(count2 <2)
+                {
+
+                    for(int i = count2; i<2;i++)
+                    {
+
+                        var json = JsonConvert.SerializeObject(testStatus2);
+                        var contents = new StringContent(json, Encoding.UTF8, "application/json");
+                        var response = await client.PostAsync(uri, contents);
+                        Assert.IsTrue(response.IsSuccessStatusCode);
+
+
+                    }
+
+                }
+
+                if (count3 < 3)
+                {
+
+                    for (int i = count3; i < 3; i++)
+                    {
+
+                        var json = JsonConvert.SerializeObject(testStatus3);
+                        var contents = new StringContent(json, Encoding.UTF8, "application/json");
+                        var response = await client.PostAsync(uri, contents);
+                        Assert.IsTrue(response.IsSuccessStatusCode);
+
+
+                    }
+
+
+
+                }
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
 
 
 
@@ -200,6 +300,7 @@ namespace kymiraAPITest
             // sends address string 1
             var json = JsonConvert.SerializeObject(address1);
             var contents = new StringContent(json, Encoding.UTF8, "application/json");
+
             HttpResponseMessage response = await client.PutAsync(uri, contents);
 
             if (response.IsSuccessStatusCode)
