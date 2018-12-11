@@ -30,7 +30,7 @@ namespace KymiraApplication
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.ItemListPage); 
+            SetContentView(Resource.Layout.ItemListPage);
 
             btnRec = (Button)FindViewById(Resource.Id.btnRec);
             btnNonRec = (Button)FindViewById(Resource.Id.btnNonRec);
