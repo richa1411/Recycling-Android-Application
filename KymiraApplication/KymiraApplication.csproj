@@ -62,14 +62,20 @@
     <Compile Include="BinCollectionAddress.cs" />
     <Compile Include="DisplayBinCollectionDate.cs" />
     <Compile Include="HomePage.cs" />
+    <Compile Include="ListDisposableActivity.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Model\BinCollectionDate.cs" />
     <Compile Include="Model\BinStatus.cs" />
     <Compile Include="Model\Credentials.cs" />
+    <Compile Include="Model\Disposable.cs" />
     <Compile Include="Model\jsonHandler.cs" />
+    <Compile Include="Model\jsonHandlerDisposable.cs" />
+    <Compile Include="Model\ListDisposable.cs" />
     <Compile Include="Model\Registration.cs" />
     <Compile Include="Model\ValidationHelper.cs" />
+    <Compile Include="RecNonRecListViewAdapter.cs" />
+    <Compile Include="RecycleActivity.cs" />
     <Compile Include="BinStatusActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,10 +153,23 @@
     <AndroidResource Include="Resources\drawable\logoWhite.png" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\No_Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ItemListPage.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\listviewRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+
     <AndroidResource Include="Resources\layout\AddressForCollection.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CollectionDate.axml" />
+
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_view_statuses.axml">
