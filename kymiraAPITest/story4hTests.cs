@@ -69,9 +69,8 @@ namespace kymiraAPITest
         }
 
  
-        /**
- * Tests that the model allows a valid object
- * */
+  
+
 
 
 
@@ -181,8 +180,6 @@ namespace kymiraAPITest
                         count3++;
                     }
 
-
-
                 }
 
                 if(count1 == 0)
@@ -194,7 +191,6 @@ namespace kymiraAPITest
 
                     HttpResponseMessage response = await client.PostAsync(uri, contents);
                     Assert.IsTrue(response.IsSuccessStatusCode);
-
                 }
 
                 if(count2 <2)
@@ -207,7 +203,6 @@ namespace kymiraAPITest
                         var contents = new StringContent(json, Encoding.UTF8, "application/json");
                         var response = await client.PostAsync(uri, contents);
                         Assert.IsTrue(response.IsSuccessStatusCode);
-
 
                     }
 
@@ -224,68 +219,13 @@ namespace kymiraAPITest
                         var response = await client.PostAsync(uri, contents);
                         Assert.IsTrue(response.IsSuccessStatusCode);
 
-
                     }
-
-
 
                 }
 
 
 
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          
-
-
-
-
-
-
-
-
-
-
 
         }
         /**
