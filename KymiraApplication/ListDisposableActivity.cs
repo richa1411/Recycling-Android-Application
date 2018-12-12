@@ -13,7 +13,7 @@ using KymiraApplication.Model;
 
 namespace KymiraApplication
 {
-    [Activity(Label = "ListDisposable", MainLauncher = true)]
+    [Activity(Label = "ListDisposable", MainLauncher = false)]
     public class ListDisposable : Activity
     {
         string[] jsonArray;
