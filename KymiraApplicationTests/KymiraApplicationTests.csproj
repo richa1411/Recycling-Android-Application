@@ -72,12 +72,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KymiraApplication\KymiraApplication.csproj">
-      <Project>{07272096-7498-4f50-b9fc-aa5202bda99d}</Project>
-      <Name>KymiraApplication</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
