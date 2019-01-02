@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using KymiraApplication.Model;
+using KymiraApplication.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -83,17 +83,17 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void testRetrieveRecyclables()
         {
-            KymiraApplication.Model.ListDisposable.requestDisposableListAsyncDemo(true);
+            KymiraApplication.Models.ListDisposable.requestDisposableListAsyncDemo(true);
 
-            disposables = KymiraApplication.Model.ListDisposable.getDisposableList();
+            disposables = KymiraApplication.Models.ListDisposable.getDisposableList();
 
             Assert.IsTrue(disposables[0].isRecyclable);
             Assert.IsTrue(disposables[1].isRecyclable);
             Assert.IsTrue(disposables[2].isRecyclable);
 
-            KymiraApplication.Model.ListDisposable.requestDisposableListAsyncDemo(false);
+            KymiraApplication.Models.ListDisposable.requestDisposableListAsyncDemo(false);
 
-            disposables = KymiraApplication.Model.ListDisposable.getDisposableList();
+            disposables = KymiraApplication.Models.ListDisposable.getDisposableList();
 
             Assert.AreEqual(disposables[0].isRecyclable, false);
             Assert.AreEqual(disposables[1].isRecyclable, false);

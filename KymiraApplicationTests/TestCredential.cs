@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using KymiraApplication.Model;
+using KymiraApplication.Models;
 using KymiraApplication;
 
 namespace KymiraApplicationTests

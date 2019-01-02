@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using KymiraApplication.Model;
+using KymiraApplication.Models;
 using KymiraApplication;
 using System.Linq;
 

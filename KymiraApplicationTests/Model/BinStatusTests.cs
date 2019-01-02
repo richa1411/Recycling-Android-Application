@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using KymiraApplication.Model;
+using KymiraApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace KymiraApplication.Model.Tests
+namespace KymiraApplication.Models.Tests
 {
     [TestClass()]
     public class BinStatusTests

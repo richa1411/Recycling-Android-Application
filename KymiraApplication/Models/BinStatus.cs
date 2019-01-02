@@ -11,7 +11,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace KymiraApplication.Model
+namespace KymiraApplication.Models
 {
     public class BinStatus
     {
@@ -21,10 +21,10 @@ namespace KymiraApplication.Model
 
         [StringLength(200, MinimumLength = 1, ErrorMessage = "Address must be 1 to 200 characters")]
         public string binAddress { get; set; }
- 
+
         [Range(1, 3, ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
         public int status { get; set; } //1 -> good, 2 -> blocked, 3 -> Contaminated
-        
+
     }
-   
+
 }

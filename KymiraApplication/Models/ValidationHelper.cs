@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace KymiraApplication.Model
+namespace KymiraApplication.Models
 {
     /*
      * Validation helper class

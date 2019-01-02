@@ -12,7 +12,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace KymiraApplication.Model
+namespace KymiraApplication.Models
 {
     //This class will handle the creation, serialization, deserialzation, sending, and receiving of JSON objects in order for the
     //android application to communicate with the back end controller.
@@ -43,7 +43,7 @@ namespace KymiraApplication.Model
             HttpResponseMessage response = await client.PostAsync(uri, content);
 
             // If JSON was sent successfully, return that
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 return "Registration successful!";
             }
