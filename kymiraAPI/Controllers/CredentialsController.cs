@@ -37,8 +37,10 @@ namespace kymiraAPI.Controllers
             {
                 return NotFound("{ Error:1 Message:Incorrect phone number or password }");
             }
-
-            return Ok(resident);
+            
+                Guid authToken = new Guid();
+            
+            return Ok(authToken);
         }
 
     }
