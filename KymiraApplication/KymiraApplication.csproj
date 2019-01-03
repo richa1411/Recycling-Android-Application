@@ -62,7 +62,7 @@
     <Compile Include="Fragments\BinStatusFragment.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\BinStatus.cs" />
-    <Compile Include="Models\jsonHandler.cs" />
+    <Compile Include="Models\Disposable.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\ValidationHelper.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -127,7 +127,12 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\content_other.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 		Other similar extension points exist, see Microsoft.Common.targets.
