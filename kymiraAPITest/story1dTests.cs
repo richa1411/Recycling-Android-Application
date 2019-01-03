@@ -10,7 +10,7 @@ namespace kymiraAPITest
     {
         //Valid resident to use for testing
         Resident resident = new Resident{id = 1, firstName = "John", lastName = "Smith", birthDate = "1996-05-12",
-            emailAddress = "john.smith@hotmail.com",phoneNumber = "3061234780", addressLine1 = "Fairhaven", addressLine2 = "Unit 6",
+            emailAddress = "john.smith@hotmail.com", phoneNumber = "3061234780", addressLine1 = "Fairhaven", addressLine2 = "Unit 6",
             city = "Saskatoon", province = "Saskatchewan", postalCode = "S7L5W4", password = "P@ssw0rd"};
 
 
