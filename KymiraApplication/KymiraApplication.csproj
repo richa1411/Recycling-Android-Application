@@ -50,6 +50,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Mono.Android" />
@@ -57,9 +58,13 @@
   <ItemGroup>
     <Compile Include="Fragments\DisposablesFragment.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Models\BinCollectionDate.cs" />
+    <Compile Include="Models\BinStatus.cs" />
+    <Compile Include="Models\Credentials.cs" />
     <Compile Include="Models\Disposable.cs" />
     <Compile Include="Models\jsonHandlerDisposable.cs" />
     <Compile Include="Models\ListDisposable.cs" />
+    <Compile Include="Models\Registration.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

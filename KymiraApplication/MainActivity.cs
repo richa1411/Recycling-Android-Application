@@ -85,17 +85,9 @@ namespace KymiraApplication
             {
 
             }
-            else if (id == Resource.Id.nav_manage)
+            else if (id == Resource.Id.nav_disposables)
             {
-
-            }
-            else if (id == Resource.Id.nav_share)
-            {
-
-            }
-            else if (id == Resource.Id.nav_send)
-            {
-
+                
             }
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);

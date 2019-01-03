@@ -2429,8 +2429,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08005c
 			public const int action_mode_close_button = 2131230812;
 			
-			// aapt resource value: 0x7f0800bb
-			public const int action_settings = 2131230907;
+			// aapt resource value: 0x7f0800b9
+			public const int action_settings = 2131230905;
 			
 			// aapt resource value: 0x7f0800a1
 			public const int action_text = 2131230881;
@@ -2654,17 +2654,11 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f0800b5
 			public const int nav_camera = 2131230901;
 			
+			// aapt resource value: 0x7f0800b8
+			public const int nav_disposables = 2131230904;
+			
 			// aapt resource value: 0x7f0800b6
 			public const int nav_gallery = 2131230902;
-			
-			// aapt resource value: 0x7f0800b8
-			public const int nav_manage = 2131230904;
-			
-			// aapt resource value: 0x7f0800ba
-			public const int nav_send = 2131230906;
-			
-			// aapt resource value: 0x7f0800b9
-			public const int nav_share = 2131230905;
 			
 			// aapt resource value: 0x7f0800b7
 			public const int nav_slideshow = 2131230903;
