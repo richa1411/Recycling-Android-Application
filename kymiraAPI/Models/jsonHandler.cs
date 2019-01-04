@@ -110,6 +110,38 @@ namespace kymiraAPI.Models
 
         }
 
+        // This method handles receiving specific json from the uri specified for Resident
+        public async Task<List<Disposable>> receiveSpecResidentJsonAsync(String strUri, int id)
+        {
+            Uri uri = new Uri(strUri, UriKind.Absolute);
+
+            var json = JsonConvert.SerializeObject(new { isRecyclable = id });
+
+
+            var contents = new StringContent(json, Encoding.UTF8, "application/json");
+            // Create an HttpResponse message to hold the response from the back end
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            // Check if the message was sent successfully
+            if (response.IsSuccessStatusCode)
+            {
+                //Create a varialbe to contain the response of the response's GET
+                var content = await response.Content.ReadAsStringAsync();
+
+
+                return JsonConvert.DeserializeObject<List<Disposable>>(content);
+
+
+
+            }
+            // If there were errors receiving the JSON, let the user know
+            else
+            {
+                throw new Exception("no work");
+            }
+
+
+        }
 
         public async Task<List<Disposable>> testSendInvalidJsonHandler(String strUri, bool isResc)
         {

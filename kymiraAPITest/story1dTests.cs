@@ -2,17 +2,48 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using kymiraAPI.Models;
 using System;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace kymiraAPITest
 {
     [TestClass]
     public class Story1dTests
     {
+        jsonHandler testJSON = new jsonHandler();
+
         //Valid resident to use for testing
         Resident resident = new Resident{id = 1, firstName = "John", lastName = "Smith", birthDate = "1996-05-12",
             emailAddress = "john.smith@hotmail.com", phoneNumber = "3061234780", addressLine1 = "Fairhaven", addressLine2 = "Unit 6",
             city = "Saskatoon", province = "Saskatchewan", postalCode = "S7L5W4", password = "P@ssw0rd"};
 
+        [TestInitialize]
+        public async void setup()
+        {
+            await Fixtures.fixture_story6b.load();
+        }
+
+        /*-------------------------------------- Functional Tests -------------------------------------------------------------*/
+
+        [TestMethod]
+        public async Task TestThatControllerReturnsValidObject()
+        {
+            //testJSON.receiveSpecJsonAsync();
+        }
+
+        public async Task TestThatControllerReturnsErrorWhenGivenInvalidObject()
+        {
+
+        }
+
+        public async Task TestThatControllerAcceptsValidObject()
+        {
+
+        }
+
+        public async Task TestThatControllerDeniesInvalidObject()
+        {
+
+        }
 
         /*--------------------------------------First Name Field Testing-------------------------------------------------------------*/
         [TestMethod]
