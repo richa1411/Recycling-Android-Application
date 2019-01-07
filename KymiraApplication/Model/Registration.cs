@@ -12,7 +12,7 @@ namespace KymiraApplication.Model
 
 
         [Required(ErrorMessage = "An email address is required")]
-        [StringLength(100, MinimumLength=10, ErrorMessage = "Email address must be between 1 and 100 characters")]
+        [StringLength(100, MinimumLength = 10, ErrorMessage = "Email address must be between 1 and 100 characters")]
         [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Email address is not in a valid format")]
         public String emailAddress { get; set; }
 
@@ -37,18 +37,18 @@ namespace KymiraApplication.Model
         public String birthDate { get; set; }
 
         [Required(ErrorMessage = "An Address is required")]
-        [StringLength (200, MinimumLength=10, ErrorMessage ="The address must be between 10 and 200 characters")]
+        [StringLength(200, MinimumLength = 10, ErrorMessage = "The address must be between 10 and 200 characters")]
         public String addressLine1 { get; set; }
 
-        [StringLength(200, ErrorMessage ="Must be less than 200 characters")]
+        [StringLength(200, ErrorMessage = "Must be less than 200 characters")]
         public String addressLine2 { get; set; }
 
         [Required(ErrorMessage = "A City is required")]
-        [StringLength(100, MinimumLength =1, ErrorMessage ="The city must be between 1 and 100 characters")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "The city must be between 1 and 100 characters")]
         public String city { get; set; }
 
         [Required(ErrorMessage = "A province is required")]
-        [StringLength(100, MinimumLength =1, ErrorMessage ="The province must be between 1 and 100 characters ")]
+        [StringLength(100, MinimumLength = 1, ErrorMessage = "The province must be between 1 and 100 characters ")]
         public String province { get; set; }
 
         [Required(ErrorMessage = "A postal code is required")]

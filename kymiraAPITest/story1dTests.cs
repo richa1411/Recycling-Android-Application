@@ -28,21 +28,22 @@ namespace kymiraAPITest
         public async Task TestThatControllerReturnsValidObject()
         {
             //testJSON.receiveSpecJsonAsync();
+
+            //check controller output
         }
 
         public async Task TestThatControllerReturnsErrorWhenGivenInvalidObject()
         {
+            //use json handler to send invalid object to controller
 
+            //check controller output
         }
 
         public async Task TestThatControllerAcceptsValidObject()
         {
+            //use json handler send a valid object to the controller
 
-        }
-
-        public async Task TestThatControllerDeniesInvalidObject()
-        {
-
+            //check controller output
         }
 
         /*--------------------------------------First Name Field Testing-------------------------------------------------------------*/
