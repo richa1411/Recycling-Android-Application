@@ -7,17 +7,19 @@ using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
+using KymiraApplication.Fragments;
+
 
 namespace KymiraApplication
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity//, NavigationView.IOnNavigationItemSelectedListener
+    public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.login_layout);
-            /*Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetContentView(Resource.Layout.activity_main);
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
@@ -30,9 +32,9 @@ namespace KymiraApplication
 
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
-            */
+            
         }
-        /*
+        
         public override void OnBackPressed()
         {
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
@@ -74,9 +76,12 @@ namespace KymiraApplication
         {
             int id = item.ItemId;
 
-            if (id == Resource.Id.nav_camera)
+            if (id == Resource.Id.nav_Login)
             {
-                // Handle the camera action
+                // Handle the Login action
+                var loginFragment = new LoginFragment();
+                var ft = FragmentManager.BeginTransaction();
+                ft.Add(Resource.Id.frameContent, loginFragment);
             }
             else if (id == Resource.Id.nav_gallery)
             {
@@ -103,7 +108,7 @@ namespace KymiraApplication
             drawer.CloseDrawer(GravityCompat.Start);
             return true;
         }
-        */
+        
     }
 }
 

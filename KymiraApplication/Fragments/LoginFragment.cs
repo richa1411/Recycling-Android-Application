@@ -11,6 +11,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
+
 namespace KymiraApplication.Fragments
 {
     public class LoginFragment : Fragment
@@ -26,7 +27,7 @@ namespace KymiraApplication.Fragments
         {
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-            View view = inflater.Inflate(Resource.Layout.Login_Layout, container, false);
+            View view = inflater.Inflate(Resource.Layout.login_layout, container, false);
 
             return view;
            // return base.OnCreateView(inflater, container, savedInstanceState);
