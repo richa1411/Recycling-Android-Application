@@ -15,6 +15,7 @@ namespace kymiraAPITest
     {
         //setup
         string dispURL = "http://localhost:55085/api/BinStatus/";
+        //string dispURL = KymiraApplication.Resources.values.strings.xml;
         private HttpClient client;
         Uri uri;
 

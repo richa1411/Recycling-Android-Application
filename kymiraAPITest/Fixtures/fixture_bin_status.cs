@@ -12,35 +12,47 @@ namespace kymiraAPITest.Fixtures
      */
     public class fixture_bin_status
     {
+        //BinStatus objects to add into the database
+
+        BinStatus testStatus = new BinStatus //bin status object that is good for validation
+        {
+            status = 1,
+            binAddress = "123 fake Street"
+        };
+        BinStatus testStatus2 = new BinStatus //bin status object that is good for validation
+        {
+            status = 1,
+            binAddress = "321 fake Street"
+        };
+        BinStatus testStatus3 = new BinStatus //bin status object that is good for validation
+        {
+            status = 1,
+            binAddress = "456 fake Street"
+        };
+        BinStatus badStatus = new BinStatus // bin status with an address not in the database
+        {
+            status = 1,
+            binAddress = ""
+        };
+
+        //Valid BinStatus object used for testing UI
+        BinStatus testStatus4 = new BinStatus
+        {
+            status = 1,
+            binAddress = "123 Test Street"
+        };
+        //Invalid BinStatus object used for testing UI
+        BinStatus testStatus5 = new BinStatus
+        {
+            status = -1,
+            binAddress = "123 Test Street"
+        };
+
         /**
          * This method adds hard-coded data into the database.
          */
-            
-
         public void load()
         {
-            //BinStatus objects to add into the database
-            BinStatus testStatus = new BinStatus //bin status object that is good for validation
-            {
-                status = 1,
-                binAddress = "123 fake Street"
-            };
-            BinStatus testStatus2 = new BinStatus //bin status object that is good for validation
-            {
-                status = 1,
-                binAddress = "321 fake Street"
-            };
-            BinStatus testStatus3 = new BinStatus //bin status object that is good for validation
-            {
-                status = 1,
-                binAddress = "456 fake Street"
-            };
-            BinStatus badStatus = new BinStatus // bin status with an address not in the database
-            {
-                status = 1,
-                binAddress = ""
-            };
-
             //string dispURL = "http://localhost:55085/api/BinStatus/";
             private HttpClient client;
             Uri uri;

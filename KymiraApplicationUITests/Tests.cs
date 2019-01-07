@@ -84,5 +84,16 @@ namespace KymiraApplicationUITests
 
             Assert.AreEqual(1, results.Count);
         }
+
+        [Test]
+        //test that user can navigate to the Bin Status layout/page
+        public void TestThatUserSuccessfullyNavigatesToBinStatusPage()
+        {
+            //start at the main opening page
+            //user taps the BinStatus option
+            //user sees the correct layout
+        }
+
+
     }
 }

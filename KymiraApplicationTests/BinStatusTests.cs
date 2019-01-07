@@ -1,5 +1,4 @@
-﻿/*
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KymiraApplication.Models;
 using System;
 using System.Collections.Generic;
@@ -93,7 +92,6 @@ namespace KymiraApplication.Models.Tests
         //tests that the bin object ID is valid
         public void TestThatBinWithPosIDIsValid()
         {
-            //backend will return a BinStatus object with a binID of 1 if the address has a match in the database
             testBinStatus.binID = 1;
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(0, results.Count());
@@ -170,4 +168,4 @@ namespace KymiraApplication.Models.Tests
 
 
     }
-}*/
+}
