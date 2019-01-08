@@ -5,14 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using kymiraAPI;
 
-namespace kymiraAPITest.Fixtures
+namespace kymiraAPI.Fixtures
 {
     static class fixture_story6c
     {
 
         //** Recyclable Items **/
-
-        static Disposable disposable1 = new Disposable
+        public static List<Disposable> obList = new List<Disposable>(new Disposable[] { new Disposable
         {
             name = "Cardboard",
             description = "Cardboard Description",
@@ -21,9 +20,7 @@ namespace kymiraAPITest.Fixtures
             recyclableReason = "Cardboard Reason",
             endResult = "Cardboard End Result",
             qtyRecycled = 1000
-        };
-
-        static Disposable disposable2 = new Disposable
+        }, new Disposable
         {
             name = "Paper",
             description = "Paper Description",
@@ -32,9 +29,8 @@ namespace kymiraAPITest.Fixtures
             recyclableReason = "Paper Reason",
             endResult = "Paper End Result",
             qtyRecycled = 2500
-        };
-
-        static Disposable disposable3 = new Disposable
+        },
+            new Disposable
         {
             name = "Tin Cans",
             description = "Tins Cans Description",
@@ -43,11 +39,8 @@ namespace kymiraAPITest.Fixtures
             recyclableReason = "Tin Cans Reason",
             endResult = "Tin Cans End Result",
             qtyRecycled = 1200
-        };
-
-        //** Non-Recyclable Items */
-
-        static Disposable disposable4 = new Disposable
+        },
+            new Disposable
         {
             name = "Pizza",
             description = "Pizza Description",
@@ -56,9 +49,8 @@ namespace kymiraAPITest.Fixtures
             recyclableReason = "Pizza Reason",
             endResult = "Pizza End Result",
             qtyRecycled = 0
-        };
-
-        static Disposable disposable5 = new Disposable
+        },
+            new Disposable
         {
             name = "Orange Peels",
             description = "Orange Peels Description",
@@ -67,9 +59,8 @@ namespace kymiraAPITest.Fixtures
             recyclableReason = "Orange Peels Reason",
             endResult = "Orange Peels End Result",
             qtyRecycled = 0
-        };
-
-        static Disposable disposable6 = new Disposable
+        },
+            new Disposable
         {
             name = "Candy",
             description = "Candy Description",
@@ -78,17 +69,30 @@ namespace kymiraAPITest.Fixtures
             recyclableReason = "Candy Reason",
             endResult = "Candy End Result",
             qtyRecycled = 0
-        };
+        }
+        });
+
         /**
          * This function will create a connection to a local test database and load the specific data into it.
          * */
-        public static async Task Load()
+        public static async Task Load(kymiraAPIContext _context)
         {
-
+            for(int i = 0; i < obList.Count; i++)
+            {
+                _context.DisposableDBSet.Add(obList[i]);
+                await _context.SaveChangesAsync();
+            }
         }
         /**
          * this function will delete all tests information in the database.
          * */
-        public static async Task Unload() { }
+        public static async Task Unload(kymiraAPIContext _context) {
+
+            for (int i = 0; i < obList.Count; i++)
+            {
+                _context.DisposableDBSet.Remove(obList[i]);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }
