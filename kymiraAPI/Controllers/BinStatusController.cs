@@ -51,7 +51,7 @@ namespace kymiraAPI.Controllers
 
             }
             
-
+            //todo: site where the bin address is 
             var binStatus = await _context.BinStatus.Where(m => m.binAddress == binAddress).ToListAsync();
 
             if (binStatus == null)
