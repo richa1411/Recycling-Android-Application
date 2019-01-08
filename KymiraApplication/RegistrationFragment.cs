@@ -85,10 +85,10 @@ namespace KymiraApplication
 
         }
 
-        private async Task<String> sendJsonAsync(Registration obReg)
-        {
+        //private async Task<String> sendJsonAsync(Registration obReg)
+        //{
 
-        }
+        //}
 
         private void birthDateYearSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {

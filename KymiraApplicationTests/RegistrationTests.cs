@@ -10,451 +10,496 @@ using System.Diagnostics;
 
 namespace KymiraApplication.Model.Tests
 {
+    //This class will be used to test the Registration model object
     [TestClass()]
     public class RegistrationTests
     {
-        public Registration regTestgood;
-        public Registration regtestBad;
+        //Create a Registration object to be used for testing purposes and a list to hold the validation results from each test 
+        public Registration regTestOb;
         public List<ValidationResult> results;
 
+        //Initialize the unit tests by instatiating the Registration object and validation results list
         [TestInitialize()]
         public void setup()
         {
            results = new List<ValidationResult>();
-            regtestBad = new Registration("guy@email.com", "password1", "3066545456", "Guy", "Dude", "2018-10-10", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
-            //regtestBad = new Registration("guy@email.com", "password1", "3045456", "Guy", "Dude", "10102018", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T53", true);
+            regTestOb = new Registration("guy@email.com", "password1", "3066545456", "Guy", "Dude", "2018-10-10", "123 steve ave", "A", "Regina", "Saskatchewan", "S4T5N3", true);
         }
-        [TestMethod()]
-        public void RegistrationTest()
-        {
-            
-        }
+
+        //Test that an empty email address field in invalid
         [TestMethod()]
         public void testThatEmailCannotBeEpmpty()
         {
 
-            regtestBad.emailAddress = "";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.emailAddress = "";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("An email address is required", results[0].ErrorMessage);
 
         }
+        //Ttest that an email address that is more than 100 characters long is invalid
         [TestMethod()]
         public void testThatEmailCannotBeMoreThan100Characters()
         {
 
-            regtestBad.emailAddress = new string('a', 91) + "@gmail.com";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.emailAddress = new string('a', 91) + "@gmail.com";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Email address must be between 1 and 100 characters", results[0].ErrorMessage);
         }
+        //Test that an email address that is 100 characters is valid
         [TestMethod()]
         public void testThatEmailis100Characters()
         {
-            regtestBad.emailAddress = new string('a', 90) + "@gmail.com";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.emailAddress = new string('a', 90) + "@gmail.com";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
             
         }
+        //Test that an email address is in the correct format (has an @ symbol and a .com)
         [TestMethod()]
         public void testThatEmailCannotBeInvalidFormat()
         {
-            regtestBad.emailAddress = "guyemail.com";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.emailAddress = "guyemail.com";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Email address is not in a valid format", results[0].ErrorMessage);
         }
+        //Test that an email address is in the correct format (has an @ symbol and a .com)
         [TestMethod()]
         public void testThatEmailEnteredIsValid()
         {
-            regtestBad.emailAddress = "email@email.com";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.emailAddress = "email@email.com";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
            
         }
+        //Test that a password field that is empty is not valid
         [TestMethod()]
         public void testThatPasswordCannotBeEmpty()
         {
-            regtestBad.password = "";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.password = "";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A password is required", results[0].ErrorMessage);
         }
+        //Test that a password field can't be shorter than 8 characters
         [TestMethod()]
         public void testThatPasswordCannotbe5CharactersLong()
         {
-            regtestBad.password = "aaaaa";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.password = "aaaaa";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Password must be between 8 and 50 characters", results[0].ErrorMessage);
         }
+        //Test that a password that is 8 characters is valid
         [TestMethod()]
         public void testThatPasswordisValidat8characters()
         {
-            regtestBad.password = "aaaaaaaa";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.password = "aaaaaaaa";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
             
         }
+        //Test that a password that is 50 characters long is valid
         [TestMethod()]
         public void testThatPasswordis50Characters()
         {
-            regtestBad.password = new string('a', 50);
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.password = new string('a', 50);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
            
         }
+        //Test that a password cannot be more than 50 characters long
         [TestMethod()]
         public void testThatPasswordCannotBeMorethan50Characters()
         {
-            regtestBad.password = new string('a', 51);
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.password = new string('a', 51);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Password must be between 8 and 50 characters", results[0].ErrorMessage);
         }
+        //Test that phone number field cannot be empty
         [TestMethod()]
         public void testThatPhoneNumbercannotBeEmpty()
         {
-            regtestBad.phoneNumber = "";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.phoneNumber = "";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A phone number is required", results[0].ErrorMessage);
         }
+        //Test that phone number field can only contain 10 digits
         [TestMethod()]
         public void testThatPhoneNumberCanOnlyBeDigits()
         {
-            regtestBad.phoneNumber = "a1231";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.phoneNumber = "a1231";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Phone number must contain 10 digits", results[0].ErrorMessage);
         }
+        //Test that phone number field can only contain 10 digits
         [TestMethod()]
         public void testThatPhoneNumberCanBe10Digits()
         {
-            regtestBad.phoneNumber = "1234567891";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.phoneNumber = "1234567891";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
            
         }
+        //Test that a phone number can't be longer than 10 digits
         [TestMethod()]
         public void testThatPhoneNumberCannotBe11digits()
         {
-            regtestBad.phoneNumber = "30665245456";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.phoneNumber = "30665245456";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Phone number must contain 10 digits", results[0].ErrorMessage);
         }
+        //Test that a phone number can't be longer than 10 digits
         [TestMethod()]
         public void testThatPhoneNumberCannotBe9Digits()
         {
-            regtestBad.phoneNumber = "123467891";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.phoneNumber = "123467891";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Phone number must contain 10 digits", results[0].ErrorMessage);
         }
+        //Test that first name field cannot be empty
         [TestMethod()]
         public void testThatFirstNameFieldCannotBeEmpty()
         {
-            regtestBad.firstName = "";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.firstName = "";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A first name is required", results[0].ErrorMessage);
         }
+        //Test that first name field is at least 1 character long
         [TestMethod()]
         public void testThatFirstNameFieldHas1Character()
         {
-            regtestBad.firstName = "G";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.firstName = "G";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
             
         }
+        //Test that first name cannot be longer than 50 characters
         [TestMethod()]
         public void testThatFirstNameCannotHaveMorethan50Characters()
         {
-            regtestBad.firstName = new string('a', 51);
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.firstName = new string('a', 51);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("First name must be between 1 and 50 characters", results[0].ErrorMessage);
         }
+        //Test that first name that is 50 characters long is valid
         [TestMethod()]
         public void testThatFirstNameFieldHas50characters()
         {
-            regtestBad.firstName = new string('a', 50);
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.firstName = new string('a', 50);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
            
         }
+        //Test that last name field cannot be empty
         [TestMethod()]
         public void testThatLastNameCannotBeEmpty()
         {
-            regtestBad.lastName = "";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.lastName = "";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A last name is required", results[0].ErrorMessage);
         }
+        //Test that last name field has at least 1 character
         [TestMethod()]
         public void testThatLastNameFieldHas1Character()
         {
-            regtestBad.lastName = ("a");
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.lastName = ("a");
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
            
         }
+        //Test that last name field has more than 50 characters
         [TestMethod()]
         public void testThatLastNameFieldHasMoreThan50Characters()
         {
-            regtestBad.lastName = new string('a', 51);
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.lastName = new string('a', 51);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Last name must be between 1 and 50 characters", results[0].ErrorMessage);
         }
         [TestMethod()]
+        //Test that last name of 50 charactesr is valid
         public void testThatLastNameFieldHas50Characters()
         {
-            regtestBad.lastName = new string('a', 50);
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.lastName = new string('a', 50);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
            
         }
+        //Test that birth date cannot be empty
         [TestMethod()]
         public void testThatBirthDateCannotBeEmpty()
         {
-            regtestBad.birthDate ="";
-            results = HelperTestModel.Validate(regtestBad);
+            regTestOb.birthDate ="";
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A birth date is required", results[0].ErrorMessage);
         }
+        //Test that birth date cannot be less than 8 characters
         [TestMethod()]
         public void testThatBirthDateCannotHaveLessThan8Characters()
         {
-            regtestBad.birthDate = "10193";
+            regTestOb.birthDate = "10193";
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Birth date must be a valid date.", results[0].ErrorMessage);
         }
+        //Test that birth date with 8 characters is valid
         [TestMethod()]
         public void testThatBirthDateHas8characters()
         {
-            regtestBad.birthDate = "2000-10-10";
+            regTestOb.birthDate = "2000-10-10";
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
             
 
         }
+        //Test that address line 1 field can't be empty
         [TestMethod()]
         public void testThatAddressLine1FieldCannotBeEmpty()
         {
-            regtestBad.addressLine1 = "";
+            regTestOb.addressLine1 = "";
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("An Address is required", results[0].ErrorMessage);
         }
+        //Test that address line 1 field can't be less than 10 characters
         [TestMethod()]
         public void testThatAddressLine1CannotBeLessThan10Characters()
         {
-            regtestBad.addressLine1 = "onetwoth";
+            regTestOb.addressLine1 = "onetwoth";
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("The address must be between 10 and 200 characters", results[0].ErrorMessage);
         }
+        //Test that address line 1 with 10 characters is valid
         [TestMethod()]
         public void testThatAddressLine1CanHave10Characters()
         {
-            regtestBad.addressLine1 = new string('a', 10);
+            regTestOb.addressLine1 = new string('a', 10);
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
           
         }
+        //Test that address line 1 that is 200 characters long is valid
         [TestMethod()]
         public void testThatAddressLine1CanHave200Characters()
         {
-            regtestBad.addressLine1 = new string('a', 200);
+            regTestOb.addressLine1 = new string('a', 200);
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
            
         }
+        //Test that address line 1 can't be longer than 200 characters
         [TestMethod()]
         public void testThatAddressLine1CannotHaveMoreThan200Characters()
         {
-            regtestBad.addressLine1 = new string('a', 201);
+            regTestOb.addressLine1 = new string('a', 201);
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("The address must be between 10 and 200 characters", results[0].ErrorMessage);
         }
+        //Test that address line 2 cannot be more than 200 characters
         [TestMethod()]
         public void testThatAddressLine2CanNotHaveMoreThan200Characters()
         {
-            regtestBad.addressLine2 = new string('a', 201);
+            regTestOb.addressLine2 = new string('a', 201);
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Must be less than 200 characters", results[0].ErrorMessage);
         }
+        //Test that address line 2 is valid if it's empty (not required)
         [TestMethod()]
         public void testThatAddressLine2CanBeEMpty()
         {
-            regtestBad.addressLine2 = "";
+            regTestOb.addressLine2 = "";
 
   
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
             
         }
+        //Test that city field cannot be empty
         [TestMethod()]
         public void testThatCityCannotBeEmpty()
         {
-            regtestBad.city = "";
+            regTestOb.city = "";
 
            
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A City is required", results[0].ErrorMessage);
         }
+        //Test that city field is at least 1 character long
         [TestMethod()]
         public void testThatCityHas1Character()
         {
 
-            regtestBad.city = "a";
+            regTestOb.city = "a";
 
             
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
           
         }
+        //Test that city with 100 characters is valid
         [TestMethod()]
         public void testThatCityHas100Character()
         {
-            regtestBad.city = new string ('a', 100);
+            regTestOb.city = new string ('a', 100);
 
             
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
            
         }
+        //Test that city cannot be longer than 100 characters
         [TestMethod()]
         public void testThatCityCannotHaveMoreThan100Character()
         {
-            regtestBad.city = new string('a', 101);
+            regTestOb.city = new string('a', 101);
 
            
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("The city must be between 1 and 100 characters", results[0].ErrorMessage);
         }
+        //Test that province field cannot be empty
         [TestMethod()]
         public void testThatProvinceFieldCannotBeEmpty()
         {
-            regtestBad.province = "";
+            regTestOb.province = "";
 
            
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A province is required", results[0].ErrorMessage);
         }
+        //Test that province field can have 100 characters
         [TestMethod()]
         public void testThatProvinceFieldCanHave100Charcters()
         {
-            regtestBad.province = new string('a', 100); ;
+            regTestOb.province = new string('a', 100); ;
 
 
 
             
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
             
         }
+        //Test that province field cannot be longer than 100 characters
         [TestMethod()]
         public void testThatProvinceFieldCannotHaveMorethan100Characters()
         {
-            regtestBad.province = new string('a', 101); ;
+            regTestOb.province = new string('a', 101); ;
 
             
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("The province must be between 1 and 100 characters ", results[0].ErrorMessage);
         }
+        //Test that postal code field can't be empty
         [TestMethod()]
         public void testThatPostalCodeCannotBeEmpty()
         {
-            regtestBad.postalCode = "";
+            regTestOb.postalCode = "";
 
             
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A postal code is required", results[0].ErrorMessage);
         }
+        //Test that postal code field can't have less than 6 characters
         [TestMethod()]
         public void testThatPostalCodeCannotHaveLessThan6Characters()
         {
-            regtestBad.postalCode = "s4t2n";
+            regTestOb.postalCode = "s4t2n";
 
           
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
         }
+        //Test that postal code that is 6 characters is valid
         [TestMethod()]
         public void testThatPostalCodeHas6Characters()
         {
-            regtestBad.postalCode = "S4T2N4";
+            regTestOb.postalCode = "S4T2N4";
 
             
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
             
         }
+        //Test that postal code can't be longer than 6 characters
         [TestMethod()]
         public void testThatPostalCodeCannotHaveMorethan6Characters()
         {
-            regtestBad.postalCode = "s4t2n4a";
+            regTestOb.postalCode = "s4t2n4a";
 
             
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
         }
+        //Test that postal code that is in an invalid format is invalid
         [TestMethod()]
         public void testThatPostalCodeisNotInValidForm()
         {
-            regtestBad.postalCode = "s4t2n4a";
+            regTestOb.postalCode = "s4t2n4a";
 
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
         }
+        //Test that postal code that is in valid format is valid
         [TestMethod()]
         public void TestThatPostalCodeisInValidFormat()
         {
-            regtestBad.postalCode = "S4T7P8";
+            regTestOb.postalCode = "S4T7P8";
 
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
         }
+        //Test that a checked terms check box is valid
         [TestMethod()]
         public void testThatTermsBoxIsChecked()
         {
-            regtestBad.termsCheckBox = true;
+            regTestOb.termsCheckBox = true;
 
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(0, results.Count());
         }
+        //Test that an unchecked terms check box is invalid
         [TestMethod()]
         public void testThatTermsCheckBoxIsNotChecked()
         {
-            regtestBad.termsCheckBox = false;
+            regTestOb.termsCheckBox = false;
 
 
-            results = HelperTestModel.Validate(regtestBad);
+            results = TestValidationHelper.Validate(regTestOb);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("You must agree to the terms and conditions", results[0].ErrorMessage);
         }

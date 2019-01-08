@@ -9,41 +9,21 @@ namespace kymiraAPITest
     [TestClass]
     public class Story1dTests
     {
-        jsonHandler testJSON = new jsonHandler();
-
         //Valid resident to use for testing
         Resident resident = new Resident{id = 1, firstName = "John", lastName = "Smith", birthDate = "1996-05-12",
             emailAddress = "john.smith@hotmail.com", phoneNumber = "3061234780", addressLine1 = "Fairhaven", addressLine2 = "Unit 6",
             city = "Saskatoon", province = "Saskatchewan", postalCode = "S7L5W4", password = "P@ssw0rd"};
 
         [TestInitialize]
-        public async void setup()
+        public async Task setup()
         {
             await Fixtures.fixture_story6b.load();
         }
 
-        /*-------------------------------------- Functional Tests -------------------------------------------------------------*/
-
-        [TestMethod]
-        public async Task TestThatControllerReturnsValidObject()
+        [TestCleanup]
+        public async Task teardown()
         {
-            //testJSON.receiveSpecJsonAsync();
-
-            //check controller output
-        }
-
-        public async Task TestThatControllerReturnsErrorWhenGivenInvalidObject()
-        {
-            //use json handler to send invalid object to controller
-
-            //check controller output
-        }
-
-        public async Task TestThatControllerAcceptsValidObject()
-        {
-            //use json handler send a valid object to the controller
-
-            //check controller output
+            await Fixtures.fixture_story6b.delete();
         }
 
         /*--------------------------------------First Name Field Testing-------------------------------------------------------------*/
