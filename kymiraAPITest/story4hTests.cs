@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
+using kymiraAPITest.Fixtures;
 
 namespace kymiraAPITest
 {
@@ -19,13 +20,13 @@ namespace kymiraAPITest
         private HttpClient client;
         Uri uri;
 
-
+        
         BinStatus testStatus = new BinStatus //bin status object that is good for validation .
         {
            
             status = 1,
             binAddress = "123 fake Street"
-        };
+        };/*
         BinStatus testStatus2 = new BinStatus //bin status object that is good for validation .
         {
 
@@ -45,14 +46,14 @@ namespace kymiraAPITest
             status = 1,
             binAddress = ""
         };
-
+        
         string address1 = "123 fake Street";
         string address2 = "321 fake Street";
         string address3 = "456 fake Street";
 
         string badAddress = "";
 
-
+*/
 
 
         [TestInitialize]
@@ -159,6 +160,7 @@ namespace kymiraAPITest
 
             if (getResponse.IsSuccessStatusCode)
             {
+                /*
                 var content = await getResponse.Content.ReadAsStringAsync();
 
                 List<BinStatus> binList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
@@ -224,8 +226,12 @@ namespace kymiraAPITest
 
                 }
 
+                */
 
-
+                //create an instance of the fixture class and load the proper objects into the database 
+                //to be used for testing
+                fixture_bin_status fixtureBinStatus = new fixture_bin_status();
+                fixtureBinStatus.load();
             }
 
         }

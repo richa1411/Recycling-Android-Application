@@ -12,8 +12,12 @@ namespace kymiraAPITest.Fixtures
      */
     public class fixture_bin_status
     {
-        //BinStatus objects to add into the database
+        //used to send post requests to send JSON objects to be added to the database
+        private HttpClient client;
+        Uri uri;
 
+
+        //BinStatus objects to add into the database
         BinStatus testStatus = new BinStatus //bin status object that is good for validation
         {
             status = 1,
@@ -48,27 +52,47 @@ namespace kymiraAPITest.Fixtures
             binAddress = "123 Test Street"
         };
 
+        public fixture_bin_status()
+        {
+
+        }
+
         /**
          * This method adds hard-coded data into the database.
          */
-        public void load()
+        public async void load()
         {
-            //string dispURL = "http://localhost:55085/api/BinStatus/";
-            private HttpClient client;
-            Uri uri;
+            string dispURL = "http://localhost:55085/api/BinStatus/";
 
-        
-        
             //add 1 testStatus object
-            //var json = JsonConvert.SerializeObject(testStatus);
-            //var contents = new StringContent(json, Encoding.UTF8, "application/json");
-            //HttpResponseMessage response = await client.PostAsync(uri, contents);
+            var json = JsonConvert.SerializeObject(testStatus);
+            var contents = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await client.PostAsync(uri, contents);
             
             //add 2 testStatus2 objects
+            json = JsonConvert.SerializeObject(testStatus2);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
+
+            json = JsonConvert.SerializeObject(testStatus2);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
 
             //add 3 testStatus3 objects
+            json = JsonConvert.SerializeObject(testStatus3);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
 
+            json = JsonConvert.SerializeObject(testStatus3);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
+
+            json = JsonConvert.SerializeObject(testStatus3);
+            contents = new StringContent(json, Encoding.UTF8, "application/json");
+            response = await client.PostAsync(uri, contents);
         }
+            
+        
 
         /**
          * This method deletes the hard-coded data from the database that was previously added.

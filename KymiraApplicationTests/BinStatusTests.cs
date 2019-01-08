@@ -9,24 +9,30 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KymiraApplication.Models.Tests
 {
+    /**
+     *  This test class is used for testing valid BinStatus objects 
+     *  (BinStatus objects that are received from the backend upon a match with the address)
+     */
     [TestClass()]
     public class BinStatusTests
     {
-        BinStatus testBinStatus;
-        BinStatus testBinStatusBad;
-        public List<ValidationResult> results;
-        public List<ValidationResult> moreResults;
-        BinStatus[] binArray = new BinStatus[2];
+        BinStatus testBinStatus;    //a valid BinStatus object
+        BinStatus testBinStatusBad; //an invalid BinStatus object
+        public List<ValidationResult> results; //to hold a list of validation results
+        public List<ValidationResult> moreResults; //to hold a second list of validation results
+        BinStatus[] binArray = new BinStatus[2]; //array of one valid and one invalid BinStatus object
 
         [TestInitialize()]
         //this setup method runs for each test and creates a valid BinStatus and an invalid object to be tested against (also an array of both)
         public void setup()
         {
+            //a valid BinStatus
             testBinStatus = new BinStatus();
             testBinStatus.binID = 1;
             testBinStatus.binAddress = "123 Test Street";
             testBinStatus.status = 2;
 
+            //an invalid BinStatus
             testBinStatusBad = new BinStatus();
             testBinStatusBad.binID = -1;
             testBinStatusBad.binAddress = "123 Example Street";

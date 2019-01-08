@@ -13,6 +13,10 @@ using Android.Widget;
 
 namespace KymiraApplication.Models
 {
+    /**
+     *  This class defines a BinStatus object that will be returned from the backend of the application 
+     *  (upon searching for matching Bins at a certain location/address)
+     */
     public class BinStatus
     {
         [Required(ErrorMessage = "No bin was registered to that address")]
