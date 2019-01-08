@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kymiraAPITest", "kymiraAPIT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplication", "KymiraApplication\KymiraApplication.csproj", "{07272096-7498-4F50-B9FC-AA5202BDA99D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationTests", "KymiraApplicationTests\KymiraApplicationTests.csproj", "{DAD7E3C9-FC26-4260-B9D3-DE9BA0AC5AC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,14 @@ Global
 		{07272096-7498-4F50-B9FC-AA5202BDA99D}.Release|x86.ActiveCfg = Release|Any CPU
 		{07272096-7498-4F50-B9FC-AA5202BDA99D}.Release|x86.Build.0 = Release|Any CPU
 		{07272096-7498-4F50-B9FC-AA5202BDA99D}.Release|x86.Deploy.0 = Release|Any CPU
+		{DAD7E3C9-FC26-4260-B9D3-DE9BA0AC5AC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD7E3C9-FC26-4260-B9D3-DE9BA0AC5AC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD7E3C9-FC26-4260-B9D3-DE9BA0AC5AC2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DAD7E3C9-FC26-4260-B9D3-DE9BA0AC5AC2}.Debug|x86.Build.0 = Debug|Any CPU
+		{DAD7E3C9-FC26-4260-B9D3-DE9BA0AC5AC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD7E3C9-FC26-4260-B9D3-DE9BA0AC5AC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD7E3C9-FC26-4260-B9D3-DE9BA0AC5AC2}.Release|x86.ActiveCfg = Release|Any CPU
+		{DAD7E3C9-FC26-4260-B9D3-DE9BA0AC5AC2}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
