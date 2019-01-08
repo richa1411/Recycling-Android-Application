@@ -8,7 +8,7 @@ namespace kymiraAPITest.Fixtures
 {
     public static class fixture_story6b
     {
-        private static string dispURL = "http://localhost:55085/api/Residents/";
+        private static string URL = "http://localhost:55085/api/Residents/";
         public static async Task load()
         {
             //Resident resident = new Resident

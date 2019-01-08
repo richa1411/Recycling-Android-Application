@@ -62,9 +62,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="HelperTestModel.cs" />
-    <Compile Include="Model\RegistrationTests.cs" />
+    <Compile Include="RegistrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Story2bTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
