@@ -58,13 +58,6 @@
   <ItemGroup>
     <Compile Include="Fragments\DisposablesFragment.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="Models\BinCollectionDate.cs" />
-    <Compile Include="Models\BinStatus.cs" />
-    <Compile Include="Models\Credentials.cs" />
-    <Compile Include="Models\Disposable.cs" />
-    <Compile Include="Models\jsonHandlerDisposable.cs" />
-    <Compile Include="Models\ListDisposable.cs" />
-    <Compile Include="Models\Registration.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -133,9 +126,7 @@
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\layout1.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
