@@ -19,6 +19,9 @@ namespace KymiraApplication.Fragments
     public class BinStatusFragment : Fragment
     {
 
+        EditText etAddress;
+        Button btnSubmit;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -31,6 +34,12 @@ namespace KymiraApplication.Fragments
         {
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+
+            var view = inflater.Inflate(Resource.Layout.bin_status_layout, container, false);
+
+            //grab the controls from the layout
+            etAddress = view.FindViewById<EditText>(Resource.Id.addressEntry);
+            btnSubmit = view.FindViewById<Button>(Resource.Id.submitAddress);
 
             return base.OnCreateView(inflater, container, savedInstanceState);
         }

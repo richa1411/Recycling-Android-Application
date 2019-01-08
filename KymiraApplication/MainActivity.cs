@@ -8,6 +8,7 @@ using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
+using KymiraApplication.Fragments;
 
 namespace KymiraApplication
 {
@@ -74,15 +75,22 @@ namespace KymiraApplication
         {
             int id = item.ItemId;
 
-            if (id == Resource.Id.nav_camera)
+            var ft = FragmentManager.BeginTransaction();
+
+            //open the correct fragment when the bin status option is selected
+            if (id == Resource.Id.nav_bin_status)
             {
-                // Handle the camera action
-                SetContentView(Resource.Layout.content_other);
+                //create a new fragment and replace the current fragment with the Bin Status one
+                var newFragment = new BinStatusFragment();
+
+                ft.Replace(Resource.Id.fragment_container, newFragment);
+
+                ft.Commit();
             }
       
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            //drawer.CloseDrawer(GravityCompat.Start);
+            drawer.CloseDrawer(GravityCompat.Start);
             return true;
         }
     }

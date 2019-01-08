@@ -4,4 +4,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
     <string name="UrlBinStatus">http://localhost:55085/api/BinStatus/</string>
+  <!-- Strings for showing recent Bin Statuses -->
+  <string name="binStatusLayoutTitle">Bin Statuses</string>
+  <string name="address">Address</string>
+  <string name="submitAddress">Submit</string>
 </resources>

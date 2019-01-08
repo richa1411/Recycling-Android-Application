@@ -47,14 +47,14 @@ namespace kymiraAPITest
             status = 1,
             binAddress = ""
         };
-        
+        */
         string address1 = "123 fake Street";
         string address2 = "321 fake Street";
         string address3 = "456 fake Street";
 
         string badAddress = "";
 
-*/
+
 
             /// <summary>
             /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -208,7 +208,8 @@ namespace kymiraAPITest
         [TestMethod]
         public async Task testThatIsLastestCollection()
         {
-
+            //search for certain address that contains many dates for pickups
+            //ensure that the BinStatuses brought back/selected were the latest date
         }
 
         //-------------------functional----------------
