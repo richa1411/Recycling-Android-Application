@@ -8,10 +8,16 @@ using Newtonsoft.Json;
 
 namespace kymiraAPITest
 {
+
+   
     [TestClass]
     public class story2gTests
     {
-        string dispURL = "http://localhost:55085/api/Disposables/";
+
+
+       
+
+ 
 
         Disposable testDbItem = new Disposable{
             ID = 1,
@@ -36,114 +42,11 @@ namespace kymiraAPITest
         };
 
 
-        public async Task setupDatabase()
-        {
-
-            jsonHandler testJSON = new jsonHandler();
-            var successReceived = await testJSON.receiveJsonAsync(dispURL);
+       
 
 
-            //takes list of json objects, converts it to list of binStatus
-            List<Disposable> binList = JsonConvert.DeserializeObject<List<Disposable>>(successReceived);
 
-            var countTrue = 0;  //count of how many objects in list contains true as isRecyclable
-            var countFalse = 0; //count of how many objects in list contains false as isRecyclable
-
-            //loop through all objects received, counting how many true and false isRecyclable objects are in the list
-            foreach (Disposable item in binList)
-            {
-                //increase the count depending on this item's property value
-                if (item.isRecyclable == true)
-                {
-                    countTrue++;
-                }
-                else
-                {
-                    countFalse++;
-                }
-
-            }
-
-            //add object with isRecyclable as true if count of true in list is not 1
-            if(countTrue != 1)
-            {
-                sendTest.isRecyclable = true;
-                var success = await testJSON.sendJsonAsync(sendTest, dispURL);
-                Assert.AreEqual("Success", success);    //check that sending object was successful
-            }
-
-            //add object with isRecyclable as false if count of false in list is not 1
-            if(countFalse != 1)
-            {
-                sendTest.isRecyclable = false;
-                var success = await testJSON.sendJsonAsync(sendTest, dispURL);
-                Assert.AreEqual("Success", success);    //check that sending object was successful
-            }
-        }
-        
-
-
-        //************ FUNCTIONAL TESTS ************
-        /**
-         * this Test will test if our POST request is succesful
-         * */
-        //[TestMethod]
-        //public async Task TestSendValidJson()
-        //{
-        //    jsonHandler testJSON = new jsonHandler();
-        //    var success = await testJSON.sendJsonAsync(sendTest, dispURL);
-        //    Assert.AreEqual("Success", success);
-        //}
-        /**
-         * This tests, tests that if given true, the api will return only recyclable objects from the db.
-         * */
-        [TestMethod]
-        public async Task TestGetValidJsonRecyclable()
-        {
-            jsonHandler testJSON = new jsonHandler();
-
-         
-
-            List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, true);
-
-            Assert.IsTrue(success.Count > 0);
-
-            foreach (Disposable item in success) {
-                Assert.AreEqual(true, item.isRecyclable);
-            }
-            
-        }
-        /**
-         * This tests that if given false, our API will only return non-recyclable objects from the db
-         * */
-        [TestMethod]
-        public async Task TestGetValidJsonNotRecyclable()
-        {
-            jsonHandler testJSON = new jsonHandler();
-
-            List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, false);
-
-            Assert.IsTrue(success.Count > 0);
-
-            foreach (Disposable item in success)
-            {
-                Assert.AreEqual(false, item.isRecyclable);
-            }
-
-        }
-        /**
-         * Tests that invalid sent values will result in an error
-         * */
-         [ExpectedException(typeof(Exception))]
-        [TestMethod]
-        public async Task TestSendInvalidRequest()
-        {
-            jsonHandler testJSON = new jsonHandler();
-            //see json handler for info on method call
-            List<Disposable> success = await testJSON.testSendInvalidJsonHandler(dispURL, true);
-
-        }
-
+     
 
 
         /**

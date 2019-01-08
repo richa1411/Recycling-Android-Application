@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using kymiraAPI;
 using kymiraAPI.Models;
 
-namespace kymiraAPI.Models
+namespace kymiraAPI.Data
 {
     public class kymiraAPIContext : DbContext
     {
