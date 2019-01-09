@@ -37,22 +37,25 @@ namespace kymiraAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, kymiraAPIContext context)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            
 
-            var context = app.ApplicationServices.GetService<kymiraAPIContext>();
+
+
+
+           context.Database.EnsureCreated();
             
-            if(context.Database.EnsureCreated())
-            {
-                await kymiraAPI.Fixtures.fixture_story6c.Unload(context);
-                await kymiraAPI.Fixtures.fixture_story6c.Load(context);
-            }
+           Fixtures.fixture_story6c.Unload(context);
+           Fixtures.fixture_story6c.Load(context);
+            
+            
+                 
+            
             
 
             app.UseMvc();

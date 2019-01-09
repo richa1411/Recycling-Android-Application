@@ -13,6 +13,7 @@ namespace kymiraAPI.Fixtures
         //** Recyclable Items **/
         public static List<Disposable> obList = new List<Disposable>(new Disposable[] { new Disposable
         {
+          
             name = "Cardboard",
             description = "Cardboard Description",
             pictureID = "Cardboard.png",
@@ -22,6 +23,7 @@ namespace kymiraAPI.Fixtures
             qtyRecycled = 1000
         }, new Disposable
         {
+           
             name = "Paper",
             description = "Paper Description",
             pictureID = "",
@@ -32,6 +34,7 @@ namespace kymiraAPI.Fixtures
         },
             new Disposable
         {
+           
             name = "Tin Cans",
             description = "Tins Cans Description",
             pictureID = "TinCans.png",
@@ -42,6 +45,7 @@ namespace kymiraAPI.Fixtures
         },
             new Disposable
         {
+            
             name = "Pizza",
             description = "Pizza Description",
             pictureID = "Pizza.png",
@@ -52,6 +56,7 @@ namespace kymiraAPI.Fixtures
         },
             new Disposable
         {
+           
             name = "Orange Peels",
             description = "Orange Peels Description",
             pictureID = "OrangePeels.png",
@@ -62,6 +67,7 @@ namespace kymiraAPI.Fixtures
         },
             new Disposable
         {
+            
             name = "Candy",
             description = "Candy Description",
             pictureID = "Candy.png",
@@ -75,24 +81,32 @@ namespace kymiraAPI.Fixtures
         /**
          * This function will create a connection to a local test database and load the specific data into it.
          * */
-        public static async Task Load(kymiraAPIContext _context)
+        public static void Load(kymiraAPIContext _context)
         {
-            for(int i = 0; i < obList.Count; i++)
-            {
-                _context.DisposableDBSet.Add(obList[i]);
-                await _context.SaveChangesAsync();
-            }
+
+           
+               
+                    _context.DisposableDBSet.AddRange(obList);
+                    _context.SaveChangesAsync();
+                
+            
+
+
+         
         }
         /**
          * this function will delete all tests information in the database.
          * */
-        public static async Task Unload(kymiraAPIContext _context) {
+        public static void Unload(kymiraAPIContext _context) {
+           
 
-            for (int i = 0; i < obList.Count; i++)
-            {
-                _context.DisposableDBSet.Remove(obList[i]);
-                await _context.SaveChangesAsync();
-            }
+                
+           
+                _context.DisposableDBSet.RemoveRange(_context.DisposableDBSet);
+                _context.SaveChangesAsync();
+            
+
+            
         }
     }
 }

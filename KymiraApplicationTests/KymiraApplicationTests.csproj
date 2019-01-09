@@ -61,13 +61,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="HelperTestModel.cs" />
-    <Compile Include="Model\BinStatusTests.cs" />
-    <Compile Include="Model\RegistrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestBinCollectionDate.cs" />
-    <Compile Include="TestCredential.cs" />
     <Compile Include="DisposablesTests.cs" />
-    <Compile Include="TestPickupScheduleData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -77,6 +72,9 @@
       <Project>{07272096-7498-4f50-b9fc-aa5202bda99d}</Project>
       <Name>KymiraApplication</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

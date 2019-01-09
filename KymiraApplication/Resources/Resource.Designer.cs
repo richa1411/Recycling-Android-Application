@@ -3220,6 +3220,12 @@ namespace KymiraApplication
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f09002b
+			public const int UrlAPI = 2131296299;
+			
+			// aapt resource value: 0x7f09002c
+			public const int UrlDisposables = 2131296300;
+			
 			// aapt resource value: 0x7f090000
 			public const int abc_action_bar_home_description = 2131296256;
 			
