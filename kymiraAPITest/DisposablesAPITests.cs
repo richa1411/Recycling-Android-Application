@@ -11,7 +11,7 @@ namespace kymiraAPITest
 
    
     [TestClass]
-    public class story2gTests
+    public class DisposablesAPITests
     {
 
 

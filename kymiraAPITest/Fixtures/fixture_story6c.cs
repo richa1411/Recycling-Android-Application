@@ -75,13 +75,13 @@ namespace kymiraAPITest.Fixtures
         /**
          * This function will create a connection to a local test database and load the specific data into it.
          * */
-        public static async Task Load()
+        public static async Task Load(kymiraAPIContext context)
         {
 
         }
         /**
          * this function will delete all tests information in the database.
          * */
-        public static async Task Unload() { }
+        public static async Task Unload(kymiraAPIContext context) { }
     }
 }

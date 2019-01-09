@@ -12,11 +12,11 @@ using Android.Widget;
 
 namespace KymiraApplication.Models
 {
-    class Disposable
+    public class Disposable
     {
         public Disposable()
         {
-
+            
         }
 
         public Disposable(string name, string description, string imageURL, bool isRecyclable, string endResult, int qtyRecycled, string recycleReason)

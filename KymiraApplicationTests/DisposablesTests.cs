@@ -6,7 +6,7 @@ using KymiraApplication.Model;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using KymiraApplication;
+using KymiraApplication.Models;
 
 namespace KymiraApplicationTests
 {
@@ -14,7 +14,7 @@ namespace KymiraApplicationTests
     /// Summary description for TestRecyclables
     /// </summary>
     [TestClass]
-    public class TestRecyclablesList
+    public class DisposablesTests
     { //TODO: Make sure the methods used in ListDisposable are called in the tests, finish adding Objects and arrays for them to work
 
         string[] jsonArray; // This is the JSON Array that we receive from the backend
