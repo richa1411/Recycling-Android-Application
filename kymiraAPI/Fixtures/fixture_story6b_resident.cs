@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace kymiraAPITest.Fixtures
+namespace kymiraAPI.Fixtures
 {
-    public static class fixture_story6b
+    public static class fixture_story6b_resident
     {
         private static string URL = "http://localhost:55085/api/Residents/";
         public static async Task load()

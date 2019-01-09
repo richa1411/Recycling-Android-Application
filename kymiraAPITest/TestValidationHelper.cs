@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace kymiraAPITest
 {
-    class HelperTestModel
+    class TestValidationHelper
     {
         public static IList<ValidationResult> Validate(object model)
         {

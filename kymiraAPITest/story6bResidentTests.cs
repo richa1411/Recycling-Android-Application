@@ -1,29 +1,43 @@
+﻿using kymiraAPI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using kymiraAPI.Models;
 using System;
-using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using kymiraAPI.Fixtures;
 
 namespace kymiraAPITest
 {
     [TestClass]
-    public class Story1dTests
+    public class story6bResidentTests
     {
         //Valid resident to use for testing
-        Resident resident = new Resident{id = 1, firstName = "John", lastName = "Smith", birthDate = "1996-05-12",
-            emailAddress = "john.smith@hotmail.com", phoneNumber = "3061234780", addressLine1 = "Fairhaven", addressLine2 = "Unit 6",
-            city = "Saskatoon", province = "Saskatchewan", postalCode = "S7L5W4", password = "P@ssw0rd"};
+        Resident resident = new Resident
+        {
+            id = 1,
+            firstName = "John",
+            lastName = "Smith",
+            birthDate = "1996-05-12",
+            emailAddress = "john.smith@hotmail.com",
+            phoneNumber = "3061234780",
+            addressLine1 = "Fairhaven",
+            addressLine2 = "Unit 6",
+            city = "Saskatoon",
+            province = "Saskatchewan",
+            postalCode = "S7L5W4",
+            password = "P@ssw0rd"
+        };
 
         [TestInitialize]
         public async Task setup()
         {
-            await Fixtures.fixture_story6b.load();
+            await fixture_story6b.load();
         }
 
         [TestCleanup]
         public async Task teardown()
         {
-            await Fixtures.fixture_story6b.delete();
+            await fixture_story6b.delete();
         }
 
         /*--------------------------------------First Name Field Testing-------------------------------------------------------------*/
@@ -33,7 +47,7 @@ namespace kymiraAPITest
          */
         public void TestThatFirstNameFieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -44,7 +58,7 @@ namespace kymiraAPITest
         public void TestThatFirstNameFieldOf50CharsIsValid()
         {
             resident.firstName = new string('h', 50);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -55,7 +69,7 @@ namespace kymiraAPITest
         public void TestThatFirstNameFieldOfEmptyStringIsInvalid()
         {
             resident.firstName = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("First name is required.", results[0].ErrorMessage);
         }
@@ -67,7 +81,7 @@ namespace kymiraAPITest
         public void TestThatFirstNameFieldOf51CharsIsInvalid()
         {
             resident.firstName = new string('j', 51);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("First name must be 50 characters or less.", results[0].ErrorMessage);
         }
@@ -80,7 +94,7 @@ namespace kymiraAPITest
          */
         public void TestThatLastNameFieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -91,7 +105,7 @@ namespace kymiraAPITest
         public void TestThatLastNameFieldOf50CharsIsValid()
         {
             resident.lastName = new string('h', 50);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -102,7 +116,7 @@ namespace kymiraAPITest
         public void TestThatLastNameFieldEmptyIsInvalid()
         {
             resident.lastName = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Last name is required.", results[0].ErrorMessage);
         }
@@ -115,7 +129,7 @@ namespace kymiraAPITest
         public void TestThatLastNameFieldOf51CharsIsInvalid()
         {
             resident.lastName = new string('j', 51);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Last name must be 50 characters or less.", results[0].ErrorMessage);
         }
@@ -127,7 +141,7 @@ namespace kymiraAPITest
          */
         public void TestThatBirthDateFieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -139,7 +153,7 @@ namespace kymiraAPITest
         public void TestThatDOBFieldEmptyIsInvalid()
         {
             resident.birthDate = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Birth Date is required.", results[0].ErrorMessage);
         }
@@ -152,7 +166,7 @@ namespace kymiraAPITest
         public void TestThatDOBFieldWrongFormatIsInvalid()
         {
             resident.birthDate = "222-99-038976";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Birth date must be a valid date.", results[0].ErrorMessage);
         }
@@ -165,7 +179,7 @@ namespace kymiraAPITest
          */
         public void TestThatEmailFieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -176,7 +190,7 @@ namespace kymiraAPITest
         public void TestThatEmailFieldOf100CharsIsValid()
         {
             resident.emailAddress = new string('d', 88) + "@sasktel.net";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -187,7 +201,7 @@ namespace kymiraAPITest
         public void TestThatEmailFieldEmptyIsInvalid()
         {
             resident.emailAddress = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Email is required.", results[0].ErrorMessage);
         }
@@ -200,7 +214,7 @@ namespace kymiraAPITest
         {
             //test that email of 101 characters (following the correct format) is invalid
             resident.emailAddress = new string('y', 101) + "@sasktel.net";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Email must be 100 characters or less.", results[0].ErrorMessage);
         }
@@ -212,7 +226,7 @@ namespace kymiraAPITest
         public void TestThatEmailFieldOfWrongFormatIsInvalid()
         {
             resident.emailAddress = new string('o', 7);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Email must be in email address format.", results[0].ErrorMessage);
         }
@@ -224,7 +238,7 @@ namespace kymiraAPITest
          */
         public void TestThatAddressLine1FieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -236,7 +250,7 @@ namespace kymiraAPITest
         public void TestThatAddressLine1FieldOf200CharsIsValid()
         {
             resident.addressLine1 = new string('h', 200);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -248,7 +262,7 @@ namespace kymiraAPITest
         public void TestThatAddressLine1FieldOf1CharIsValid()
         {
             resident.addressLine1 = "g";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -259,7 +273,7 @@ namespace kymiraAPITest
         public void TestThatAddressLine1FieldEmptyIsInvalid()
         {
             resident.addressLine1 = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address line 1 is required.", results[0].ErrorMessage);
         }
@@ -271,7 +285,7 @@ namespace kymiraAPITest
         public void TestThatAddressLine1FieldOf201CharsIsInvalid()
         {
             resident.addressLine1 = new string('d', 201);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address line 1 must be 200 characters or less.", results[0].ErrorMessage);
         }
@@ -284,7 +298,7 @@ namespace kymiraAPITest
          */
         public void TestThatAddressLine2FieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -297,7 +311,7 @@ namespace kymiraAPITest
         {
             //test that addressLine2 of 200 characters is valid
             resident.addressLine2 = new string('p', 200);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -310,7 +324,7 @@ namespace kymiraAPITest
         {
             //test that Address2 of 0 characters is valid
             resident.addressLine2 = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
         [TestMethod]
@@ -321,7 +335,7 @@ namespace kymiraAPITest
         {
             //test that addressLine2 of 201 characters is invalid
             resident.addressLine2 = new string('d', 201);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address line 2 must be 200 characters or less.", results[0].ErrorMessage);
         }
@@ -333,7 +347,7 @@ namespace kymiraAPITest
          */
         public void TestThatPostalCodeFieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -345,7 +359,7 @@ namespace kymiraAPITest
         {
             //test that postalCode of 5 characters/digits is invalid
             resident.postalCode = "S0L0K";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
         }
@@ -358,7 +372,7 @@ namespace kymiraAPITest
         {
             //test that postalCode of 7 characters/digits is invalid
             resident.postalCode = "S0L0K0E";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
         }
@@ -371,7 +385,7 @@ namespace kymiraAPITest
         {
             //test that postalCode of incorrect format is invalid
             resident.postalCode = "SSS000";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Postal code is required and must be 6 characters in the Canadian postal code format.", results[0].ErrorMessage);
         }
@@ -384,7 +398,7 @@ namespace kymiraAPITest
         {
             //test that postalCode of empty string is invalid
             resident.postalCode = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Postal code is required and must be 6 characters.", results[0].ErrorMessage);
         }
@@ -396,7 +410,7 @@ namespace kymiraAPITest
          */
         public void TestThatProvinceFieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -407,7 +421,7 @@ namespace kymiraAPITest
         public void TestThatProvinceFieldOf100CharsIsValid()
         {
             resident.province = new string('h', 100);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -418,7 +432,7 @@ namespace kymiraAPITest
         public void TestThatProvinceFieldOf1CharIsValid()
         {
             resident.province = "g";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -430,7 +444,7 @@ namespace kymiraAPITest
         {
             //test that province of empty string is invalid
             resident.province = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Province is required.", results[0].ErrorMessage);
         }
@@ -443,7 +457,7 @@ namespace kymiraAPITest
         {
             //test that province of 101 characters is invalid
             resident.province = new string('i', 101);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Province must be 100 characters or less.", results[0].ErrorMessage);
         }
@@ -456,7 +470,7 @@ namespace kymiraAPITest
          */
         public void TestThatCityFieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -467,7 +481,7 @@ namespace kymiraAPITest
         public void TestThatCityFieldOf100CharsIsValid()
         {
             resident.city = new string('f', 100);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -478,7 +492,7 @@ namespace kymiraAPITest
         public void TestThatCityFieldOf1CharIsValid()
         {
             resident.city = "W";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
 
         }
@@ -491,7 +505,7 @@ namespace kymiraAPITest
         {
             //test that City of empty string is invalid
             resident.city = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("City is required.", results[0].ErrorMessage);
 
@@ -505,7 +519,7 @@ namespace kymiraAPITest
         {
             //test that city of 101 characters is invalid
             resident.city = new string('s', 101);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("City must be 100 characters or less.", results[0].ErrorMessage);
         }
@@ -517,7 +531,7 @@ namespace kymiraAPITest
          */
         public void TestThatPasswordFieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -528,9 +542,9 @@ namespace kymiraAPITest
         public void TestThatPasswordFieldOf50CharsIsValid()
         {
             resident.password = new string('s', 50);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
-        } 
+        }
 
         [TestMethod]
         /**
@@ -540,7 +554,7 @@ namespace kymiraAPITest
         {
             //test that password of empty string is invalid
             resident.password = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Password is required.", results[0].ErrorMessage);
         }
@@ -553,7 +567,7 @@ namespace kymiraAPITest
         {
             //test that password of 51 characters is invalid
             resident.password = new string('o', 51);
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Password must be 50 characters or less.", results[0].ErrorMessage);
         }
@@ -565,7 +579,7 @@ namespace kymiraAPITest
          */
         public void TestThatPhoneFieldGeneralIsValid()
         {
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -577,7 +591,7 @@ namespace kymiraAPITest
         {
             //test that phone number of empty string is invalid
             resident.phoneNumber = "";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Phone number is required.", results[0].ErrorMessage);
         }
@@ -590,7 +604,7 @@ namespace kymiraAPITest
         {
             //test that phone number in incorrect format is invalid
             resident.phoneNumber = "4325";
-            var results = HelperTestModel.Validate(resident);
+            var results = TestValidationHelper.Validate(resident);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Phone number must be in phone number format.", results[0].ErrorMessage);
         }

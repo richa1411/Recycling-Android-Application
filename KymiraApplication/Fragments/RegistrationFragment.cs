@@ -13,7 +13,7 @@ using Android.Views;
 using Android.Widget;
 using KymiraApplication.Model;
 
-namespace KymiraApplication
+namespace KymiraApplication.Fragments
 {
     public class RegistrationFragment : Fragment
     {
