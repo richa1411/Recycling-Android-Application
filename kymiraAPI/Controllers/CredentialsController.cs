@@ -13,6 +13,8 @@ namespace kymiraAPI.Controllers
     [Route("api/Credentials")]
     public class CredentialsController : Controller
     {
+        public Guid base64Guid; 
+
         private readonly kymiraAPIContext _context;
 
         public CredentialsController(kymiraAPIContext context)
@@ -38,7 +40,7 @@ namespace kymiraAPI.Controllers
                 return NotFound("{ Error:1 Message:Incorrect phone number or password }");
             }
 
-           Guid base64Guid = Guid.NewGuid();
+            base64Guid = Guid.NewGuid();
 
             return Ok(base64Guid);
         }
