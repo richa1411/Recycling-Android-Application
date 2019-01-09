@@ -9,7 +9,7 @@ using kymiraAPI.Fixtures;
 namespace kymiraAPITest
 {
     [TestClass]
-    public class story6bResidentTests
+    public class ResidentAPITests
     {
         //Valid resident to use for testing
         Resident resident = new Resident

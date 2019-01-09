@@ -28,7 +28,7 @@ namespace KymiraApplication.Model.Tests
 
         //Test that an empty email address field in invalid
         [TestMethod()]
-        public void testThatEmailCannotBeEpmpty()
+        public void TestThatEmailCannotBeEmpty()
         {
 
             regTestOb.emailAddress = "";
@@ -37,9 +37,9 @@ namespace KymiraApplication.Model.Tests
             Assert.AreEqual("An email address is required", results[0].ErrorMessage);
 
         }
-        //Ttest that an email address that is more than 100 characters long is invalid
+        //Test that an email address that is more than 100 characters long is invalid
         [TestMethod()]
-        public void testThatEmailCannotBeMoreThan100Characters()
+        public void TestThatEmailCannotBeMoreThan100Characters()
         {
 
             regTestOb.emailAddress = new string('a', 91) + "@gmail.com";
@@ -49,7 +49,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that an email address that is 100 characters is valid
         [TestMethod()]
-        public void testThatEmailis100Characters()
+        public void TestThatEmailis100Characters()
         {
             regTestOb.emailAddress = new string('a', 90) + "@gmail.com";
             results = TestValidationHelper.Validate(regTestOb);
@@ -58,7 +58,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that an email address is in the correct format (has an @ symbol and a .com)
         [TestMethod()]
-        public void testThatEmailCannotBeInvalidFormat()
+        public void TestThatEmailCannotBeInvalidFormat()
         {
             regTestOb.emailAddress = "guyemail.com";
             results = TestValidationHelper.Validate(regTestOb);
@@ -67,7 +67,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that an email address is in the correct format (has an @ symbol and a .com)
         [TestMethod()]
-        public void testThatEmailEnteredIsValid()
+        public void TestThatEmailEnteredIsValid()
         {
             regTestOb.emailAddress = "email@email.com";
             results = TestValidationHelper.Validate(regTestOb);
@@ -76,7 +76,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that a password field that is empty is not valid
         [TestMethod()]
-        public void testThatPasswordCannotBeEmpty()
+        public void TestThatPasswordCannotBeEmpty()
         {
             regTestOb.password = "";
             results = TestValidationHelper.Validate(regTestOb);
@@ -85,7 +85,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that a password field can't be shorter than 8 characters
         [TestMethod()]
-        public void testThatPasswordCannotbe5CharactersLong()
+        public void TestThatPasswordCannotbe5CharactersLong()
         {
             regTestOb.password = "aaaaa";
             results = TestValidationHelper.Validate(regTestOb);
@@ -94,7 +94,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that a password that is 8 characters is valid
         [TestMethod()]
-        public void testThatPasswordisValidat8characters()
+        public void TestThatPasswordisValidat8characters()
         {
             regTestOb.password = "aaaaaaaa";
             results = TestValidationHelper.Validate(regTestOb);
@@ -103,7 +103,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that a password that is 50 characters long is valid
         [TestMethod()]
-        public void testThatPasswordis50Characters()
+        public void TestThatPasswordis50Characters()
         {
             regTestOb.password = new string('a', 50);
             results = TestValidationHelper.Validate(regTestOb);
@@ -112,7 +112,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that a password cannot be more than 50 characters long
         [TestMethod()]
-        public void testThatPasswordCannotBeMorethan50Characters()
+        public void TestThatPasswordCannotBeMorethan50Characters()
         {
             regTestOb.password = new string('a', 51);
             results = TestValidationHelper.Validate(regTestOb);
@@ -121,7 +121,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that phone number field cannot be empty
         [TestMethod()]
-        public void testThatPhoneNumbercannotBeEmpty()
+        public void TestThatPhoneNumbercannotBeEmpty()
         {
             regTestOb.phoneNumber = "";
             results = TestValidationHelper.Validate(regTestOb);
@@ -130,7 +130,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that phone number field can only contain 10 digits
         [TestMethod()]
-        public void testThatPhoneNumberCanOnlyBeDigits()
+        public void TestThatPhoneNumberCanOnlyBeDigits()
         {
             regTestOb.phoneNumber = "a1231";
             results = TestValidationHelper.Validate(regTestOb);
@@ -139,7 +139,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that phone number field can only contain 10 digits
         [TestMethod()]
-        public void testThatPhoneNumberCanBe10Digits()
+        public void TestThatPhoneNumberCanBe10Digits()
         {
             regTestOb.phoneNumber = "1234567891";
             results = TestValidationHelper.Validate(regTestOb);
@@ -148,7 +148,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that a phone number can't be longer than 10 digits
         [TestMethod()]
-        public void testThatPhoneNumberCannotBe11digits()
+        public void TestThatPhoneNumberCannotBe11digits()
         {
             regTestOb.phoneNumber = "30665245456";
             results = TestValidationHelper.Validate(regTestOb);
@@ -157,7 +157,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that a phone number can't be longer than 10 digits
         [TestMethod()]
-        public void testThatPhoneNumberCannotBe9Digits()
+        public void TestThatPhoneNumberCannotBe9Digits()
         {
             regTestOb.phoneNumber = "123467891";
             results = TestValidationHelper.Validate(regTestOb);
@@ -166,7 +166,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that first name field cannot be empty
         [TestMethod()]
-        public void testThatFirstNameFieldCannotBeEmpty()
+        public void TestThatFirstNameFieldCannotBeEmpty()
         {
             regTestOb.firstName = "";
             results = TestValidationHelper.Validate(regTestOb);
@@ -175,7 +175,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that first name field is at least 1 character long
         [TestMethod()]
-        public void testThatFirstNameFieldHas1Character()
+        public void TestThatFirstNameFieldHas1Character()
         {
             regTestOb.firstName = "G";
             results = TestValidationHelper.Validate(regTestOb);
@@ -184,7 +184,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that first name cannot be longer than 50 characters
         [TestMethod()]
-        public void testThatFirstNameCannotHaveMorethan50Characters()
+        public void TestThatFirstNameCannotHaveMorethan50Characters()
         {
             regTestOb.firstName = new string('a', 51);
             results = TestValidationHelper.Validate(regTestOb);
@@ -193,7 +193,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that first name that is 50 characters long is valid
         [TestMethod()]
-        public void testThatFirstNameFieldHas50characters()
+        public void TestThatFirstNameFieldHas50characters()
         {
             regTestOb.firstName = new string('a', 50);
             results = TestValidationHelper.Validate(regTestOb);
@@ -202,7 +202,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that last name field cannot be empty
         [TestMethod()]
-        public void testThatLastNameCannotBeEmpty()
+        public void TestThatLastNameCannotBeEmpty()
         {
             regTestOb.lastName = "";
             results = TestValidationHelper.Validate(regTestOb);
@@ -211,7 +211,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that last name field has at least 1 character
         [TestMethod()]
-        public void testThatLastNameFieldHas1Character()
+        public void TestThatLastNameFieldHas1Character()
         {
             regTestOb.lastName = ("a");
             results = TestValidationHelper.Validate(regTestOb);
@@ -220,7 +220,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that last name field has more than 50 characters
         [TestMethod()]
-        public void testThatLastNameFieldHasMoreThan50Characters()
+        public void TestThatLastNameFieldHasMoreThan50Characters()
         {
             regTestOb.lastName = new string('a', 51);
             results = TestValidationHelper.Validate(regTestOb);
@@ -229,7 +229,7 @@ namespace KymiraApplication.Model.Tests
         }
         [TestMethod()]
         //Test that last name of 50 charactesr is valid
-        public void testThatLastNameFieldHas50Characters()
+        public void TestThatLastNameFieldHas50Characters()
         {
             regTestOb.lastName = new string('a', 50);
             results = TestValidationHelper.Validate(regTestOb);
@@ -238,7 +238,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that birth date cannot be empty
         [TestMethod()]
-        public void testThatBirthDateCannotBeEmpty()
+        public void TestThatBirthDateCannotBeEmpty()
         {
             regTestOb.birthDate ="";
             results = TestValidationHelper.Validate(regTestOb);
@@ -247,7 +247,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that birth date cannot be less than 8 characters
         [TestMethod()]
-        public void testThatBirthDateCannotHaveLessThan8Characters()
+        public void TestThatBirthDateCannotHaveLessThan8Characters()
         {
             regTestOb.birthDate = "10193";
 
@@ -257,7 +257,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that birth date with 8 characters is valid
         [TestMethod()]
-        public void testThatBirthDateHas8characters()
+        public void TestThatBirthDateHas8characters()
         {
             regTestOb.birthDate = "2000-10-10";
 
@@ -268,7 +268,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that address line 1 field can't be empty
         [TestMethod()]
-        public void testThatAddressLine1FieldCannotBeEmpty()
+        public void TestThatAddressLine1FieldCannotBeEmpty()
         {
             regTestOb.addressLine1 = "";
 
@@ -278,7 +278,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that address line 1 field can't be less than 10 characters
         [TestMethod()]
-        public void testThatAddressLine1CannotBeLessThan10Characters()
+        public void TestThatAddressLine1CannotBeLessThan10Characters()
         {
             regTestOb.addressLine1 = "onetwoth";
 
@@ -288,7 +288,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that address line 1 with 10 characters is valid
         [TestMethod()]
-        public void testThatAddressLine1CanHave10Characters()
+        public void TestThatAddressLine1CanHave10Characters()
         {
             regTestOb.addressLine1 = new string('a', 10);
 
@@ -298,7 +298,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that address line 1 that is 200 characters long is valid
         [TestMethod()]
-        public void testThatAddressLine1CanHave200Characters()
+        public void TestThatAddressLine1CanHave200Characters()
         {
             regTestOb.addressLine1 = new string('a', 200);
 
@@ -308,7 +308,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that address line 1 can't be longer than 200 characters
         [TestMethod()]
-        public void testThatAddressLine1CannotHaveMoreThan200Characters()
+        public void TestThatAddressLine1CannotHaveMoreThan200Characters()
         {
             regTestOb.addressLine1 = new string('a', 201);
 
@@ -318,7 +318,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that address line 2 cannot be more than 200 characters
         [TestMethod()]
-        public void testThatAddressLine2CanNotHaveMoreThan200Characters()
+        public void TestThatAddressLine2CanNotHaveMoreThan200Characters()
         {
             regTestOb.addressLine2 = new string('a', 201);
 
@@ -328,7 +328,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that address line 2 is valid if it's empty (not required)
         [TestMethod()]
-        public void testThatAddressLine2CanBeEMpty()
+        public void TestThatAddressLine2CanBeEMpty()
         {
             regTestOb.addressLine2 = "";
 
@@ -339,7 +339,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that city field cannot be empty
         [TestMethod()]
-        public void testThatCityCannotBeEmpty()
+        public void TestThatCityCannotBeEmpty()
         {
             regTestOb.city = "";
 
@@ -350,7 +350,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that city field is at least 1 character long
         [TestMethod()]
-        public void testThatCityHas1Character()
+        public void TestThatCityHas1Character()
         {
 
             regTestOb.city = "a";
@@ -362,7 +362,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that city with 100 characters is valid
         [TestMethod()]
-        public void testThatCityHas100Character()
+        public void TestThatCityHas100Character()
         {
             regTestOb.city = new string ('a', 100);
 
@@ -373,7 +373,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that city cannot be longer than 100 characters
         [TestMethod()]
-        public void testThatCityCannotHaveMoreThan100Character()
+        public void TestThatCityCannotHaveMoreThan100Character()
         {
             regTestOb.city = new string('a', 101);
 
@@ -384,7 +384,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that province field cannot be empty
         [TestMethod()]
-        public void testThatProvinceFieldCannotBeEmpty()
+        public void TestThatProvinceFieldCannotBeEmpty()
         {
             regTestOb.province = "";
 
@@ -395,7 +395,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that province field can have 100 characters
         [TestMethod()]
-        public void testThatProvinceFieldCanHave100Charcters()
+        public void TestThatProvinceFieldCanHave100Charcters()
         {
             regTestOb.province = new string('a', 100); ;
 
@@ -408,7 +408,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that province field cannot be longer than 100 characters
         [TestMethod()]
-        public void testThatProvinceFieldCannotHaveMorethan100Characters()
+        public void TestThatProvinceFieldCannotHaveMorethan100Characters()
         {
             regTestOb.province = new string('a', 101); ;
 
@@ -419,7 +419,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that postal code field can't be empty
         [TestMethod()]
-        public void testThatPostalCodeCannotBeEmpty()
+        public void TestThatPostalCodeCannotBeEmpty()
         {
             regTestOb.postalCode = "";
 
@@ -430,7 +430,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that postal code field can't have less than 6 characters
         [TestMethod()]
-        public void testThatPostalCodeCannotHaveLessThan6Characters()
+        public void TestThatPostalCodeCannotHaveLessThan6Characters()
         {
             regTestOb.postalCode = "s4t2n";
 
@@ -441,7 +441,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that postal code that is 6 characters is valid
         [TestMethod()]
-        public void testThatPostalCodeHas6Characters()
+        public void TestThatPostalCodeHas6Characters()
         {
             regTestOb.postalCode = "S4T2N4";
 
@@ -452,7 +452,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that postal code can't be longer than 6 characters
         [TestMethod()]
-        public void testThatPostalCodeCannotHaveMorethan6Characters()
+        public void TestThatPostalCodeCannotHaveMorethan6Characters()
         {
             regTestOb.postalCode = "s4t2n4a";
 
@@ -463,7 +463,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that postal code that is in an invalid format is invalid
         [TestMethod()]
-        public void testThatPostalCodeisNotInValidForm()
+        public void TestThatPostalCodeisNotInValidForm()
         {
             regTestOb.postalCode = "s4t2n4a";
 
@@ -484,7 +484,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that a checked terms check box is valid
         [TestMethod()]
-        public void testThatTermsBoxIsChecked()
+        public void TestThatTermsBoxIsChecked()
         {
             regTestOb.termsCheckBox = true;
 
@@ -494,7 +494,7 @@ namespace KymiraApplication.Model.Tests
         }
         //Test that an unchecked terms check box is invalid
         [TestMethod()]
-        public void testThatTermsCheckBoxIsNotChecked()
+        public void TestThatTermsCheckBoxIsNotChecked()
         {
             regTestOb.termsCheckBox = false;
 

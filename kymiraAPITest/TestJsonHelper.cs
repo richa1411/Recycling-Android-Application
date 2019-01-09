@@ -10,13 +10,13 @@ namespace kymiraAPI.Models
 {
     //This class will handle the creation, serialization, deserialzation, sending, and receiving of JSON objects in order for the
     //android application to communicate with the back end controller.
-    public class jsonHandler
+    public class TestJsonHelper
     {
         // The class has a private HttpClient for POST and GET requests
         private HttpClient client;
 
         // Constructor for the jsonHandler accepts a Uri and creates a new HttpClient
-        public jsonHandler()
+        public TestJsonHelper()
         {
             this.client = new HttpClient();
         }
@@ -37,7 +37,7 @@ namespace kymiraAPI.Models
             HttpResponseMessage response = await client.PostAsync(uri, content);
 
             // If JSON was sent successfully, return that
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 return "Success";
             }
@@ -57,7 +57,7 @@ namespace kymiraAPI.Models
             HttpResponseMessage response = await client.GetAsync(uri);
 
             // Check if the message was sent successfully
-            if(response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 //Create a varialbe to contain the response of the response's GET
                 var content = await response.Content.ReadAsStringAsync();
@@ -70,19 +70,19 @@ namespace kymiraAPI.Models
                 return "Error receiving data";
             }
 
-           
+
         }
 
         // This method handles receiving Disposbale json from the uri specified
         public async Task<List<Disposable>> receiveSpecJsonAsync(String strUri, bool isResc)
         {
-           
+
 
             strUri += isResc ? "true" : "false";
 
             Uri uri = new Uri(strUri, UriKind.Absolute);
 
-            var json = JsonConvert.SerializeObject(new { isRecyclable = isResc});
+            var json = JsonConvert.SerializeObject(new { isRecyclable = isResc });
 
 
             var contents = new StringContent(json, Encoding.UTF8, "application/json");
@@ -96,15 +96,15 @@ namespace kymiraAPI.Models
                 var content = await response.Content.ReadAsStringAsync();
 
 
-                return  JsonConvert.DeserializeObject<List<Disposable>>(content);
-                
+                return JsonConvert.DeserializeObject<List<Disposable>>(content);
 
-               
+
+
             }
             // If there were errors receiving the JSON, let the user know
             else
             {
-               throw new Exception("no work");
+                throw new Exception("no work");
             }
 
 
@@ -174,7 +174,7 @@ namespace kymiraAPI.Models
             else
             {
                 throw new Exception("400 Bad Request");
-                
+
             }
 
 
