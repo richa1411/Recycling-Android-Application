@@ -1,18 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using kymiraAPI;
 using kymiraAPI.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Text;
-using kymiraAPITest.Fixtures;
+using kymiraAPI.Fixtures;
 
 namespace kymiraAPITest
 {
     [TestClass]
-    public class story4hTests
+    public class story6dBinStatusTests
     {
         //setup
         string dispURL = "http://localhost:55085/api/BinStatus/";
@@ -210,7 +209,19 @@ namespace kymiraAPITest
         {
             //search for certain address that contains many dates for pickups
             //ensure that the BinStatuses brought back/selected were the latest date
+
+            //the latest entry of the database is "2019-02-02" for site 2.
+
+
+
         }
+
+
+
+
+
+
+
 
         //-------------------functional----------------
         /**
@@ -304,8 +315,8 @@ namespace kymiraAPITest
 
                 //create an instance of the fixture class and load the proper objects into the database 
                 //to be used for testing
-                fixture_bin_status fixtureBinStatus = new fixture_bin_status();
-                fixtureBinStatus.load();
+                fixture_story6d fixtureBinStatus = new fixture_story6d();
+                //fixtureBinStatus.load();
             }
 
         }

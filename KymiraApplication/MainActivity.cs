@@ -19,6 +19,11 @@ namespace KymiraApplication
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
+            var ft = FragmentManager.BeginTransaction();
+            var mainFrag = new BinStatusFragment();
+            ft.Replace(Resource.Id.fragment_container, mainFrag);
+            ft.Commit();
+
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 

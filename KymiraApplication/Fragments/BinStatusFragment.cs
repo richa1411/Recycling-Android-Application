@@ -41,7 +41,7 @@ namespace KymiraApplication.Fragments
             etAddress = view.FindViewById<EditText>(Resource.Id.addressEntry);
             btnSubmit = view.FindViewById<Button>(Resource.Id.submitAddress);
 
-            return base.OnCreateView(inflater, container, savedInstanceState);
+            return view;
         }
     }
 }

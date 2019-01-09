@@ -14,7 +14,7 @@ namespace KymiraApplication.Models.Tests
      *  (BinStatus objects that are received from the backend upon a match with the address)
      */
     [TestClass()]
-    public class BinStatusTests
+    public class story6dBinStatusTests
     {
         BinStatus testBinStatus;    //a valid BinStatus object
         BinStatus testBinStatusBad; //an invalid BinStatus object
