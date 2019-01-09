@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\kymiraAPI\kymiraAPI.csproj" />
+    <ProjectReference Include="..\KymiraApplication\KymiraApplication.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,8 +14,11 @@ namespace kymiraAPITest
     public class BinStatusAPITests
     {
         //setup
-        string dispURL = "http://localhost:55085/api/BinStatus/";
-        //string dispURL = KymiraApplication.Resources.values.strings.xml;
+        //string dispURL = "http://localhost:55085/api/BinStatus/";
+        //string dispURL = KymiraApplication.Resource.String.UrlBinStatus;
+            //Application.Context.Resources.GetString();
+            //KymiraApplication.Resource.String.UrlBinStatus.ToString();
+            //KymiraApplication.Resources.values.strings.xml;
         private HttpClient client;
         Uri uri;
         
@@ -47,18 +50,18 @@ namespace kymiraAPITest
             binAddress = ""
         };
         */
+
+        //defined addresses to use for altering the BinStatus object above to
+        // check if a BinStatus object is valid or invalid
         string address1 = "123 fake Street";
         string address2 = "321 fake Street";
         string address3 = "456 fake Street";
-
         string badAddress = "";
 
-
-
-            /// <summary>
-            /// ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            /// </summary>
-
+        /*
+         *  This method runs before the tests to set up the database for 
+         *  the tests in this class. It calls the fixture class to load the database.
+         */
         [TestInitialize]
         public  void Setup()
         {
@@ -72,7 +75,7 @@ namespace kymiraAPITest
         }
 
         /**
-        * test that the model allows a valid address
+         * Tests that the model does not allow an invalid address;
         */
         [TestMethod]
         public void TestThatAddressIsInvalidAt201Characters()
@@ -84,7 +87,7 @@ namespace kymiraAPITest
         }
 
         /**
-         * Tests that the model does not allow an invalid address;
+        * test that the model allows a valid address
          * */
         [TestMethod]
         public void TestThatAddressIsValid()
@@ -120,7 +123,7 @@ namespace kymiraAPITest
         }
 
         /*
-         * test that the model allows a valid address
+         * test that the model with an empty binAddress is invalid
          */
         [TestMethod]
         public void TestThatAddressCanNotBeEmpty()
