@@ -9,6 +9,7 @@ namespace KymiraApplicationTests
     public class CredentialsTest
     {
         Credentials objCred;
+        Token objToken;
         /*
         *  Setups a Credentials object with a phone number, password, and message
         */
@@ -16,6 +17,7 @@ namespace KymiraApplicationTests
         public void InitializeTest()
         {
             objCred = new Credentials { phoneNumber = "1234567890", password = "P@ssw0rd" };
+            objToken = new Token { token = "1bf89a1c-3934-4e5b-b7be-7bfb766689c2" };
         }
 
 
@@ -189,15 +191,38 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod()]
-        public void TestThat()
+        public void TestThatTokenIsGUIDFormat()
         {
-            //Test Password is  51 characters
-            objCred.password = new string('a', 51);
+            //Test token  is  in GUID format 
+           objToken.token = "1bf89a1c-3934-4e5b-b7be-7bfb766689c2";
+           
+            var results = TestValidationHelper.Validate(objToken);
 
-            var results = TestValidationHelper.Validate(objCred);
+            Assert.AreEqual(0, results.Count);
+           
+        }
+        [TestMethod()]
+        public void TestThatTokenIsNotInGUIDFormat()
+        {
+            //Test token  is  in GUID format 
+            objToken.token = "1bf89a1c/fdhdhdf4356656546+fghf&";
+
+            var results = TestValidationHelper.Validate(objToken);
 
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
+           Assert.AreEqual("token is not in proper GUID format", results[0].ErrorMessage);
+        }
+
+        [TestMethod()]
+        public void TestThatTokenIsNull()
+        {
+            //Test token  is  in GUID format 
+            objToken.token = "";
+
+            var results = TestValidationHelper.Validate(objToken);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Token can not be empty string", results[0].ErrorMessage);
         }
     }
 }

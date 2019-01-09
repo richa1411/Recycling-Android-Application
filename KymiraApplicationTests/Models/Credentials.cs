@@ -20,5 +20,7 @@ namespace KymiraApplicationTests.Models
         [Required(ErrorMessage = "Password is empty")] //TODO: Change password length to 8 character min
         [StringLength(50, MinimumLength = 6, ErrorMessage = "Password must be between 6 - 50 characters")]
         public string password { get; set; }
+
+
     }
 }
