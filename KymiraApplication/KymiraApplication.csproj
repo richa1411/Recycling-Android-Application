@@ -63,7 +63,6 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\BinStatus.cs" />
     <Compile Include="Models\Disposable.cs" />
-    <Compile Include="Models\jsonHandler.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\ValidationHelper.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

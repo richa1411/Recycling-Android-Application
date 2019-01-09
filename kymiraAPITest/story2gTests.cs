@@ -39,7 +39,7 @@ namespace kymiraAPITest
         public async Task setupDatabase()
         {
 
-            jsonHandler testJSON = new jsonHandler();
+            HelperTestFunctional testJSON = new HelperTestFunctional();
             var successReceived = await testJSON.receiveJsonAsync(dispURL);
 
 
@@ -100,7 +100,7 @@ namespace kymiraAPITest
         [TestMethod]
         public async Task TestGetValidJsonRecyclable()
         {
-            jsonHandler testJSON = new jsonHandler();
+            HelperTestFunctional testJSON = new HelperTestFunctional();
 
          
 
@@ -119,7 +119,7 @@ namespace kymiraAPITest
         [TestMethod]
         public async Task TestGetValidJsonNotRecyclable()
         {
-            jsonHandler testJSON = new jsonHandler();
+            HelperTestFunctional testJSON = new HelperTestFunctional();
 
             List<Disposable> success = await testJSON.receiveSpecJsonAsync(dispURL, false);
 
@@ -138,7 +138,7 @@ namespace kymiraAPITest
         [TestMethod]
         public async Task TestSendInvalidRequest()
         {
-            jsonHandler testJSON = new jsonHandler();
+            HelperTestFunctional testJSON = new HelperTestFunctional();
             //see json handler for info on method call
             List<Disposable> success = await testJSON.testSendInvalidJsonHandler(dispURL, true);
 

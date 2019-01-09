@@ -17,7 +17,7 @@ namespace kymiraAPI.Models
         [StringLength(200, MinimumLength = 1, ErrorMessage = "Address must be 1 to 200 characters")]
         public string address { get; set; }
         
-        public BinStatus binStatus { get; set; }
+        public List<BinStatus> binStatus { get; set; }
 
     }
 }

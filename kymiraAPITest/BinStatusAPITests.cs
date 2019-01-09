@@ -11,7 +11,7 @@ using kymiraAPI.Fixtures;
 namespace kymiraAPITest
 {
     [TestClass]
-    public class story6dBinStatusTests
+    public class BinStatusAPITests
     {
         //setup
         string dispURL = "http://localhost:55085/api/BinStatus/";
@@ -62,8 +62,13 @@ namespace kymiraAPITest
         [TestInitialize]
         public  void Setup()
         {
-            client = new HttpClient();
-            uri = new Uri(dispURL, UriKind.Absolute);
+            //client = new HttpClient();
+            //uri = new Uri(dispURL, UriKind.Absolute);
+
+            //create an instance of the fixture class and load the proper objects into the database 
+            //to be used for testing
+            fixture_bin_status fixtureBinStatus = new fixture_bin_status();
+            //fixtureBinStatus.Load(_context);
         }
 
         /**
@@ -215,113 +220,6 @@ namespace kymiraAPITest
 
 
         }
-
-
-
-
-
-
-
-
-        //-------------------functional----------------
-        /**
-         * Test that API can receive a Binstatus to put in DB, ( mainly used for testing)
-         * */
-        [TestMethod]
-         public async Task setUpDBForTests()
-        {
-            //deletes the database so when running tests on other computers with local DB. they do not have to manually add
-            //entries to pass tests
-
-
-
-            //HttpResponseMessage r = await client.DeleteAsync(uri);
-
-
-
-            // sends address string 1
-
-            HttpResponseMessage getResponse = await client.GetAsync(uri);
-
-            if (getResponse.IsSuccessStatusCode)
-            {
-                /*
-                var content = await getResponse.Content.ReadAsStringAsync();
-
-                List<BinStatus> binList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
-
-                var count1 = 0;
-                var count2 = 0;
-                var count3 = 0;
-                foreach (BinStatus item in binList)
-                {
-                    if (item.binAddress == address1)
-                    {
-                        count1++;
-                    }
-                    else if (item.binAddress == address2)
-                    {
-                        count2++;
-                    }
-                    else if (item.binAddress == address3)
-                    {
-                        count3++;
-                    }
-
-                }
-
-                if(count1 == 0)
-                {
-
-                    //adds testStatus1
-                    var json = JsonConvert.SerializeObject(testStatus);
-                    var contents = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    HttpResponseMessage response = await client.PostAsync(uri, contents);
-                    Assert.IsTrue(response.IsSuccessStatusCode);
-                }
-
-                if(count2 <2)
-                {
-
-                    for(int i = count2; i<2;i++)
-                    {
-
-                        var json = JsonConvert.SerializeObject(testStatus2);
-                        var contents = new StringContent(json, Encoding.UTF8, "application/json");
-                        var response = await client.PostAsync(uri, contents);
-                        Assert.IsTrue(response.IsSuccessStatusCode);
-
-                    }
-
-                }
-
-                if (count3 < 3)
-                {
-
-                    for (int i = count3; i < 3; i++)
-                    {
-
-                        var json = JsonConvert.SerializeObject(testStatus3);
-                        var contents = new StringContent(json, Encoding.UTF8, "application/json");
-                        var response = await client.PostAsync(uri, contents);
-                        Assert.IsTrue(response.IsSuccessStatusCode);
-
-                    }
-
-                }
-
-                */
-
-                //create an instance of the fixture class and load the proper objects into the database 
-                //to be used for testing
-                fixture_story6d fixtureBinStatus = new fixture_story6d();
-                //fixtureBinStatus.load();
-            }
-
-        }
-
-
 
         /**
  * Tests that the API can send a Json object with an ID, as long as Address is valid.

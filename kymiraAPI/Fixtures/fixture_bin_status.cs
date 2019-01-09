@@ -7,7 +7,7 @@ using kymiraAPI;
 
 namespace kymiraAPI.Fixtures
 {
-    public class fixture_story6d
+    public class fixture_bin_status
     {
         //** Bin Statuses **/
         public static List<BinStatus> obList = new List<BinStatus>(new BinStatus[] { new BinStatus
