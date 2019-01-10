@@ -38,9 +38,9 @@ namespace kymiraAPITest.Fixtures
                 password = "Pa$$w0rrd"
             };
         
-        /**
-                 * This method adds hard-coded data into the database.
-                 */
+        /*
+        * This method adds hard-coded data into the database.
+        */
         public async Task load()
         {
             string dispURL = "http://localhost:55085/api/Residents/";

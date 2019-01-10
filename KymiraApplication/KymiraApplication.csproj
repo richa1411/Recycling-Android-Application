@@ -114,7 +114,7 @@
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\login_fragment.axml" />
+    <AndroidResource Include="Resources\layout\login_layout.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\logoBlack.png" />

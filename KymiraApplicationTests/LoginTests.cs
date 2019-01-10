@@ -144,7 +144,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestThatPasswordISFiftyChar()
+        public void TestThatPasswordIsFiftyChar()
         {
             //Test Password is  50 characters
             objCred.password = new string('a', 50);

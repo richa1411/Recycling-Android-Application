@@ -31,7 +31,7 @@ namespace kymiraAPITest
          *  Tests that the phone number cannot be empty
          */
         [TestMethod]
-        public void PhoneNumberCannotBeEmptyTest()
+        public void TestThatPhoneNumberCannotBeEmptyTest()
         {
             loginCreds.phoneNumber = "";
 
@@ -45,7 +45,7 @@ namespace kymiraAPITest
          *  Tests that the phone number is only digits 
          */
         [TestMethod]
-        public void PhoneNumberMustBeOnlyDigitsTest()
+        public void TestThatPhoneNumberMustBeOnlyDigitsTest()
         {
             loginCreds.phoneNumber = "JohnDoe123";
 
@@ -60,7 +60,7 @@ namespace kymiraAPITest
          *  Tests that the phone number is exactly 10 digits long
          */
         [TestMethod]
-        public void PhoneNumberMustBeTenDigitsInLengthTest()
+        public void TestThatPhoneNumberMustBeTenDigitsInLengthTest()
         {
             loginCreds.phoneNumber = "1234567890"; // 10 digits
 
@@ -73,7 +73,7 @@ namespace kymiraAPITest
          *  Tests that the phone number cannot exceed 10 digits
          */
         [TestMethod]
-        public void PhoneNumberCannotExceedTenDigitsInLengthTest()
+        public void TestThatPhoneNumberCannotExceedTenDigitsInLengthTest()
         {
             loginCreds.phoneNumber = "123456789012345"; // 15 digits
 
@@ -87,7 +87,7 @@ namespace kymiraAPITest
          *  Tests that the phone number is exactly 10 digits long
          */
         [TestMethod]
-        public void PhoneNumberCannotBeLessThanTenDigitsInLengthTest()
+        public void TestThatPhoneNumberCannotBeLessThanTenDigitsInLengthTest()
         {
 
             loginCreds.phoneNumber = "1234567"; // 7 digits
@@ -109,7 +109,7 @@ namespace kymiraAPITest
          *  Tests that the password cannot be empty
          */
         [TestMethod]
-        public void PasswordCannotBeEmptyTest()
+        public void TestThatPasswordCannotBeEmptyTest()
         {
 
             loginCreds.password = ""; // Empty Password
@@ -124,7 +124,7 @@ namespace kymiraAPITest
          *  Tests that the password cannot be less than six characters
          */
         [TestMethod]
-        public void PasswordCannotBeLessThanSixCharactersLongTest()
+        public void TestThatPasswordCannotBeLessThanSixCharactersLongTest()
         {
 
             loginCreds.password = "P@ssw"; // Password is only 5 characters
@@ -140,7 +140,7 @@ namespace kymiraAPITest
          *  Tests that the password must be 6 - 50 characters long
          */
         [TestMethod]
-        public void PasswordMustBeSixToFiftyCharactersLongLowerBoundaryTest()
+        public void TestThatPasswordMustBeSixToFiftyCharactersLongLowerBoundaryTest()
         {
 
             loginCreds.password = "P@ssw0"; // Password at lower boundary
@@ -157,7 +157,7 @@ namespace kymiraAPITest
         *  Tests that the password must be 6 - 50 characters long
         */
         [TestMethod]
-        public void PasswordMustBeSixToFiftyCharactersLongHigherBoundaryTest()
+        public void TestThatPasswordMustBeSixToFiftyCharactersLongHigherBoundaryTest()
         {
 
 
@@ -175,7 +175,7 @@ namespace kymiraAPITest
          *  Tests that the password cannot exceed 50 characters
          */
         [TestMethod]
-        public void PasswordCannotExceedFiftyCharactersInLength()
+        public void TestThatPasswordCannotExceedFiftyCharactersInLength()
         {
             loginCreds.password = new string('a', 51); // Password is exactly 51 characters
 

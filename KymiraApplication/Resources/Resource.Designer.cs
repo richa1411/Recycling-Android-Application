@@ -3143,7 +3143,7 @@ namespace KymiraApplication
 			public const int design_text_input_password_icon = 2130968618;
 			
 			// aapt resource value: 0x7f04002b
-			public const int login_fragment = 2130968619;
+			public const int login_layout = 2130968619;
 			
 			// aapt resource value: 0x7f04002c
 			public const int nav_header_main = 2130968620;
