@@ -5,7 +5,6 @@ using System.Linq;
 using NUnit.Framework;
 using Xamarin.UITest;
 using Xamarin.UITest.Queries;
-using KymiraApplication;
 
 namespace KymiraApplicationUITests
 {
@@ -37,7 +36,7 @@ namespace KymiraApplicationUITests
         }
         
       [Test]
-     //test that after tapping the Submit button with no address entered, the list view does not change
+     //Test that after tapping the Submit button with no address entered, the list view does not change
        public void TestThatLoginOptionClickOpensLoginPage()
        {
            ArrayList results = new ArrayList();

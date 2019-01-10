@@ -36,12 +36,6 @@
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\KymiraApplication\KymiraApplication.csproj">
-      <Project>{07272096-7498-4f50-b9fc-aa5202bda99d}</Project>
-      <Name>KymiraApplication</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Tests.cs" />
     <Compile Include="AppInitializer.cs" />
   </ItemGroup>

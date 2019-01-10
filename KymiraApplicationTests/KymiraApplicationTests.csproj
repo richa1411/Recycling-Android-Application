@@ -55,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CredentialsTest.cs" />
-    <Compile Include="Fixtures\fixture_story6a.cs" />
     <Compile Include="Models\Credentials.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -27,61 +27,6 @@ namespace kymiraAPI.Controllers
             return _context.ResidentDBSet;
         }
 
-        /*
-        // GET: api/Residents/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetResident([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var resident = await _context.ResidentDBSet.SingleOrDefaultAsync(m => m.id == id);
-
-            if (resident == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(resident);
-        }
-
-        // PUT: api/Residents/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutResident([FromRoute] int id, [FromBody] Resident resident)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != resident.id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(resident).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ResidentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }*/
-
         // POST: api/Residents
         /**
          * This method takes in a resident object in JSON notation, checks that the model is valid,
@@ -101,32 +46,5 @@ namespace kymiraAPI.Controllers
 
             return CreatedAtAction("GetResident", new { id = resident.id }, resident);
         }
-        /*
-        // DELETE: api/Residents/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteResident([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var resident = await _context.ResidentDBSet.SingleOrDefaultAsync(m => m.id == id);
-            if (resident == null)
-            {
-                return NotFound();
-            }
-
-            _context.ResidentDBSet.Remove(resident);
-            await _context.SaveChangesAsync();
-
-            return Ok(resident);
-        }
-
-       
-        private bool ResidentExists(int id) //This method COULD be changed further down the line to take in different parameters instead of just an ID.
-        {
-            return _context.ResidentDBSet.Any(e => e.id == id);
-        }*/
     }
 }

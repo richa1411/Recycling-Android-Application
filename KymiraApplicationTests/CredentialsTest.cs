@@ -56,13 +56,13 @@ namespace KymiraApplicationTests
             objCred.phoneNumber = "shahsjhghr";
             var results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
+            Assert.AreEqual("Phone Number must be 10 digits", results[0].ErrorMessage);
 
             //Test phone number contains combination of charcatres and digits
             objCred.phoneNumber = "shahsjh678";
             results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
+            Assert.AreEqual("Phone Number must be 10 digits", results[0].ErrorMessage);
         }
 
         [TestMethod]
@@ -92,7 +92,7 @@ namespace KymiraApplicationTests
             objCred.phoneNumber = "34567890965657";
             var results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
+            Assert.AreEqual("Phone Number must be 10 digits", results[0].ErrorMessage);
         }
 
         [TestMethod]
@@ -102,7 +102,7 @@ namespace KymiraApplicationTests
             objCred.phoneNumber = "345678";
             var results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
+            Assert.AreEqual("Phone Number must be 10 digits", results[0].ErrorMessage);
 
         }
 
@@ -163,7 +163,7 @@ namespace KymiraApplicationTests
             var results = TestValidationHelper.Validate(objCred);
 
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
+            Assert.AreEqual("Password must be between 6 - 50 characters", results[0].ErrorMessage);
 
         }
 
@@ -187,7 +187,7 @@ namespace KymiraApplicationTests
             var results = TestValidationHelper.Validate(objCred);
 
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Incorrect Username or Password", results[0].ErrorMessage);
+            Assert.AreEqual("Password must be between 6 - 50 characters", results[0].ErrorMessage);
         }
 
         [TestMethod()]
