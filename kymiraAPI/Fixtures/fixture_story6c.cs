@@ -84,15 +84,10 @@ namespace kymiraAPI.Fixtures
         public static void Load(kymiraAPIContext _context)
         {
 
-           
-               
                     _context.DisposableDBSet.AddRange(obList);
                     _context.SaveChangesAsync();
                 
-            
-
-
-         
+    
         }
         /**
          * this function will delete all tests information in the database.
@@ -100,13 +95,9 @@ namespace kymiraAPI.Fixtures
         public static void Unload(kymiraAPIContext _context) {
            
 
-                
-           
                 _context.DisposableDBSet.RemoveRange(_context.DisposableDBSet);
                 _context.SaveChangesAsync();
-            
-
-            
+ 
         }
     }
 }

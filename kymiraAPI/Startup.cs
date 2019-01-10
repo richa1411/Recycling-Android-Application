@@ -45,17 +45,10 @@ namespace kymiraAPI
             }
 
 
-
-
-
            context.Database.EnsureCreated();
             
            Fixtures.fixture_story6c.Unload(context);
            Fixtures.fixture_story6c.Load(context);
-            
-            
-                 
-            
             
 
             app.UseMvc();
