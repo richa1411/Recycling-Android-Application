@@ -33,6 +33,8 @@ namespace KymiraApplication.Fragments
             return base.OnCreateView(inflater, container, savedInstanceState);
         }
 
+        
+
         private static Disposable[] disposables;
 
         /**

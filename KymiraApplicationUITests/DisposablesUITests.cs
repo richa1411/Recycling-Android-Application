@@ -32,6 +32,7 @@ namespace KymiraApplicationUITests
 
             ArrayList results = new ArrayList();
             //is item there, is Icon there(if added)
+<<<<<<< HEAD
             app.TapCoordinates(100, 100);
             results.Add(app.WaitForElement(c => c.Marked("Disposables List")));
             Assert.AreEqual(1, results.Count);
@@ -100,6 +101,9 @@ namespace KymiraApplicationUITests
 
 
             Assert.AreEqual(3, results.Count);
+=======
+            app.TapCoordinates(120, 120);
+>>>>>>> 12c4a2d7c98840e3a8163c5ce755162086075614
 
         }
 
