@@ -60,6 +60,12 @@ namespace KymiraApplication.Fragments
         //Declare a list to hold the results of validating registration information
         private IList<ValidationResult> validationResults;
 
+        //Variable that holds the programatically calculated years that will appear in the birth year spinner
+        private string[] birthYearRange;
+
+        //Array that holds the programatically calculated days in the month that the user selects
+        private string[] birthDayRange;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -95,42 +101,81 @@ namespace KymiraApplication.Fragments
 
         private void createSpinners()
         {
+            birthYearRange = new string[120];
+
             //Create listener and adapter for birth date spinner month
             birthDateSpinnerMonth = view.FindViewById<Spinner>(Resource.Id.birthDateSpinnerMonth);
             birthDateSpinnerMonth.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateMonthSpinner_ItemSelected);
             var monthAdapter = ArrayAdapter.CreateFromResource(
-                    this, Resource.Array.birthDateMonths_array, Android.Resource.Layout.SimpleSpinnerItem);
+                    this.Context, Resource.Array.month_array, Android.Resource.Layout.SimpleSpinnerItem);
 
             monthAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             birthDateSpinnerMonth.Adapter = monthAdapter;
 
-            //Create listener and adapter for birth day spinner day
-            birthDateSpinnerDay = view.FindViewById<Spinner>(Resource.Id.birthDateSpinnerDay);
-            birthDateSpinnerDay.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateDaySpinner_ItemSelected);
-            var dayAdapter = ArrayAdapter.CreateFromResource(
-                    this, Resource.Array.birthDateDay_array, Android.Resource.Layout.SimpleSpinnerItem);
+            //Get the current year
+            int currentYear = DateTime.Now.Year;
 
-            dayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            birthDateSpinnerDay.Adapter = dayAdapter;
+            //Counter to move through array from the beginning
+            int counter = 0;
+
+            //Fill the birth year range array based on the value of the current year
+            for (int i = currentYear; i > currentYear - 120; i--)
+            {
+                birthYearRange[counter] = i.ToString();
+
+                counter++;
+            }
 
             //Create listener and adapter for birth date spinner year
             birthDateSpinnerYear = view.FindViewById<Spinner>(Resource.Id.birthDateSpinnerYear);
             birthDateSpinnerYear.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateYearSpinner_ItemSelected);
-            var yearAdapter = ArrayAdapter.CreateFromResource(
-                    this, Resource.Array.birthDateYear_array, Android.Resource.Layout.SimpleSpinnerItem);
-
+            var yearAdapter = new ArrayAdapter<string>(this.Context, Android.Resource.Layout.SimpleSpinnerItem, birthYearRange);
             yearAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             birthDateSpinnerYear.Adapter = yearAdapter;
+
+            //Create listener and adapter for birth day spinner day
+            birthDateSpinnerDay = view.FindViewById<Spinner>(Resource.Id.birthDateSpinnerDay);
+            birthDateSpinnerDay.Enabled = false;
+            birthDateSpinnerDay.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateDaySpinner_ItemSelected);
+            //var dayAdapter = ArrayAdapter.CreateFromResource(
+            //this, Resource.Array.birthDateDay_array, Android.Resource.Layout.SimpleSpinnerItem);         
+
+            //dayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            //birthDateSpinnerDay.Adapter = dayAdapter;
 
             //Create listener and adapter for province spinner
             provinceSpinner = view.FindViewById<Spinner>(Resource.Id.provinceSpinner);
             provinceSpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(provinceSpinner_ItemSelected);
             var provinceAdapter = ArrayAdapter.CreateFromResource(
-                    this, Resource.Array.province_array, Android.Resource.Layout.SimpleSpinnerItem);
+                    this.Context, Resource.Array.province_array, Android.Resource.Layout.SimpleSpinnerItem);
 
             provinceAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             provinceSpinner.Adapter = provinceAdapter;
 
+        }
+
+        private void calculateDatesOfMonth()
+        {
+            int birthYear = 0;
+
+            Int32.TryParse(this.year, out birthYear);
+
+            int birthMonth = 1;
+
+            //Currently this is failing because this.month is not set at this point!!!
+            Int32.TryParse(this.month, out birthMonth);
+
+            int days = DateTime.DaysInMonth(birthYear, birthMonth);
+
+            for(int i = 1; i <= days; i++)
+            {
+                birthDayRange[i] = i.ToString();
+            }
+
+            var dayAdapter = new ArrayAdapter<string>(this.Context, Android.Resource.Layout.SimpleSpinnerItem, birthDayRange);
+            dayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            birthDateSpinnerDay.Adapter = dayAdapter;
+            birthDateSpinnerDay.Enabled = true;
         }
 
         private void TermsCheckbox_Click(object sender, EventArgs e)
@@ -285,7 +330,10 @@ namespace KymiraApplication.Fragments
                     break;
             }
 
+            //Set the class variable of month to the month selected by the spinner
             this.month = strMonth;
+
+            calculateDatesOfMonth();
         }
 
         private void provinceSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
