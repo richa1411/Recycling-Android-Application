@@ -7,7 +7,7 @@ using kymiraAPI;
 
 namespace kymiraAPI.Fixtures
 {
-    static class fixture_story6c
+    static class fixture_disposables
     {
 
         //** Recyclable Items **/

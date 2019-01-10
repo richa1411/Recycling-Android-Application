@@ -29,9 +29,80 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatNavigationBurgerExistsAndDispsoableItemsButtonExists()
         {
+
+            ArrayList results = new ArrayList();
             //is item there, is Icon there(if added)
+            app.TapCoordinates(100, 100);
+            results.Add(app.WaitForElement(c => c.Marked("Disposables List")));
+            Assert.AreEqual(1, results.Count);
+
 
         }
+        [Test]
+        public void TestThatRecyclableButtonExistsAndPopulatesListWithOnlyRecyclableItemsinAlpheticalOrder()
+        {
+            ArrayList results = new ArrayList();
+            app.TapCoordinates(100, 100);
+            app.Tap("Disposables List");
+
+            results.Add(app.WaitForElement(c => c.Marked("Show recyclable items")));
+            Assert.AreEqual(1, results.Count);
+            results = new ArrayList();
+            app.Tap("Show recyclable items");
+
+           
+
+
+            results.Add(app.WaitForElement(c => c.Marked("Cardboard")));
+            results.Add(app.WaitForElement(c => c.Marked("Paper")));
+            results.Add(app.WaitForElement(c => c.Marked("Tin Cans")));
+
+            ArrayList obNames = new ArrayList { "Cardboard", "Paper", "Tin Cans" };
+            int i = 0;
+            foreach (AppResult o in results)
+            {
+
+                Assert.AreEqual(obNames[i], o.Text);
+                i++;
+            }
+
+
+            Assert.AreEqual(3, results.Count);
+        }
+        [Test]
+        public void TestThatNonRecylcableButtonExistsAndPopulatesListwithOnlyNonRecyclableItemsInAlphabeticalOrder()
+        {
+
+            ArrayList results = new ArrayList();
+            app.TapCoordinates(100, 100);
+            app.Tap("Disposables List");
+
+            results.Add(app.WaitForElement(c => c.Marked("Show Non-recyclable items")));
+            Assert.AreEqual(1, results.Count);
+            results = new ArrayList();
+            app.Tap("Show Non-recyclable items");
+
+
+            results.Add(app.WaitForElement(c => c.Marked("Candy")));
+            results.Add(app.WaitForElement(c => c.Marked("Orange Peels")));
+            results.Add(app.WaitForElement(c => c.Marked("Pizza")));
+
+
+            ArrayList obNames = new ArrayList { "Candy", "Orange Peels", "Pizza" };
+
+            int i = 0;
+            foreach (AppResult o in results)
+            {
+
+                Assert.AreEqual(obNames[i], o.Text);
+                i++;
+            }
+
+
+            Assert.AreEqual(3, results.Count);
+
+        }
+
 
 
         [Test]
@@ -39,47 +110,130 @@ namespace KymiraApplicationUITests
         public void TestThatListViewShowsProperAmountOfRecylcableItems()
         {
            
+            //dont in another test
         }
 
         [Test]
 
         public void TestThatListViewShowProperAmountofNonRecyclableItems()
         {
-       
+            // done in another test
         }
 
         [Test]
 
         public void TestThatListViewShowsRecyclableItemsAlphabeticalOrder()
         {
-         
+
+            ArrayList results = new ArrayList();
+            app.TapCoordinates(100, 100);
+            app.Tap("Disposables List");
+
+            results.Add(app.WaitForElement(c => c.Marked("Show recyclable items")));
+            Assert.AreEqual(1, results.Count);
+            results = new ArrayList();
+            app.Tap("Show recyclable items");
+
+
+
+
+            results.Add(app.WaitForElement(c => c.Marked("Cardboard")));
+            results.Add(app.WaitForElement(c => c.Marked("Paper")));
+            results.Add(app.WaitForElement(c => c.Marked("Tin Cans")));
+
+          
+            
+            
         }
         [Test]
         public void TestThatListViewShowsNonRecyclableItemsInAlphabeticalOrder()
         {
+            ArrayList results = new ArrayList();
+            app.TapCoordinates(100, 100);
+            app.Tap("Disposables List");
 
+            results.Add(app.WaitForElement(c => c.Marked("Show Non-recyclable items")));
+            Assert.AreEqual(1, results.Count);
+            results = new ArrayList();
+            app.Tap("Show Non-recyclable items");
+
+
+            results.Add(app.WaitForElement(c => c.Marked("Candy")));
+            results.Add(app.WaitForElement(c => c.Marked("Orange Peels")));
+            results.Add(app.WaitForElement(c => c.Marked("Pizza")));
+
+
+            ArrayList obNames = new ArrayList { "Candy", "Orange Peels", "Pizza" };
+            int i = 0;
+            foreach (AppResult o in results)
+            {
+
+                Assert.AreEqual(obNames[i], o.Text);
+                i++;
+            }
         }
         [Test]
         public void TestThatListViewRecyclableItemsContainExpectedInformation()
         {
 
+            ArrayList results = new ArrayList();
+            app.TapCoordinates(100, 100);
+            app.Tap("Disposables List");
+
+            results.Add(app.WaitForElement(c => c.Marked("Show recyclable items")));
+            Assert.AreEqual(1, results.Count);
+            results = new ArrayList();
+            app.Tap("Show recyclable items");
+
+
+
+
+            results.Add(app.WaitForElement(c => c.Marked("Cardboard")));
+            results.Add(app.WaitForElement(c => c.Marked("Paper")));
+            results.Add(app.WaitForElement(c => c.Marked("Tin Cans")));
+
+            ArrayList obNames = new ArrayList { "Cardboard", "Paper", "Tin Cans" };
+         
+            int i = 0;
+            foreach (AppResult o in results)
+            {
+
+                Assert.AreEqual(obNames[i], o.Text);
+                i++;
+            }
+
         }
         [Test]
         public void TestThatListViewNonRecyclableItemsContainExpectedInformation()
         {
+            ArrayList results = new ArrayList();
+            app.TapCoordinates(100, 100);
+            app.Tap("Disposables List");
+
+            results.Add(app.WaitForElement(c => c.Marked("Show Non-recyclable items")));
+            Assert.AreEqual(1, results.Count);
+            results = new ArrayList();
+            app.Tap("Show Non-recyclable items");
+
+
+            results.Add(app.WaitForElement(c => c.Marked("Candy")));
+            results.Add(app.WaitForElement(c => c.Marked("Orange Peels")));
+            results.Add(app.WaitForElement(c => c.Marked("Pizza")));
+
+
+            ArrayList obNames = new ArrayList { "Candy", "Orange Peels", "Pizza" };
+            int i = 0;
+            foreach (AppResult o in results)
+            {
+
+                Assert.AreEqual(obNames[i], o.Text);
+                i++;
+            }
+
+
 
         }
-        [Test]
-        public void TestThatRecyclableButtonPopulatesListWithOnlyRecyclableItems()
-        {
-
-        }
-        [Test]
-        public void TestThatNonRecylcableButtonPopulatesListwithOnlyNonRecyclableItems()
-        {
-
-        }
-
+     
 
     }
 }
