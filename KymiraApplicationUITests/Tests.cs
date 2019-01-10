@@ -43,42 +43,32 @@ namespace KymiraApplicationUITests
            ArrayList results = new ArrayList();
             app.TapCoordinates(100, 100);
             app.TapCoordinates(350, 750);
+            results.Add(app.WaitForElement(c => c.Marked("imgLogo")));
+            results.Add(app.WaitForElement(c => c.Marked("etxtPhone")));
+            results.Add(app.WaitForElement(c => c.Marked("etxtPassword")));
+            results.Add(app.WaitForElement(c => c.Marked("tvError")));
+            results.Add(app.WaitForElement(c => c.Marked("btnLogin")));
+            Assert.AreEqual(5, results.Count);
+        }
+        
+       [Test]
+        //test that Invalid Phonenumber Displays Error
+        public void TestThatInvalidPhonenumberDisplaysError()
+       {
+          
+       }
 
-
-
-
+       [Test]
+        //test that Invalid Password Displays Error
+        public void TestThatInvalidPasswordDisplaysError()
+       {
+          
+       }
+        [Test]
+        //test that Invalid Password Displays Error
+        public void TestThatValidPhonenumberPasswordDisplaysHomeScreen()
+        {
 
         }
-        /*
-       [Test]
-       //test that correct address updates the listview with the correct information
-       public void TestThatCorrectAddressUpdatesListView()
-       {
-           ArrayList results = new ArrayList();
-
-           app.EnterText("123 Test Street");
-           app.Tap(c => c.Marked("submitAddress"));
-
-           results.Add(app.WaitForElement(c => c.Marked("Bin ID: 1\tStatus: Good")));
-           results.Add(app.WaitForElement(c => c.Marked("Bin ID: 2\tStatus: Contaminated")));
-
-           Assert.AreEqual(2, results.Count);
-       }
-
-       [Test]
-       //test that incorrect address leaves the listview unchanged
-       public void TestThatIncorrectAddressAffectsListView()
-       {
-           ArrayList results = new ArrayList();
-
-           app.EnterText("12345 Fake Street");
-           app.Tap(c => c.Marked("submitAddress"));
-
-           results.Add(app.WaitForElement(c => c.Marked("No bins associated with that address.")));
-
-
-           Assert.AreEqual(1, results.Count);
-       }
-  */
     }
 }
