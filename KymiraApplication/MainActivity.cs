@@ -7,18 +7,23 @@ using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
+using KymiraApplication.Fragments;
 
 namespace KymiraApplication
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
+        FragmentTransaction fragTrans;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
+
+            fragTrans = FragmentManager.BeginTransaction();
 
             FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += FabOnClick;
@@ -73,9 +78,13 @@ namespace KymiraApplication
         {
             int id = item.ItemId;
 
-            if (id == Resource.Id.nav_camera)
+            if (id == Resource.Id.nav_registration)
             {
-                // Handle the camera action
+                var registrationFragment = new RegistrationFragment();
+
+                fragTrans.Replace(Resource.Id.fragment_container, registrationFragment);
+
+                fragTrans.Commit();
             }
             else if (id == Resource.Id.nav_gallery)
             {

@@ -59,7 +59,23 @@ namespace KymiraApplication.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your fragment here
+            //Assign UI Controls
+            etEmail = View.FindViewById<EditText>(Resource.Id.email_value);
+            etPassword = View.FindViewById<EditText>(Resource.Id.password_value);
+            etPhone = View.FindViewById<EditText>(Resource.Id.phone_value);
+            etFirstName = View.FindViewById<EditText>(Resource.Id.firstName_value);
+            etLastName = View.FindViewById<EditText>(Resource.Id.lastName_value);
+            etAddressLine1 = View.FindViewById<EditText>(Resource.Id.addressLine1_value);
+            etAddressLine2 = View.FindViewById<EditText>(Resource.Id.addressLine2_value);
+            etCity = View.FindViewById<EditText>(Resource.Id.city_value);
+            etPostalCode = View.FindViewById<EditText>(Resource.Id.postalCode_value);
+            termsCheckbox = View.FindViewById<CheckBox>(Resource.Id.termsCheckbox);
+            btnSubmit = View.FindViewById<Button>(Resource.Id.btnSubmit);
+
+            //createSpinners();
+
+            agreeToTerms = false;          
+
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -67,7 +83,9 @@ namespace KymiraApplication.Fragments
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
-            return base.OnCreateView(inflater, container, savedInstanceState);
+            var view = inflater.Inflate(Resource.Layout.registration_layout, container, false);
+
+            return view;
         }
 
         private void createSpinners()

@@ -1,5 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:layout_margin="10dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:descendantFocusability="beforeDescendants"
+        android:id="@+id/scrollView">
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:stretchColumns="1"
+            android:id="@+id/tableLayout">
+            <TextView
+                android:id="@+id/registrationTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Register for Kymira!"
+                android:gravity="center" />
+            <TextView
+                android:id="@+id/email_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email Address:"
+                android:layout_below="@+id/registrationTitle" />
+            <EditText
+                android:id="@+id/email_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:layout_below="@id/email_label" />
+            <TextView
+                android:id="@+id/password_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Password:"
+                android:layout_below="@+id/email_value" />
+            <EditText
+                android:id="@+id/password_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:layout_below="@id/password_label"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+            <TextView
+                android:id="@+id/phone_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phone #:"
+                android:layout_below="@+id/password_value" />
+            <EditText
+                android:id="@+id/phone_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:layout_below="@id/phone_label"
+                android:inputType="none|phone"
+                android:maxLength="10"
+                android:maxLines="1" />
+            <TextView
+                android:id="@+id/firstName_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="First name:"
+                android:layout_below="@+id/phone_value" />
+            <EditText
+                android:id="@+id/firstName_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:layout_below="@id/firstName_label"
+                android:inputType="text"
+                android:maxLines="1" />
+            <TextView
+                android:id="@+id/lastName_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Last name:"
+                android:layout_below="@+id/firstName_value" />
+            <EditText
+                android:id="@+id/lastName_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:layout_below="@+id/lastName_label"
+                android:maxLines="1"
+                android:inputType="text" />
+            <TextView
+                android:id="@+id/BirthDateName_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Birth Date:"
+                android:layout_below="@+id/lastName_value" />
+            <Spinner
+                android:id="@+id/birthDateSpinnerMonth"
+                android:layout_width="450px"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                android:layout_below="@+id/BirthDateName_label" />
+            <Spinner
+                android:id="@+id/birthDateSpinnerDay"
+                android:layout_width="450px"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                android:layout_toRightOf="@+id/birthDateSpinnerMonth"
+                android:layout_below="@+id/BirthDateName_label" />
+            <Spinner
+                android:id="@+id/birthDateSpinnerYear"
+                android:layout_width="450px"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                android:layout_toRightOf="@+id/birthDateSpinnerDay"
+                android:layout_below="@+id/BirthDateName_label" />
+            <TextView
+                android:id="@+id/addressLine1_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address Line 1:"
+                android:layout_below="@+id/birthDateSpinnerYear" />
+            <EditText
+                android:id="@+id/addressLine1_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:layout_below="@+id/addressLine1_label"
+                android:maxLines="1"
+                android:inputType="text" />
+            <TextView
+                android:id="@+id/addressLine2_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address Line 2:"
+                android:layout_below="@+id/addressLine1_value" />
+            <EditText
+                android:id="@+id/addressLine2_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:layout_below="@+id/addressLine2_label"
+                android:maxLines="1"
+                android:inputType="text" />
+            <TextView
+                android:id="@+id/city_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="City:"
+                android:layout_below="@+id/addressLine2_value" />
+            <EditText
+                android:id="@+id/city_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:layout_below="@+id/city_label"
+                android:maxLines="1"
+                android:inputType="text" />
+            <TextView
+                android:id="@+id/province_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Province:"
+                android:layout_below="@+id/city_value" />
+            <Spinner
+                android:id="@+id/provinceSpinner"
+                android:layout_width="450px"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                android:layout_below="@+id/province_label" />
+            <TextView
+                android:id="@+id/postalCode_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Postal Code:"
+                android:layout_below="@+id/provinceSpinner" />
+            <EditText
+                android:id="@+id/postalCode_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:layout_below="@+id/postalCode_label"
+                android:maxLines="1"
+                android:maxLength="6"
+                android:inputType="textPostalAddress" />
+            <CheckBox
+                android:id="@+id/termsCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/postalCode_value"
+                android:text="I agree to the terms and conditions" />
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/termsCheckbox"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="10dip"
+                android:text="Register" />
+        </TableLayout>
+    </ScrollView>
+</RelativeLayout>
