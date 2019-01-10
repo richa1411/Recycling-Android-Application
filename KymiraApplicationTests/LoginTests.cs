@@ -24,7 +24,7 @@ namespace KymiraApplicationTests
         /*   Unit tests for Phonenumber   */
 
         [TestMethod]
-        public void TestPhoneNumberIsEmpty()
+        public void TestThatPhoneNumberIsEmpty()
 
         {
             //Test phone number is empty string
@@ -36,7 +36,7 @@ namespace KymiraApplicationTests
             Assert.AreEqual("Please Enter your Phone Number", results[0].ErrorMessage);
         }
         [TestMethod]
-        public void TestPhoneNumberIsNotEmpty()
+        public void TestThatPhoneNumberIsNotEmpty()
 
         {
             //test phonenumber is non empty
@@ -50,7 +50,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestPhoneNumberNonDigits()
+        public void TestThatPhoneNumberNonDigits()
         {
             //test phonenumber contains characters instead digits
             objCred.phoneNumber = "shahsjhghr";
@@ -66,7 +66,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestPhoneNumberOnlyDigits()
+        public void TestThatPhoneNumberOnlyDigits()
         {
             //Test phone number contains digits
             objCred.phoneNumber = "1234567890";
@@ -76,7 +76,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestPhoneNumberTenDigitLegth()
+        public void TestThatPhoneNumberTenDigitLegth()
         {
             //Test phone number contains 10 digits
             objCred.phoneNumber = "3456789096";
@@ -86,7 +86,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestPhoneNumberExceedTenDigit()
+        public void TestThatPhoneNumberExceedTenDigit()
         {
             //Test phoneNumber contains more than 10 digits
             objCred.phoneNumber = "34567890965657";
@@ -96,7 +96,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestPhoneNumberLessThanTenDigit()
+        public void TestThatPhoneNumberLessThanTenDigit()
         {
             //Test phoneNumber contains less than 10 digits
             objCred.phoneNumber = "345678";
@@ -111,7 +111,7 @@ namespace KymiraApplicationTests
 
 
         [TestMethod]
-        public void TestPasswordIsEmpty()
+        public void TestThatPasswordIsEmpty()
         {
             //Test password with an empty string
             objCred.password = "";
@@ -122,7 +122,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestPasswordIsNotEmpty()
+        public void TestThatPasswordIsNotEmpty()
         {
             //Test password with an non empty string
             objCred.password = "shah1108";
@@ -133,7 +133,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestPasswordISSixChar()
+        public void TestThatPasswordISSixChar()
         {
             //Test Password is  6 characters
             objCred.password = "Shh@11";
@@ -144,7 +144,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestPasswordISFiftyChar()
+        public void TestThatPasswordISFiftyChar()
         {
             //Test Password is  50 characters
             objCred.password = new string('a', 50);
@@ -155,7 +155,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestPasswordLessThanSixChar()
+        public void TestThatPasswordLessThanSixChar()
         {
             //Test password is less than 6 characters
             objCred.password = "Shh@1"; // Password is only 5 characters
@@ -168,7 +168,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod()]
-        public void TestPasswordBetweenSixAndFiftyChar()
+        public void TestThatPasswordBetweenSixAndFiftyChar()
         {
             //Test password is greater than 6 characters but less than 50 charcaters
             objCred.password = "P@ssw0rd1178"; // Password at lower boundary
@@ -179,7 +179,7 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod()]
-        public void TestPasswordGreaterThanFiftyChar()
+        public void TestThatPasswordGreaterThanFiftyChar()
         {
             //Test Password is  51 characters
             objCred.password = new string('a', 51);
