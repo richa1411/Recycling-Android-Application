@@ -8,7 +8,7 @@ namespace kymiraAPI.Models
 {
     public class Site
     {
-        [Key]
+        [Key] //check to see nonautoincrementing id 
         [Required(ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
         [Range(0, int.MaxValue, ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
         public int siteID { get; set; }

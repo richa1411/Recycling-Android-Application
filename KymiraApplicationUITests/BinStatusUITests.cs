@@ -49,6 +49,8 @@ namespace KymiraApplicationUITests
         {
             ArrayList results = new ArrayList();
 
+            //specify addrsss here 
+
             app.Tap(c => c.Marked("submitAddress"));
 
             results.Add(app.WaitForElement(c => c.Marked("No bins seem to be assoicated with that address")));
@@ -91,4 +93,6 @@ namespace KymiraApplicationUITests
             Assert.AreEqual(1, results.Count);
         }
     }
+
+    //add emtpy test 
 }

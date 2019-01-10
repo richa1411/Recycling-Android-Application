@@ -89,7 +89,7 @@ namespace kymiraAPI.Fixtures
          * */
         public static void Load(kymiraAPIContext _context)
         {
-            _context.BinStatus.AddRange(obList);
+            _context.BinStatus.AddRange(obList); //add site range first 
             _context.SaveChangesAsync();
 
         }

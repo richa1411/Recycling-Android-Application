@@ -29,6 +29,7 @@ namespace KymiraApplication.Models
         [Range(1, 3, ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
         public int status { get; set; } //1 -> good, 2 -> blocked, 3 -> Contaminated
 
+        //add site id
     }
 
 }

@@ -63,25 +63,6 @@ namespace kymiraAPI.Controllers
         }
 
   
-        /**
-         * This function takes in a binStatus object and will post it to the Database.
-         * */
-        // POST: api/BinStatus
-        [HttpPost]
-        public async Task<IActionResult> PostBinStatus([FromBody] BinStatus binStatus)
-        {
-       
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.BinStatus.Add(binStatus);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBinStatus", new { id = binStatus.binID }, binStatus);
-        }
 
 
        

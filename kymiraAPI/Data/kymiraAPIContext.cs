@@ -15,9 +15,6 @@ namespace kymiraAPI.Models
 
         }
         
-        public DbSet<kymiraAPI.Models.Resident> ResidentDBSet { get; set; }
-        public DbSet<kymiraAPI.Models.Credentials> Credentials { get; set; }
-        public DbSet<kymiraAPI.Models.Disposable> DisposableDBSet { get; set; }
         public DbSet<kymiraAPI.Models.BinStatus> BinStatus { get; set; }
         
         
