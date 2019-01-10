@@ -28,18 +28,6 @@ namespace kymiraAPITest
             password = "P@ssw0rd"
         };
 
-        [TestInitialize]
-        public async Task setup()
-        {
-            await fixture_story6b.load();
-        }
-
-        [TestCleanup]
-        public async Task teardown()
-        {
-            await fixture_story6b.delete();
-        }
-
         /*--------------------------------------First Name Field Testing-------------------------------------------------------------*/
         [TestMethod]
         /**
