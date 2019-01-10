@@ -87,25 +87,19 @@ namespace kymiraAPI.Fixtures
         /**
          * This function will create a connection to a local test database and load the specific data into it.
          * */
-        public static async Task Load(kymiraAPIContext _context)
+        public static void Load(kymiraAPIContext _context)
         {
-            for (int i = 0; i < obList.Count; i++)
-            {
-                _context.BinStatus.Add(obList[i]);
-                await _context.SaveChangesAsync();
-            }
+            _context.BinStatus.AddRange(obList);
+            _context.SaveChangesAsync();
+
         }
         /**
          * this function will delete all tests information in the database.
          * */
-        public static async Task Unload(kymiraAPIContext _context)
+        public static void Unload(kymiraAPIContext _context)
         {
-
-            for (int i = 0; i < obList.Count; i++)
-            {
-                _context.BinStatus.Remove(obList[i]);
-                await _context.SaveChangesAsync();
-            }
+            _context.BinStatus.RemoveRange(_context.BinStatus);
+            _context.SaveChangesAsync();
         }
     }
 }

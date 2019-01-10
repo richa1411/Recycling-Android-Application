@@ -10,8 +10,7 @@ namespace kymiraAPI.Models
 {
     public class kymiraAPIContext : DbContext
     {
-        public kymiraAPIContext (DbContextOptions<kymiraAPIContext> options)
-            : base(options)
+        public kymiraAPIContext (DbContextOptions<kymiraAPIContext> options) : base(options)
         {
 
         }

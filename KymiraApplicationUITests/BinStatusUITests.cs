@@ -9,12 +9,12 @@ using Xamarin.UITest.Queries;
 namespace KymiraApplicationUITests
 {
     [TestFixture(Platform.Android)]
-    public class Tests
+    public class BinStatusUITests
     {
         IApp app;
         Platform platform;
 
-        public Tests(Platform platform)
+        public BinStatusUITests(Platform platform)
         {
             this.platform = platform;
         }
@@ -23,6 +23,8 @@ namespace KymiraApplicationUITests
         public void BeforeEachTest()
         {
             app = AppInitializer.StartApp(platform);
+            app.Tap(c => c.Marked("nav_view"));
+            app.Tap(c => c.Marked("nav_bin_status"));
         }
 
         [Test]
@@ -30,8 +32,6 @@ namespace KymiraApplicationUITests
         public void TestThatAppInterfaceLoadsCorrectly()
         {
             ArrayList results = new ArrayList();
-
-            results.Add(app.WaitForElement(c => c.Marked("Discovered bins will be displayed here")));
             results.Add(app.WaitForElement(c => c.Marked("Bin Statuses")));
             results.Add(app.WaitForElement(c => c.Marked("Address")));
             results.Add(app.WaitForElement(c => c.Marked("Bins: ")));
@@ -39,39 +39,46 @@ namespace KymiraApplicationUITests
             results.Add(app.WaitForElement(c => c.Marked("submitAddress")));
 
             //check that all elements are here
-            Assert.AreEqual(6, results.Count);
+            Assert.AreEqual(5, results.Count);
         }
 
         [Test]
-        //test that after tapping the Submit button with no address entered, the list view does not change
+        //test that after tapping the Submit button with no address entered, the user gets a message saying tha
+        //there is no bins associated with the address submitted. 
         public void TestThatListViewNotChangedOnEmptyAddress()
         {
             ArrayList results = new ArrayList();
 
             app.Tap(c => c.Marked("submitAddress"));
 
-            results.Add(app.WaitForElement(c => c.Marked("Discovered bins will be displayed here")));
+            results.Add(app.WaitForElement(c => c.Marked("No bins seem to be assoicated with that address")));
 
             Assert.AreEqual(1, results.Count);
         }
 
         [Test]
-        //test that correct address updates the listview with the correct information
+        //test that correct address updates the textviews with the correct information. A fixture class has data that
+        //states that there are three bins for the supplied address two of which are collected and one contaminated. This
+        //test checks that the lables and the associated values load in
         public void TestThatCorrectAddressUpdatesListView()
         {
             ArrayList results = new ArrayList();
 
-            app.EnterText("123 Test Street");
+            app.EnterText("123 Testtwo St");
             app.Tap(c => c.Marked("submitAddress"));
 
-            results.Add(app.WaitForElement(c => c.Marked("Bin ID: 1\tStatus: Good")));
-            results.Add(app.WaitForElement(c => c.Marked("Bin ID: 2\tStatus: Contaminated")));
+            results.Add(app.WaitForElement(c => c.Marked("Collected")));
+            results.Add(app.WaitForElement(c => c.Marked("Contaminated")));
+            results.Add(app.WaitForElement(c => c.Marked("Inaccessable")));
+            results.Add(app.WaitForElement(c => c.Marked("2/3")));
+            results.Add(app.WaitForElement(c => c.Marked("1/3")));
+            results.Add(app.WaitForElement(c => c.Marked("0/3")));
 
             Assert.AreEqual(2, results.Count);
         }
 
         [Test]
-        //test that incorrect address leaves the listview unchanged
+        //test that incorrect address leaves the textviews unchanged
         public void TestThatIncorrectAddressAffectsListView()
         {
             ArrayList results = new ArrayList();
@@ -81,19 +88,7 @@ namespace KymiraApplicationUITests
 
             results.Add(app.WaitForElement(c => c.Marked("No bins associated with that address.")));
 
-
             Assert.AreEqual(1, results.Count);
         }
-
-        [Test]
-        //test that user can navigate to the Bin Status layout/page
-        public void TestThatUserSuccessfullyNavigatesToBinStatusPage()
-        {
-            //start at the main opening page
-            //user taps the BinStatus option
-            //user sees the correct layout
-        }
-
-
     }
 }

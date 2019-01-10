@@ -14,11 +14,7 @@ namespace kymiraAPITest
     public class BinStatusAPITests
     {
         //setup
-        //string dispURL = "http://localhost:55085/api/BinStatus/";
-        //string dispURL = KymiraApplication.Resource.String.UrlBinStatus;
-            //Application.Context.Resources.GetString();
-            //KymiraApplication.Resource.String.UrlBinStatus.ToString();
-            //KymiraApplication.Resources.values.strings.xml;
+        string dispURL = "http://localhost:55085/api/BinStatus/";
         private HttpClient client;
         Uri uri;
         
@@ -28,28 +24,6 @@ namespace kymiraAPITest
             status = 1,
             binAddress = "123 fake Street"
         };
-        
-        /*
-        BinStatus testStatus2 = new BinStatus //bin status object that is good for validation .
-        {
-
-            status = 1,
-            binAddress = "321 fake Street"
-        };
-        BinStatus testStatus3 = new BinStatus //bin status object that is good for validation .
-        {
-
-            status = 1,
-            binAddress = "456 fake Street"
-        };
-      
-        BinStatus badStatus = new BinStatus // bin status with an address not in the database
-        {
-
-            status = 1,
-            binAddress = ""
-        };
-        */
 
         //defined addresses to use for altering the BinStatus object above to
         // check if a BinStatus object is valid or invalid
@@ -245,14 +219,7 @@ namespace kymiraAPITest
                 {
                     Assert.AreEqual(address1, item.binAddress);
                 }
-
-
             }
-
-
         }
-
-     
-
     }
 }
