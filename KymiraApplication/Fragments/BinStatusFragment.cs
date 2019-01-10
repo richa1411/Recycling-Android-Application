@@ -19,8 +19,8 @@ namespace KymiraApplication.Fragments
     public class BinStatusFragment : Fragment
     {
 
-        EditText etAddress;
-        Button btnSubmit;
+        private EditText etAddress;
+        private Button btnSubmit;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
