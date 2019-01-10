@@ -30,6 +30,7 @@ namespace KymiraApplicationUITests
         public void TestThatNavigationBurgerExistsAndDispsoableItemsButtonExists()
         {
             //is item there, is Icon there(if added)
+            app.TapCoordinates(120, 120);
 
         }
 
