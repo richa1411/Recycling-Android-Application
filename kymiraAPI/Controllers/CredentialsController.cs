@@ -40,9 +40,10 @@ namespace kymiraAPI.Controllers
                 return NotFound("{ Error:1 Message:Incorrect phone number or password }");
             }
 
-            base64Guid = Guid.NewGuid();
-
-            return Ok(base64Guid);
+            //for this story we are going to generate token that will be 128 bit unique token
+            //we will use GUID that is inbuilt class for .net that generates each time unique 128 bit token
+            //after successfull generation of token we will convert it in JSON notation and send back to front end 
+           
         }
 
     }

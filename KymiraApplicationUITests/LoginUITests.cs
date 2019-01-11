@@ -40,6 +40,7 @@ namespace KymiraApplicationUITests
        public void TestThatLoginOptionClickOpensLoginPage()
        {
            ArrayList results = new ArrayList();
+            //TODO : fIND A BETTER WAY FOR NAVIGATIONS
             app.TapCoordinates(100, 100);
             app.TapCoordinates(350, 750);
             results.Add(app.WaitForElement(c => c.Marked("imgLogo")));
@@ -53,9 +54,14 @@ namespace KymiraApplicationUITests
        [Test]
         //test that Invalid Phonenumber Displays Error
         public void TestThatInvalidPhonenumberDisplaysError()
-       {
-          
-       }
+        {
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 750);
+            app.EnterText("1234567890");
+            app.EnterText("Pa$$");
+            app.Tap("btnLogin");
+
+        }
 
        [Test]
         //test that Invalid Password Displays Error

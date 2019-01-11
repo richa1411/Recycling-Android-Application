@@ -16,6 +16,10 @@ namespace KymiraApplication.Fragments
     public class LoginFragment : Fragment
     {
         //Will run when the app is run. It is the initial creation of the fragment
+        private EditText phoneField;
+        private EditText passField;
+        private Button btnlogin;
+        private TextView txtError;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
