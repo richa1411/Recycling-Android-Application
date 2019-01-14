@@ -93,7 +93,13 @@ namespace KymiraApplication.Fragments
             termsCheckbox = view.FindViewById<CheckBox>(Resource.Id.termsCheckbox);
             btnSubmit = view.FindViewById<Button>(Resource.Id.btnSubmit);
 
-            createSpinners();
+            //Set click handler for the registration submit button
+            btnSubmit.Click += BtnSubmit_Click;
+
+            //Set the click handler for the terms checkbox
+            termsCheckbox.Click += TermsCheckbox_Click;
+
+            createSpinners();          
 
             return view;
         }
@@ -136,11 +142,6 @@ namespace KymiraApplication.Fragments
             birthDateSpinnerDay = view.FindViewById<Spinner>(Resource.Id.birthDateSpinnerDay);
             birthDateSpinnerDay.Enabled = false;
             birthDateSpinnerDay.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(birthDateDaySpinner_ItemSelected);
-            //var dayAdapter = ArrayAdapter.CreateFromResource(
-            //this, Resource.Array.birthDateDay_array, Android.Resource.Layout.SimpleSpinnerItem);         
-
-            //dayAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            //birthDateSpinnerDay.Adapter = dayAdapter;
 
             //Create listener and adapter for province spinner
             provinceSpinner = view.FindViewById<Spinner>(Resource.Id.provinceSpinner);
@@ -161,15 +162,15 @@ namespace KymiraApplication.Fragments
 
             int birthMonth = 1;
 
-            //Currently this is failing because this.month is not set at this point!!!
             Int32.TryParse(this.month, out birthMonth);
 
             int days = DateTime.DaysInMonth(birthYear, birthMonth);
+
             birthDayRange = new string[days];
 
-            for(int i = 1; i <= days; i++)
+            for(int i = 0; i < days; i++)
             {
-                birthDayRange[i] = i.ToString();
+                birthDayRange[i] = (i + 1).ToString();
             }
 
             var dayAdapter = new ArrayAdapter<string>(this.Context, Android.Resource.Layout.SimpleSpinnerItem, birthDayRange);
@@ -218,7 +219,6 @@ namespace KymiraApplication.Fragments
             //Otherwise, create a JSON object from the form data and send a post request to the API
             else
             {
-                //"http://kymiraapi20181030112027.azurewebsites.net/api/Residents";
                 var success = await sendJsonAsync(obRegistration);
                 Toast.MakeText(this.Context, success, ToastLength.Short).Show();
             }
@@ -227,8 +227,14 @@ namespace KymiraApplication.Fragments
         //This method handles sending a serialized Registration json object
         public async Task<String> sendJsonAsync(Registration item)
         {
+            //Get the string value of the Resident controller from the application's string resources
+            string strURI = Context.Resources.GetString(Resource.String.UrlResidents);
+
+            //CURRENTLY GETTING AN ERROR ABOUT NOT IN HTTPS SCHEME OR SOMETHING
+            //URI PROBABLY NEEDS TO BE AN HTTP LOCATION INSTEAD OF LOCALHOST?
+
             //Convert the given string to a URI
-            Uri uri = new Uri(Resource.String.UrlResidents.ToString(), UriKind.Absolute);
+            Uri uri = new Uri(strURI, UriKind.Absolute);
 
             // Serialize the Registration item into a JSON object
             var json = JsonConvert.SerializeObject(item);
@@ -256,7 +262,11 @@ namespace KymiraApplication.Fragments
             Spinner spinner = (Spinner)sender;
 
             this.year = spinner.SelectedItem.ToString();
-            Toast.MakeText(this.Context, "Year onClick has been run", ToastLength.Short).Show();
+
+            if(!String.IsNullOrEmpty(this.month))
+            {
+                calculateDatesOfMonth();
+            }            
         }
 
         private void birthDateDaySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -331,12 +341,15 @@ namespace KymiraApplication.Fragments
                     break;
             }
 
+            this.month = strMonth;
+
+
             //Set the class variable of month to the month selected by the spinner
             if (!String.IsNullOrEmpty(this.month)) {
                 calculateDatesOfMonth();
             }
 
-            this.month = strMonth;            
+                      
         }
 
         private void provinceSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
