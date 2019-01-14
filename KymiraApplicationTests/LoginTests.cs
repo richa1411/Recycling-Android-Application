@@ -108,8 +108,6 @@ namespace KymiraApplicationTests
 
         /*  Unit tests for Password  */
 
-
-
         [TestMethod]
         public void TestThatPasswordIsEmpty()
         {
@@ -135,7 +133,7 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void TestThatPasswordISSixChar()
         {
-            //Test Password is  6 characters
+            //Test Password is 6 characters
             objCred.password = "Shh@11";
 
             var results = TestValidationHelper.Validate(objCred);
@@ -146,7 +144,7 @@ namespace KymiraApplicationTests
         [TestMethod]
         public void TestThatPasswordIsFiftyChar()
         {
-            //Test Password is  50 characters
+            //Test Password is 50 characters
             objCred.password = new string('a', 50);
 
             var results = TestValidationHelper.Validate(objCred);
@@ -181,7 +179,7 @@ namespace KymiraApplicationTests
         [TestMethod()]
         public void TestThatPasswordGreaterThanFiftyChar()
         {
-            //Test Password is  51 characters
+            //Test Password is 51 characters
             objCred.password = new string('a', 51);
 
             var results = TestValidationHelper.Validate(objCred);
@@ -193,7 +191,7 @@ namespace KymiraApplicationTests
         [TestMethod()]
         public void TestThatTokenIsGUIDFormat()
         {
-            //Test token  is  in GUID format 
+            //Test token is in GUID format 
            objToken.token = "1bf89a1c-3934-4e5b-b7be-7bfb766689c2";
            
             var results = TestValidationHelper.Validate(objToken);
@@ -204,19 +202,19 @@ namespace KymiraApplicationTests
         [TestMethod()]
         public void TestThatTokenIsNotInGUIDFormat()
         {
-            //Test token  is  in GUID format 
+            //Test token is not in GUID format 
             objToken.token = "1bf89a1c/fdhdhdf4356656546+fghf&";
 
             var results = TestValidationHelper.Validate(objToken);
 
             Assert.AreEqual(1, results.Count);
-           Assert.AreEqual("token is not in proper GUID format", results[0].ErrorMessage);
+            Assert.AreEqual("token is not in proper GUID format", results[0].ErrorMessage);
         }
 
         [TestMethod()]
         public void TestThatTokenIsNull()
         {
-            //Test token  is  in GUID format 
+            //Test token is null (blank)
             objToken.token = "";
 
             var results = TestValidationHelper.Validate(objToken);

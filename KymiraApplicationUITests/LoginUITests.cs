@@ -52,7 +52,7 @@ namespace KymiraApplicationUITests
         }
         
        [Test]
-        //test that Invalid Phonenumber Displays Error
+        //test that Invalid Phone number Displays Error
         public void TestThatInvalidPhonenumberDisplaysError()
         {
             app.TapCoordinates(100, 100);
@@ -70,7 +70,7 @@ namespace KymiraApplicationUITests
           
        }
         [Test]
-        //test that Invalid Password Displays Error
+        //test that a valid Password Displays the home screen
         public void TestThatValidPhonenumberPasswordDisplaysHomeScreen()
         {
 
