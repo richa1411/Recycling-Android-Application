@@ -8,6 +8,7 @@ using Xamarin.UITest.Queries;
 
 namespace KymiraApplicationUITests
 {
+    
     [TestFixture(Platform.Android)]
 
     public class Tests
@@ -55,25 +56,107 @@ namespace KymiraApplicationUITests
         //test that Invalid Phone number Displays Error
         public void TestThatInvalidPhonenumberDisplaysError()
         {
+            ArrayList results = new ArrayList();
+
             app.TapCoordinates(100, 100);
             app.TapCoordinates(350, 750);
-            app.EnterText("1234567890");
+            app.TapCoordinates(100, 980);
+
+            app.EnterText("1230");
+            app.WaitForElement(c => c.Marked("1230"));
+
+            app.TapCoordinates(100, 1150);
             app.EnterText("Pa$$");
             app.Tap("btnLogin");
+            
+            results.Add(app.WaitForElement(c => c.Marked("Phone number must be 10 digits")));
 
+            Assert.AreEqual(1, results.Count);
         }
 
        [Test]
         //test that Invalid Password Displays Error
         public void TestThatInvalidPasswordDisplaysError()
        {
-          
-       }
+            ArrayList results = new ArrayList();
+
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 750);
+            app.TapCoordinates(100, 980);
+
+            app.EnterText("1234567890");
+
+            //will wait for a certain amount of time
+            //app.WaitForElement(x => x.Id("etxtPhone"), timeout: TimeSpan.FromSeconds(120));
+            app.WaitForElement(c => c.Marked("1234567890"));
+            app.TapCoordinates(100, 1150);
+            app.EnterText("Pa$$");
+            app.Tap("btnLogin");
+
+            results.Add(app.WaitForElement(c => c.Marked("Password must be between 6 - 50 characters")));
+
+            Assert.AreEqual(1, results.Count);
+        }
         [Test]
-        //test that a valid Password Displays the home screen
+        //test that Invalid Phone number Displays Error
+        public void TestThatEmptyPhonenumberDisplaysError()
+        {
+            ArrayList results = new ArrayList();
+
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 750);
+            
+            app.TapCoordinates(100, 1150);
+            app.EnterText("Pa$$word");
+            app.Tap("btnLogin");
+
+            results.Add(app.WaitForElement(c => c.Marked("Please enter a valid phone number")));
+
+            Assert.AreEqual(1, results.Count);
+        }
+
+        [Test]
+        //test that Invalid Password Displays Error
+        public void TestThatEmptyPasswordDisplaysError()
+        {
+            ArrayList results = new ArrayList();
+
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 750);
+            app.TapCoordinates(100, 980);
+
+            app.EnterText("1234567890");
+            app.WaitForElement(c => c.Marked("1234567890"));
+
+
+            app.Tap("btnLogin");
+
+            results.Add(app.WaitForElement(c => c.Marked("Please enter your password")));
+
+            Assert.AreEqual(1, results.Count);
+        }
+        [Test]
+        //Test that a valid phone number and password will display the home screen (Successful Login)
         public void TestThatValidPhonenumberPasswordDisplaysHomeScreen()
         {
+            ArrayList results = new ArrayList();
 
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 750);
+            app.TapCoordinates(100, 980);
+
+            app.EnterText("1234567890");
+            app.WaitForElement(c => c.Marked("1234567890"));
+
+            app.TapCoordinates(100, 1150);
+            app.EnterText("Pa$$w0rd");
+            app.Tap("btnLogin");
+
+            //results.Add(app.WaitForElement(c => c.Marked("Please enter your password")));
+
+            Assert.AreEqual(0, results.Count);
+
+            //Currently just displays and stores no errors. Still need to navigate to the actual home page
         }
     }
 }
