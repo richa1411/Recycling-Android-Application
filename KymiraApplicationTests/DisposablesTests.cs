@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KymiraApplication.Models;
+using KymiraApplication.Fragments;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -85,7 +86,7 @@ namespace KymiraApplicationTests
         {
             KymiraApplication.Models.ListDisposable.requestDisposableListAsyncDemo(true);
 
-            disposables = KymiraApplication.Models.ListDisposable.getDisposableList();
+            disposables = KymiraApplication.Fragments.DisposablesFragment.getDisposableList();
 
             Assert.IsTrue(disposables[0].isRecyclable);
             Assert.IsTrue(disposables[1].isRecyclable);
