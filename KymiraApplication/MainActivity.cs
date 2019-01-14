@@ -50,16 +50,16 @@ namespace KymiraApplication
             return true;
         }
 
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            int id = item.ItemId;
-            if (id == Resource.Id.action_settings)
-            {
-                return true;
-            }
+        //public override bool OnOptionsItemSelected(IMenuItem item)
+        //{
+        //    int id = item.ItemId;
+        //    if (id == Resource.Id.action_settings)
+        //    {
+        //        return true;
+        //    }
 
-            return base.OnOptionsItemSelected(item);
-        }
+        //    return base.OnOptionsItemSelected(item);
+        //}
 
         
 

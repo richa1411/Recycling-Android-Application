@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace KymiraApplicationTests.Models
+namespace KymiraApplication.Models
 {
     /*
      * This Token class will hold the authentication token given by the backend once the credentials have passed

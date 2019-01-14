@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using KymiraApplicationTests.Models;
+using KymiraApplication.Models;
 using System.Linq;
 
 namespace KymiraApplicationTests

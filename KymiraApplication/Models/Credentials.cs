@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace KymiraApplicationTests.Models
+
+namespace KymiraApplication.Models
 {
     public class Credentials
     {
