@@ -20,7 +20,7 @@ namespace KymiraApplication.Fragments
     public class RegistrationFragment : Fragment
     {
         // The class has a private HttpClient for POST and GET requests
-        private HttpClient client = new HttpClient();
+        private HttpClient client;
         private View view;
         //Declare edit text fields that we will need access to
         private EditText etEmail;
@@ -69,9 +69,6 @@ namespace KymiraApplication.Fragments
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            
-            agreeToTerms = false;          
-
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -80,6 +77,8 @@ namespace KymiraApplication.Fragments
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
             view = inflater.Inflate(Resource.Layout.registration_layout, container, false);
+            client = new HttpClient();
+            agreeToTerms = false;   
 
             //Assign UI Controls
             etEmail = view.FindViewById<EditText>(Resource.Id.email_value);
@@ -166,6 +165,7 @@ namespace KymiraApplication.Fragments
             Int32.TryParse(this.month, out birthMonth);
 
             int days = DateTime.DaysInMonth(birthYear, birthMonth);
+            birthDayRange = new string[days];
 
             for(int i = 1; i <= days; i++)
             {
@@ -256,6 +256,7 @@ namespace KymiraApplication.Fragments
             Spinner spinner = (Spinner)sender;
 
             this.year = spinner.SelectedItem.ToString();
+            Toast.MakeText(this.Context, "Year onClick has been run", ToastLength.Short).Show();
         }
 
         private void birthDateDaySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -331,9 +332,11 @@ namespace KymiraApplication.Fragments
             }
 
             //Set the class variable of month to the month selected by the spinner
-            this.month = strMonth;
+            if (!String.IsNullOrEmpty(this.month)) {
+                calculateDatesOfMonth();
+            }
 
-            calculateDatesOfMonth();
+            this.month = strMonth;            
         }
 
         private void provinceSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
