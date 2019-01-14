@@ -7,100 +7,99 @@ using kymiraAPI;
 
 namespace kymiraAPI.Fixtures
 {
+    //This class is used to add and delete data from the database in order for backend API tests to pass.
+
     public class fixture_bin_status
     {
-        //** Bin Statuses **/
-        //TO DO: add Site objects FIRST then add BinStatus objects to link to the Site objects
-        //TO DO: also add history for some BinStatus objects
-        public static List<BinStatus> obList = new List<BinStatus>(new BinStatus[] { new BinStatus
+        //Site objects to add to the database
+        public static List<Site> obSites = new List<Site>(new Site[] { new Site { siteID = 10, address = "123 Test Street" },
+            new Site { siteID = 20, address = "123 Another Street"}, new Site { siteID = 30, address = "123 Fake Street" } });
+
+
+        //BinStatus objects to add to the database
+        public static List<BinStatus> obBins = new List<BinStatus>(new BinStatus[] { new BinStatus
         {
             binID = 1,
-            binAddress = "123 Testone St",
-            siteID = 1,
+            siteID = 10,
             status = 1,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
             binID = 2,
-            binAddress = "123 Testone St",
-            siteID = 1,
+            siteID = 10,
             status = 2,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
             binID = 3,
-            binAddress = "123 Testtwo St",
-            siteID = 2,
+            siteID = 20,
             status = 1,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
              binID = 4,
-            binAddress = "123 Testtwo St",
-            siteID = 2,
+            siteID = 20,
             status = 1,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
             binID = 5,
-            binAddress = "123 Testtwo St",
-            siteID = 2,
+            siteID = 20,
             status = 3,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
             binID = 6,
-            binAddress = "123 Testfour St",
-            siteID = 3,
+            siteID = 30,
             status = 1,
             collectionDate = "2019-01-01"
         },
+            //---------history pickups for 3 bins---------------
             new BinStatus
         {
             binID = 3,
-            binAddress = "123 Testtwo St",
-            siteID = 2,
+            siteID = 20,
             status = 1,
             collectionDate = "2019-02-02"
         },
             new BinStatus
         {
              binID = 4,
-            binAddress = "123 Testtwo St",
-            siteID = 2,
+            siteID = 20,
             status = 1,
             collectionDate = "2019-02-02"
         },
             new BinStatus
         {
             binID = 5,
-            binAddress = "123 Testtwo St",
-            siteID = 2,
+            siteID = 20,
             status = 3,
             collectionDate = "2019-02-02"
-        }
-        });
+        }});
 
         /**
          * This function will create a connection to a local test database and load the specific data into it.
+         * It first adds the Site objects needed and then loads in the following BinStatus objects.
          * */
         public static void Load(kymiraAPIContext _context)
         {
-            _context.BinStatus.AddRange(obList); //add site range first 
+            _context.Site.AddRange(obSites);
+            _context.BinStatus.AddRange(obBins);
             _context.SaveChangesAsync();
 
         }
         /**
-         * this function will delete all tests information in the database.
+         * This function will delete all test information in the database.
          * */
         public static void Unload(kymiraAPIContext _context)
         {
             _context.BinStatus.RemoveRange(_context.BinStatus);
+            _context.Site.RemoveRange(_context.Site);
             _context.SaveChangesAsync();
         }
     }

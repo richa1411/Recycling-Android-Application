@@ -16,7 +16,7 @@ namespace kymiraAPI.Models
         }
         
         public DbSet<kymiraAPI.Models.BinStatus> BinStatus { get; set; }
-        
-        
+
+        public DbSet<kymiraAPI.Models.Site> Site { get; set; }
     }
 }

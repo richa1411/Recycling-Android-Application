@@ -18,7 +18,7 @@ namespace KymiraApplication.Fragments
 {
     public class BinStatusFragment : Fragment
     {
-
+        //controls to grab from the layout
         private EditText etAddress;
         private Button btnSubmit;
 
@@ -41,9 +41,22 @@ namespace KymiraApplication.Fragments
             etAddress = view.FindViewById<EditText>(Resource.Id.addressEntry);
             btnSubmit = view.FindViewById<Button>(Resource.Id.submitAddress);
 
+            btnSubmit.Click += BtnSubmit_Click;
+
             return view;
         }
 
-        //method to handle button click 
+        /**
+         * This method is used for when the submit button is clicked. It sends the string in the etAddress field and waits for a list of BinStatus objects
+         * that are associated with the sent address. 
+         */
+        private void BtnSubmit_Click(object sender, EventArgs e)
+        {
+            //send the address string
+            string address = etAddress.Text;
+
+            //TODO: also populate the proper labels with the information and do a count
+
+        }
     }
 }

@@ -19,6 +19,7 @@ namespace kymiraAPI.Controllers
         {
             _context = context;
         }
+
         /**
          * 
          * gets all binStatus objects from DB
@@ -32,34 +33,42 @@ namespace kymiraAPI.Controllers
 
 
         /**
-         * This method will take a binStatus Object from the application and return a List of binStatus objects that have a matching 
-         * binStatus Address. 
-         * will return a 404 not found if nothing is matching.
-         * */
+         * This method will take in an address string from the application and return a List of BinStatus objects that are associated to that address.
+         * It will search for a Site object with the address passed in and then go through that Site's corresponding list of BinStatus objects.
+         * It will then bring back a list of BinStatus's with the most RECENT COLLECTION DATES.
+         * 
+         * The method will return a Bad Request if the string passed in is an empty string or if it is greater than 200 characters.
+         * The method will return 404 not found if something went wrong (no matching site with that address).
+         **/
         // PUT: api/BinStatus/5
         [HttpPut]
-        public async Task<IActionResult> PutBinStatus( [FromBody] string binAddress)
+        public async Task<IActionResult> PutBinStatus( [FromBody] string address)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if(binAddress == "" || binAddress.Length >200)
+            //if the string passed in is invalid in any way, return a Bad Request
+            if(address == "" || address.Length >200)
             {
                 return BadRequest("Bad Request");
 
             }
             
-            //todo: site where the bin address is 
-            var binStatus = await _context.BinStatus.Where(m => m.binAddress == binAddress).ToListAsync();
+            //finding matching site
+            var siteFound = await _context.Site.Where(m => m.address == address).ToListAsync();
 
-            if (binStatus == null)
+            if (siteFound == null)
             {
                 return NotFound();
             }
 
-            return Ok(binStatus);
+            //find corresponding BinStatus objects
+//            var binsFound = await _context.BinStatus.Where(m => m.siteID == siteFound.siteID).ToListAsync();
+
+            //return matching BinStatus's
+            return Ok(siteFound);
         }
 
   

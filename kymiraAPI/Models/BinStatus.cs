@@ -15,13 +15,13 @@ namespace kymiraAPI.Models
     public class BinStatus
     {
         [Key]
-        [Required(ErrorMessage = "No bin was registered to that address")]
-        [Range(0, int.MaxValue, ErrorMessage = "BinID must be a valid number")]
+        [Range(1, int.MaxValue, ErrorMessage = "BinID must be a valid number")]
         public int binID { get; set; }
 
-        
+
+        //1 -> Collected, 2 -> Inaccessible, 3 -> Contaminated
         [Range(1, 3, ErrorMessage = "A status can only be the value of 1, 2, or 3")]
-        public int status { get; set; } //1 -> good, 2 -> blocked, 3 -> Contaminated
+        public int status { get; set; }
 
         public override string ToString()
         {

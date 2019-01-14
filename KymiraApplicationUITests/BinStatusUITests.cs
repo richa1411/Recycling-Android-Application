@@ -22,6 +22,7 @@ namespace KymiraApplicationUITests
         [SetUp]
         public void BeforeEachTest()
         {
+            //navigate to the bin status view page each time
             app = AppInitializer.StartApp(platform);
             app.Tap(c => c.Marked("nav_view"));
             app.Tap(c => c.Marked("nav_bin_status"));

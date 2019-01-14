@@ -7,6 +7,8 @@ using System.Text;
 
 namespace kymiraAPITest
 {
+    //This test class will validate the properties of a BinStatus and Site object.
+
     [TestClass]
     public class BinStatusAPITests
     {
@@ -28,7 +30,6 @@ namespace kymiraAPITest
         public IList<ValidationResult> results;
 
         /*--------------------------------BinStatus validation tests--------------------------------*/
-        
 
         [TestMethod]
         //testing that the status of a BinStatus object cannot be less than 1
@@ -58,8 +59,62 @@ namespace kymiraAPITest
             Assert.AreEqual(0, results.Count);
         }
 
+        [TestMethod]
+        //testing that the status of a BinStatus object can be between 1 and 3
+        public void TestThatBinStatusOfValidNumberIsValid()
+        {
+            testBin.status = 2;
+            results = HelperTestModel.Validate(testBin);
+            Assert.AreEqual(0, results.Count);
+        }
 
+        [TestMethod]
+        //testing that the collectionDate of a BinStatus object must follow a valid format
+        public void TestThatBinStatusDateBadFormatIsInvalid()
+        {
+            testBin.collectionDate = "20191-101-01";
+            results = HelperTestModel.Validate(testBin);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Collection date must be a valid date", results[0].ErrorMessage);
+        }
 
+        [TestMethod]
+        //testing that a valid collectionDate of a BinStatus object is valid
+        public void TestThatBinStatusDateGoodFormatIsValid()
+        {
+            testBin.collectionDate = "2019-01-01";
+            results = HelperTestModel.Validate(testBin);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        //testing that the collectionDate of a BinStatus object cannot be an empty string
+        public void TestThatBinStatusDateEmptyStringIsInvalid()
+        {
+            testBin.collectionDate = "";
+            results = HelperTestModel.Validate(testBin);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Collection date is required", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        //testing that the valid binID of a BinStatus object is valid
+        public void TestThatBinStatusBinIDIsValid()
+        {
+            testBin.binID = 10;
+            results = HelperTestModel.Validate(testBin);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        //testing that the binID of a BinStatus object cannot be less than 1
+        public void TestThatBinStatusBinIDLessThanOneIsInvalid()
+        {
+            testBin.binID = 0;
+            results = HelperTestModel.Validate(testBin);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("BinID must be a valid number", results[0].ErrorMessage);
+        }
 
         /*--------------------------------Site validation tests--------------------------------*/
         [TestMethod]
@@ -118,11 +173,6 @@ namespace kymiraAPITest
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
         }
-
-        
-
-
-
 
     }
 }
