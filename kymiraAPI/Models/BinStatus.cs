@@ -9,15 +9,18 @@ namespace kymiraAPI.Models
 {
     /**
      *  This class contains definitions for a BinStatus object that will be saved to the database.
+     *  When an excel sheet is added by an admin/Ken with the bin statuses, there may be other statuses other than
+     *  Collected (1), Inaccessible (2) or Contaminated (3) --> therefore, any other status will be counted as a Bin Status of Inaccessible
      */
     public class BinStatus
     {
         [Key]
         [Required(ErrorMessage = "No bin was registered to that address")]
-        [Range(0, int.MaxValue, ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
+        [Range(0, int.MaxValue, ErrorMessage = "BinID must be a valid number")]
         public int binID { get; set; }
 
-        [Range(1, 3, ErrorMessage = "Sorry something went wrong, please try again in a few minutes")]
+        
+        [Range(1, 3, ErrorMessage = "A status can only be the value of 1, 2, or 3")]
         public int status { get; set; } //1 -> good, 2 -> blocked, 3 -> Contaminated
 
         public override string ToString()

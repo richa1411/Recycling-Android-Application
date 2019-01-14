@@ -10,6 +10,8 @@ namespace kymiraAPI.Fixtures
     public class fixture_bin_status
     {
         //** Bin Statuses **/
+        //TO DO: add Site objects FIRST then add BinStatus objects to link to the Site objects
+        //TO DO: also add history for some BinStatus objects
         public static List<BinStatus> obList = new List<BinStatus>(new BinStatus[] { new BinStatus
         {
             binID = 1,
