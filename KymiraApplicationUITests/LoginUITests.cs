@@ -62,11 +62,11 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(350, 750);
             app.TapCoordinates(100, 980);
 
-            app.EnterText("1230");
-            app.WaitForElement(c => c.Marked("1230"));
+            app.EnterText("JohnDoe123");
+            app.WaitForElement(c => c.Marked("JohnDoe123"));
 
             app.TapCoordinates(100, 1150);
-            app.EnterText("Pa$$w0rd");
+            app.EnterText("P@ssw0");
             app.Tap("btnLogin");
             
             results.Add(app.WaitForElement(c => c.Marked("Phone number must be 10 digits")));
@@ -74,7 +74,25 @@ namespace KymiraApplicationUITests
             Assert.AreEqual(1, results.Count);
         }
 
-       [Test]
+        [Test]
+        //test that Invalid Phone number Displays Error
+        public void TestThatEmptyPhonenumberDisplaysError()
+        {
+            ArrayList results = new ArrayList();
+
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 750);
+
+            app.TapCoordinates(100, 1150);
+            app.EnterText("P@ssw0");
+            app.Tap("btnLogin");
+
+            results.Add(app.WaitForElement(c => c.Marked("Please enter a valid phone number")));
+
+            Assert.AreEqual(1, results.Count);
+        }
+
+        [Test]
         //test that Invalid Password Displays Error
         public void TestThatInvalidPasswordDisplaysError()
        {
@@ -97,23 +115,7 @@ namespace KymiraApplicationUITests
 
             Assert.AreEqual(1, results.Count);
         }
-        [Test]
-        //test that Invalid Phone number Displays Error
-        public void TestThatEmptyPhonenumberDisplaysError()
-        {
-            ArrayList results = new ArrayList();
-
-            app.TapCoordinates(100, 100);
-            app.TapCoordinates(350, 750);
-            
-            app.TapCoordinates(100, 1150);
-            app.EnterText("Pa$$word");
-            app.Tap("btnLogin");
-
-            results.Add(app.WaitForElement(c => c.Marked("Please enter a valid phone number")));
-
-            Assert.AreEqual(1, results.Count);
-        }
+        
 
         [Test]
         //test that Invalid Password Displays Error

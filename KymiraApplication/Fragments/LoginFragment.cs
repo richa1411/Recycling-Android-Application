@@ -58,7 +58,7 @@ namespace KymiraApplication.Fragments
 
         //Will first check the client side validation. If the client side validation passes (Format validation)
         //It will further then check the backend validation for the correct credentials (Registered Validation)
-        private void btnLogin_Click(Object sender, EventArgs e)
+        private async void btnLogin_Click(Object sender, EventArgs e)
         {
             //*******************************************************************************//
             // THIS CURRENTLY USES A JSON OBJECT... WE NEED IT TO USE AN AUTHENTICATION TOKEN //
@@ -75,23 +75,37 @@ namespace KymiraApplication.Fragments
                 {
                     using (var client = new HttpClient())
                     {
-
-
                         // create the request content and define Json  
                         var json = JsonConvert.SerializeObject(objCred);
                         var content = new StringContent(json, Encoding.UTF8, "application/json");
                         //TODO: Add proper url 
                         //  send a POST request  
-                        var uri = "";
+                        var uri = "http://10.0.2.2:55085/api/Credentials";
                         var result = await client.PostAsync(uri, content);
 
-                        // on error throw a exception  
-                        result.EnsureSuccessStatusCode();
+                        //on error throw an exception
+                        var success = result.StatusCode;
 
-                        // handling the answer  
+                        if((int)success != 200)
+                        {
+                            txtError.Text = "Incorrect phone number or password";
+                        }
+                        
+                        //handling the answer  
                         var resultString = await result.Content.ReadAsStringAsync();
                         //TODO get back resident object or authentication token
-                        var post = JsonConvert.DeserializeObject<Credentials>(resultString);
+
+                        Token objToken = new Token
+                        {
+                            token = JsonConvert.DeserializeObject(resultString).ToString()
+                        };
+                        
+                        var validationResult = ValidationHelper.Validate(objToken);
+
+                        if(validationResult.Count == 0)
+                        {
+
+                        }
                     }
                 };
 
