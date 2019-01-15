@@ -17,6 +17,9 @@ using Newtonsoft.Json;
 
 namespace KymiraApplication.Fragments
 {
+    /**
+     * Registration Fragment, handles registration through the app
+     **/
     public class RegistrationFragment : Fragment
     {
         // The class has a private HttpClient for POST and GET requests
@@ -71,6 +74,9 @@ namespace KymiraApplication.Fragments
             base.OnCreate(savedInstanceState);
         }
 
+        /**
+         * Registration oncreate function, sets up the layout and calls createspinners
+         * */
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
@@ -104,6 +110,9 @@ namespace KymiraApplication.Fragments
             return view;
         }
 
+        /**
+         * creates the spinners, also populates the year spinner
+         * */
         private void createSpinners()
         {
             birthYearRange = new string[120];
@@ -154,6 +163,10 @@ namespace KymiraApplication.Fragments
 
         }
 
+        /**
+         * helper function to calculate the days in the month and populate the day spinner 
+         * based on month and year spinner values
+         * */
         private void calculateDatesOfMonth()
         {
             int birthYear = 0;
@@ -179,6 +192,9 @@ namespace KymiraApplication.Fragments
             birthDateSpinnerDay.Enabled = true;
         }
 
+        /**
+         * onclick listener for the termss checkbox 
+         * */
         private void TermsCheckbox_Click(object sender, EventArgs e)
         {
             CheckBox checkbox = (CheckBox)sender;
@@ -194,6 +210,10 @@ namespace KymiraApplication.Fragments
             }
         }
 
+        /**
+         * Submit button click handler, creates registration object, 
+         * validates it and sends it
+         * */
         private async void BtnSubmit_Click(object sender, EventArgs e)
         {
             string strRegBirthDate = this.year + "-" + this.month + "-" + this.day;
@@ -220,19 +240,33 @@ namespace KymiraApplication.Fragments
             else
             {
                 var success = await sendJsonAsync(obRegistration);
-                Toast.MakeText(this.Context, success, ToastLength.Short).Show();
+                if (success.IsSuccessStatusCode)
+                {
+                    //success case
+                    Toast.MakeText(this.Context, "Successful Registration: " + success.StatusCode.ToString(), ToastLength.Short).Show();
+                    //switch back to main fragment
+                    var ft = FragmentManager.BeginTransaction();
+                    var mainfrag = new MainFragment();
+
+                    ft.Replace(Resource.Id.fragment_container, mainfrag);
+                }
+                else
+                {
+                    //fail case
+                    Toast.MakeText(this.Context, "Registration Failed: " + success.StatusCode.ToString(), ToastLength.Short).Show();
+                }
+                
             }
         }
 
-        //This method handles sending a serialized Registration json object
-        public async Task<String> sendJsonAsync(Registration item)
+        /**
+         * This method handles sending a serialized Registration json object
+         **/
+        public async Task<HttpResponseMessage> sendJsonAsync(Registration item)
         {
             //Get the string value of the Resident controller from the application's string resources
             string strURI = Context.Resources.GetString(Resource.String.UrlResidents);
-
-            //CURRENTLY GETTING AN ERROR ABOUT NOT IN HTTPS SCHEME OR SOMETHING
-            //URI PROBABLY NEEDS TO BE AN HTTP LOCATION INSTEAD OF LOCALHOST?
-
+            
             //Convert the given string to a URI
             Uri uri = new Uri(strURI, UriKind.Absolute);
 
@@ -244,19 +278,12 @@ namespace KymiraApplication.Fragments
 
             // Create an HttpResponseMessage to hold the response of the HttpClient's POST
             HttpResponseMessage response = await client.PostAsync(uri, content);
+            return response;
+         }
 
-            // If JSON was sent successfully, return that
-            if (response.IsSuccessStatusCode)
-            {
-                return "Registration successful!";
-            }
-            // Else, notify user that it failed
-            else
-            {
-                return "Registration failed";
-            }
-        }
-
+        /**
+         * item select listener for year spinner, updates the days spinner if required
+         * */
         private void birthDateYearSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
@@ -269,6 +296,9 @@ namespace KymiraApplication.Fragments
             }            
         }
 
+        /**
+         * item select listener for day spinner
+         * */
         private void birthDateDaySpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
@@ -291,6 +321,9 @@ namespace KymiraApplication.Fragments
             }
         }
 
+        /**
+         * item select listener for month spinner, updates the days spinner if required
+         * */
         private void birthDateMonthSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
@@ -347,11 +380,12 @@ namespace KymiraApplication.Fragments
             //Set the class variable of month to the month selected by the spinner
             if (!String.IsNullOrEmpty(this.month)) {
                 calculateDatesOfMonth();
-            }
-
-                      
+            }        
         }
 
+        /**
+         * item select listener for province spinner
+         * */
         private void provinceSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             Spinner spinner = (Spinner)sender;
