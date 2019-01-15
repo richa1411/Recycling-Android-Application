@@ -80,7 +80,9 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(199, 1189);
 
             app.Tap("birthDateSpinnerYear");
-            app.Tap("2012");
+            app.ScrollDownTo(m => m.Text("1990"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
+            app.Tap("1990");
+
 
             Assert.IsTrue(true);
         }
