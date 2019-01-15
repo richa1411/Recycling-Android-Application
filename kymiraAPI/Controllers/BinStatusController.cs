@@ -50,7 +50,7 @@ namespace kymiraAPI.Controllers
             }
 
             //if the string passed in is invalid in any way, return a Bad Request
-            if(address == "" || address.Length >200)
+            if(address == "" || address.Length > 200)
             {
                 return BadRequest("Bad Request");
 

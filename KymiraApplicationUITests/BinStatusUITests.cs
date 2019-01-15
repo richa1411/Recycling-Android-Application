@@ -35,26 +35,58 @@ namespace KymiraApplicationUITests
             ArrayList results = new ArrayList();
             results.Add(app.WaitForElement(c => c.Marked("Bin Statuses")));
             results.Add(app.WaitForElement(c => c.Marked("Address")));
-            results.Add(app.WaitForElement(c => c.Marked("Bins: ")));
             results.Add(app.WaitForElement(c => c.Marked("addressEntry").Text("")));
-            results.Add(app.WaitForElement(c => c.Marked("submitAddress")));
+            results.Add(app.WaitForElement(c => c.Marked("btnSubmit")));
+            results.Add(app.WaitForElement(c => c.Marked("lblCollected")));
+            results.Add(app.WaitForElement(c => c.Marked("lblContaminated")));
+            results.Add(app.WaitForElement(c => c.Marked("lblInaccessible")));
 
             //check that all elements are here
-            Assert.AreEqual(5, results.Count);
+            Assert.AreEqual(7, results.Count);
         }
 
+
+        //-----------------Address UI tests-------------------------------
         [Test]
-        //test that after tapping the Submit button with no address entered, the user gets a message saying tha
+        //test that after tapping the Submit button with no address entered, the user gets a message saying that
         //there is no bins associated with the address submitted. 
         public void TestThatListViewNotChangedOnEmptyAddress()
         {
             ArrayList results = new ArrayList();
+            
+            app.Tap(c => c.Marked("btnSubmit"));
 
-            //specify addrsss here 
+            results.Add(app.WaitForElement(c => c.Marked("Address cannot be empty")));
 
-            app.Tap(c => c.Marked("submitAddress"));
+            Assert.AreEqual(1, results.Count);
+        }
 
-            results.Add(app.WaitForElement(c => c.Marked("No bins seem to be assoicated with that address")));
+        [Test]
+        //test that address cannot be greater than 200 characters
+        public void TestThatListViewNotChangedOnLargeAddress()
+        {
+            ArrayList results = new ArrayList();
+
+            app.Tap(c => c.Marked("addressEntry"));
+            app.EnterText(new String('a', 201));
+            app.Tap(c => c.Marked("btnSubmit"));
+
+            results.Add(app.WaitForElement(c => c.Marked("Address must be 1 to 200 characters")));
+
+            Assert.AreEqual(1, results.Count);
+        }
+
+        [Test]
+        //test that address can be 200 characters (no matching bins but does not give user an error)
+        public void TestThatListViewUnchangedOn200CharAddress()
+        {
+            ArrayList results = new ArrayList();
+
+            app.Tap(c => c.Marked("addressEntry"));
+            app.EnterText(new String('a', 200));
+            app.Tap(c => c.Marked("btnSubmit"));
+
+            results.Add(app.WaitForElement(c => c.Marked("No matching bins with that address")));
 
             Assert.AreEqual(1, results.Count);
         }
@@ -67,12 +99,10 @@ namespace KymiraApplicationUITests
         {
             ArrayList results = new ArrayList();
 
-            app.EnterText("123 Testtwo St");
-            app.Tap(c => c.Marked("submitAddress"));
-
-            results.Add(app.WaitForElement(c => c.Marked("Collected")));
-            results.Add(app.WaitForElement(c => c.Marked("Contaminated")));
-            results.Add(app.WaitForElement(c => c.Marked("Inaccessable")));
+            app.EnterText("123 Test Street");
+            app.Tap(c => c.Marked("btnSubmit"));
+            
+            //make sure populated textviews are correct/not empty
             results.Add(app.WaitForElement(c => c.Marked("2/3")));
             results.Add(app.WaitForElement(c => c.Marked("1/3")));
             results.Add(app.WaitForElement(c => c.Marked("0/3")));
@@ -87,7 +117,7 @@ namespace KymiraApplicationUITests
             ArrayList results = new ArrayList();
 
             app.EnterText("12345 Fake Street");
-            app.Tap(c => c.Marked("submitAddress"));
+            app.Tap(c => c.Marked("btnSubmit"));
 
             results.Add(app.WaitForElement(c => c.Marked("No bins associated with that address.")));
 

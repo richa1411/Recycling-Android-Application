@@ -8,35 +8,71 @@
         android:id="@+id/binStatusTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textSize="50px" />
     <TextView
         android:text="@string/address"
         android:id="@+id/addressLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/binStatusTitle" />
+        android:layout_below="@+id/binStatusTitle"
+        android:textSize="50px" />
     <EditText
         android:id="@+id/addressEntry"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:inputType="text"
-        android:layout_toRightOf="@+id/addressLabel" />
+        android:layout_toRightOf="@+id/addressLabel"
+        android:textSize="50px" />
     <Button
-        android:id="@+id/submitAddress"
+        android:id="@+id/btnSubmit"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="@string/submitAddress"
-        android:layout_below="@+id/addressEntry" />
+        android:text="@string/btnSubmit"
+        android:layout_below="@+id/addressEntry"
+        android:textSize="50px" />
+<!-- The hard-coded string values to display to the app -->
     <TextView
-        android:text="Bins: "
-        android:id="@+id/binAddressLabel"
+        android:id="@+id/lblCollected"
+        android:text="@string/lblCollected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSubmit"
+        android:textSize="50px" />
+    <TextView
+        android:id="@+id/lblContaminated"
+        android:text="@string/lblContaminated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblCollected"
+        android:textSize="50px" />
+    <TextView
+        android:id="@+id/lblInaccessible"
+        android:text="@string/lblInaccessible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblContaminated"
+        android:textSize="50px" />
+<!-- The "labels" to be populated upon receiving results from a search (start as empty strings) -->
+    <TextView
+        android:id="@+id/tvCollected"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/submitAddress"
-        android:gravity="center" />
-    <ListView
-        android:id="@+id/binStatusList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/binAddressLabel" />
+        android:textSize="50px" />
+    <TextView
+        android:id="@+id/tvContaminated"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50px"
+        android:layout_below="@+id/tvCollected" />
+    <TextView
+        android:id="@+id/tvInaccessible"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50px"
+        android:layout_below="@+id/tvContaminated" />
 </RelativeLayout>

@@ -7,5 +7,8 @@
   <!-- Strings for showing recent Bin Statuses -->
   <string name="binStatusLayoutTitle">Bin Statuses</string>
   <string name="address">Address</string>
-  <string name="submitAddress">Submit</string>
+  <string name="btnSubmit">Search</string>
+  <string name="lblCollected">Collected:</string>
+  <string name="lblContaminated">Contaminated:</string>
+  <string name="lblInaccessible">Inaccessible:</string>
 </resources>
