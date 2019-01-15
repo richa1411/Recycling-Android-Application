@@ -78,17 +78,17 @@ namespace KymiraApplication
         {
             int id = item.ItemId;
 
-            if (id == Resource.Id.nav_registration)
+            if (id == Resource.Id.nav_login)
+            {
+
+            }
+            else if (id == Resource.Id.nav_registration)
             {
                 var registrationFragment = new RegistrationFragment();
 
                 fragTrans.Replace(Resource.Id.fragment_container, registrationFragment);
 
                 fragTrans.Commit();
-            }
-            else if (id == Resource.Id.nav_gallery)
-            {
-
             }
             else if (id == Resource.Id.nav_slideshow)
             {

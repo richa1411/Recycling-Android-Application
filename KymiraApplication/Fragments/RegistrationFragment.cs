@@ -227,9 +227,6 @@ namespace KymiraApplication.Fragments
             //Validate the Registration object
             validationResults = ValidationHelper.Validate(obRegistration);
 
-            //Alter the form of the birth date -- CHANGE THIS
-            //obRegistration.birthDate = this.year + "-" + this.month + "-" + this.day;
-
             //If the validationResults list has anything in it
             if (validationResults.Count > 0)
             {
