@@ -23,9 +23,9 @@ namespace kymiraAPITest
             ID = 1,
             name = "Glass Bottles",
             description = "These are Glass Bottles",
-            pictureID = "tomatoes",
+            imageURL = "tomatoes",
             isRecyclable = true,
-            recyclableReason = "Glass Bottles Reason",
+            recycleReason = "Glass Bottles Reason",
             endResult = "Glass Bottles End Result",
             qtyRecycled = 1000
         };
@@ -34,9 +34,9 @@ namespace kymiraAPITest
         {
             name = "Hey",
             description = "I'm a Potato",
-            pictureID = "Potato",
+            imageURL = "Potato",
             isRecyclable = false,
-            recyclableReason = "Cause",
+            recycleReason = "Cause",
             endResult = "tomato sauce",
             qtyRecycled = 1000
         };
@@ -179,7 +179,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatPictureIDIsEmpty()
         {
-            testDbItem.pictureID = null;
+            testDbItem.imageURL = null;
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("PictureID is required", results[0].ErrorMessage);
@@ -192,7 +192,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatPictureIDIsAString()
         {
-            testDbItem.pictureID = "pizza";
+            testDbItem.imageURL = "pizza";
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //no errors
@@ -205,7 +205,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatPictureIDCanNotbeGreaterThan90Characters()
         {
-            testDbItem.pictureID = new string('a', 91);
+            testDbItem.imageURL = new string('a', 91);
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("PictureID must be 90 characters or less", results[0].ErrorMessage);
@@ -218,7 +218,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatPictureIDis90Characters()
         {
-            testDbItem.pictureID = new string('a', 90);
+            testDbItem.imageURL = new string('a', 90);
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //error
@@ -262,7 +262,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatRecyclableReasonIsValid()
         {
-            testDbItem.recyclableReason = "Because stone cold steve austin said so";
+            testDbItem.recycleReason = "Because stone cold steve austin said so";
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //noerror
@@ -276,7 +276,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatRecyclableReasonIsGreaterThan500Characters()
         {
-            testDbItem.recyclableReason = new string('a', 501);
+            testDbItem.recycleReason = new string('a', 501);
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Reason must be 500 characters or less.", results[0].ErrorMessage);
@@ -291,7 +291,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatRecyclableReasonIs500Characters()
         {
-            testDbItem.recyclableReason = new string('a', 500);
+            testDbItem.recycleReason = new string('a', 500);
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
          
@@ -305,7 +305,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatRecyclableReasonIsEmpty()
         {
-            testDbItem.recyclableReason = null;
+            testDbItem.recycleReason = null;
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Disposable must have a recyclable reason", results[0].ErrorMessage);

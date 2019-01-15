@@ -8,6 +8,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using KymiraApplication.Models;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Runtime;
+using KymiraApplication;
 
 namespace KymiraApplicationTests
 {
@@ -38,36 +43,74 @@ namespace KymiraApplicationTests
         [TestInitialize]
         public void TestInitialize()
         {
-            // Define the JSON Array
-            jsonArray = new string[6]; 
-
-            // Create JSON Objects based off of disposable items, i.e. items that could be pulled from the DB
-             jsonObject1 = "{ 'name' : 'Paper', 'description' : 'itemDesc', 'imageURL' : 'paper'," +
-            " 'isReyclable' : 'true', 'endResult' : 'Paper is turned into more paper', 'qtyRecycled' : '10', 'recycleReason' : 'Paper can be re-used'}";
-
-             jsonObject2 = "{ 'name' : 'Plastic', 'description' : 'itemDesc', 'imageURL' : 'plastic'," +
-                " 'isReyclable' : 'true', 'endResult' : 'plastic is turned into more plastic', 'qtyRecycled' : '10', 'recycleReason' : 'plastic can be re-used'}";
-
-             jsonObject3 = "{ 'name' : 'Food', 'description' : 'itemDesc', 'imageURL' : 'food'," +
-                " 'isReyclable' : 'false', 'endResult' : 'food is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'food cannot be re-used'}";
-
-             jsonObject4 = "{ 'name' : 'Pizza', 'description' : 'itemDesc', 'imageURL' : 'Pizza'," +
-                " 'isReyclable' : 'false', 'endResult' : 'pizza is not recyclable', 'qtyRecycled' : '0', 'recycleReason' : 'pizza cannot be re-used'}";
-
-            jsonObject5 = "{ 'name' : '', 'description' : 'itemDesc', 'imageURL' : 'plastic'," +
-                 " 'isReyclable' : 'false', 'endResult' : 'pizza is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'pizza cannot be re-used'}";
-
-            jsonObject6 = "{ 'name' : 'Pop tarts', 'description' : '', 'imageURL' : 'plastic'," +
-                " 'isReyclable' : 'false', 'endResult' : 'pizza is not recyclable', 'qtyRecycled' : '10', 'recycleReason' : 'pizza cannot be re-used'}";
-
-            jsonObject7 = "{ 'name' : 'Cardboard', 'description' : 'itemDesc', 'imageURL' : ''," +
-                " 'isReyclable' : 'true', 'endResult' : 'cardboard is turned into more cardboard', 'qtyRecycled' : '20', 'recycleReason' : 'cardboard can be re-used'}";
 
 
-            recItem1 = new Disposable("Food", "itemDesc", "food", false, "food is not recyclable", 10, "food cannot be re-used");
-            recItem2 = new Disposable("Pizza", "itemDesc", "Pizza", false, "pizza is not recyclable", 0, "pizza cannot be re-used");
-            recItem3 = new Disposable("Pop tarts", "", "plastic", false, "pizza is not recyclable", 10, "pizza cannot be re-used");
-            recItem4 = new Disposable("Cardboard", "itemDesc", "No_Image", true, "cardboard is turned into more cardboard", 20, "cardboard can be re-used");
+            List<Disposable> obList = new List<Disposable>(new Disposable[] { new Disposable
+        {
+
+            name = "Cardboard",
+            description = "Cardboard Description",
+            imageURL = "Cardboard.png",
+            isRecyclable = true,
+            recycleReason = "Cardboard Reason",
+            endResult = "Cardboard End Result",
+            qtyRecycled = 1000
+        }, new Disposable
+        {
+
+            name = "Paper",
+            description = "Paper Description",
+            imageURL = "",
+            isRecyclable = true,
+            recycleReason = "Paper Reason",
+            endResult = "Paper End Result",
+            qtyRecycled = 2500
+        },
+            new Disposable
+        {
+
+            name = "Tin Cans",
+            description = "Tins Cans Description",
+            imageURL = "TinCans.png",
+            isRecyclable = true,
+            recycleReason = "Tin Cans Reason",
+            endResult = "Tin Cans End Result",
+            qtyRecycled = 1200
+        },
+            new Disposable
+        {
+
+            name = "Pizza",
+            description = "Pizza Description",
+            imageURL = "Pizza.png",
+            isRecyclable = false,
+            recycleReason = "Pizza Reason",
+            endResult = "Pizza End Result",
+            qtyRecycled = 0
+        },
+            new Disposable
+        {
+
+            name = "Orange Peels",
+            description = "Orange Peels Description",
+            imageURL = "OrangePeels.png",
+            isRecyclable = false,
+            recycleReason = "Orange Peels Reason",
+            endResult = "Orange Peels End Result",
+            qtyRecycled = 0
+        },
+            new Disposable
+        {
+
+            name = "Candy",
+            description = "Candy Description",
+            imageURL = "Candy.png",
+            isRecyclable = false,
+            recycleReason = "Candy Reason",
+            endResult = "Candy End Result",
+            qtyRecycled = 0
+        }
+        });
 
         }
 
@@ -82,23 +125,39 @@ namespace KymiraApplicationTests
          *
          */
         [TestMethod]
-        public void testRetrieveRecyclables()
+        public async void testRetrieveRecyclablesAsync()
         {
-            KymiraApplication.Models.ListDisposable.requestDisposableListAsyncDemo(true);
+            List<Disposable> disposables = new List<Disposable>();
+            HttpClient client = new HttpClient();
 
-            disposables = KymiraApplication.Fragments.DisposablesFragment.getDisposableList();
+            String url = KymiraApplication.Resource.String.UrlAPI.ToString();
 
+            
+
+            Uri uri = new Uri(url, UriKind.Absolute);
+
+            // HttpResponseMessage response = await client.GetAsync(uri);
+
+            // if (response.IsSuccessStatusCode)
+            //{
+            //var content = await response.Content.ReadAsStringAsync();
+
+            // dList = JsonConvert.DeserializeObject<List<Disposable>>(content);
+            //}
+
+
+
+
+            //test that we get the right size back from the database.
+            Assert.IsTrue(disposables.Count == 6);
+            //testing that the first 3 are recyclable
             Assert.IsTrue(disposables[0].isRecyclable);
             Assert.IsTrue(disposables[1].isRecyclable);
-            Assert.IsTrue(disposables[2].isRecyclable);
-
-            KymiraApplication.Models.ListDisposable.requestDisposableListAsyncDemo(false);
-
-            disposables = KymiraApplication.Models.ListDisposable.getDisposableList();
-
-            Assert.AreEqual(disposables[0].isRecyclable, false);
-            Assert.AreEqual(disposables[1].isRecyclable, false);
-            Assert.AreEqual(disposables[2].isRecyclable, false);
+            Assert.IsTrue(disposables[2].isRecyclable); 
+            //testing that the last 3 are not recyclable.
+            Assert.AreEqual(disposables[3].isRecyclable, false);
+            Assert.AreEqual(disposables[4].isRecyclable, false);
+            Assert.AreEqual(disposables[5].isRecyclable, false);
 
         }
 
@@ -106,219 +165,351 @@ namespace KymiraApplicationTests
         #region Validation Tests
 
 
-        /** TestEmptyList
-         * 
-         * This test will test to see if an exception occurs if no information can be retrieved
-         * for the list of Recyclables.
-         * 
-         * This test will throw an Exception stating there is a problem retrieving the items.
-         *
-         */
+        /**
+      * Tests that the model allows a valid object
+      * */
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
-        public void testEmptyList()
+        public void AllRecyclableInformationIsValidTest()
         {
-            disposables = new Disposable[0];
-            if (disposables.Length < 1)
-            {
-                throw new Exception("Error connecting to server, please try again later.");
-            }
-            Assert.IsTrue(disposables.Length < 1);
-        }
 
-
-        /** TestNoDescription
-         * 
-         * This test will test to make sure no errors are thrown if the description
-         * field is left blank.
-         * 
-         * This test will pass if a blank description is added, and if
-         * no errors are thrown when validation is performed on that description.
-         *
-         */
-        [TestMethod]
-        public void testNoDescription()
-        {
-            recItem1.description = "";
-            Assert.AreEqual("", recItem1.description);
-            var results = HelperTestModel.Validate(recItem1);
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
 
         }
 
-        /** TestDescription
-         * 
-         * This test will test to see that no errors are thrown if the
-         * description field exists.
-         * 
-         * This test will pass if an item has a description and no errors
-         * occur. 
-         *
-         */
+        ////*********** ID ***********
+        /**
+         * Tests that the model allows a valid id.
+         * */
         [TestMethod]
-        public void testDescription()
-        {         
-            recItem1.description = "It is Paper";
-            Assert.IsTrue(recItem1.description == "It is Paper");
-            var results = HelperTestModel.Validate(recItem1);
+        public void TestThatIDIsValid()
+        {
+           
+            disposables[0].ID = 1;
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
+
+
         }
 
 
-        /** TestNoName()
-         * 
-         * This test will test to see if an error is thrown properly when
-         * a disposable object has no name.
-         * 
-         * This test will pass if it is able to throw an error when
-         * an object with no name is found.
-         *
-         */
+
+        //*********** NAME ***********
+        /**
+        * Test that name cannot be empty. result is invalid.
+        * */
         [TestMethod]
-        public void testNoName()
+        public void TestThatNameIsEmpty()
         {
-            recItem1.name = "";
-            Assert.IsTrue(recItem1.name == "");
-            var results = HelperTestModel.Validate(recItem1);
-            Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("No name is present", results[0].ErrorMessage);
+            disposables[0].name = null;
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Name is required", results[0].ErrorMessage);
+        }
+        /**
+        * Test that Name cannot be greater than 50 characters. result is invalid.
+        * */
+        [TestMethod]
+        public void TestThatNameIs51CharsLong()
+        {
+
+            //ErrorMessage = "name must be 50 characters or less."
+            disposables[0].name = new string('a', 51);
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("name must be 50 characters or less.", results[0].ErrorMessage);
+
         }
 
-        /** TestReyclableStatusExists()
-         * 
-         * This test will test to see if no errors are thrown
-         * when an item has a valid isRecyclable status
-         * 
-         * This test will pass if no errors occur when an object with an isRecyclable 
-         * status is found.
-         *
-         */
+        /**
+        * Test that Name is 50 charactesr long. result is valid
+        * */
         [TestMethod]
-        public void testReyclableStatusExists()
+        public void TestThatNameIs50CharsLong()
         {
-            Assert.IsTrue(recItem4.isRecyclable);
-            var results = HelperTestModel.Validate(recItem1);
-            Assert.AreEqual(0, results.Count());
-        }
-
-
-        /** TestName()
-         * 
-         * This test will test to see if no errors are thrown
-         * when an item has a valid name
-         * 
-         * This test will pass if no errors occur when an object with a name is found. 
-         *
-         */
-        [TestMethod]
-        public void testName()
-        {
-            recItem1.name = "Paper";
-            Assert.IsTrue(recItem1.name == "Paper");
-            var results = HelperTestModel.Validate(recItem1);
+            disposables[0].name = new string('a', 50);
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
+
+            //no errors
+
         }
 
-        /** TestNoTurnedInto()
-         * 
-         * This test will test to see if no errors are thrown
-         * when an item has a no endResult field
-         * 
-         * This test will pass if no errors occur when an object with no endResult is found. 
-         *
-         */
+        //*********** DESCRIPTION ***********
+        /**
+         * Test that the description is valid.
+         * */
         [TestMethod]
-        public void testNoTurnedInto()
+        public void TestThatDescriptionisValid()
         {
-            recItem1.endResult = "";
-            Assert.IsTrue(recItem1.endResult == "");
-            var results = HelperTestModel.Validate(recItem1);
+            disposables[0].description = "PRJ2Cosmo";
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
+            //NoError
+
+        }
+        /**
+         * Test that Description is empty. result will be invalid.
+         * */
+        [TestMethod]
+        public void TestThatDescriptionisEmpty()
+        {
+            disposables[0].description = null;
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Description is required", results[0].ErrorMessage);
+            //error
+
+        }
+        /**
+         * Test that the description is greater than 500 chracters. result will be invalid
+         * */
+        [TestMethod]
+        public void TestThatDescriptionisGreaterThan500Characters()
+        {
+            disposables[0].description = new string('a', 501);
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Description must be 500 characters or less.", results[0].ErrorMessage);
+            //error
+
+        }
+        /**
+         * Tests the boundary case that the disposable description can be 500 characters.
+         * */
+        [TestMethod]
+        public void TestThatDescriptionis500Characters()
+        {
+            disposables[0].description = new string('a', 500);
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(0, results.Count);
+
+
+
         }
 
-        /** TestTurnedInto
-         * 
-         * This test will test to see if no errors are thrown
-         * when an item has a valid endResult field
-         * 
-         * This test will pass if no errors occur when an object with an endResult is found. 
-         *
-         */
+        //*********** PICTURE ***********
+        /**
+        * Tests that pictureID cannot be empty. result is invalid.
+        * */
         [TestMethod]
-        public void testTurnedInto()
+        public void TestThatPictureIDIsEmpty()
         {
-            recItem1.endResult = "Paper is turned into more paper";
-            Assert.IsTrue(recItem1.endResult == "Paper is turned into more paper");
-            var results = HelperTestModel.Validate(recItem1);
+            disposables[0].imageURL = null;
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("PictureID is required", results[0].ErrorMessage);
+            //errors
+
+        }
+        /**
+        * Test that pictureID is a Number. result is valid
+        * */
+        [TestMethod]
+        public void TestThatPictureIDIsAString()
+        {
+            disposables[0].imageURL = "pizza";
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
+            //no errors
+
         }
 
-        /** TestNoItemQuantity
-         * 
-         * This test will test to see if no errors are thrown
-         * when an item has no qtyRecycled field.
-         * 
-         * This test will pass if no errors occur when an object with an empty qtyRecycled is found
-         *
-         */
+        /**
+        * Test that Picture must be a number. result invalid.
+        * */
         [TestMethod]
-        public void testNoitemQuantity()
+        public void TestThatPictureIDCanNotbeGreaterThan90Characters()
         {
-            recItem1.qtyRecycled = 0;
-            Assert.IsTrue(recItem1.qtyRecycled == 0);
-            var results = HelperTestModel.Validate(recItem1);
+            disposables[0].imageURL = new string('a', 91);
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("PictureID must be 90 characters or less", results[0].ErrorMessage);
+            //error
+
+        }
+        /**
+         * Tests that the disposable picture id is valid at 90 characters
+         * */
+        [TestMethod]
+        public void TestThatPictureIDis90Characters()
+        {
+            disposables[0].imageURL = new string('a', 90);
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
+            //error
+
         }
 
-        /** TestItemQuantity
-         * 
-         * This test will test to see if no errors are thrown
-         * when an item has a valid qtyRecycled
-         * 
-         * This test will pass if no errors occur when an object with a valid qtyRecycled is found. 
-         *
-         */
+        //*********** isRECYCLABLE ***********
+
+        /**
+         * Test that the disposable item is not recyclable. IsRecyclable set to false is Valid
+         * */
         [TestMethod]
-        public void testitemQuanity()
+        public void TestThatisRecyclableIsFalse()
         {
-            recItem1.qtyRecycled = 10;
-            Assert.IsTrue(recItem1.qtyRecycled == 10);
-            var results = HelperTestModel.Validate(recItem1);
+            disposables[0].isRecyclable = false;
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
+            //NoError
+
+        }
+        /**
+         * Test that the disposible item is recyclable. isRecyclable set to true is valid
+         * */
+        [TestMethod]
+        public void TestThatisRecyclableIsTrue()
+        {
+
+            disposables[0].isRecyclable = true;
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(0, results.Count);
+            //NoError
+
         }
 
-        /** TestNoRecyclableReason
-         * 
-         * This test will test to see if no errors are thrown
-         * when an item has an empty recycleReason
-         * 
-         * This test will pass if no errors occur when an object with an empty recycleReason is found. 
-         *
-         */
+
+
+        //*********** RECYCLABLEREASON ***********
+        /**
+        * Tests that RecyclableReason passes validation and is valid. 
+        * */
         [TestMethod]
-        public void testNoRecyclableReason()
+        public void TestThatRecyclableReasonIsValid()
         {
-            recItem1.recycleReason = "";
-            Assert.IsTrue(recItem1.recycleReason == "");
-            var results = HelperTestModel.Validate(recItem1);
+            disposables[0].recycleReason = "Because stone cold steve austin said so";
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
+            //noerror
+
+
         }
 
-        /** TestRecyclable
-         * 
-         * This test will test to see if no errors are thrown
-         * when an item has a valid RecycleReason
-         * 
-         * This test will pass if no errors occur when an object with a valid RecycleReason is found. 
-         *
-         */
+        /**
+        * Tests that recycable reason cannot be greater than 500 characters. result is invalid
+        * */
         [TestMethod]
-        public void testRecyclableReason()
+        public void TestThatRecyclableReasonIsGreaterThan500Characters()
         {
-            recItem1.recycleReason = "Paper can be re-used";
-            Assert.IsTrue(recItem1.recycleReason == "Paper can be re-used");
-            var results = HelperTestModel.Validate(recItem1);
+            disposables[0].recycleReason = new string('a', 501);
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Reason must be 500 characters or less.", results[0].ErrorMessage);
+
+            //error
+
+
+        }
+        /**
+         * Tests that the dispoable recyclable reason is valid at 500 characters.
+         * */
+        [TestMethod]
+        public void TestThatRecyclableReasonIs500Characters()
+        {
+            disposables[0].recycleReason = new string('a', 500);
+            var results = HelperTestModel.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
+
+
+
+        }
+
+        /**
+        * Test that Recyable Reason cannot be empty. result is invalid
+        * */
+        [TestMethod]
+        public void TestThatRecyclableReasonIsEmpty()
+        {
+            disposables[0].recycleReason = null;
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Disposable must have a recyclable reason", results[0].ErrorMessage);
+
+            //error
+
+
+        }
+
+
+
+        //*********** ENDRESULT ***********
+        /**
+        * Tests that end result is valid and passes validations. 
+        * */
+        [TestMethod]
+        public void TestThatisEndResultisValid()
+        {
+            disposables[0].endResult = "toilet paper for babies. this ad was sponsered by huggies";
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(0, results.Count);
+            //Noerror
+
+
+        }
+        /**
+        * Tests that the end result cannot be greater than 500 characters. Result is invalid
+        * */
+        [TestMethod]
+        public void TestThatisEndResultIsGreaterThan500Characters()
+        {
+
+            disposables[0].endResult = new string('a', 501);
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Result must be 500 characters or less.", results[0].ErrorMessage);
+
+            //error
+
+
+        }
+        /**
+         * Tests that the disposable object end result is valid at 500 charactesr.
+         * */
+        [TestMethod]
+        public void TestThatisEndResultIs500Characters()
+        {
+
+            disposables[0].endResult = new string('a', 500);
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(0, results.Count);
+
+
+
+        }
+        /**
+         * Tests that the end result cannot be empty. Result is invalid
+         * */
+        [TestMethod]
+        public void TestThatisEndResultIsEmpty()
+        {
+            disposables[0].endResult = null;
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("An end result is required", results[0].ErrorMessage);
+
+
+            //error
+
+
+        }
+
+
+        //*********** qtyRecycled ***********
+
+        /**
+         * Tests that the qty Recycled is a valid input ( int). result is valid
+         * */
+        [TestMethod]
+        public void TestThatisqtyRecycledIsValid()
+        {
+
+            disposables[0].qtyRecycled = 1234567;
+            var results = HelperTestModel.Validate(disposables[0]);
+            Assert.AreEqual(0, results.Count);
+            //Noerror
+
+
         }
         #endregion Validation Tests
     }

@@ -9,6 +9,8 @@ namespace KymiraApplication
     {
         public static List<ValidationResult> Validate(object model)
         {
+
+
             var results = new List<ValidationResult>();
 
             var validationContext = new ValidationContext(model, null, null);

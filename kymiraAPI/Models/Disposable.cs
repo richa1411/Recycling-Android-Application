@@ -28,7 +28,7 @@ namespace kymiraAPI.Models
 
         [Required(ErrorMessage = "PictureID is required")]
         [StringLength(90, ErrorMessage = "PictureID must be 90 characters or less")]
-        public string pictureID { get; set; }
+        public string imageURL { get; set; }
 
 
         [Required(ErrorMessage = "Disposable must have a recyclable/non-recyclable option")]
@@ -37,7 +37,7 @@ namespace kymiraAPI.Models
 
         [Required(ErrorMessage = "Disposable must have a recyclable reason")]
         [StringLength(500, ErrorMessage = "Reason must be 500 characters or less.")]
-        public string recyclableReason { get; set; }
+        public string recycleReason { get; set; }
 
 
         [Required(ErrorMessage = "An end result is required")]

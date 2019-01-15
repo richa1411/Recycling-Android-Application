@@ -7,7 +7,7 @@ using kymiraAPI;
 
 namespace kymiraAPI.Fixtures
 {
-    static class fixture_story6c
+    static class fixture_disposables
     {
 
         //** Recyclable Items **/
@@ -16,9 +16,9 @@ namespace kymiraAPI.Fixtures
           
             name = "Cardboard",
             description = "Cardboard Description",
-            pictureID = "Cardboard.png",
+            imageURL = "Cardboard.png",
             isRecyclable = true,
-            recyclableReason = "Cardboard Reason",
+            recycleReason = "Cardboard Reason",
             endResult = "Cardboard End Result",
             qtyRecycled = 1000
         }, new Disposable
@@ -26,9 +26,9 @@ namespace kymiraAPI.Fixtures
            
             name = "Paper",
             description = "Paper Description",
-            pictureID = "",
+            imageURL = "",
             isRecyclable = true,
-            recyclableReason = "Paper Reason",
+            recycleReason = "Paper Reason",
             endResult = "Paper End Result",
             qtyRecycled = 2500
         },
@@ -37,9 +37,9 @@ namespace kymiraAPI.Fixtures
            
             name = "Tin Cans",
             description = "Tins Cans Description",
-            pictureID = "TinCans.png",
+            imageURL = "TinCans.png",
             isRecyclable = true,
-            recyclableReason = "Tin Cans Reason",
+            recycleReason = "Tin Cans Reason",
             endResult = "Tin Cans End Result",
             qtyRecycled = 1200
         },
@@ -48,9 +48,9 @@ namespace kymiraAPI.Fixtures
             
             name = "Pizza",
             description = "Pizza Description",
-            pictureID = "Pizza.png",
+            imageURL = "Pizza.png",
             isRecyclable = false,
-            recyclableReason = "Pizza Reason",
+            recycleReason = "Pizza Reason",
             endResult = "Pizza End Result",
             qtyRecycled = 0
         },
@@ -59,9 +59,9 @@ namespace kymiraAPI.Fixtures
            
             name = "Orange Peels",
             description = "Orange Peels Description",
-            pictureID = "OrangePeels.png",
+            imageURL = "OrangePeels.png",
             isRecyclable = false,
-            recyclableReason = "Orange Peels Reason",
+            recycleReason = "Orange Peels Reason",
             endResult = "Orange Peels End Result",
             qtyRecycled = 0
         },
@@ -70,9 +70,9 @@ namespace kymiraAPI.Fixtures
             
             name = "Candy",
             description = "Candy Description",
-            pictureID = "Candy.png",
+            imageURL = "Candy.png",
             isRecyclable = false,
-            recyclableReason = "Candy Reason",
+            recycleReason = "Candy Reason",
             endResult = "Candy End Result",
             qtyRecycled = 0
         }
