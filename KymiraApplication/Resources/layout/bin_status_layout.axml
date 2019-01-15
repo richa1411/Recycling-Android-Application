@@ -23,7 +23,9 @@
         android:layout_width="match_parent"
         android:inputType="text"
         android:layout_toRightOf="@+id/addressLabel"
-        android:textSize="50px" />
+        android:textSize="50px"
+        android:layout_marginBottom="10.0dp"
+        android:layout_marginTop="14.5dp" />
     <Button
         android:id="@+id/btnSubmit"
         android:layout_height="wrap_content"
@@ -38,41 +40,52 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnSubmit"
-        android:textSize="50px" />
+        android:textSize="50px"
+        android:padding="5px" />
     <TextView
         android:id="@+id/lblContaminated"
         android:text="@string/lblContaminated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lblCollected"
-        android:textSize="50px" />
+        android:textSize="50px"
+        android:padding="5px" />
     <TextView
         android:id="@+id/lblInaccessible"
         android:text="@string/lblInaccessible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/lblContaminated"
-        android:textSize="50px" />
+        android:textSize="50px"
+        android:padding="5px" />
 <!-- The "labels" to be populated upon receiving results from a search (start as empty strings) -->
     <TextView
         android:id="@+id/tvCollected"
-        android:text=""
-        android:layout_width="wrap_content"
+        android:text="n/n"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/submitAddress"
-        android:textSize="50px" />
+        android:layout_toRightOf="@+id/lblCollected"
+        android:textSize="50px"
+        android:layout_marginLeft="184.0dp"
+        android:layout_marginTop="141.0dp" />
     <TextView
         android:id="@+id/tvContaminated"
-        android:text=""
-        android:layout_width="wrap_content"
+        android:text="n/n"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="50px"
-        android:layout_below="@+id/tvCollected" />
+        android:layout_toRightOf="@+id/lblContaminated"
+        android:layout_marginTop="182.5dp"
+        android:layout_marginLeft="138.0dp" />
     <TextView
         android:id="@+id/tvInaccessible"
-        android:text=""
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="n/n"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:textSize="50px"
-        android:layout_below="@+id/tvContaminated" />
+        android:layout_toRightOf="@id/lblInaccessible"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220.0dp"
+        android:layout_marginBottom="0.0dp"
+        android:layout_marginLeft="149.0dp" />
 </RelativeLayout>
