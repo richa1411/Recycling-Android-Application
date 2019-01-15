@@ -24,6 +24,8 @@ namespace KymiraApplication.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+
+
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -31,17 +33,34 @@ namespace KymiraApplication.Fragments
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
+            receiveDisposablesAsync();
+
+            if (disposables.Count != 0)
+            {
+
+
+
+
+            }
+            else
+            {
+
+            }
+
             return base.OnCreateView(inflater, container, savedInstanceState);
+
+
+
         }
 
-        
+
 
         private static List<Disposable> disposables;
 
 
         /**
          *  This method will use the Listview and adapter to display the information on dispoables
-         */ 
+         */
         private void displayDisposablesList(List<Disposable> disposables)
         {
 
@@ -49,25 +68,13 @@ namespace KymiraApplication.Fragments
 
 
 
-        /**
-         * This method will take in an array of disposable objects, and add placeholder images to them if
-         * any objects in the array don't have images assigned to them. It then returns the disposables array, with images.
-         */
-        private static List<Disposable> addPlaceholders(List<Disposable> disposables)
-        {
-
-            return null;
-        }
-
-
- 
-
         // This method handles receiving json from the uri specified
-        public async Task<List<Disposable>> receiveSpecJsonAsync()
+        public async void receiveDisposablesAsync()
         {
+            // populate dispsoables list with stuff from api.
 
-            return null;
 
         }
+    }
 
 }
