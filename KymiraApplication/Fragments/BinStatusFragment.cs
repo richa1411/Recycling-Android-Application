@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -62,23 +63,60 @@ namespace KymiraApplication.Fragments
         {
             //send the address string
             string address = etAddress.Text.Trim();
-
-            //TODO: also populate the proper labels with the information and do a count
-            //var sendSuccess = await jsonHandler.sendJsonAsync(address, "");
-
+            DateTime currentDate = DateTime.Today;
+            string dateString = currentDate.ToString("yyyy-MM-dd"); //TODO -- WILL NEED TO TRIM THE MINS AND SECONDS
 
 
-            PopulateResults();
+            //send address and date string to backend and response will be list of binstatuses to count
+            HttpClient client = new HttpClient();
+                        
+            //use BinStatus uri
+            Uri uri = new Uri("", UriKind.Absolute);
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+
+            List<BinStatus> obList = new List<BinStatus>();
+            //populate and send the obList here
+            CountAndPopulateResults(obList);
         }
 
         /**
-         * This method will populate the correct TextViews on the layout with the correct information
+         * This method will go through the List of matching BinStatus objects received from the backend and count
+         * each type of status to be displayed to the user. It will then populate the correct TextViews on the layout with the correct information.
          */
-        private void PopulateResults()
+        private void CountAndPopulateResults(List<BinStatus> obList)
         {
-            tvCollected.Text = "";
-            tvContaminated.Text = "";
-            tvInaccessible.Text = "";
+            //variables to hold the number of each bin in obList
+            int countOfCollected = 0;
+            int countOfContam = 0;
+            int countOfInacc = 0;
+
+            //count how many of each status is returned
+            for(int i = 0; i < obList.Count; i++)
+            {
+                switch(obList[i].status)
+                {
+                    case 1:
+                        countOfCollected++;
+                        break;
+                    case 2:
+                        countOfInacc++;
+                        break;
+                    case 3:
+                        countOfContam++;
+                        break;
+                    default:
+                        //if a bin status contains any other status, it is defaulted to an inaccessible bin
+                        countOfInacc++;
+                        break;
+                }
+            }
+
+            //display the correct count to the proper textviews
+            tvCollected.Text = countOfCollected + "/" + obList.Count;
+            tvContaminated.Text = countOfContam + "/" + obList.Count;
+            tvInaccessible.Text = countOfInacc + "/" + obList.Count;
         }
+        
     }
 }

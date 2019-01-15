@@ -33,16 +33,16 @@ namespace kymiraAPI.Controllers
 
 
         /**
-         * This method will take in an address string from the application and return a List of BinStatus objects that are associated to that address.
+         * This method will take in an address string and currentDate string from the application and return a List of BinStatus objects that are associated to that address.
          * It will search for a Site object with the address passed in and then go through that Site's corresponding list of BinStatus objects.
-         * It will then bring back a list of BinStatus's with the most RECENT COLLECTION DATES.
+         * It will then bring back a list of BinStatus's with the most RECENT COLLECTION DATES (done using the currentDate passed in).
          * 
          * The method will return a Bad Request if the string passed in is an empty string or if it is greater than 200 characters.
          * The method will return 404 not found if something went wrong (no matching site with that address).
          **/
         // PUT: api/BinStatus/5
         [HttpPut]
-        public async Task<IActionResult> PutBinStatus( [FromBody] string address)
+        public async Task<IActionResult> PutBinStatus( [FromBody] string searchAddress, string currentDate)
         {
             if (!ModelState.IsValid)
             {
@@ -50,14 +50,14 @@ namespace kymiraAPI.Controllers
             }
 
             //if the string passed in is invalid in any way, return a Bad Request
-            if(address == "" || address.Length > 200)
+            if(searchAddress == "" || searchAddress.Length > 200)
             {
                 return BadRequest("Bad Request");
 
             }
             
             //finding matching site
-            var siteFound = await _context.Site.Where(m => m.address == address).ToListAsync();
+            var siteFound = await _context.Site.Where(m => m.address == searchAddress).ToListAsync();
 
             if (siteFound == null)
             {
@@ -66,13 +66,11 @@ namespace kymiraAPI.Controllers
 
             //find corresponding BinStatus objects
 //            var binsFound = await _context.BinStatus.Where(m => m.siteID == siteFound.siteID).ToListAsync();
+            //make sure to grab only the most recent ones for each bin status
 
             //return matching BinStatus's
             return Ok(siteFound);
         }
-
-  
-
 
        
         /**

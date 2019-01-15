@@ -14,7 +14,7 @@ namespace kymiraAPI.Models
      */
     public class BinStatus
     {
-        [Key]
+        [Key] //check to see non-auto-incrementing
         [Range(1, int.MaxValue, ErrorMessage = "BinID must be a valid number")]
         public int binID { get; set; }
 
