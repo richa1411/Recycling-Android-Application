@@ -104,8 +104,9 @@ namespace KymiraApplication.Fragments
 
                         if(validationResult.Count == 0)
                         {
-
+                            txtError.Text = "Sorry, something went wrong. Try later!!";
                         }
+                        FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new HomeFragment()).Commit();
                     }
                 };
 
