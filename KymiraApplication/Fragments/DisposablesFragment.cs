@@ -36,55 +36,31 @@ namespace KymiraApplication.Fragments
 
         
 
-        private static Disposable[] disposables;
+        private static List<Disposable> disposables;
+
 
         /**
-        *  This method will send a request to the backend, asking for a list of the
-        *  disposables. isRecyclable is either true if the user wants a list of recyclable
-        *  items or false if they want a list of non-recyclables which is determined by the
-        *  they press. The backend will then return an array of JSON objects, (array of strings)
-        *  to the app. The app then returns this array.
-        */
-        public  async void requestDisposableListAsync()
+         *  This method will use the Listview and adapter to display the information on dispoables
+         */ 
+        private void displayDisposablesList(List<Disposable> disposables)
         {
-
-            
 
         }
 
 
-
-        /**
-         * This method will take the array returned from requestDisposableList() and parse through it.
-         * It takes each JSON object, and turns it into a Disposable Object. It then adds each object
-         * to an array of Disposables. This array is returned
-         */
-        private static Disposable[] parseDisposable(List<Disposable> disposablesList)
-        {
-            return null;   
-        }
-
-        /**
-         *  This method will take in an array of disposable objects, which was acqquired from parseDisposable.
-         *  This method will take the disposable objects and display a list of them to the user.
-         */
-        public static Disposable[] getDisposableList()
-        {
-            // Add the items in the array to the listView
-            return disposables;
-
-
-        }
 
         /**
          * This method will take in an array of disposable objects, and add placeholder images to them if
          * any objects in the array don't have images assigned to them. It then returns the disposables array, with images.
          */
-        private static Disposable[] addPlaceholders(Disposable[] disposables)
+        private static List<Disposable> addPlaceholders(List<Disposable> disposables)
         {
 
             return null;
         }
+
+
+ 
 
         // This method handles receiving json from the uri specified
         public async Task<List<Disposable>> receiveSpecJsonAsync()
@@ -93,5 +69,5 @@ namespace KymiraApplication.Fragments
             return null;
 
         }
-    }
+
 }

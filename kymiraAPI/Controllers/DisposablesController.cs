@@ -48,40 +48,7 @@ namespace kymiraAPI.Controllers
             return Ok(disposable);
         }
 
-        //// PUT: api/Disposables/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutDisposable([FromRoute] int id, [FromBody] Disposable disposable)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        //    if (id != disposable.ID)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(disposable).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!DisposableExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
 
         // POST: api/Disposables
         [HttpPost]
@@ -98,30 +65,6 @@ namespace kymiraAPI.Controllers
             return CreatedAtAction("GetDisposable", new { id = disposable.ID }, disposable);
         }
 
-        //// DELETE: api/Disposables/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteDisposable([FromRoute] int id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
 
-        //    var disposable = await _context.Disposable.SingleOrDefaultAsync(m => m.ID == id);
-        //    if (disposable == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Disposable.Remove(disposable);
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(disposable);
-        //}
-
-        //private bool DisposableExists(int id)
-        //{
-        //    return _context.Disposable.Any(e => e.ID == id);
-        //}
     }
 }

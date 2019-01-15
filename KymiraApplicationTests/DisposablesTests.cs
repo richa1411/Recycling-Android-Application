@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Runtime;
 using KymiraApplication;
 
+
 namespace KymiraApplicationTests
 {
     /// <summary>
@@ -45,7 +46,7 @@ namespace KymiraApplicationTests
         {
 
 
-            List<Disposable> obList = new List<Disposable>(new Disposable[] { new Disposable
+            List<Disposable> disposables = new List<Disposable>(new Disposable[] { new Disposable
         {
 
             name = "Cardboard",
@@ -113,54 +114,6 @@ namespace KymiraApplicationTests
         });
 
         }
-
-        /** TestRetrieveRecyclables
-         * 
-         * This Test will use a "demo" method to retrieve a list of disposables.
-         * This demo method will call the methods required to generate an array
-         * of disposables that are recyclable or non recyclable depending on the input.
-         * The only difference between this method and our actual method that receives data
-         * is that this demo method retrieves constant information, rather than trying to
-         * retrieve it from the database.
-         *
-         */
-        [TestMethod]
-        public async void testRetrieveRecyclablesAsync()
-        {
-            List<Disposable> disposables = new List<Disposable>();
-            HttpClient client = new HttpClient();
-
-            String url = KymiraApplication.Resource.String.UrlAPI.ToString();
-
-            
-
-            Uri uri = new Uri(url, UriKind.Absolute);
-
-            // HttpResponseMessage response = await client.GetAsync(uri);
-
-            // if (response.IsSuccessStatusCode)
-            //{
-            //var content = await response.Content.ReadAsStringAsync();
-
-            // dList = JsonConvert.DeserializeObject<List<Disposable>>(content);
-            //}
-
-
-
-
-            //test that we get the right size back from the database.
-            Assert.IsTrue(disposables.Count == 6);
-            //testing that the first 3 are recyclable
-            Assert.IsTrue(disposables[0].isRecyclable);
-            Assert.IsTrue(disposables[1].isRecyclable);
-            Assert.IsTrue(disposables[2].isRecyclable); 
-            //testing that the last 3 are not recyclable.
-            Assert.AreEqual(disposables[3].isRecyclable, false);
-            Assert.AreEqual(disposables[4].isRecyclable, false);
-            Assert.AreEqual(disposables[5].isRecyclable, false);
-
-        }
-
 
         #region Validation Tests
 
