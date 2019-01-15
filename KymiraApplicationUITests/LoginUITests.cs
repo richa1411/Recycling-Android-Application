@@ -66,7 +66,7 @@ namespace KymiraApplicationUITests
             app.WaitForElement(c => c.Marked("1230"));
 
             app.TapCoordinates(100, 1150);
-            app.EnterText("Pa$$");
+            app.EnterText("Pa$$w0rd");
             app.Tap("btnLogin");
             
             results.Add(app.WaitForElement(c => c.Marked("Phone number must be 10 digits")));

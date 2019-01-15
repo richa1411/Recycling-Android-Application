@@ -82,7 +82,7 @@ namespace KymiraApplication.Fragments
                         var content = new StringContent(json, Encoding.UTF8, "application/json");
                         //TODO: Add proper url 
                         //  send a POST request  
-                        var uri = "Server=(localdb)\\mssqllocaldb;Database=kymiraAPIContext-bdae60b3-966d-4816-abfe-4aa9d23e2424;Trusted_Connection=True;MultipleActiveResultSets=true";
+                        var uri = "";
                         var result = await client.PostAsync(uri, content);
 
                         // on error throw a exception  

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using kymiraAPI.Models;
+using Newtonsoft.Json;
 
 namespace kymiraAPI.Controllers
 {
@@ -13,7 +14,7 @@ namespace kymiraAPI.Controllers
     [Route("api/Credentials")]
     public class CredentialsController : Controller
     {
-        public Guid base64Guid; 
+        public Guid guidString;
 
         private readonly kymiraAPIContext _context;
 
@@ -21,7 +22,7 @@ namespace kymiraAPI.Controllers
         {
             _context = context;
         }
-        
+
         // POST: api/Credentials
         [HttpPost]
         public async Task<IActionResult> PostCredentials([FromBody] Credentials credentials)
@@ -33,7 +34,7 @@ namespace kymiraAPI.Controllers
 
             // This will queury the database with a Credentials Object and compare it to a Resident Object
             // already inside the database with a matching Phone Number and Password 
-           var resident = await _context.ResidentDBSet.SingleOrDefaultAsync(r => r.phoneNumber == credentials.phoneNumber && r.password == credentials.password);
+            var resident = await _context.ResidentDBSet.SingleOrDefaultAsync(r => r.phoneNumber == credentials.phoneNumber && r.password == credentials.password);
 
             if (resident == null)
             {
@@ -43,8 +44,14 @@ namespace kymiraAPI.Controllers
             //for this story we are going to generate token that will be 128 bit unique token
             //we will use GUID that is inbuilt class for .net that generates each time unique 128 bit token
             //after successfull generation of token we will convert it in JSON notation and send back to front end 
-            return Ok("returnString");
-        }
 
+             guidString = Guid.NewGuid();
+            var returnString = JsonConvert.SerializeObject(guidString);
+
+
+
+            return Ok("returnString");
+
+        }
     }
 }
