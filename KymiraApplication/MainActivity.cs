@@ -14,6 +14,8 @@ namespace KymiraApplication
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
+        public String token;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -50,17 +52,6 @@ namespace KymiraApplication
             return true;
         }
 
-        //public override bool OnOptionsItemSelected(IMenuItem item)
-        //{
-        //    int id = item.ItemId;
-        //    if (id == Resource.Id.action_settings)
-        //    {
-        //        return true;
-        //    }
-
-        //    return base.OnOptionsItemSelected(item);
-        //}
-
         
 
         public bool OnNavigationItemSelected(IMenuItem item)
@@ -77,6 +68,16 @@ namespace KymiraApplication
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);
             return true;
+        }
+
+        public void setToken(String token)
+        {
+            this.token = token;
+        }
+
+        public String getToken()
+        {
+            return this.token;
         }
         
     }

@@ -19,8 +19,8 @@ namespace KymiraApplication.Fragments
 {
     public class LoginFragment : Fragment
     {
-        
 
+        MainActivity mainAct = new MainActivity();
         private View view;
         private EditText phoneField;
         private EditText passField;
@@ -60,9 +60,6 @@ namespace KymiraApplication.Fragments
         //It will further then check the backend validation for the correct credentials (Registered Validation)
         private async void btnLogin_Click(Object sender, EventArgs e)
         {
-            //*******************************************************************************//
-            // THIS CURRENTLY USES A JSON OBJECT... WE NEED IT TO USE AN AUTHENTICATION TOKEN //
-            //*******************************************************************************//
             String phone = phoneField.Text;
             String password = passField.Text;
 
@@ -106,6 +103,7 @@ namespace KymiraApplication.Fragments
                         {
                             txtError.Text = "Sorry, something went wrong. Try later!!";
                         }
+                        mainAct.setToken(objToken.token);
                         FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new HomeFragment()).Commit();
                     }
                 };
