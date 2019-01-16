@@ -243,10 +243,12 @@ namespace KymiraApplication.Fragments
                     //success case
                     Toast.MakeText(this.Context, "Successful Registration: " + success.StatusCode.ToString(), ToastLength.Short).Show();
                     //switch back to main fragment
-                    var ft = FragmentManager.BeginTransaction();
-                    var mainfrag = new MainFragment();
+                    //var ft = this.Activity.FragmentManager.BeginTransaction();
+                    //var mainfrag = new MainFragment();
 
-                    ft.Replace(Resource.Id.fragment_container, mainfrag);
+                    //ft.Replace(Resource.Id.fragment_container, mainfrag);
+
+                    ((MainActivity)Activity).replaceWithMain();
                 }
                 else
                 {

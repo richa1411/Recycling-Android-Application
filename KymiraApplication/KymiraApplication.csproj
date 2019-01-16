@@ -62,7 +62,7 @@
     <Compile Include="Fragments\MainFragment.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Model\Registration.cs" />
-    <Compile Include="Model\ValidationHelper.cs" />
+    <Compile Include="ValidationHelper.cs" />
     <Compile Include="Fragments\RegistrationFragment.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

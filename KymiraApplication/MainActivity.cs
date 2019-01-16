@@ -64,6 +64,17 @@ namespace KymiraApplication
             return base.OnOptionsItemSelected(item);
         }
 
+        public void replaceWithMain()
+        {
+            var mainFragment = new MainFragment();
+
+            var ft = FragmentManager.BeginTransaction();
+
+            ft.Replace(Resource.Id.fragment_container, mainFragment);
+
+            ft.Commit();
+        }
+
         public bool OnNavigationItemSelected(IMenuItem item)
         {
             int id = item.ItemId;

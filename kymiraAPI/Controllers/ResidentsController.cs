@@ -99,7 +99,8 @@ namespace kymiraAPI.Controllers
             _context.ResidentDBSet.Add(resident);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetResident", new { id = resident.id }, resident);
+            var result = CreatedAtAction("GetResident", new { id = resident.id }, resident);
+            return result;
         }
         /*
         // DELETE: api/Residents/5
