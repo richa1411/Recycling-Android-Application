@@ -14,6 +14,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using KymiraApplication.Models;
+using KymiraApplication;
 
 namespace KymiraApplication.Fragments
 {
@@ -73,7 +74,7 @@ namespace KymiraApplication.Fragments
                 address = address
             };
 
-            List<ValidationResult> validationResults = testSite.Validate();
+            IList<ValidationResult> validationResults = ValidationHelper.Validate(testSite);
 
             //if any validation results, show the proper error message
             if(validationResults.Count > 0)

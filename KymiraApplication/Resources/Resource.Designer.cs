@@ -2444,11 +2444,11 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080027
 			public const int add = 2131230759;
 			
-			// aapt resource value: 0x7f080091
-			public const int addressEntry = 2131230865;
-			
 			// aapt resource value: 0x7f080090
-			public const int addressLabel = 2131230864;
+			public const int addressEntry = 2131230864;
+			
+			// aapt resource value: 0x7f08008f
+			public const int addressLabel = 2131230863;
 			
 			// aapt resource value: 0x7f080070
 			public const int alertTitle = 2131230832;
@@ -2468,8 +2468,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08002f
 			public const int beginning = 2131230767;
 			
-			// aapt resource value: 0x7f08008f
-			public const int binStatusTitle = 2131230863;
+			// aapt resource value: 0x7f08008e
+			public const int binStatusTitle = 2131230862;
 			
 			// aapt resource value: 0x7f080057
 			public const int blocking = 2131230807;
@@ -2477,8 +2477,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08003d
 			public const int bottom = 2131230781;
 			
-			// aapt resource value: 0x7f080092
-			public const int btnSubmit = 2131230866;
+			// aapt resource value: 0x7f080091
+			public const int btnSubmit = 2131230865;
 			
 			// aapt resource value: 0x7f080063
 			public const int buttonPanel = 2131230819;
@@ -2576,9 +2576,6 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080072
 			public const int expanded_menu = 2131230834;
 			
-			// aapt resource value: 0x7f08008e
-			public const int fab = 2131230862;
-			
 			// aapt resource value: 0x7f080050
 			public const int fill = 2131230800;
 			
@@ -2638,6 +2635,9 @@ namespace KymiraApplication
 			
 			// aapt resource value: 0x7f080094
 			public const int lblContaminated = 2131230868;
+			
+			// aapt resource value: 0x7f080092
+			public const int lblError = 2131230866;
 			
 			// aapt resource value: 0x7f080095
 			public const int lblInaccessible = 2131230869;
