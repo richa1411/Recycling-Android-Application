@@ -86,10 +86,8 @@ namespace KymiraApplication.Fragments
 
                 //send address and date string to backend and response will be list of binstatuses to count
                 HttpClient client = new HttpClient();
-                        
+                       
                 
-
-                //call GetMatchingBins
                 //use BinStatus uri **********
                 Uri uri = new Uri("", UriKind.Absolute);
                 HttpResponseMessage response = await client.GetAsync(uri);
