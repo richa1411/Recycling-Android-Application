@@ -38,28 +38,23 @@ namespace KymiraApplication
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            var view = convertView;
-            AdapterDisposablesViewHolder holder = null;
+            var row = convertView; // Set the Row/View
 
-            if (view != null)
-                holder = view.Tag as AdapterDisposablesViewHolder;
-
-            if (holder == null)
+            if (row == null)
             {
-                holder = new AdapterDisposablesViewHolder();
-                var inflater = context.GetSystemService(Context.LayoutInflaterService).JavaCast<LayoutInflater>();
-                //replace with your item and your holder items
-                //comment back in
-                //view = inflater.Inflate(Resource.Layout.item, parent, false);
-                //holder.Title = view.FindViewById<TextView>(Resource.Id.text);
-                view.Tag = holder;
+                // Inflate the Row/View
+                row = LayoutInflater.From(context).Inflate(Resource.Layout.disposables_row_layout, null, false);
             }
 
+            TextView tvDisposableItemName = row.FindViewById<TextView>(Resource.Id.tvDisposableItemName);
+            tvDisposableItemName.Text = disposablesList[position].name;
 
-            //fill in your items
-            //holder.Title.Text = "new text here";
+            ImageView ivDisposableItemName = row.FindViewById<ImageView>(Resource.Id.ivDisposableItemImage);
 
-            return view;
+            // TODO: Have to set the image to the ImageURL of item's image
+            ivDisposableItemName.SetImageResource(Resource.Drawable.No_Image);
+
+            return row;
         }
 
         //Fill in cound here, currently 0
@@ -71,6 +66,7 @@ namespace KymiraApplication
             }
         }
 
+        public override Disposable this[int position] => throw new NotImplementedException();
     }
 
     class AdapterDisposablesViewHolder : Java.Lang.Object

@@ -49,7 +49,14 @@ namespace KymiraApplication.Fragments
             recItems = new List<Disposable>();
             nonRecItems = new List<Disposable>();
 
-            btnViewNonRecyclables = ()
+            btnViewRecyclables.FindViewById(Resource.Id.btnViewRecyclableItems);
+            btnViewNonRecyclables.FindViewById(Resource.Id.btnViewNonRecyclableItems);
+
+            lvDisposables.FindViewById(Resource.Id.lvDisposables);
+
+            // Event Handlers for the buttons
+            btnViewRecyclables.Click += btnViewRecyclables_Click;
+            btnViewNonRecyclables.Click += btnViewNonRecyclables_Click;
 
             // When the view loads, retrieve the disposables list from the database
             receiveDisposablesAsync(); 
@@ -88,13 +95,25 @@ namespace KymiraApplication.Fragments
 
         }
 
+        private void btnViewRecyclables_Click(object sender, EventArgs e)
+        {
+            displayDisposablesList(recItems);
+        }
+
+        private void btnViewNonRecyclables_Click(object sender, EventArgs e)
+        {
+            displayDisposablesList(nonRecItems);
+        }
+
 
         /**
          *  This method will use the Listview and adapter to display the information on dispoables
          */
         private void displayDisposablesList(List<Disposable> disposables)
         {
+            AdapterDisposables adapter = new AdapterDisposables(Context, disposables);
 
+            lvDisposables.Adapter = adapter;
         }
 
 
