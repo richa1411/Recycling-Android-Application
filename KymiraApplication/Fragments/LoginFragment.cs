@@ -19,7 +19,7 @@ namespace KymiraApplication.Fragments
 {
     public class LoginFragment : Fragment
     {
-
+        //an object for mainactivity just to pass token created at login time
         MainActivity mainAct = new MainActivity();
         private View view;
         private EditText phoneField;
@@ -47,11 +47,7 @@ namespace KymiraApplication.Fragments
 
             return view;
 
-            //Can Delete probably
-            //return inflater.Inflate(Resource.Layout.login_layout, container, false); 
-
-
-
+          
 
         }
         //Will be called once the login button is tapped
