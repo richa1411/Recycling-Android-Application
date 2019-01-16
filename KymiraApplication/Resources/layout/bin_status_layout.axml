@@ -36,6 +36,12 @@
         android:text="@string/btnSubmit"
         android:layout_below="@id/addressLabel"
         android:textSize="50px" />
+    <TextView
+        android:id="@+id/lblError"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Test"
+        android:textSize="50px" />
 <!-- The hard-coded string values to display to the app -->
     <TextView
         android:id="@+id/lblCollected"

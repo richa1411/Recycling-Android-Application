@@ -22,11 +22,14 @@ namespace KymiraApplication.Fragments
         //controls to grab from the layout
         private EditText etAddress;
         private Button btnSubmit;
+        private TextView tvError;
 
         //textviews to be populated upon receiving matching BinStatus's
         private TextView tvCollected;
         private TextView tvContaminated;
         private TextView tvInaccessible;
+
+       // public bool isValid = false;    //boolean to hold whether the address entered is valid or not. Is checked on click and on load if a logged in user opens the page (Beta)
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -49,6 +52,7 @@ namespace KymiraApplication.Fragments
             tvCollected = view.FindViewById<TextView>(Resource.Id.tvCollected);
             tvContaminated = view.FindViewById<TextView>(Resource.Id.tvContaminated);
             tvInaccessible = view.FindViewById<TextView>(Resource.Id.tvInaccessible);
+            tvError = view.FindViewById<TextView>(Resource.Id.lblError);
 
             btnSubmit.Click += BtnSubmit_Click;
 
@@ -61,23 +65,41 @@ namespace KymiraApplication.Fragments
          */
         private async void BtnSubmit_Click(object sender, EventArgs e)
         {
-            //send the address string
             string address = etAddress.Text.Trim();
-            DateTime currentDate = DateTime.Today;
-            string dateString = currentDate.ToString("yyyy-MM-dd"); //TODO -- WILL NEED TO TRIM THE MINS AND SECONDS
 
+            //check validation of address attempting to send using an object
+            Site testSite = new Site {
+                siteID = 234,
+                address = address
+            };
 
-            //send address and date string to backend and response will be list of binstatuses to count
-            HttpClient client = new HttpClient();
+            List<ValidationResult> validationResults = testSite.Validate();
+
+            //if any validation results, show the proper error message
+            if(validationResults.Count > 0)
+            {
+                tvError.Text = validationResults[0].ErrorMessage;
+            }
+            else
+            {
+                tvError.Text = ""; //reset error text to be empty string
+
+                //send address and date string to backend and response will be list of binstatuses to count
+                HttpClient client = new HttpClient();
                         
-            //use BinStatus uri
-            Uri uri = new Uri("", UriKind.Absolute);
-            HttpResponseMessage response = await client.GetAsync(uri);
+                
 
+                //call GetMatchingBins
+                //use BinStatus uri **********
+                Uri uri = new Uri("", UriKind.Absolute);
+                HttpResponseMessage response = await client.GetAsync(uri);
 
-            List<BinStatus> obList = new List<BinStatus>();
-            //populate and send the obList here
-            CountAndPopulateResults(obList);
+                List<BinStatus> obList = new List<BinStatus>();
+                //populate and send the obList here (response)
+                CountAndPopulateResults(obList);
+            }
+            
+            
         }
 
         /**
