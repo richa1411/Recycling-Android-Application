@@ -63,7 +63,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\BinStatus.cs" />
     <Compile Include="Models\Site.cs" />
-    <Compile Include="Models\ValidationHelper.cs" />
+    <Compile Include="ValidationHelper.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -133,12 +133,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\kymiraAPI\kymiraAPI.csproj">
-      <Project>{437060e6-ed6e-4bf6-a333-406ad7d93a3e}</Project>
-      <Name>kymiraAPI</Name>
-    </ProjectReference>
-  </ItemGroup>
+
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
 		Other similar extension points exist, see Microsoft.Common.targets.

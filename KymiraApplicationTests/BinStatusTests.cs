@@ -1,13 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using KymiraApplication.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using KymiraApplication.Models;
 
-namespace KymiraApplication.Models.Tests
+
+namespace KymiraApplicationTests
 {
     /**
      *  This test class is used for testing valid BinStatus objects 
@@ -29,13 +30,13 @@ namespace KymiraApplication.Models.Tests
             //a valid BinStatus
             testBinStatus = new BinStatus();
             testBinStatus.binID = 1;
-            testBinStatus.binAddress = "123 Test Street";
+            //testBinStatus.binAddress = "123 Test Street";
             testBinStatus.status = 2;
 
             //an invalid BinStatus
             testBinStatusBad = new BinStatus();
             testBinStatusBad.binID = -1;
-            testBinStatusBad.binAddress = "123 Example Street";
+            //testBinStatusBad.binAddress = "123 Example Street";
             testBinStatusBad.status = 2;
 
             binArray[0] = testBinStatus;
@@ -59,7 +60,7 @@ namespace KymiraApplication.Models.Tests
         //tests that an address of 201 characters is invalid
         public void TestThat201CharAddressIsInvalid()
         {
-            testBinStatus.binAddress = new String('a', 201);
+            //testBinStatus.binAddress = new String('a', 201);
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
@@ -77,7 +78,7 @@ namespace KymiraApplication.Models.Tests
         //tests that a bin object addressName can be 200 chars long
         public void TestThatAddressMaximumSizeIsValid()
         {
-            testBinStatus.binAddress = new String('a', 200);
+            //testBinStatus.binAddress = new String('a', 200);
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(0, results.Count());
         }
@@ -86,7 +87,7 @@ namespace KymiraApplication.Models.Tests
         //tests that a bin object addressName cannot be an empty string
         public void TestThatBinsWithEmptyAddressNameAreInvalid()
         {
-            testBinStatus.binAddress = "";
+            //testBinStatus.binAddress = "";
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
