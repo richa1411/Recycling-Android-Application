@@ -3,6 +3,8 @@ using kymiraAPI;
 using kymiraAPI.Models;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using kymiraAPITest;
+using System.Linq;
 
 namespace kymiraAPITest
 {
@@ -12,177 +14,220 @@ namespace kymiraAPITest
     [TestClass]
     public class TestLogin
     {
-        string phoneNumber; // The phone number used to log in
-        string password; // The password used to log in
-        string errorMessage; // The error message
+       
+            Credentials objCred;
+            Token objToken;
+            /*
+            *  Setups a Credentials object with a phone number, password, and message
+            */
+            [TestInitialize]
+            public void InitializeTest()
+            {
+                objCred = new Credentials { phoneNumber = "1234567890", password = "P@ssw0rd" };
+                objToken = new Token { token = "1bf89a1c-3934-4e5b-b7be-7bfb766689c2" };
+            }
 
-        Credentials loginCreds;
 
-        /*
-         *  Setups a Credentials object with a phone number, password, and message
-         */
-        [TestInitialize]
-        public void InitializeTest()
+            /*   Unit tests for Phonenumber   */
+
+            [TestMethod]
+            public void TestThatPhoneNumberIsEmpty()
+
+            {
+                //Test phone number is empty string
+                objCred.phoneNumber = "";
+
+
+                var results = APIValidationHelper.Validate(objCred);
+                Assert.AreEqual(1, results.Count());
+                Assert.AreEqual("Please enter a valid phone number", results[0].ErrorMessage);
+            }
+            [TestMethod]
+            public void TestThatPhoneNumberIsNotEmpty()
+
+            {
+                //test phonenumber is non empty
+                var results = APIValidationHelper.Validate(objCred);
+
+                objCred.phoneNumber = "1234567890";
+                results = APIValidationHelper.Validate(objCred);
+                Assert.AreEqual(0, results.Count());
+
+
+            }
+
+            [TestMethod]
+            public void TestThatPhoneNumberNonDigits()
+            {
+                //test phonenumber contains characters instead digits
+                objCred.phoneNumber = "shahsjhghr";
+                var results = APIValidationHelper.Validate(objCred);
+                Assert.AreEqual(1, results.Count());
+                Assert.AreEqual("Phone number must be 10 digits", results[0].ErrorMessage);
+
+                //Test phone number contains combination of charcatres and digits
+                objCred.phoneNumber = "shahsjh678";
+                results = APIValidationHelper.Validate(objCred);
+                Assert.AreEqual(1, results.Count());
+                Assert.AreEqual("Phone number must be 10 digits", results[0].ErrorMessage);
+            }
+
+            [TestMethod]
+            public void TestThatPhoneNumberOnlyDigits()
+            {
+                //Test phone number contains digits
+                objCred.phoneNumber = "1234567890";
+                var results = APIValidationHelper.Validate(objCred);
+                Assert.AreEqual(0, results.Count());
+
+            }
+
+            [TestMethod]
+            public void TestThatPhoneNumberTenDigitLegth()
+            {
+                //Test phone number contains 10 digits
+                objCred.phoneNumber = "3456789096";
+                var results = APIValidationHelper.Validate(objCred);
+                Assert.AreEqual(0, results.Count());
+
+            }
+
+            [TestMethod]
+            public void TestThatPhoneNumberExceedTenDigit()
+            {
+                //Test phoneNumber contains more than 10 digits
+                objCred.phoneNumber = "34567890965657";
+                var results = APIValidationHelper.Validate(objCred);
+                Assert.AreEqual(1, results.Count());
+                Assert.AreEqual("Phone number must be 10 digits", results[0].ErrorMessage);
+            }
+
+            [TestMethod]
+            public void TestThatPhoneNumberLessThanTenDigit()
+            {
+                //Test phoneNumber contains less than 10 digits
+                objCred.phoneNumber = "345678";
+                var results = APIValidationHelper.Validate(objCred);
+                Assert.AreEqual(1, results.Count());
+                Assert.AreEqual("Phone number must be 10 digits", results[0].ErrorMessage);
+
+            }
+
+            /*  Unit tests for Password  */
+
+            [TestMethod]
+            public void TestThatPasswordIsEmpty()
+            {
+                //Test password with an empty string
+                objCred.password = "";
+                var results = APIValidationHelper.Validate(objCred);
+
+                Assert.AreEqual(1, results.Count);
+                Assert.AreEqual("Please enter your password", results[0].ErrorMessage);
+            }
+
+            [TestMethod]
+            public void TestThatPasswordIsNotEmpty()
+            {
+                //Test password with an non empty string
+                objCred.password = "shah1108";
+                var results = APIValidationHelper.Validate(objCred);
+
+                Assert.AreEqual(0, results.Count);
+
+            }
+
+            [TestMethod]
+            public void TestThatPasswordISSixChar()
+            {
+                //Test Password is 6 characters
+                objCred.password = "Shh@11";
+
+                var results = APIValidationHelper.Validate(objCred);
+
+                Assert.AreEqual(0, results.Count);
+            }
+
+            [TestMethod]
+            public void TestThatPasswordIsFiftyChar()
+            {
+                //Test Password is 50 characters
+                objCred.password = new string('a', 50);
+
+                var results = APIValidationHelper.Validate(objCred);
+
+                Assert.AreEqual(0, results.Count);
+            }
+
+            [TestMethod]
+            public void TestThatPasswordLessThanSixChar()
+            {
+                //Test password is less than 6 characters
+                objCred.password = "Shh@1"; // Password is only 5 characters
+
+                var results = APIValidationHelper.Validate(objCred);
+
+                Assert.AreEqual(1, results.Count);
+                Assert.AreEqual("Password must be between 6 - 50 characters", results[0].ErrorMessage);
+
+            }
+
+            [TestMethod()]
+            public void TestThatPasswordBetweenSixAndFiftyChar()
+            {
+                //Test password is greater than 6 characters but less than 50 charcaters
+                objCred.password = "P@ssw0rd1178"; // Password at lower boundary
+
+                var results = APIValidationHelper.Validate(objCred);
+
+                Assert.AreEqual(0, results.Count);
+            }
+
+            [TestMethod()]
+            public void TestThatPasswordGreaterThanFiftyChar()
+            {
+                //Test Password is 51 characters
+                objCred.password = new string('a', 51);
+
+                var results = APIValidationHelper.Validate(objCred);
+
+                Assert.AreEqual(1, results.Count);
+                Assert.AreEqual("Password must be between 6 - 50 characters", results[0].ErrorMessage);
+            }
+
+            [TestMethod()]
+        public void TestThatTokenIsGUIDFormat()
         {
-            loginCreds = new Credentials { phoneNumber= "1234567890", password = "P@ssw0rd"};
-        }
+            //Test token is in GUID format 
+            objToken.token = "1bf89a1c-3934-4e5b-b7be-7bfb766689c2";
 
-        /*
-         *  Tests that the phone number cannot be empty
-         */
-        [TestMethod]
-        public void TestThatPhoneNumberCannotBeEmptyTest()
-        {
-            loginCreds.phoneNumber = "";
-
-            var results = HelperTestModel.Validate(loginCreds);
-
-            Assert.AreEqual(1,results.Count);
-            Assert.AreEqual("Phone number is empty", results[0].ErrorMessage);
-        }
-        
-        /*
-         *  Tests that the phone number is only digits 
-         */
-        [TestMethod]
-        public void TestThatPhoneNumberMustBeOnlyDigitsTest()
-        {
-            loginCreds.phoneNumber = "JohnDoe123";
-
-            var results = HelperTestModel.Validate(loginCreds);
-
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
-
-        }
-
-        /*
-         *  Tests that the phone number is exactly 10 digits long
-         */
-        [TestMethod]
-        public void TestThatPhoneNumberMustBeTenDigitsInLengthTest()
-        {
-            loginCreds.phoneNumber = "1234567890"; // 10 digits
-
-            var results = HelperTestModel.Validate(loginCreds);
+            var results = APIValidationHelper.Validate(objToken);
 
             Assert.AreEqual(0, results.Count);
+
         }
-
-        /*
-         *  Tests that the phone number cannot exceed 10 digits
-         */
-        [TestMethod]
-        public void TestThatPhoneNumberCannotExceedTenDigitsInLengthTest()
+        [TestMethod()]
+        public void TestThatTokenIsNotInGUIDFormat()
         {
-            loginCreds.phoneNumber = "123456789012345"; // 15 digits
+            //Test token is not in GUID format 
+            objToken.token = "1bf89a1c/fdhdhdf4356656546+fghf&";
 
-            var results = HelperTestModel.Validate(loginCreds);
+            var results = APIValidationHelper.Validate(objToken);
 
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
+            Assert.AreEqual("token is not in proper GUID format", results[0].ErrorMessage);
         }
 
-        /*
-         *  Tests that the phone number is exactly 10 digits long
-         */
-        [TestMethod]
-        public void TestThatPhoneNumberCannotBeLessThanTenDigitsInLengthTest()
+        [TestMethod()]
+        public void TestThatTokenIsNull()
         {
+            //Test token is null (blank)
+            objToken.token = "";
 
-            loginCreds.phoneNumber = "1234567"; // 7 digits
-
-            var results = HelperTestModel.Validate(loginCreds);
+            var results = APIValidationHelper.Validate(objToken);
 
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Phone Number is not 10 digits", results[0].ErrorMessage);
-
-        }
-
-
-        /**********************************/
-        /********* PASSWORD TESTS *********/
-        /**********************************/
-
-
-        /*
-         *  Tests that the password cannot be empty
-         */
-        [TestMethod]
-        public void TestThatPasswordCannotBeEmptyTest()
-        {
-
-            loginCreds.password = ""; // Empty Password
-
-            var results = HelperTestModel.Validate(loginCreds);
-
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password is empty", results[0].ErrorMessage);
-        }
-
-        /*
-         *  Tests that the password cannot be less than six characters
-         */
-        [TestMethod]
-        public void TestThatPasswordCannotBeLessThanSixCharactersLongTest()
-        {
-
-            loginCreds.password = "P@ssw"; // Password is only 5 characters
-
-            var results = HelperTestModel.Validate(loginCreds);
-
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password must be between 6 - 50 characters", results[0].ErrorMessage);
-
-        }
-
-        /*
-         *  Tests that the password must be 6 - 50 characters long
-         */
-        [TestMethod]
-        public void TestThatPasswordMustBeSixToFiftyCharactersLongLowerBoundaryTest()
-        {
-
-            loginCreds.password = "P@ssw0"; // Password at lower boundary
-
-            var results = HelperTestModel.Validate(loginCreds);
-
-            Assert.AreEqual(0, results.Count);
-
-
-        }
-
-
-        /*
-        *  Tests that the password must be 6 - 50 characters long
-        */
-        [TestMethod]
-        public void TestThatPasswordMustBeSixToFiftyCharactersLongHigherBoundaryTest()
-        {
-
-
-            loginCreds.password = new string('a', 50); // Password is exactly 50 characters
-
-            var results = HelperTestModel.Validate(loginCreds);
-
-            Assert.AreEqual(0, results.Count);
-
-        }
-
-
-
-        /*
-         *  Tests that the password cannot exceed 50 characters
-         */
-        [TestMethod]
-        public void TestThatPasswordCannotExceedFiftyCharactersInLength()
-        {
-            loginCreds.password = new string('a', 51); // Password is exactly 51 characters
-
-            var results = HelperTestModel.Validate(loginCreds);
-
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Password must be between 6 - 50 characters", results[0].ErrorMessage);
+            Assert.AreEqual("Token can not be empty string", results[0].ErrorMessage);
         }
 
     }

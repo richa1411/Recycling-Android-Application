@@ -10,5 +10,5 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="Welcome User!"
-        android:id="txtWel" />
+        android:id="@+id/txtWel" />
 </RelativeLayout>

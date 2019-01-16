@@ -62,11 +62,11 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(350, 750);
             app.TapCoordinates(100, 980);
 
-            app.EnterText("JohnDoe123");
-            app.WaitForElement(c => c.Marked("JohnDoe123"));
+            app.EnterText("JohnDoe1238");
+            app.WaitForElement(c => c.Marked("JohnDoe1238"));
 
             app.TapCoordinates(100, 1150);
-            app.EnterText("P@ssw0");
+            app.EnterText("P@ssw0rd");
             app.Tap("btnLogin");
             
             results.Add(app.WaitForElement(c => c.Marked("Phone number must be 10 digits")));
@@ -75,7 +75,7 @@ namespace KymiraApplicationUITests
         }
 
         [Test]
-        //test that Invalid Phone number Displays Error
+        //test that empty Phone number Displays Error
         public void TestThatEmptyPhonenumberDisplaysError()
         {
             ArrayList results = new ArrayList();
@@ -84,7 +84,7 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(350, 750);
 
             app.TapCoordinates(100, 1150);
-            app.EnterText("P@ssw0");
+            app.EnterText("P@ssw0rd");
             app.Tap("btnLogin");
 
             results.Add(app.WaitForElement(c => c.Marked("Please enter a valid phone number")));
@@ -104,11 +104,10 @@ namespace KymiraApplicationUITests
 
             app.EnterText("1234567890");
 
-            //will wait for a certain amount of time
-            //app.WaitForElement(x => x.Id("etxtPhone"), timeout: TimeSpan.FromSeconds(120));
+            
             app.WaitForElement(c => c.Marked("1234567890"));
             app.TapCoordinates(100, 1150);
-            app.EnterText("Pa$$");
+            app.EnterText("P@ssw");
             app.Tap("btnLogin");
 
             results.Add(app.WaitForElement(c => c.Marked("Password must be between 6 - 50 characters")));
@@ -118,7 +117,7 @@ namespace KymiraApplicationUITests
         
 
         [Test]
-        //test that Invalid Password Displays Error
+        //test that Empty Password Displays Error
         public void TestThatEmptyPasswordDisplaysError()
         {
             ArrayList results = new ArrayList();
@@ -153,10 +152,10 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(100, 1150);
             app.EnterText("passcode");
             app.Tap("btnLogin");
+            app.Tap("btnLogin");
+             results.Add(app.WaitForElement(c => c.Marked("txtWel")));
 
-            //results.Add(app.WaitForElement(c => c.Marked("Welcome User!")));
-
-          //  Assert.AreEqual(1, results.Count);
+            Assert.AreEqual(1, results.Count);
 
             //Currently just displays and stores no errors. Still need to navigate to the actual home page
         }
