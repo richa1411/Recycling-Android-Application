@@ -14,8 +14,9 @@ namespace kymiraAPI.Controllers
     [Route("api/Credentials")]
     public class CredentialsController : Controller
     {
+        //Guid class object that will generate 128 bit random string tokens
         public Guid guidString;
-
+        //context object 
         private readonly kymiraAPIContext _context;
 
         public CredentialsController(kymiraAPIContext context)
@@ -28,7 +29,7 @@ namespace kymiraAPI.Controllers
         public async Task<IActionResult> PostCredentials([FromBody] Credentials credentials)
         {
             
-            
+            //checks if modelstate is valid or not
             if (!ModelState.IsValid)
             {
                 return BadRequest("{ Error:1 Message:Incorrect phone number or password }");
@@ -48,10 +49,12 @@ namespace kymiraAPI.Controllers
             //after successfull generation of token we will convert it in JSON notation and send back to front end 
 
             guidString = Guid.NewGuid();
+
+            //serializing guid to a json notation to send over rontend
             var returnString = JsonConvert.SerializeObject(guidString);
 
 
-
+            //return ok status with an returnstring object that carries token
             return Ok(returnString);
 
         }

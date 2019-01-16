@@ -37,8 +37,9 @@ namespace KymiraApplicationUITests
         }
         
       [Test]
-     //Test that after tapping the Submit button with no address entered, the list view does not change
-       public void TestThatLoginOptionClickOpensLoginPage()
+        //Test that after tapping the Submit button with no address entered, the list view does not change
+        
+        public void TestThatLoginOptionClickOpensLoginPage()
        {
            ArrayList results = new ArrayList();
             //TODO : fIND A BETTER WAY FOR NAVIGATIONS
@@ -54,6 +55,8 @@ namespace KymiraApplicationUITests
         
        [Test]
         //test that Invalid Phone number Displays Error
+        //Application finds text box for phone number and make it invalid and  make valid password field 
+        //taps login button and application will display error message
         public void TestThatInvalidPhonenumberDisplaysError()
         {
             ArrayList results = new ArrayList();
@@ -76,6 +79,8 @@ namespace KymiraApplicationUITests
 
         [Test]
         //test that empty Phone number Displays Error
+        //Application finds text box for phone number and make it empty and  make password field some valid entry
+        //taps login button and application will display error message
         public void TestThatEmptyPhonenumberDisplaysError()
         {
             ArrayList results = new ArrayList();
@@ -94,6 +99,8 @@ namespace KymiraApplicationUITests
 
         [Test]
         //test that Invalid Password Displays Error
+        //Application finds text box for phone number and types some valid number and make password field invalid
+        //taps login button and application will display error message
         public void TestThatInvalidPasswordDisplaysError()
        {
             ArrayList results = new ArrayList();
@@ -118,6 +125,8 @@ namespace KymiraApplicationUITests
 
         [Test]
         //test that Empty Password Displays Error
+        //Application finds text box for phone number and types some valid number and make password field empty
+        //taps login button and application will display error message
         public void TestThatEmptyPasswordDisplaysError()
         {
             ArrayList results = new ArrayList();
@@ -138,6 +147,8 @@ namespace KymiraApplicationUITests
         }
         [Test]
         //Test that a valid phone number and password will display the home screen (Successful Login)
+        //first application will find phone number textbox and type some valid and correct number then application will find password textbox and types valid and correct password and then application will tap login button
+        //application will check at backend for correct credentiALS and then displays home screen
         public void TestThatValidPhonenumberPasswordDisplaysHomeScreen()
         {
             ArrayList results = new ArrayList();
@@ -157,7 +168,7 @@ namespace KymiraApplicationUITests
 
             Assert.AreEqual(1, results.Count);
 
-            //Currently just displays and stores no errors. Still need to navigate to the actual home page
+           
         }
     }
 }

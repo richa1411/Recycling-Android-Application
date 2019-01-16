@@ -11,7 +11,7 @@ namespace KymiraApplicationTests
         Credentials objCred;
         Token objToken;
         /*
-        *  Setups a Credentials object with a phone number, password, and message
+        *  Setups a Credentials object with a phone number, password token object with token string
         */
         [TestInitialize]
         public void InitializeTest()
@@ -30,7 +30,7 @@ namespace KymiraApplicationTests
             //Test phone number is empty string
             objCred.phoneNumber = "";
 
-
+            //checks against validation helper class sends credentials object and matches errors
             var results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Please enter a valid phone number", results[0].ErrorMessage);
@@ -41,7 +41,7 @@ namespace KymiraApplicationTests
         {
             //test phonenumber is non empty
             var results = TestValidationHelper.Validate(objCred);
-
+            //checks against validation helper class sends credentials object and finds no errors
             objCred.phoneNumber = "1234567890";
             results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(0, results.Count());
@@ -54,6 +54,7 @@ namespace KymiraApplicationTests
         {
             //test phonenumber contains characters and digits instead of just digits
             objCred.phoneNumber = "JohnDoe1238";
+            //checks against validation helper class sends credentials object and finds matched errors
             var results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Phone number must be 10 digits", results[0].ErrorMessage);
@@ -65,6 +66,7 @@ namespace KymiraApplicationTests
         {
             //Test phone number contains digits
             objCred.phoneNumber = "1234567890";
+            //checks against validation helper class sends credentials object and  and finds no errors
             var results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(0, results.Count());
 
@@ -75,6 +77,7 @@ namespace KymiraApplicationTests
         {
             //Test phone number contains 10 digits
             objCred.phoneNumber = "3456789096";
+            //checks against validation helper class sends credentials object and  and finds no errors
             var results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(0, results.Count());
 
@@ -85,6 +88,7 @@ namespace KymiraApplicationTests
         {
             //Test phoneNumber contains more than 10 digits
             objCred.phoneNumber = "34567890965657";
+            //checks against validation helper class sends credentials object and finds matched errors
             var results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Phone number must be 10 digits", results[0].ErrorMessage);
@@ -95,6 +99,7 @@ namespace KymiraApplicationTests
         {
             //Test phoneNumber contains less than 10 digits
             objCred.phoneNumber = "345678";
+            //checks against validation helper class sends credentials object and finds matched errors
             var results = TestValidationHelper.Validate(objCred);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Phone number must be 10 digits", results[0].ErrorMessage);
@@ -108,6 +113,7 @@ namespace KymiraApplicationTests
         {
             //Test password with an empty string
             objCred.password = "";
+            //checks against validation helper class sends credentials object and finds matched errors
             var results = TestValidationHelper.Validate(objCred);
 
             Assert.AreEqual(1, results.Count);
@@ -120,7 +126,7 @@ namespace KymiraApplicationTests
             //Test password with an non empty string
             objCred.password = "shah1108";
             var results = TestValidationHelper.Validate(objCred);
-
+            //checks against validation helper class sends credentials object and  and finds no errors
             Assert.AreEqual(0, results.Count);
 
         }
@@ -130,7 +136,7 @@ namespace KymiraApplicationTests
         {
             //Test Password is 6 characters
             objCred.password = "Shh@11";
-
+            //checks against validation helper class sends credentials object and  and finds no errors
             var results = TestValidationHelper.Validate(objCred);
 
             Assert.AreEqual(0, results.Count);
@@ -141,7 +147,7 @@ namespace KymiraApplicationTests
         {
             //Test Password is 50 characters
             objCred.password = new string('a', 50);
-
+            //checks against validation helper class sends credentials object and  and finds no errors
             var results = TestValidationHelper.Validate(objCred);
 
             Assert.AreEqual(0, results.Count);
@@ -152,7 +158,7 @@ namespace KymiraApplicationTests
         {
             //Test password is less than 6 characters
             objCred.password = "Shh@1"; // Password is only 5 characters
-
+                                        //checks against validation helper class sends credentials object and finds matched errors
             var results = TestValidationHelper.Validate(objCred);
 
             Assert.AreEqual(1, results.Count);
@@ -165,7 +171,7 @@ namespace KymiraApplicationTests
         {
             //Test password is greater than 6 characters but less than 50 charcaters
             objCred.password = "P@ssw0rd1178"; // Password at lower boundary
-
+                                               //checks against validation helper class sends credentials object and  and finds no errors
             var results = TestValidationHelper.Validate(objCred);
 
             Assert.AreEqual(0, results.Count);
@@ -176,7 +182,7 @@ namespace KymiraApplicationTests
         {
             //Test Password is 51 characters
             objCred.password = new string('a', 51);
-
+            //checks against validation helper class sends credentials object and finds matched errors
             var results = TestValidationHelper.Validate(objCred);
 
             Assert.AreEqual(1, results.Count);
@@ -190,7 +196,7 @@ namespace KymiraApplicationTests
            objToken.token = "1bf89a1c-3934-4e5b-b7be-7bfb766689c2";
            
             var results = TestValidationHelper.Validate(objToken);
-
+            //checks against validation helper class sends credentials object and  and finds no errors
             Assert.AreEqual(0, results.Count);
            
         }
@@ -199,7 +205,7 @@ namespace KymiraApplicationTests
         {
             //Test token is not in GUID format 
             objToken.token = "1bf89a1c/fdhdhdf4356656546+fghf&";
-
+            //checks against validation helper class sends token object and finds matched errors
             var results = TestValidationHelper.Validate(objToken);
 
             Assert.AreEqual(1, results.Count);
@@ -211,7 +217,7 @@ namespace KymiraApplicationTests
         {
             //Test token is null (blank)
             objToken.token = "";
-
+            //checks against validation helper class sends token object and finds matched errors
             var results = TestValidationHelper.Validate(objToken);
 
             Assert.AreEqual(1, results.Count);

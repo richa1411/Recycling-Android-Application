@@ -13,21 +13,22 @@ using Android.Widget;
 
 namespace KymiraApplication.Fragments
 {
+    //this fragment is for the users who has done successful login with valid and correct entries
     public class HomeFragment : Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your fragment here
+            
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
+            
              return inflater.Inflate(Resource.Layout.home_layout, container, false);
 
-            //return base.OnCreateView(inflater, container, savedInstanceState);
+           
         }
     }
 }
