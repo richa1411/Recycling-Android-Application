@@ -83,6 +83,24 @@ namespace KymiraApplicationUITests
             app.ScrollDownTo(m => m.Text("1990"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
             app.Tap("1990");
 
+            app.Tap("addressLine1_value");
+            app.EnterText("123 Test Street");
+
+            app.ScrollDownTo("btnSubmit");
+
+            app.Tap("city_value");
+            app.EnterText("Saskatoon");
+
+            app.Tap("provinceSpinner");
+            app.ScrollDownTo(m => m.Text("Saskatchewan"), x => x.Id("provinceSpinner"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
+            app.Tap("Saskatchewan");
+
+            app.Tap("postalCode_value");
+            app.EnterText("S7J4J6");
+
+            app.Tap("termsCheckbox");
+
+            app.Tap("btnSubmit");
 
             Assert.IsTrue(true);
         }

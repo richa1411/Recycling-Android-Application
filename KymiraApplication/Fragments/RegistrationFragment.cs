@@ -237,6 +237,7 @@ namespace KymiraApplication.Fragments
             else
             {
                 var success = await sendJsonAsync(obRegistration);
+
                 if (success.IsSuccessStatusCode)
                 {
                     //success case
@@ -275,6 +276,7 @@ namespace KymiraApplication.Fragments
 
             // Create an HttpResponseMessage to hold the response of the HttpClient's POST
             HttpResponseMessage response = await client.PostAsync(uri, content);
+
             return response;
          }
 

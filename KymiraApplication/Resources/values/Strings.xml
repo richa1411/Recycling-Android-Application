@@ -3,7 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
-    <string name="UrlResidents">http://localhost:55085/api/Residents</string>
+    <string name="UrlResidents">http://10.0.2.2:55085/api/Residents</string>
     <string-array name="province_array">
       <item>Select Province</item>
       <item>Alberta</item>
