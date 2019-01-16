@@ -65,10 +65,39 @@ namespace KymiraApplication.Fragments
             {
 
                 // If the list has items in it
+
+
                 // Validate those items to make sure they work
+
+                /** TODO:
+                 *  This loop handles validation.
+                 *  We have to set our placeholder image before doing the validation
+                 *  That way if an item doesn't have an image, it isn't removed from the list
+                 *  The URL has to be set to where our image is gonna be located (So G:/ThisImage.png)
+                 *  The URL itself is parsed in the adapter, so we don't have to worry about any of that
+                 *  the URL is simply a String that points to an image.
+                 *  
+                 */
+                foreach (Disposable disposableItem in disposables)
+                {
+                    if(disposableItem.imageURL == null || disposableItem.imageURL == "")
+                    {
+                        disposableItem.imageURL = "/Resources/Drawable/No_Image.png";
+                    }
+
+                    // We have to Validate the object
+                   // var results = HelperTestModel.Validate(disposableItem);
+                }
+                
+
                 // Create two new lists, one to store recyclables,
                 // one to store non-recyclables.
-                
+
+                /**
+                 *  This loop makes the lists for recyclable and non-recyclable items.
+                 *  It looks at the IsRecyclable property, (which is a boolean)
+                 *  and puts it into list A if true and list B if false.
+                 */ 
                 foreach(Disposable disposableItem in disposables)
                 {
                     if(disposableItem.isRecyclable)
@@ -85,6 +114,9 @@ namespace KymiraApplication.Fragments
             }
             else
             {
+
+                // TODO:
+
                 // If the disposables list is empty
                 // Notify the user that server can't be reached.
             }
@@ -95,23 +127,28 @@ namespace KymiraApplication.Fragments
 
         }
 
+        // Event handler for the View Recyclables Button.
+        // This simply calls displayDisposablesList and passes
+        // in our list of RECYCLABLE items.
         private void btnViewRecyclables_Click(object sender, EventArgs e)
         {
             displayDisposablesList(recItems);
         }
 
+        // Event handler for the View Non-Recyclables Button.
+        // This simply calls displayDisposablesList and passes
+        // in our list of NON-RECYCLABLE items.
         private void btnViewNonRecyclables_Click(object sender, EventArgs e)
         {
             displayDisposablesList(nonRecItems);
         }
 
 
-        /**
-         *  This method will use the Listview and adapter to display the information on dispoables
-         */
+        // This method creates a new DisposablesAdapter and sets 
+        // the listview to use it.
         private void displayDisposablesList(List<Disposable> disposables)
         {
-            AdapterDisposables adapter = new AdapterDisposables(Context, disposables);
+            DisposablesAdapter adapter = new DisposablesAdapter(Context, disposables);
 
             lvDisposables.Adapter = adapter;
         }
@@ -121,7 +158,6 @@ namespace KymiraApplication.Fragments
         // This method handles receiving json from the uri specified
         public async void receiveDisposablesAsync()
         {
-            // populate dispsoables list with stuff from api.
 
             // Instantiate the HTTP Client
             client = new HttpClient();
