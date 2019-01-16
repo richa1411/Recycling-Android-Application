@@ -9,14 +9,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="50px" />
+        android:textSize="100px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24.5dp" />
     <TextView
         android:text="@string/address"
         android:id="@+id/addressLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/binStatusTitle"
-        android:textSize="50px" />
+        android:textSize="60px" />
     <EditText
         android:id="@+id/addressEntry"
         android:layout_height="wrap_content"
@@ -24,14 +26,15 @@
         android:inputType="text"
         android:layout_toRightOf="@+id/addressLabel"
         android:textSize="50px"
-        android:layout_marginBottom="10.0dp"
-        android:layout_marginTop="14.5dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@id/addressLabel"
+        android:layout_marginLeft="17.5dp" />
     <Button
         android:id="@+id/btnSubmit"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="@string/btnSubmit"
-        android:layout_below="@+id/addressEntry"
+        android:layout_below="@id/addressLabel"
         android:textSize="50px" />
 <!-- The hard-coded string values to display to the app -->
     <TextView
@@ -41,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnSubmit"
         android:textSize="50px"
-        android:padding="5px" />
+        android:padding="5px"
+        android:layout_marginTop="30.5dp" />
     <TextView
         android:id="@+id/lblContaminated"
         android:text="@string/lblContaminated"
@@ -62,30 +66,28 @@
     <TextView
         android:id="@+id/tvCollected"
         android:text="n/n"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/lblCollected"
         android:textSize="50px"
-        android:layout_marginLeft="184.0dp"
-        android:layout_marginTop="141.0dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@id/lblCollected"
+        android:layout_marginLeft="197.5dp" />
     <TextView
         android:id="@+id/tvContaminated"
         android:text="n/n"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="50px"
-        android:layout_toRightOf="@+id/lblContaminated"
-        android:layout_marginTop="182.5dp"
-        android:layout_marginLeft="138.0dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@id/lblContaminated"
+        android:layout_marginLeft="197.5dp" />
     <TextView
         android:id="@+id/tvInaccessible"
         android:text="n/n"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textSize="50px"
-        android:layout_toRightOf="@id/lblInaccessible"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="220.0dp"
-        android:layout_marginBottom="0.0dp"
-        android:layout_marginLeft="149.0dp" />
+        android:layout_alignBaseline="@id/lblInaccessible"
+        android:layout_marginLeft="197.5dp" />
 </RelativeLayout>
