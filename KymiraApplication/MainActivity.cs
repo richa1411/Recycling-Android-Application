@@ -14,7 +14,6 @@ namespace KymiraApplication
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
-        FragmentTransaction fragTrans;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -22,8 +21,6 @@ namespace KymiraApplication
             SetContentView(Resource.Layout.activity_main);
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
-
-            fragTrans = FragmentManager.BeginTransaction();
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
@@ -65,10 +62,13 @@ namespace KymiraApplication
         }
 
         public void replaceWithMain()
-        {
-            var mainFragment = new MainFragment();
+        {          
 
             var ft = FragmentManager.BeginTransaction();
+
+            ft.SetCustomAnimations(Android.Resource.Animator.FadeIn, Android.Resource.Animator.FadeOut);
+
+            var mainFragment = new MainFragment();
 
             ft.Replace(Resource.Id.fragment_container, mainFragment);
 
@@ -85,11 +85,15 @@ namespace KymiraApplication
             }
             else if (id == Resource.Id.nav_registration)
             {
+                var ft = FragmentManager.BeginTransaction();
+
+                ft.SetCustomAnimations(Android.Resource.Animator.FadeIn, Android.Resource.Animator.FadeOut);
+
                 var registrationFragment = new RegistrationFragment();
 
-                fragTrans.Replace(Resource.Id.fragment_container, registrationFragment);
+                ft.Replace(Resource.Id.fragment_container, registrationFragment);
 
-                fragTrans.Commit();
+                ft.Commit();
             }
             else if (id == Resource.Id.nav_slideshow)
             {

@@ -57,7 +57,7 @@ namespace KymiraApplicationUITests
         }
 
         [Test]
-        public void TestThatSuccessfulRegistrationReturnsToMainFragment()
+        public void TestThatValidRegistrationNoConnectionErrorMessage()
         {
             app.Tap("email_value");
             app.EnterText("test@test.com");
@@ -80,8 +80,8 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(199, 1189);
 
             app.Tap("birthDateSpinnerYear");
-            app.ScrollDownTo(m => m.Text("1990"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
-            app.Tap("1990");
+            app.ScrollDownTo(m => m.Text("2004"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
+            app.Tap("2004");
 
             app.Tap("addressLine1_value");
             app.EnterText("123 Test Street");
@@ -101,6 +101,57 @@ namespace KymiraApplicationUITests
             app.Tap("termsCheckbox");
 
             app.Tap("btnSubmit");
+
+            app.WaitForElement("Registration Failed: RequestTimeout");
+        }
+
+        [Test]
+        public void TestThatValidRegistrationReturnsToMain()
+        {
+            app.Tap("email_value");
+            app.EnterText("test@test.com");
+
+            app.Tap("password_value");
+            app.EnterText("p@ssw0rd");
+
+            app.Tap("phone_value");
+            app.EnterText("3062222222");
+
+            app.Tap("firstName_value");
+            app.EnterText("Tim");
+
+            app.Tap("lastName_value");
+            app.EnterText("Maughan");
+
+            app.ScrollDownTo("addressLine2_label");
+
+            app.Tap("birthDateSpinnerMonth");
+            app.TapCoordinates(199, 1189);
+
+            app.Tap("birthDateSpinnerYear");
+            app.ScrollDownTo(m => m.Text("2004"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
+            app.Tap("2004");
+
+            app.Tap("addressLine1_value");
+            app.EnterText("123 Test Street");
+
+            app.ScrollDownTo("btnSubmit");
+
+            app.Tap("city_value");
+            app.EnterText("Saskatoon");
+
+            app.Tap("provinceSpinner");
+            app.ScrollDownTo(m => m.Text("Saskatchewan"), x => x.Id("provinceSpinner"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
+            app.Tap("Saskatchewan");
+
+            app.Tap("postalCode_value");
+            app.EnterText("S7J4J6");
+
+            app.Tap("termsCheckbox");
+
+            app.Tap("btnSubmit");
+
+            app.WaitForElement("Welcome to the Main Page");
         }
 
         /**
@@ -158,14 +209,20 @@ namespace KymiraApplicationUITests
             app.Tap("password_value");
             app.EnterText("testingpassword");
 
-            app.Tap("phone_value");
-            app.EnterText("test");
-
             app.ScrollDownTo("btnSubmit");
 
             app.Tap("btnSubmit");
 
             app.WaitForElement("A phone number is required");
+
+            app.ScrollUpTo("phone_value");
+            app.Tap("phone_value");
+            app.EnterText("123");
+
+            app.ScrollDownTo("btnSubmit");
+            app.Tap("btnSubmit");
+
+            app.WaitForElement("Phone number must contain 10 digits");
         }
 
         /**
@@ -365,6 +422,8 @@ namespace KymiraApplicationUITests
 
             app.ScrollDownTo("btnSubmit");
 
+            app.Tap("termsCheckbox");
+
             app.Tap("btnSubmit");
 
             app.WaitForElement("A province is required");
@@ -409,11 +468,14 @@ namespace KymiraApplicationUITests
             app.Tap("city_value");
             app.EnterText("Saskatoon");
 
+            app.Tap("provinceSpinner");
+            app.Tap("Alberta");
+
             app.ScrollDownTo("btnSubmit");
 
             app.Tap("btnSubmit");
 
-            app.WaitForElement("A province is required");
+            app.WaitForElement("A postal code is required");
         }
 
         /**

@@ -222,8 +222,17 @@ namespace KymiraApplication.Fragments
             //Before validating, convert postal code to all upper case
             string strPostalCode = etPostalCode.Text.ToString().ToUpper();
 
+            if(provinceSpinner.SelectedItem.ToString().Equals("Select Province"))
+            {
+                this.province = "";
+            }
+            else
+            {
+                this.province = provinceSpinner.SelectedItem.ToString();
+            }
+
             //Create a new Registration object from the populated edit text fields
-            obRegistration = new Registration(etEmail.Text.ToString(), etPassword.Text.ToString(), etPhone.Text.ToString(), etFirstName.Text.ToString(), etLastName.Text.ToString(), strRegBirthDate, etAddressLine1.Text.ToString(), etCity.Text.ToString(), provinceSpinner.SelectedItem.ToString(), strPostalCode, this.agreeToTerms);
+            obRegistration = new Registration(etEmail.Text.ToString(), etPassword.Text.ToString(), etPhone.Text.ToString(), etFirstName.Text.ToString(), etLastName.Text.ToString(), strRegBirthDate, etAddressLine1.Text.ToString(), etCity.Text.ToString(), this.province, strPostalCode, this.agreeToTerms);
 
             //Validate the Registration object
             validationResults = ValidationHelper.Validate(obRegistration);
@@ -350,7 +359,7 @@ namespace KymiraApplication.Fragments
 
             string strMonth = spinner.SelectedItem.ToString();
 
-            //Based on the item selected by the province spinner, set the value of the month from alpha to numeric only
+            //Based on the item selected by the Month spinner, set the value of the month from alpha to numeric only
             switch (strMonth)
             {
                 case "January":
