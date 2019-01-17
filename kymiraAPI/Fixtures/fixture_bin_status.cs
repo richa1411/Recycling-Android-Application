@@ -89,8 +89,12 @@ namespace kymiraAPI.Fixtures
         public static void Load(kymiraAPIContext _context)
         {
             _context.Site.AddRange(obSites);
-            _context.BinStatus.AddRange(obBins);
             _context.SaveChangesAsync();
+
+            
+
+           // _context.BinStatus.AddRange(obBins);
+           // _context.SaveChangesAsync();
 
         }
         /**
@@ -98,7 +102,7 @@ namespace kymiraAPI.Fixtures
          * */
         public static void Unload(kymiraAPIContext _context)
         {
-            _context.BinStatus.RemoveRange(_context.BinStatus);
+            //_context.BinStatus.RemoveRange(_context.BinStatus);
             _context.Site.RemoveRange(_context.Site);
             _context.SaveChangesAsync();
         }

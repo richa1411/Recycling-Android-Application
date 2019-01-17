@@ -40,8 +40,11 @@
         android:id="@+id/lblError"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Test"
-        android:textSize="50px" />
+        android:text=""
+        android:textSize="50px"
+        android:layout_marginTop="178.5dp"
+        android:textColor="#ffff0000"
+        android:layout_alignBaseline="@id/btnSubmit" />
 <!-- The hard-coded string values to display to the app -->
     <TextView
         android:id="@+id/lblCollected"

@@ -95,7 +95,7 @@ namespace KymiraApplication.Fragments
                 //the following is for a post request
                 var json = JsonConvert.SerializeObject(address);
                 var send = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync("http://localhost:55085/api/BinStatus/", send);
+                HttpResponseMessage response = await client.PostAsync(strURI, send);
 
                 if(response.IsSuccessStatusCode)
                 {
