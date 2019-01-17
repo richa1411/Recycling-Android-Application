@@ -41,7 +41,7 @@ namespace KymiraApplication.Fragments
 
         }
 
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public  override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
@@ -52,17 +52,19 @@ namespace KymiraApplication.Fragments
             recItems = new List<Disposable>();
             nonRecItems = new List<Disposable>();
 
-            btnViewRecyclables.FindViewById(Resource.Id.btnViewRecyclableItems);
-            btnViewNonRecyclables.FindViewById(Resource.Id.btnViewNonRecyclableItems);
+            btnViewRecyclables = view.FindViewById<Button>(Resource.Id.btnViewRecyclableItems);
+            btnViewNonRecyclables = view.FindViewById<Button>(Resource.Id.btnViewNonRecyclableItems);
 
-            lvDisposables.FindViewById(Resource.Id.lvDisposables);
+            lvDisposables = view.FindViewById<ListView>(Resource.Id.lvDisposables);
 
             // Event Handlers for the buttons
             btnViewRecyclables.Click += btnViewRecyclables_Click;
             btnViewNonRecyclables.Click += btnViewNonRecyclables_Click;
 
+            disposables = new List<Disposable>();
+
             // When the view loads, retrieve the disposables list from the database
-            receiveDisposablesAsync(); 
+            disposables = receiveDisposablesAsync(); 
 
             if (disposables.Count != 0)
             {
@@ -165,24 +167,26 @@ namespace KymiraApplication.Fragments
 
 
         // This method handles receiving json from the uri specified
-        public async void receiveDisposablesAsync()
+        public async Task<List<Disposable>> receiveDisposablesAsync()
         {
 
             // Instantiate the HTTP Client
             client = new HttpClient();
 
             // Grab the Root API URL and the Disposables URL from the Resources.Strings File
-            String urlAPI = Context.Resources.GetString(Resource.String.UrlAPI);
-            String urlDisposables = Context.Resources.GetString(Resource.String.UrlDisposables);
+            //String urlAPI = Context.Resources.GetString(Resource.String.UrlAPI);
+            //String urlDisposables = Context.Resources.GetString(Resource.String.UrlDisposables);
 
             // Add them together to form the full URI String
-            String uriString = urlAPI + urlDisposables;
+            //String uriString = urlAPI + urlDisposables;
+
+            String uriString = "http://10.0.2.2:55085/api/Disposables";
 
             // Create a URI
             Uri uri = new Uri(uriString, UriKind.Absolute);
 
             // Make an HTTPResponseMessage
-            HttpResponseMessage response = await client.GetAsync(uri);
+            var response = await client.GetAsync(uri);
 
             // Check if the message was sent successfully
             if(response.IsSuccessStatusCode)
@@ -191,7 +195,7 @@ namespace KymiraApplication.Fragments
                 var content = await response.Content.ReadAsStringAsync();
 
                 // Deserialize and set this object to our Disposables List
-                disposables = JsonConvert.DeserializeObject<List<Disposable>>(content);
+                 return JsonConvert.DeserializeObject<List<Disposable>>(content);
             }
             else
             {
