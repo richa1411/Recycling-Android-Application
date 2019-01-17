@@ -84,7 +84,8 @@ namespace KymiraApplication.Fragments
 
             view = inflater.Inflate(Resource.Layout.registration_layout, container, false);
             client = new HttpClient();
-            agreeToTerms = false;   
+            client.Timeout = System.TimeSpan.FromSeconds(10);
+            agreeToTerms = false;
 
             //Assign UI Controls
             etEmail = view.FindViewById<EditText>(Resource.Id.email_value);
@@ -236,26 +237,32 @@ namespace KymiraApplication.Fragments
             //Otherwise, create a JSON object from the form data and send a post request to the API
             else
             {
-                var success = await sendJsonAsync(obRegistration);
-
-                if (success.IsSuccessStatusCode)
+                try
                 {
-                    //success case
-                    Toast.MakeText(this.Context, "Successful Registration: " + success.StatusCode.ToString(), ToastLength.Short).Show();
-                    //switch back to main fragment
-                    //var ft = this.Activity.FragmentManager.BeginTransaction();
-                    //var mainfrag = new MainFragment();
+                    var success = await sendJsonAsync(obRegistration);
 
-                    //ft.Replace(Resource.Id.fragment_container, mainfrag);
+                    if (success.IsSuccessStatusCode)
+                    {
+                        //success case
+                        Toast.MakeText(this.Context, "Successful Registration: " + success.StatusCode.ToString(), ToastLength.Short).Show();
+                        //switch back to main fragment
+                        //var ft = this.Activity.FragmentManager.BeginTransaction();
+                        //var mainfrag = new MainFragment();
 
-                    ((MainActivity)Activity).replaceWithMain();
+                        //ft.Replace(Resource.Id.fragment_container, mainfrag);
+
+                        ((MainActivity)Activity).replaceWithMain();
+                    }
+                    else
+                    {
+                        //fail case
+                        Toast.MakeText(this.Context, "Registration Failed: " + success.StatusCode.ToString(), ToastLength.Short).Show();
+                    }
                 }
-                else
+                catch(System.Net.Http.HttpRequestException)
                 {
-                    //fail case
-                    Toast.MakeText(this.Context, "Registration Failed: " + success.StatusCode.ToString(), ToastLength.Short).Show();
-                }
-                
+                    Toast.MakeText(this.Context, "Connection failed, try again later", ToastLength.Long).Show();
+                }              
             }
         }
 
@@ -276,8 +283,20 @@ namespace KymiraApplication.Fragments
             // Convert the JSON object to be StringContent
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            // Create an HttpResponseMessage to hold the response of the HttpClient's POST
-            HttpResponseMessage response = await client.PostAsync(uri, content);
+            HttpResponseMessage response = null;
+
+            try
+            {
+                // Create an HttpResponseMessage to hold the response of the HttpClient's POST
+                response = await client.PostAsync(uri, content);
+            }
+            catch(System.Threading.Tasks.TaskCanceledException)
+            {
+
+                response = new HttpResponseMessage();
+
+                response.StatusCode = System.Net.HttpStatusCode.RequestTimeout;
+            }
 
             return response;
          }

@@ -101,8 +101,19 @@ namespace KymiraApplicationUITests
             app.Tap("termsCheckbox");
 
             app.Tap("btnSubmit");
+        }
 
-            Assert.IsTrue(true);
+        [Test]
+        public void TestThatInvalidEmailThrowsError()
+        {
+            app.Tap("email_value");
+            app.EnterText("test");
+
+            app.ScrollDownTo("btnSubmit");
+
+            app.Tap("btnSubmit");
+
+            app.WaitForElement(c => c.Marked("Email address is not in a valid format"));
         }
 
 
