@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
@@ -33,9 +34,11 @@ namespace KymiraApplication.Models
         {
             return "";// "Bin ID: " + this.binID + "\t" + "Status: " + convertBinStatusToString(this.status); ;
         }
-
-        //[ForeignKey("Site")]
+        
         public int siteID { get; set; }
+
+        [ForeignKey("Site")]
+        public Site site { get; set; }
 
         [Required(ErrorMessage = "Collection date is required")]
         [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", ErrorMessage = "Collection date must be a valid date")]

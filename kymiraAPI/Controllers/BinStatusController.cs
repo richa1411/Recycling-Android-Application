@@ -70,9 +70,9 @@ namespace kymiraAPI.Controllers
          * The method will return a Bad Request if the string passed in is an empty string or if it is greater than 200 characters.
          * The method will return 404 not found if something went wrong (no matching site with that address).
          */
-        // GET: api/BinStatus/123 Test Street
-        [HttpGet]
-        public async Task<IActionResult> GetMatchingBins(string searchAddress)
+        // POST: api/BinStatus/123 Test Street
+        [HttpPost]
+        public async Task<IActionResult> GetMatchingBins([FromBody]string searchAddress)
         {
             if (!ModelState.IsValid)
             {

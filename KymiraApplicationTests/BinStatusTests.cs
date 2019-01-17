@@ -23,6 +23,9 @@ namespace KymiraApplicationTests
         public List<ValidationResult> moreResults; //to hold a second list of validation results
         BinStatus[] binArray = new BinStatus[2]; //array of one valid and one invalid BinStatus object
 
+
+        Site testSite;
+
         [TestInitialize()]
         //this setup method runs for each test and creates a valid BinStatus and an invalid object to be tested against (also an array of both)
         public void setup()
@@ -30,13 +33,21 @@ namespace KymiraApplicationTests
             //a valid BinStatus
             testBinStatus = new BinStatus();
             testBinStatus.binID = 1;
-            //testBinStatus.binAddress = "123 Test Street";
+            testBinStatus.collectionDate = "2019-01-01";
+            testBinStatus.siteID = 30;
             testBinStatus.status = 2;
+
+            //a valid Site
+            testSite = new Site {
+                siteID = 20,
+                address = "123 Test Street"
+            };
 
             //an invalid BinStatus
             testBinStatusBad = new BinStatus();
             testBinStatusBad.binID = -1;
-            //testBinStatusBad.binAddress = "123 Example Street";
+            testBinStatus.collectionDate = "2019-01-01";
+            testBinStatus.siteID = 30;
             testBinStatusBad.status = 2;
 
             binArray[0] = testBinStatus;
@@ -46,49 +57,38 @@ namespace KymiraApplicationTests
 
         //************* ADDRESS TESTS *************
         [TestMethod]
-        //tests that if an address given which is not in the database does not return any bins
-        public void TestThatUnknownAddressIsInvalid()
-        {
-            //backend will return a BinStatus object with a binID of -1 if the address does not have any bins associated with it
-            testBinStatus.binID = -1;
-            results = HelperTestModel.Validate(testBinStatus);
-            Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
-        }
-
-        [TestMethod]
         //tests that an address of 201 characters is invalid
         public void TestThat201CharAddressIsInvalid()
         {
-            //testBinStatus.binAddress = new String('a', 201);
-            results = HelperTestModel.Validate(testBinStatus);
+            testSite.address = new String('a', 201);
+            results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
         }
 
         [TestMethod]
-        //tests that the BinStatus object's address is valid
+        //tests that the Site object's address is valid
         public void TestThatBasicAddressIsValid()
         {
-            results = HelperTestModel.Validate(testBinStatus);
+            results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(0, results.Count());
         }
 
         [TestMethod]
-        //tests that a bin object addressName can be 200 chars long
+        //tests that an address can be 200 chars long
         public void TestThatAddressMaximumSizeIsValid()
         {
-            //testBinStatus.binAddress = new String('a', 200);
-            results = HelperTestModel.Validate(testBinStatus);
+            testSite.address = new String('a', 200);
+            results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(0, results.Count());
         }
 
         [TestMethod]
-        //tests that a bin object addressName cannot be an empty string
+        //tests that an address cannot be an empty string
         public void TestThatBinsWithEmptyAddressNameAreInvalid()
         {
-            //testBinStatus.binAddress = "";
-            results = HelperTestModel.Validate(testBinStatus);
+            testSite.address = "";
+            results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
         }
@@ -111,7 +111,7 @@ namespace KymiraApplicationTests
             testBinStatus.binID = -1;
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
+            Assert.AreEqual("BinID must be a valid number", results[0].ErrorMessage);
         }
 
         [TestMethod]
@@ -121,7 +121,7 @@ namespace KymiraApplicationTests
             testBinStatus.status = 4;
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
+            Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
 
         }
 
@@ -132,7 +132,7 @@ namespace KymiraApplicationTests
             testBinStatus.status = 0;
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", results[0].ErrorMessage);
+            Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
 
         }
 
@@ -143,34 +143,6 @@ namespace KymiraApplicationTests
             testBinStatus.status = 2;
             results = HelperTestModel.Validate(testBinStatus);
             Assert.AreEqual(0, results.Count());
-        }
-
-        [TestMethod]
-        //Tests that one invalid bin in an array of received bins will display an error message
-        public void TestThatInvalidBinInArrayIsInvalid()
-        {
-            results = HelperTestModel.Validate(binArray[0]);
-            moreResults = HelperTestModel.Validate(binArray[1]);
-
-            Assert.AreEqual(0, results.Count());
-            Assert.AreEqual(1, moreResults.Count());
-            Assert.AreEqual("Sorry something went wrong, please try again in a few minutes", moreResults[0].ErrorMessage);
-        }
-
-        [TestMethod]
-        //Tests that an array containing all valid bins is valid
-        public void TestThatValidBinArrayIsValid()
-        {
-            testBinStatusBad.binID = 2;
-
-            binArray[0] = testBinStatus;
-            binArray[1] = testBinStatusBad;
-
-            results = HelperTestModel.Validate(binArray[0]);
-            moreResults = HelperTestModel.Validate(binArray[1]);
-
-            Assert.AreEqual(0, results.Count());
-            Assert.AreEqual(0, moreResults.Count());
         }
 
 

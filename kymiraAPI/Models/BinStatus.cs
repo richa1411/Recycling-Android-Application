@@ -14,7 +14,10 @@ namespace kymiraAPI.Models
      */
     public class BinStatus
     {
-        [Key] //check to see non-auto-incrementing
+        [Key]
+        public int pickupID { get; set; }
+
+        //[Key] //check to see non-auto-incrementing
         [Range(1, int.MaxValue, ErrorMessage = "BinID must be a valid number")]
         public int binID { get; set; }
 
@@ -27,9 +30,11 @@ namespace kymiraAPI.Models
         {
             return "";// "Bin ID: " + this.binID + "\t" + "Status: " + convertBinStatusToString(this.status); ;
         }
+        
+        public int siteID { get; set; }
 
         [ForeignKey("Site")]
-        public int siteID { get; set; }
+        public Site site { get; set; }
 
         [Required(ErrorMessage = "Collection date is required")]
         [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", ErrorMessage = "Collection date must be a valid date")]

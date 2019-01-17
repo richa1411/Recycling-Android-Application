@@ -15,6 +15,7 @@ using Android.Views;
 using Android.Widget;
 using KymiraApplication.Models;
 using KymiraApplication;
+using Newtonsoft.Json;
 
 namespace KymiraApplication.Fragments
 {
@@ -30,7 +31,7 @@ namespace KymiraApplication.Fragments
         private TextView tvContaminated;
         private TextView tvInaccessible;
 
-       // public bool isValid = false;    //boolean to hold whether the address entered is valid or not. Is checked on click and on load if a logged in user opens the page (Beta)
+        List<BinStatus> obList; //list of matching BinStatus objects
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -87,13 +88,21 @@ namespace KymiraApplication.Fragments
 
                 //send address and date string to backend and response will be list of binstatuses to count
                 HttpClient client = new HttpClient();
-                       
                 
-                //use BinStatus uri **********
-                Uri uri = new Uri("", UriKind.Absolute);
-                HttpResponseMessage response = await client.GetAsync(uri);
+                string strURI = Context.Resources.GetString(Resource.String.UrlBinStatus);
+                Uri uri = new Uri(strURI, UriKind.Absolute);
 
-                List<BinStatus> obList = new List<BinStatus>();
+                //the following is for a post request
+                var json = JsonConvert.SerializeObject(address);
+                var send = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync("http://localhost:55085/api/BinStatus/", send);
+
+                if(response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    obList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
+                }
+                
                 //populate and send the obList here (response)
                 CountAndPopulateResults(obList);
             }
