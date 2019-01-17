@@ -49,9 +49,7 @@ namespace kymiraAPI.Controllers
             //after successfull generation of token we will convert it in JSON notation and send back to front end 
 
             guidString = Guid.NewGuid();
-
-            //serializing guid to a json notation to send over rontend
-           // var returnString = guidString.ToString();
+            
 
 
             //return ok status with an returnstring object that carries token

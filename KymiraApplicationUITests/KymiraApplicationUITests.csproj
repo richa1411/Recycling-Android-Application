@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="LoginUITests.cs" />
     <Compile Include="AppInitializer.cs" />
+    <Compile Include="LoginUITestsNoServer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
