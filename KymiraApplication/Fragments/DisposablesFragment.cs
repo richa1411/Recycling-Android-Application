@@ -15,6 +15,8 @@ using KymiraApplication.Models;
 using Newtonsoft.Json;
 using Mono;
 
+using Android.Support.V4.View;
+
 namespace KymiraApplication.Fragments
 {
     public class DisposablesFragment : Fragment
@@ -47,6 +49,8 @@ namespace KymiraApplication.Fragments
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             view = inflater.Inflate(Resource.Layout.disposables_layout, container, false);
 
+
+
             // Instantiate the HTTP Client
             client = new HttpClient();
             client.Timeout = System.TimeSpan.FromSeconds(10);
@@ -70,7 +74,6 @@ namespace KymiraApplication.Fragments
             setDisposables();
 
             // When the view loads, retrieve the disposables list from the database
-
 
            
 
