@@ -51,11 +51,11 @@ namespace kymiraAPI.Controllers
             guidString = Guid.NewGuid();
 
             //serializing guid to a json notation to send over rontend
-            var returnString = JsonConvert.SerializeObject(guidString);
+           // var returnString = guidString.ToString();
 
 
             //return ok status with an returnstring object that carries token
-            return Ok(returnString);
+            return Ok(guidString);
 
         }
     }

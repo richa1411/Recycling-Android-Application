@@ -76,7 +76,7 @@ namespace KymiraApplication.Fragments
                     //makes response with HTtpClient that bwill try to connect with URL
                     using (var client = new HttpClient())
                     {
-                        // create the request content and define Json  
+                        //create the request content and define Json  
                         //converting object of credentials into json notation
                         var json = JsonConvert.SerializeObject(objCred);
                         var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -99,22 +99,29 @@ namespace KymiraApplication.Fragments
                             //handling the answer  
                             var resultString = await result.Content.ReadAsStringAsync();
                             //on successful login front end receives token from backend that will be checked against token model class 
-
+                            resultString.Trim("\"".ToCharArray());
                             Token objToken = new Token
                             {
-                                token = JsonConvert.DeserializeObject(resultString).ToString()
-                            };
+                                token = resultString
+                        };
+                       
 
                             var validationResult = ValidationHelper.Validate(objToken);
                             //if token is not in proper GUID format then displays an error message
-                            if (validationResult.Count != 0)
+                            if (validationResult.Count == 0)
                             {
-                                txtError.Text = "Sorry, something went wrong. Try later!!";
+                                //sets token to mainactivity make it global so that other fragments can use it
+                                mainAct.setToken(objToken.token);
+                                //on successful authentication takes user to a new home screen 
+                                FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new HomeFragment()).Commit();
+                                
                             }
-                            //sets token to mainactivity make it global so that other fragments can use it
-                            mainAct.setToken(objToken.token);
-                            //on successful authentication takes user to a new home screen 
-                            FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new HomeFragment()).Commit();
+                            else
+                            {
+
+                                txtError.Text = "Sorry, something went wrong. Try later!!";
+
+                            }
                         }
                     }
                     };

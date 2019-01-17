@@ -145,11 +145,38 @@ namespace KymiraApplicationUITests
 
             Assert.AreEqual(1, results.Count);
         }
+
         [Test]
-        //Test that a valid phone number and password will display the home screen (Successful Login)
+        //Test that incorrect phone number and password will display an error
+        //first application will find phone number textbox and type some valid but incorrect phone number then application will find password textbox and types valid but incorrect password and then application will tap login button
+        //application will check at backend for correct credentiALS and then displays an error
+        public void TestThatValidIncorrectPhonenumberPasswordDisplaysError()
+        {
+            ArrayList results = new ArrayList();
+
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 750);
+            app.TapCoordinates(100, 980);
+
+            app.EnterText("3069898989");
+            app.WaitForElement(c => c.Marked("3069898989"));
+
+            app.TapCoordinates(100, 1150);
+            app.EnterText("passpass");
+            app.Tap("btnLogin");
+            app.Tap("btnLogin");
+            results.Add(app.WaitForElement(c => c.Marked("Incorrect phone number or password")));
+
+            Assert.AreEqual(1, results.Count);
+
+
+        }
+
+        [Test]
+        //Test that a valid and correct phone number and password will display the home screen (Successful Login)
         //first application will find phone number textbox and type some valid and correct number then application will find password textbox and types valid and correct password and then application will tap login button
         //application will check at backend for correct credentiALS and then displays home screen
-        public void TestThatValidPhonenumberPasswordDisplaysHomeScreen()
+        public void TestThatValidCorrectPhonenumberPasswordDisplaysHomeScreen()
         {
             ArrayList results = new ArrayList();
 
