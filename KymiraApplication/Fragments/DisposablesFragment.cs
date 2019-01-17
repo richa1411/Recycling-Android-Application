@@ -41,12 +41,15 @@ namespace KymiraApplication.Fragments
 
         }
 
-        public  override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
             view = inflater.Inflate(Resource.Layout.disposables_layout, container, false);
 
+            // Instantiate the HTTP Client
+            client = new HttpClient();
+            client.Timeout = System.TimeSpan.FromSeconds(10);
 
 
             recItems = new List<Disposable>();
@@ -63,74 +66,13 @@ namespace KymiraApplication.Fragments
 
             disposables = new List<Disposable>();
 
+
+            setDisposables();
+
             // When the view loads, retrieve the disposables list from the database
-            disposables = receiveDisposablesAsync(); 
-
-            if (disposables.Count != 0)
-            {
-
-                // If the list has items in it
 
 
-                // Validate those items to make sure they work
-
-                /** TODO:
-                 *  This loop handles validation.
-                 *  We have to set our placeholder image before doing the validation
-                 *  That way if an item doesn't have an image, it isn't removed from the list
-                 *  The URL has to be set to where our image is gonna be located (So G:/ThisImage.png)
-                 *  The URL itself is parsed in the adapter, so we don't have to worry about any of that
-                 *  the URL is simply a String that points to an image.
-                 *  
-                 */
-                foreach (Disposable disposableItem in disposables)
-                {
-                    if(disposableItem.imageURL == null || disposableItem.imageURL == "")
-                    {
-                        disposableItem.imageURL = "/Resources/Drawable/no_image.png";
-                    }
-
-
-
-                    var results = ValidationHelper.Validate(disposableItem);
-
-                    if(results.Count == 0)
-                    {
-                        if (disposableItem.isRecyclable)
-                        {
-                            recItems.Add(disposableItem);
-                        }
-                        else
-                        {
-                            nonRecItems.Add(disposableItem);
-                        }
-                    }
-                  
-                    // We have to Validate the object
-                    // var results = HelperTestModel.Validate(disposableItem);
-                }
-                
-
-                // Create two new lists, one to store recyclables,
-                // one to store non-recyclables.
-
-                /**
-                 *  This loop makes the lists for recyclable and non-recyclable items.
-                 *  It looks at the IsRecyclable property, (which is a boolean)
-                 *  and puts it into list A if true and list B if false.
-                 */ 
-              
-
-
-            }
-            else
-            {
-
-                // TODO:
-
-                // If the disposables list is empty
-                // Notify the user that server can't be reached.
-            }
+           
 
             //return base.OnCreateView(inflater, container, savedInstanceState);
             return view;
@@ -170,38 +112,135 @@ namespace KymiraApplication.Fragments
         public async Task<List<Disposable>> receiveDisposablesAsync()
         {
 
-            // Instantiate the HTTP Client
-            client = new HttpClient();
-
-            // Grab the Root API URL and the Disposables URL from the Resources.Strings File
-            //String urlAPI = Context.Resources.GetString(Resource.String.UrlAPI);
-            //String urlDisposables = Context.Resources.GetString(Resource.String.UrlDisposables);
-
-            // Add them together to form the full URI String
-            //String uriString = urlAPI + urlDisposables;
+            List<Disposable> rList = new List<Disposable>();
 
             String uriString = "http://10.0.2.2:55085/api/Disposables";
 
-            // Create a URI
+   
             Uri uri = new Uri(uriString, UriKind.Absolute);
 
-            // Make an HTTPResponseMessage
-            var response = await client.GetAsync(uri);
+        
 
-            // Check if the message was sent successfully
-            if(response.IsSuccessStatusCode)
+           
+            HttpResponseMessage response = null;
+
+            try
             {
-                // Create a variable which will store the response of the GET
-                var content = await response.Content.ReadAsStringAsync();
 
-                // Deserialize and set this object to our Disposables List
-                 return JsonConvert.DeserializeObject<List<Disposable>>(content);
+                 response = await client.GetAsync(uri);
+
+                try
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Create a variable which will store the response of the GET
+                        var content = await response.Content.ReadAsStringAsync();
+
+                        // Deserialize and set this object to our Disposables List
+
+                        rList = JsonConvert.DeserializeObject<List<Disposable>>(content);
+
+                    }
+                    else
+                    {
+                        throw new Exception("Error reaching the server, please try again later.");
+                    }
+                }
+                catch
+                {
+
+                }
+
+            }
+            catch(System.Threading.Tasks.TaskCanceledException)
+            {
+
+            }
+
+            return rList;
+
+            
+            
+            
+            // Check if the message was sent successfully
+           
+            
+
+
+
+        }
+
+        public  async void setDisposables()
+        {
+
+                List<Disposable> displist = await receiveDisposablesAsync();
+                disposables = displist;
+
+            if (disposables.Count != 0)
+            {
+
+                // If the list has items in it
+
+
+                // Validate those items to make sure they work
+
+                /** TODO:
+                 *  This loop handles validation.
+                 *  We have to set our placeholder image before doing the validation
+                 *  That way if an item doesn't have an image, it isn't removed from the list
+                 *  The URL has to be set to where our image is gonna be located (So G:/ThisImage.png)
+                 *  The URL itself is parsed in the adapter, so we don't have to worry about any of that
+                 *  the URL is simply a String that points to an image.
+                 *  
+                 */
+                foreach (Disposable disposableItem in disposables)
+                {
+                    if (disposableItem.imageURL == null || disposableItem.imageURL == "")
+                    {
+                        disposableItem.imageURL = "/Resources/Drawable/no_image.png";
+                    }
+
+
+
+                    var results = ValidationHelper.Validate(disposableItem);
+
+                    if (results.Count == 0)
+                    {
+                        if (disposableItem.isRecyclable)
+                        {
+                            recItems.Add(disposableItem);
+                        }
+                        else
+                        {
+                            nonRecItems.Add(disposableItem);
+                        }
+                    }
+
+                    // We have to Validate the object
+                    // var results = HelperTestModel.Validate(disposableItem);
+                }
+
+
+                // Create two new lists, one to store recyclables,
+                // one to store non-recyclables.
+
+                /**
+                 *  This loop makes the lists for recyclable and non-recyclable items.
+                 *  It looks at the IsRecyclable property, (which is a boolean)
+                 *  and puts it into list A if true and list B if false.
+                 */
+
+
+
             }
             else
             {
-                throw new Exception("Error reaching the server, please try again later.");
-            }
 
+                // TODO:
+
+                // If the disposables list is empty
+                // Notify the user that server can't be reached.
+            }
 
 
 
