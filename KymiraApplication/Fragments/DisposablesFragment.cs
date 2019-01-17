@@ -20,7 +20,7 @@ namespace KymiraApplication.Fragments
     public class DisposablesFragment : Fragment
     {
 
-        
+        private View view;
         private static List<Disposable> disposables; // This will store all of the disposable items
         private static List<Disposable> recItems; // This will store all of the recyclable Items
         private static List<Disposable> nonRecItems; // This will store all of the non-recycable Items
@@ -45,6 +45,9 @@ namespace KymiraApplication.Fragments
         {
             // Use this to return your custom view for this Fragment
             // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+            view = inflater.Inflate(Resource.Layout.disposables_layout, container, false);
+
+
 
             recItems = new List<Disposable>();
             nonRecItems = new List<Disposable>();
@@ -82,11 +85,27 @@ namespace KymiraApplication.Fragments
                 {
                     if(disposableItem.imageURL == null || disposableItem.imageURL == "")
                     {
-                        disposableItem.imageURL = "/Resources/Drawable/No_Image.png";
+                        disposableItem.imageURL = "/Resources/Drawable/no_image.png";
                     }
 
+
+
+                    var results = ValidationHelper.Validate(disposableItem);
+
+                    if(results.Count == 0)
+                    {
+                        if (disposableItem.isRecyclable)
+                        {
+                            recItems.Add(disposableItem);
+                        }
+                        else
+                        {
+                            nonRecItems.Add(disposableItem);
+                        }
+                    }
+                  
                     // We have to Validate the object
-                   // var results = HelperTestModel.Validate(disposableItem);
+                    // var results = HelperTestModel.Validate(disposableItem);
                 }
                 
 
@@ -98,17 +117,7 @@ namespace KymiraApplication.Fragments
                  *  It looks at the IsRecyclable property, (which is a boolean)
                  *  and puts it into list A if true and list B if false.
                  */ 
-                foreach(Disposable disposableItem in disposables)
-                {
-                    if(disposableItem.isRecyclable)
-                    {
-                        recItems.Add(disposableItem);
-                    }
-                    else
-                    {
-                        nonRecItems.Add(disposableItem);
-                    }
-                }
+              
 
 
             }
@@ -121,8 +130,8 @@ namespace KymiraApplication.Fragments
                 // Notify the user that server can't be reached.
             }
 
-            return base.OnCreateView(inflater, container, savedInstanceState);
-
+            //return base.OnCreateView(inflater, container, savedInstanceState);
+            return view;
 
 
         }

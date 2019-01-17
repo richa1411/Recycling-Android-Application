@@ -63,7 +63,7 @@ namespace KymiraApplication
 
             // This is the backup image, we won't need this here if we are
             // adding our placeholder image to Disposables in the fragment
-            ivDisposableItemName.SetImageResource(Resource.Drawable.No_Image);
+            //ivDisposableItemName.SetImageResource(Resource.Drawable.No_Image);
 
             return row;
         }

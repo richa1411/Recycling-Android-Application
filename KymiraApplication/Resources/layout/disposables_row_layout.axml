@@ -7,7 +7,7 @@
         android:src="@android:drawable/ic_menu_gallery"
         android:layout_width="92.0dp"
         android:layout_height="86.5dp"
-        android:id="@+id/ivDisposableItem" />
+        android:id="@+id/ivDisposableItemImage" />
     <TextView
         android:text="Text"
         android:layout_width="272.0dp"

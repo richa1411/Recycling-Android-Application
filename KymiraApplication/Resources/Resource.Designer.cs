@@ -2625,7 +2625,7 @@ namespace KymiraApplication
 			public const int item_touch_helper_previous_elevation = 2131230720;
 			
 			// aapt resource value: 0x7f0800a1
-			public const int ivDisposableItem = 2131230881;
+			public const int ivDisposableItemImage = 2131230881;
 			
 			// aapt resource value: 0x7f080090
 			public const int largeLabel = 2131230864;
