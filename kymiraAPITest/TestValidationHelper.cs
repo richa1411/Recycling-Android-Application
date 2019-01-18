@@ -7,7 +7,7 @@ namespace kymiraAPITest
 {
     //this validation helper class has a method called validate that will accept Model class's object,
     //and stores results of validating objects (error messages) in a list
-   class APIValidationHelper
+   class TestValidationHelper
     {
         
             public static List<ValidationResult> Validate(object model)
