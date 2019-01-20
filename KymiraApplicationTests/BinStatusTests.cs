@@ -11,49 +11,28 @@ using KymiraApplication.Models;
 namespace KymiraApplicationTests
 {
     /**
-     *  This test class is used for testing valid BinStatus objects 
-     *  (BinStatus objects that are received from the backend upon a match with the address)
+     *  This test class is used for testing valid BinStatus objects that are received from the backend and
+     *  for testing Site objects (used for validating the address a user types in)
      */
     [TestClass()]
     public class BinStatusTests
     {
-        BinStatus testBinStatus;    //a valid BinStatus object
-        BinStatus testBinStatusBad; //an invalid BinStatus object
-        public List<ValidationResult> results; //to hold a list of validation results
-        public List<ValidationResult> moreResults; //to hold a second list of validation results
-        BinStatus[] binArray = new BinStatus[2]; //array of one valid and one invalid BinStatus object
+        //a valid BinStatus object
+        BinStatus testBinStatus = new BinStatus {
+            binID = 1,
+            collectionDate = "2019-01-01",
+            siteID = 30,
+            status = 2
+        };
 
+        List<ValidationResult> results; //to hold a list of validation results
 
-        Site testSite;
-
-        [TestInitialize()]
-        //this setup method runs for each test and creates a valid BinStatus and an invalid object to be tested against (also an array of both)
-        public void setup()
-        {
-            //a valid BinStatus
-            testBinStatus = new BinStatus();
-            testBinStatus.binID = 1;
-            testBinStatus.collectionDate = "2019-01-01";
-            testBinStatus.siteID = 30;
-            testBinStatus.status = 2;
-
-            //a valid Site
-            testSite = new Site {
+        //a valid site
+        Site testSite = new Site {
                 siteID = 20,
                 address = "123 Test Street"
-            };
-
-            //an invalid BinStatus
-            testBinStatusBad = new BinStatus();
-            testBinStatusBad.binID = -1;
-            testBinStatus.collectionDate = "2019-01-01";
-            testBinStatus.siteID = 30;
-            testBinStatusBad.status = 2;
-
-            binArray[0] = testBinStatus;
-            binArray[1] = testBinStatusBad;
-
-        }
+        };
+        
 
         //************* ADDRESS TESTS *************
         [TestMethod]

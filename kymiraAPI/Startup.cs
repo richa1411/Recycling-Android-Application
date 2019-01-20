@@ -43,8 +43,8 @@ namespace kymiraAPI
 
             context.Database.EnsureCreated();
 
-            //Fixtures.fixture_bin_status.Unload(context);
             Fixtures.fixture_bin_status.Load(context);
+            //Fixtures.fixture_bin_status.Unload(context);
 
             app.UseMvc();
         }

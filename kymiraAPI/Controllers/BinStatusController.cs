@@ -19,18 +19,18 @@ namespace kymiraAPI.Controllers
         {
             _context = context;
         }
-
+        
         /**
          * 
          * gets all binStatus objects from DB
          * */
         // GET: api/BinStatus
-        [HttpGet]
-        public IEnumerable<BinStatus> GetBinStatus()
-        {
-            return _context.BinStatus;
-        }
-
+        //[HttpGet]
+        //public IEnumerable<BinStatus> GetBinStatus()
+        //{
+        //    return _context.BinStatus;
+        //}
+        
         /*
         // PUT: api/BinStatus/5
         [HttpPut]
@@ -62,7 +62,7 @@ namespace kymiraAPI.Controllers
         }
         */
 
-        /**s
+        /**
          * This method will take in an address string from the application and return a List of BinStatus objects that are associated to that address.
          * It will search for a Site object with the address passed in and then go through that Site's corresponding list of BinStatus objects.
          * It will then bring back a list of BinStatus's with the most RECENT COLLECTION DATES.
@@ -72,7 +72,7 @@ namespace kymiraAPI.Controllers
          */
         // POST: api/BinStatus/123 Test Street
         [HttpPost]
-        public async Task<IActionResult> GetMatchingBins([FromBody]string searchAddress)
+        public async Task<IActionResult> PostAddressToSearch([FromBody]string searchAddress)
         {
             if (!ModelState.IsValid)
             {
@@ -117,20 +117,10 @@ namespace kymiraAPI.Controllers
                 }
             }
 
-            
-            return Ok(recentBins);
-        }
 
-       
-        /**
-         * Checks the database if a BinStatus exists with the given ID.
-         * */
-        private bool BinStatusExists(int id)
-        {
-            return _context.BinStatus.Any(e => e.binID == id);
+            return Ok(recentBins);
+            //return recentBins;
         }
     }
-
-
 
 }

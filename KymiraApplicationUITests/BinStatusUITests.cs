@@ -13,6 +13,7 @@ namespace KymiraApplicationUITests
     {
         IApp app;
         Platform platform;
+        
 
         public BinStatusUITests(Platform platform)
         {
@@ -20,12 +21,12 @@ namespace KymiraApplicationUITests
         }
 
         [SetUp]
-        public void BeforeEachTest()
+        public void SetUp()
         {
             //navigate to the bin status view page each time
             app = AppInitializer.StartApp(platform);
-            app.Tap(c => c.Marked("nav_view"));
-            app.Tap(c => c.Marked("nav_bin_status"));
+            //app.Tap(c => c.Marked("nav_view"));
+            //app.Tap(c => c.Marked("nav_bin_status"));
         }
 
         [Test]

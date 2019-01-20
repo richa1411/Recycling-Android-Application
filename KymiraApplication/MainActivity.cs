@@ -62,13 +62,6 @@ namespace KymiraApplication
             return base.OnOptionsItemSelected(item);
         }
 
-        private void FabOnClick(object sender, EventArgs eventArgs)
-        {
-            View view = (View) sender;
-            Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
-                .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
-        }
-
         public bool OnNavigationItemSelected(IMenuItem item)
         {
             int id = item.ItemId;

@@ -33,21 +33,19 @@ namespace KymiraApplication.Fragments
 
         List<BinStatus> obList; //list of matching BinStatus objects
 
+        private HttpClient client;  //client used for POST/GET requests
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
-
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
-
             var view = inflater.Inflate(Resource.Layout.bin_status_layout, container, false);
 
+            client = new HttpClient(); //instantiate the HTTP client once
+            
             //grab the controls from the layout
             etAddress = view.FindViewById<EditText>(Resource.Id.addressEntry);
             btnSubmit = view.FindViewById<Button>(Resource.Id.btnSubmit);
@@ -56,7 +54,7 @@ namespace KymiraApplication.Fragments
             tvInaccessible = view.FindViewById<TextView>(Resource.Id.tvInaccessible);
             tvError = view.FindViewById<TextView>(Resource.Id.lblError);
 
-            btnSubmit.Click += BtnSubmit_Click;
+            btnSubmit.Click += BtnSubmit_Click; //event handler for button click
 
             return view;
         }
@@ -84,35 +82,52 @@ namespace KymiraApplication.Fragments
             }
             else
             {
+                //attempt to send to backend
+
                 tvError.Text = ""; //reset error text to be empty string
 
                 //send address and date string to backend and response will be list of binstatuses to count
                 HttpClient client = new HttpClient();
                 
-                string strURI = Context.Resources.GetString(Resource.String.UrlBinStatus);
-                Uri uri = new Uri(strURI, UriKind.Absolute);
+                string strAPI = Context.Resources.GetString(Resource.String.UrlAPI);
+                string strBinPath = Context.Resources.GetString(Resource.String.UrlBinStatus);
+                string strUri = strAPI + strBinPath;
+
+                Uri uri = new Uri(strUri, UriKind.Absolute);
 
                 //the following is for a post request
                 var json = JsonConvert.SerializeObject(address);
                 var send = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = await client.PostAsync(strURI, send);
-
-                if(response.IsSuccessStatusCode)
+                try
                 {
-                    var content = await response.Content.ReadAsStringAsync();
-                    obList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
+                    var response = await client.PostAsync(uri, send);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var content = await response.Content.ReadAsStringAsync();
+                        obList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
+
+                        //populate and send the obList here (response)
+                        CountAndPopulateResults(obList);
+                    }
+                    else
+                    {
+                        tvError.Text = "Sorry, something went wrong. Try again later.";
+                    }
+                }
+                catch (Exception exp)
+                {
+
                 }
                 
-                //populate and send the obList here (response)
-                CountAndPopulateResults(obList);
             }
-            
             
         }
 
         /**
          * This method will go through the List of matching BinStatus objects received from the backend and count
          * each type of status to be displayed to the user. It will then populate the correct TextViews on the layout with the correct information.
+         * If any BinStatus in the list contains a status other than 1, 2, or 3, it will count that bin as inaccessible.
          */
         private void CountAndPopulateResults(List<BinStatus> obList)
         {

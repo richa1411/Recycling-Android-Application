@@ -3248,7 +3248,10 @@ namespace KymiraApplication
 		{
 			
 			// aapt resource value: 0x7f09002b
-			public const int UrlBinStatus = 2131296299;
+			public const int UrlAPI = 2131296299;
+			
+			// aapt resource value: 0x7f09002c
+			public const int UrlBinStatus = 2131296300;
 			
 			// aapt resource value: 0x7f090000
 			public const int abc_action_bar_home_description = 2131296256;
@@ -3340,8 +3343,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f09002a
 			public const int action_settings = 2131296298;
 			
-			// aapt resource value: 0x7f09002d
-			public const int address = 2131296301;
+			// aapt resource value: 0x7f09002e
+			public const int address = 2131296302;
 			
 			// aapt resource value: 0x7f090027
 			public const int app_name = 2131296295;
@@ -3349,26 +3352,26 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f09001e
 			public const int appbar_scrolling_view_behavior = 2131296286;
 			
-			// aapt resource value: 0x7f09002c
-			public const int binStatusLayoutTitle = 2131296300;
+			// aapt resource value: 0x7f09002d
+			public const int binStatusLayoutTitle = 2131296301;
 			
 			// aapt resource value: 0x7f09001f
 			public const int bottom_sheet_behavior = 2131296287;
 			
-			// aapt resource value: 0x7f09002e
-			public const int btnSubmit = 2131296302;
+			// aapt resource value: 0x7f09002f
+			public const int btnSubmit = 2131296303;
 			
 			// aapt resource value: 0x7f090020
 			public const int character_counter_pattern = 2131296288;
 			
-			// aapt resource value: 0x7f09002f
-			public const int lblCollected = 2131296303;
-			
 			// aapt resource value: 0x7f090030
-			public const int lblContaminated = 2131296304;
+			public const int lblCollected = 2131296304;
 			
 			// aapt resource value: 0x7f090031
-			public const int lblInaccessible = 2131296305;
+			public const int lblContaminated = 2131296305;
+			
+			// aapt resource value: 0x7f090032
+			public const int lblInaccessible = 2131296306;
 			
 			// aapt resource value: 0x7f090029
 			public const int navigation_drawer_close = 2131296297;
