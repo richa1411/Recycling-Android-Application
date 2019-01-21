@@ -21,48 +21,6 @@ namespace kymiraAPI.Controllers
         }
         
         /**
-         * 
-         * gets all binStatus objects from DB
-         * */
-        // GET: api/BinStatus
-        //[HttpGet]
-        //public IEnumerable<BinStatus> GetBinStatus()
-        //{
-        //    return _context.BinStatus;
-        //}
-        
-        /*
-        // PUT: api/BinStatus/5
-        [HttpPut]
-        public async Task<IActionResult> PutBinStatus( [FromBody] string searchAddress, string currentDate)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            //if the string passed in is invalid in any way, return a Bad Request
-            if(searchAddress == "" || searchAddress.Length > 200)
-            {
-                return BadRequest("Bad Request");
-
-            }
-            
-            //finding matching site
-            var siteFound = await _context.Site.Where(m => m.address == searchAddress).ToListAsync();
-
-            if (siteFound == null)
-            {
-                return NotFound();
-            }
-            
-
-            //return matching BinStatus's
-            return Ok(siteFound);
-        }
-        */
-
-        /**
          * This method will take in an address string from the application and return a List of BinStatus objects that are associated to that address.
          * It will search for a Site object with the address passed in and then go through that Site's corresponding list of BinStatus objects.
          * It will then bring back a list of BinStatus's with the most RECENT COLLECTION DATES.
@@ -89,10 +47,10 @@ namespace kymiraAPI.Controllers
             //finding matching site(s) - should only have one match
             var siteFound = await _context.Site.Where(m => m.address == searchAddress).ToListAsync();
 
-            if (siteFound == null)
+            if (siteFound.Count.Equals(0))
             {
                 //site was not found, return not found
-                return NotFound();
+                return NotFound("No match");
             }
 
 
@@ -102,7 +60,7 @@ namespace kymiraAPI.Controllers
             //sort by collection date then reverse the order -- TO DO: reverse list
             binsFound = binsFound.OrderBy(e => e.collectionDate).ToList();
 
-            var latestDate = binsFound[0].collectionDate;
+            var latestDate = binsFound[binsFound.Count - 1 ].collectionDate;
             
             //list of most recent bin status objects to return to the front end
             List<BinStatus> recentBins = new List<BinStatus>();
