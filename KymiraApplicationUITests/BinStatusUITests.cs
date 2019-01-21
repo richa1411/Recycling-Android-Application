@@ -13,7 +13,7 @@ namespace KymiraApplicationUITests
     {
         IApp app;
         Platform platform;
-        
+
 
         public BinStatusUITests(Platform platform)
         {
@@ -54,7 +54,7 @@ namespace KymiraApplicationUITests
         public void TestThatListViewNotChangedOnEmptyAddress()
         {
             ArrayList results = new ArrayList();
-            
+
             app.Tap(c => c.Marked("btnSubmit"));
 
             results.Add(app.WaitForElement(c => c.Marked("Address cannot be empty")));
@@ -102,7 +102,7 @@ namespace KymiraApplicationUITests
 
             app.EnterText("123 Test Street");
             app.Tap(c => c.Marked("btnSubmit"));
-            
+
             //make sure populated textviews are correct/not empty
             results.Add(app.WaitForElement(c => c.Marked("2/3")));
             results.Add(app.WaitForElement(c => c.Marked("1/3")));

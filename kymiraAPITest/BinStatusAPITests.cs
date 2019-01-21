@@ -36,7 +36,7 @@ namespace kymiraAPITest
         public void TestThatBinStatusLessThan1IsInvalid()
         {
             testBin.status = 0;
-            results = HelperTestModel.Validate(testBin);
+            results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
         }
@@ -46,7 +46,7 @@ namespace kymiraAPITest
         public void TestThatBinStatusGreaterThan3IsInvalid()
         {
             testBin.status = 4;
-            results = HelperTestModel.Validate(testBin);
+            results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
         }
@@ -55,7 +55,7 @@ namespace kymiraAPITest
         //testing that the valid BinStatus object is indeed valid
         public void TestThatValidBinStatusIsValid()
         {
-            results = HelperTestModel.Validate(testBin);
+            results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -64,7 +64,7 @@ namespace kymiraAPITest
         public void TestThatBinStatusOfValidNumberIsValid()
         {
             testBin.status = 2;
-            results = HelperTestModel.Validate(testBin);
+            results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -73,7 +73,7 @@ namespace kymiraAPITest
         public void TestThatBinStatusDateBadFormatIsInvalid()
         {
             testBin.collectionDate = "20191-101-01";
-            results = HelperTestModel.Validate(testBin);
+            results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Collection date must be a valid date", results[0].ErrorMessage);
         }
@@ -83,7 +83,7 @@ namespace kymiraAPITest
         public void TestThatBinStatusDateGoodFormatIsValid()
         {
             testBin.collectionDate = "2019-01-01";
-            results = HelperTestModel.Validate(testBin);
+            results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -92,7 +92,7 @@ namespace kymiraAPITest
         public void TestThatBinStatusDateEmptyStringIsInvalid()
         {
             testBin.collectionDate = "";
-            results = HelperTestModel.Validate(testBin);
+            results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Collection date is required", results[0].ErrorMessage);
         }
@@ -102,7 +102,7 @@ namespace kymiraAPITest
         public void TestThatBinStatusBinIDIsValid()
         {
             testBin.binID = 10;
-            results = HelperTestModel.Validate(testBin);
+            results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -111,7 +111,7 @@ namespace kymiraAPITest
         public void TestThatBinStatusBinIDLessThanOneIsInvalid()
         {
             testBin.binID = 0;
-            results = HelperTestModel.Validate(testBin);
+            results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("BinID must be a valid number", results[0].ErrorMessage);
         }
@@ -122,7 +122,7 @@ namespace kymiraAPITest
         public void TestThatSiteIDLessThanOneIsInvalid()
         {
             testSite.siteID = 0;
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
         }
@@ -131,7 +131,7 @@ namespace kymiraAPITest
         //testing that the valid Site object is indeed valid
         public void TestThatValidSiteIsValid()
         {
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -140,7 +140,7 @@ namespace kymiraAPITest
         public void TestThatSiteAddressOfEmptyStringIsInvalid()
         {
             testSite.address = "";
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
         }
@@ -150,7 +150,7 @@ namespace kymiraAPITest
         public void TestThatSiteAddressOfOneCharacterIsValid()
         {
             testSite.address = "a";
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -159,7 +159,7 @@ namespace kymiraAPITest
         public void TestThatSiteAddressOf200CharactersIsValid()
         {
             testSite.address = new string('a',200);
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -169,7 +169,7 @@ namespace kymiraAPITest
         public void TestThatSiteAddressOfLargeStringIsInvalid()
         {
             testSite.address = new string('a',201);
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
         }

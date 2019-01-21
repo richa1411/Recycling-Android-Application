@@ -12,4 +12,7 @@
   <string name="lblCollected">Collected:</string>
   <string name="lblContaminated">Contaminated:</string>
   <string name="lblInaccessible">Inaccessible:</string>
+  <!-- Strings for logging in -->
+  <string name="login_btn">Login</string>
+  <string name="UrlCredentials">/api/Credentials</string>
 </resources>

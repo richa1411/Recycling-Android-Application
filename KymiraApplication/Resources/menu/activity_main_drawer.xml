@@ -5,11 +5,17 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_login"
+            android:icon="@drawable/loginIcon"
+            android:title="Login" />
+      <item
             android:id="@+id/nav_bin_status"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Bin Statuses" />
-      <item />
-      
+            android:title="View Recent Bin Statuses"/> 
     </group>
+
+    <item android:title="Communicate">
+        <menu>
+        </menu>
+    </item>
 
 </menu>

@@ -18,7 +18,8 @@ namespace KymiraApplicationTests
     public class BinStatusTests
     {
         //a valid BinStatus object
-        BinStatus testBinStatus = new BinStatus {
+        BinStatus testBinStatus = new BinStatus
+        {
             binID = 1,
             collectionDate = "2019-01-01",
             siteID = 30,
@@ -28,11 +29,12 @@ namespace KymiraApplicationTests
         List<ValidationResult> results; //to hold a list of validation results
 
         //a valid site
-        Site testSite = new Site {
-                siteID = 20,
-                address = "123 Test Street"
+        Site testSite = new Site
+        {
+            siteID = 20,
+            address = "123 Test Street"
         };
-        
+
 
         //************* ADDRESS TESTS *************
         [TestMethod]
@@ -40,7 +42,7 @@ namespace KymiraApplicationTests
         public void TestThat201CharAddressIsInvalid()
         {
             testSite.address = new String('a', 201);
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
         }
@@ -49,7 +51,7 @@ namespace KymiraApplicationTests
         //tests that the Site object's address is valid
         public void TestThatBasicAddressIsValid()
         {
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(0, results.Count());
         }
 
@@ -58,7 +60,7 @@ namespace KymiraApplicationTests
         public void TestThatAddressMaximumSizeIsValid()
         {
             testSite.address = new String('a', 200);
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(0, results.Count());
         }
 
@@ -67,7 +69,7 @@ namespace KymiraApplicationTests
         public void TestThatBinsWithEmptyAddressNameAreInvalid()
         {
             testSite.address = "";
-            results = HelperTestModel.Validate(testSite);
+            results = TestValidationHelper.Validate(testSite);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
         }
@@ -79,7 +81,7 @@ namespace KymiraApplicationTests
         public void TestThatBinWithPosIDIsValid()
         {
             testBinStatus.binID = 1;
-            results = HelperTestModel.Validate(testBinStatus);
+            results = TestValidationHelper.Validate(testBinStatus);
             Assert.AreEqual(0, results.Count());
         }
 
@@ -88,7 +90,7 @@ namespace KymiraApplicationTests
         public void TestThatBinsWithNegIDAreInvalid()
         {
             testBinStatus.binID = -1;
-            results = HelperTestModel.Validate(testBinStatus);
+            results = TestValidationHelper.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("BinID must be a valid number", results[0].ErrorMessage);
         }
@@ -98,7 +100,7 @@ namespace KymiraApplicationTests
         public void TestThatBinStatusOfGreaterThan3IsInvalid()
         {
             testBinStatus.status = 4;
-            results = HelperTestModel.Validate(testBinStatus);
+            results = TestValidationHelper.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
 
@@ -109,7 +111,7 @@ namespace KymiraApplicationTests
         public void TestThatBinStatusOfLessThan1IsInvalid()
         {
             testBinStatus.status = 0;
-            results = HelperTestModel.Validate(testBinStatus);
+            results = TestValidationHelper.Validate(testBinStatus);
             Assert.AreEqual(1, results.Count());
             Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
 
@@ -120,7 +122,7 @@ namespace KymiraApplicationTests
         public void TestThatBinsWithProperBinStatusAreValid()
         {
             testBinStatus.status = 2;
-            results = HelperTestModel.Validate(testBinStatus);
+            results = TestValidationHelper.Validate(testBinStatus);
             Assert.AreEqual(0, results.Count());
         }
 

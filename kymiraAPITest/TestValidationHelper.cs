@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-namespace KymiraApplication
+namespace kymiraAPITest
 {
     //this validation helper class has a method called validate that will accept Model class's object,
     //and stores results of validating objects (error messages) in a list
-    class ValidationHelper
+   class TestValidationHelper
     {
-        public static List<ValidationResult> Validate(object model)
-        {
+        
+            public static List<ValidationResult> Validate(object model)
+            {
             var results = new List<ValidationResult>();
             //initializing validationcontext class, that will check against two objects,
             //in this case data annotations in Model class
@@ -21,8 +21,10 @@ namespace KymiraApplication
             //stores all validation results in result variable
             if (model is IValidatableObject) (model as IValidatableObject).Validate(validationContext);
 
-           
+
             return results;
         }
     }
 }
+    
+
