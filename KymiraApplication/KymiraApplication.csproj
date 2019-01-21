@@ -144,11 +144,6 @@
     <AndroidResource Include="Resources\drawable\logoBlue.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\content_main.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\layout\home_layout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
