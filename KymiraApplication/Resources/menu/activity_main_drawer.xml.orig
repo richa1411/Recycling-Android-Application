@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+<<<<<<< HEAD
+            android:id="@+id/nav_camera"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Import" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Slideshow" />
+        <item
+            android:id="@+id/nav_disposables"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Disposables List" />
+    </group>
+
+=======
+            android:id="@+id/nav_login"
+            android:icon="@drawable/loginIcon"
+            android:title="Login" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+        </menu>
+    </item>
+>>>>>>> master
+
+</menu>

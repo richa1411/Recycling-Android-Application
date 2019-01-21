@@ -14,13 +14,28 @@ namespace KymiraApplication
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
+<<<<<<< HEAD
+
+        FragmentTransaction fragTrans;
+=======
         //variable that will store token generated from LoginAPI on successful login for each user got from LoginFragment(front end)
         public String token;
+>>>>>>> master
 
         //this method creates and sets an instance of main activity and assigns view of this activity
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+<<<<<<< HEAD
+            SetContentView(Resource.Layout.activity_main);
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
+
+
+           fragTrans = FragmentManager.BeginTransaction();
+
+            DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+=======
             //opens view (layout) here it is activity_main
             SetContentView(Resource.Layout.activity_main);
             //instance of toolbar class that creates toolbar on our drawer layout
@@ -29,10 +44,24 @@ namespace KymiraApplication
             //an instance of drawer layout is made
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             //toggle button that opens navigational item side bar, instance is applied with toolbar, drawer instances 
+>>>>>>> master
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
             drawer.AddDrawerListener(toggle);
             toggle.SyncState();
 
+<<<<<<< HEAD
+            NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            navigationView.SetNavigationItemSelectedListener(this);
+
+
+
+
+
+        }
+
+        public override void OnBackPressed()
+        {
+=======
             //instance of navigational view
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
@@ -43,6 +72,7 @@ namespace KymiraApplication
         public override void OnBackPressed()
         {
             //finds drawer layout, and make it start/close flips it on click of back button
+>>>>>>> master
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             if(drawer.IsDrawerOpen(GravityCompat.Start))
             {
@@ -54,7 +84,10 @@ namespace KymiraApplication
             }
         }
 
+<<<<<<< HEAD
+=======
         //displays menu items placed just after navigation items that navigates to menu_main layout
+>>>>>>> master
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
@@ -74,6 +107,42 @@ namespace KymiraApplication
                     FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new LoginFragment()).Commit();
                     break;
             }
+<<<<<<< HEAD
+
+            return base.OnOptionsItemSelected(item);
+        }
+
+
+        public bool OnNavigationItemSelected(IMenuItem item)
+        {
+            int id = item.ItemId;
+
+            if (id == Resource.Id.nav_camera)
+            {
+                // Handle the camera action
+            }
+            else if (id == Resource.Id.nav_gallery)
+            {
+
+            }
+            else if (id == Resource.Id.nav_slideshow)
+            {
+
+            }
+            else if (id == Resource.Id.nav_disposables)
+            {
+                var disposablesFragment = new DisposablesFragment();
+
+                fragTrans.Replace(Resource.Id.fragment_container, disposablesFragment);
+
+                fragTrans.Commit();
+            }
+
+            DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            drawer.CloseDrawer(GravityCompat.Start);
+            return true;
+        }
+=======
             //Drawer kayout instance for side bar navigation
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);
@@ -92,6 +161,7 @@ namespace KymiraApplication
             return this.token;
         }
         
+>>>>>>> master
     }
 }
 
