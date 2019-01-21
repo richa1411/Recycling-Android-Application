@@ -73,6 +73,18 @@ namespace KymiraApplication
                 //calls fragment named LoginFragment that will be replaced by framelayout and displays a new layout
                     FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new LoginFragment()).Commit();
                     break;
+                case Resource.Id.nav_registration:
+                    //open registration fragment
+                    var ft = FragmentManager.BeginTransaction();
+
+                    ft.SetCustomAnimations(Android.Resource.Animator.FadeIn, Android.Resource.Animator.FadeOut);
+
+                    var registrationFragment = new RegistrationFragment();
+
+                    ft.Replace(Resource.Id.frameContent, registrationFragment);
+
+                    ft.Commit();
+                    break;
             }
             //Drawer kayout instance for side bar navigation
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
@@ -91,7 +103,19 @@ namespace KymiraApplication
         {
             return this.token;
         }
-        
+        public void replaceWithMain()
+        {
+
+            var ft = FragmentManager.BeginTransaction();
+
+            ft.SetCustomAnimations(Android.Resource.Animator.FadeIn, Android.Resource.Animator.FadeOut);
+
+            var mainFragment = new MainFragment();
+
+            ft.Replace(Resource.Id.fragment_container, mainFragment);
+
+            ft.Commit();
+        }
     }
 }
 

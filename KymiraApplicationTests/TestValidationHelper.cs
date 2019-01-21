@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace KymiraApplication
+namespace KymiraApplicationTests
 {
     public class TestValidationHelper
     {

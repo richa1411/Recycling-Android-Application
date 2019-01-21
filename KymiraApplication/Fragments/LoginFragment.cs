@@ -87,7 +87,7 @@ namespace KymiraApplication.Fragments
                         client.Timeout = System.TimeSpan.FromSeconds(3);
 
                         //  send a POST request  to backend API
-                        string stringUri = Context.Resources.GetString(Resource.String.UrlAPI);
+                        string stringUri = Context.Resources.GetString(Resource.String.UrlResidents);
                         string stringPath = Context.Resources.GetString(Resource.String.UrlCredentials);
                         string uri = stringUri + stringPath;
                         //result variable gets output from API

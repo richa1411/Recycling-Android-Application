@@ -5,7 +5,7 @@ using System.Text;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace KymiraApplication.Model
+namespace KymiraApplication.Models
 {
     public class Registration
     {
