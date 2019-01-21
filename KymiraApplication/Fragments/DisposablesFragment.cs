@@ -223,18 +223,6 @@ namespace KymiraApplication.Fragments
                     // var results = HelperTestModel.Validate(disposableItem);
                 }
 
-
-                // Create two new lists, one to store recyclables,
-                // one to store non-recyclables.
-
-                /**
-                 *  This loop makes the lists for recyclable and non-recyclable items.
-                 *  It looks at the IsRecyclable property, (which is a boolean)
-                 *  and puts it into list A if true and list B if false.
-                 */
-
-
-
             }
             else
             {
@@ -243,6 +231,7 @@ namespace KymiraApplication.Fragments
 
                 // If the disposables list is empty
                 // Notify the user that server can't be reached.
+                
             }
 
 

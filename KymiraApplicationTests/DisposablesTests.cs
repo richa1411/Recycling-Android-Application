@@ -24,29 +24,14 @@ namespace KymiraApplicationTests
     public class DisposablesTests
     { //TODO: Make sure the methods used in ListDisposable are called in the tests, finish adding Objects and arrays for them to work
 
-        string[] jsonArray; // This is the JSON Array that we receive from the backend
-         
-        string jsonObject1; // This is a JSON Object in the JSON Array that represents a recycable object with valid information
-        string jsonObject2; // This is a JSON Object in the JSON Array that represents a recycable object with valid information
-        string jsonObject3; // This is a JSON Object in the JSON Array that represents a non-recycable object with valid information
-        string jsonObject4; // This is a JSON Object in the JSON Array that represents a non-recycable object with valid information
-        string jsonObject5; // This is a JSON Object in the JSON Array that represents a non-recycable with a missing name attribute
-        string jsonObject6; // This is a JSON Object in the JSON Array that represents a non-recycable with a missing description attribute
-        string jsonObject7; // This is a JSON Object in the JSON Array that represents a recyclable with no ImageURL property
-
-        Disposable[] disposables; // This is an array of disposables, that is returned from the parseDisposable() method
-
-        Disposable recItem1; // This is a Disposable Object in the Disposables Array
-        Disposable recItem2; // This is a Disposable Object in the Disposables Array
-        Disposable recItem3; // This is a Disposable Object in the Disposables Array
-        Disposable recItem4; // This is a Disposable Object in the Disposables Array
+        List<Disposable> disposables;
 
         [TestInitialize]
         public void TestInitialize()
         {
 
 
-            List<Disposable> disposables = new List<Disposable>(new Disposable[] { new Disposable
+            disposables = new List<Disposable>(new Disposable[] { new Disposable
         {
 
             name = "Cardboard",

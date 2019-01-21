@@ -46,10 +46,10 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(100, 100);
             app.Tap("Disposables List");
 
-            results.Add(app.WaitForElement(c => c.Marked("Show recyclable items")));
+            results.Add(app.WaitForElement(c => c.Marked("btnViewRecyclableItems")));
             Assert.AreEqual(1, results.Count);
             results = new ArrayList();
-            app.Tap("Show recyclable items");
+            app.Tap("btnViewRecyclableItems");
 
 
 
@@ -60,10 +60,10 @@ namespace KymiraApplicationUITests
 
             ArrayList obNames = new ArrayList { "Cardboard", "Paper", "Tin Cans" };
             int i = 0;
-            foreach (AppResult o in results)
+            foreach (AppResult[] o in results)
             {
 
-                Assert.AreEqual(obNames[i], o.Text);
+                Assert.AreEqual(obNames[i], o[0].Text);
                 i++;
             }
 
@@ -78,10 +78,10 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(100, 100);
             app.Tap("Disposables List");
 
-            results.Add(app.WaitForElement(c => c.Marked("Show Non-recyclable items")));
+            results.Add(app.WaitForElement(c => c.Marked("btnViewNonRecyclableItems")));
             Assert.AreEqual(1, results.Count);
             results = new ArrayList();
-            app.Tap("Show Non-recyclable items");
+            app.Tap("btnViewNonRecyclableItems");
 
 
             results.Add(app.WaitForElement(c => c.Marked("Candy")));
@@ -92,10 +92,10 @@ namespace KymiraApplicationUITests
             ArrayList obNames = new ArrayList { "Candy", "Orange Peels", "Pizza" };
 
             int i = 0;
-            foreach (AppResult o in results)
+            foreach (AppResult[] o in results)
             {
 
-                Assert.AreEqual(obNames[i], o.Text);
+                Assert.AreEqual(obNames[i], o[0].Text);
                 i++;
             }
 
