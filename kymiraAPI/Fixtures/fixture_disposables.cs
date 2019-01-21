@@ -85,7 +85,7 @@ namespace kymiraAPI.Fixtures
         {
 
                     _context.DisposableDBSet.AddRange(obList);
-                    _context.SaveChangesAsync();
+                    _context.SaveChanges();
                 
     
         }
@@ -96,7 +96,7 @@ namespace kymiraAPI.Fixtures
            
 
                 _context.DisposableDBSet.RemoveRange(_context.DisposableDBSet);
-                _context.SaveChangesAsync();
+                _context.SaveChanges();
  
         }
     }

@@ -9,7 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-
+using kymiraAPI.Models;
+using kymiraAPI.Fixtures;
 
 namespace kymiraAPI
 {
@@ -27,33 +28,25 @@ namespace kymiraAPI
         {
             services.AddMvc();
 
-
             services.AddDbContext<kymiraAPIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("kymiraAPIContext")));
-
-           
-
             
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, kymiraAPIContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,kymiraAPIContext context)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-
-           context.Database.EnsureCreated();
-            
-           Fixtures.fixture_disposables.Unload(context);
-           Fixtures.fixture_disposables.Load(context);
-            
+            context.Database.EnsureCreated();
+            Fixtures.fixture_resident.delete(context);
+            Fixtures.fixture_resident.load(context);
+            Fixtures.fixture_disposables.Unload(context);
+            Fixtures.fixture_disposables.Load(context);
 
             app.UseMvc();
         }
-
-       
     }
 }

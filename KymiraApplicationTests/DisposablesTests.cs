@@ -110,7 +110,7 @@ namespace KymiraApplicationTests
         public void AllRecyclableInformationIsValidTest()
         {
 
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
 
         }
@@ -124,7 +124,7 @@ namespace KymiraApplicationTests
         {
            
             disposables[0].ID = 1;
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
 
 
@@ -140,7 +140,7 @@ namespace KymiraApplicationTests
         public void TestThatNameIsEmpty()
         {
             disposables[0].name = null;
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Name is required", results[0].ErrorMessage);
         }
@@ -153,7 +153,7 @@ namespace KymiraApplicationTests
 
             //ErrorMessage = "name must be 50 characters or less."
             disposables[0].name = new string('a', 51);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("name must be 50 characters or less.", results[0].ErrorMessage);
 
@@ -166,7 +166,7 @@ namespace KymiraApplicationTests
         public void TestThatNameIs50CharsLong()
         {
             disposables[0].name = new string('a', 50);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
 
             //no errors
@@ -181,7 +181,7 @@ namespace KymiraApplicationTests
         public void TestThatDescriptionisValid()
         {
             disposables[0].description = "PRJ2Cosmo";
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
             //NoError
 
@@ -193,7 +193,7 @@ namespace KymiraApplicationTests
         public void TestThatDescriptionisEmpty()
         {
             disposables[0].description = null;
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Description is required", results[0].ErrorMessage);
             //error
@@ -206,7 +206,7 @@ namespace KymiraApplicationTests
         public void TestThatDescriptionisGreaterThan500Characters()
         {
             disposables[0].description = new string('a', 501);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Description must be 500 characters or less.", results[0].ErrorMessage);
             //error
@@ -219,7 +219,7 @@ namespace KymiraApplicationTests
         public void TestThatDescriptionis500Characters()
         {
             disposables[0].description = new string('a', 500);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
 
 
@@ -234,7 +234,7 @@ namespace KymiraApplicationTests
         public void TestThatPictureIDIsEmpty()
         {
             disposables[0].imageURL = null;
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("PictureID is required", results[0].ErrorMessage);
             //errors
@@ -247,7 +247,7 @@ namespace KymiraApplicationTests
         public void TestThatPictureIDIsAString()
         {
             disposables[0].imageURL = "pizza";
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
             //no errors
 
@@ -260,7 +260,7 @@ namespace KymiraApplicationTests
         public void TestThatPictureIDCanNotbeGreaterThan90Characters()
         {
             disposables[0].imageURL = new string('a', 91);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("PictureID must be 90 characters or less", results[0].ErrorMessage);
             //error
@@ -273,7 +273,7 @@ namespace KymiraApplicationTests
         public void TestThatPictureIDis90Characters()
         {
             disposables[0].imageURL = new string('a', 90);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
             //error
 
@@ -288,7 +288,7 @@ namespace KymiraApplicationTests
         public void TestThatisRecyclableIsFalse()
         {
             disposables[0].isRecyclable = false;
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
             //NoError
 
@@ -301,7 +301,7 @@ namespace KymiraApplicationTests
         {
 
             disposables[0].isRecyclable = true;
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
             //NoError
 
@@ -317,7 +317,7 @@ namespace KymiraApplicationTests
         public void TestThatRecyclableReasonIsValid()
         {
             disposables[0].recycleReason = "Because stone cold steve austin said so";
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
             //noerror
 
@@ -331,7 +331,7 @@ namespace KymiraApplicationTests
         public void TestThatRecyclableReasonIsGreaterThan500Characters()
         {
             disposables[0].recycleReason = new string('a', 501);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Reason must be 500 characters or less.", results[0].ErrorMessage);
 
@@ -346,7 +346,7 @@ namespace KymiraApplicationTests
         public void TestThatRecyclableReasonIs500Characters()
         {
             disposables[0].recycleReason = new string('a', 500);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
 
 
@@ -360,7 +360,7 @@ namespace KymiraApplicationTests
         public void TestThatRecyclableReasonIsEmpty()
         {
             disposables[0].recycleReason = null;
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Disposable must have a recyclable reason", results[0].ErrorMessage);
 
@@ -379,7 +379,7 @@ namespace KymiraApplicationTests
         public void TestThatisEndResultisValid()
         {
             disposables[0].endResult = "toilet paper for babies. this ad was sponsered by huggies";
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
             //Noerror
 
@@ -393,7 +393,7 @@ namespace KymiraApplicationTests
         {
 
             disposables[0].endResult = new string('a', 501);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Result must be 500 characters or less.", results[0].ErrorMessage);
 
@@ -409,7 +409,7 @@ namespace KymiraApplicationTests
         {
 
             disposables[0].endResult = new string('a', 500);
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
 
 
@@ -422,7 +422,7 @@ namespace KymiraApplicationTests
         public void TestThatisEndResultIsEmpty()
         {
             disposables[0].endResult = null;
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("An end result is required", results[0].ErrorMessage);
 
@@ -443,7 +443,7 @@ namespace KymiraApplicationTests
         {
 
             disposables[0].qtyRecycled = 1234567;
-            var results = HelperTestModel.Validate(disposables[0]);
+            var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
             //Noerror
 

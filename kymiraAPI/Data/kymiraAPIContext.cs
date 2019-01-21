@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using kymiraAPI;
 using kymiraAPI.Models;
 
-namespace kymiraAPI
+namespace kymiraAPI.Models
 {
     public class kymiraAPIContext : DbContext
     {
@@ -15,11 +15,9 @@ namespace kymiraAPI
         {
 
         }
-        
-        //public DbSet<kymiraAPI.Models.Resident> ResidentDBSet { get; set; }
+        public DbSet<kymiraAPI.Models.Resident> ResidentDBSet { get; set; }
         public DbSet<kymiraAPI.Models.Disposable> DisposableDBSet { get; set; }
-        //public DbSet<kymiraAPI.Models.BinStatus> BinStatus { get; set; }
-        
-        
+     }
+
     }
-}
+
