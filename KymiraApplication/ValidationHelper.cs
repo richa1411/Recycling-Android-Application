@@ -1,31 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
 namespace KymiraApplication
 {
-    /*
-     * Validation helper class
-     * it takes model class object as parameter
-     * it returns list of errors basically it creates new list
-     * it validates properties from model class and checks whether it matches with data annotation that we have put
-     * 
-     */
+    //this validation helper class has a method called validate that will accept Model class's object,
+    //and stores results of validating objects (error messages) in a list
     class ValidationHelper
     {
-        public static IList<ValidationResult> Validate(object model)
+        public static List<ValidationResult> Validate(object model)
         {
-            var results = new List<ValidationResult>(); //makes a new List
-
+            var results = new List<ValidationResult>();
+            //initializing validationcontext class, that will check against two objects,
+            //in this case data annotations in Model class
             var validationContext = new ValidationContext(model, null, null);
-            // Validation context class describes the type or member on which validation is performed
-
-            Validator.TryValidateObject(model, validationContext, results, true); //validates object of model class taking it as parameter
-
+            //validates object of Model
+            Validator.TryValidateObject(model, validationContext, results, true);
+            //stores all validation results in result variable
             if (model is IValidatableObject) (model as IValidatableObject).Validate(validationContext);
 
-            return results; //returns list of validations 
+           
+            return results;
         }
     }
 }

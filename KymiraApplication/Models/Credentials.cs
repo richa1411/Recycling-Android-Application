@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace kymiraAPI.Models
+
+namespace KymiraApplication.Models
 {
     public class Credentials
     {
@@ -20,5 +21,7 @@ namespace kymiraAPI.Models
         [Required(ErrorMessage = "Please enter your password")] //TODO: Change password length to 8 character min
         [StringLength(50, MinimumLength = 6, ErrorMessage = "Password must be between 6 - 50 characters")]
         public string password { get; set; }
+
+
     }
 }
