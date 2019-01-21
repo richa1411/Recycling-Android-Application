@@ -14,35 +14,35 @@ namespace KymiraApplication
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
-        //variable that will store token generated from LoginAPI on successful login for each user got from LoginFragment(front end)
-        public String token;
 
-        //this method creates and sets an instance of main activity and assigns view of this activity
+        FragmentTransaction fragTrans;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            //opens view (layout) here it is activity_main
             SetContentView(Resource.Layout.activity_main);
-            //instance of toolbar class that creates toolbar on our drawer layout
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
-            //an instance of drawer layout is made
+
+
+           fragTrans = FragmentManager.BeginTransaction();
+
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-            //toggle button that opens navigational item side bar, instance is applied with toolbar, drawer instances 
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
             drawer.AddDrawerListener(toggle);
             toggle.SyncState();
 
-            //instance of navigational view
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
-            
+
+
+
+
+
         }
-        
-        //this method handles event for back button press
+
         public override void OnBackPressed()
         {
-            //finds drawer layout, and make it start/close flips it on click of back button
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             if(drawer.IsDrawerOpen(GravityCompat.Start))
             {
@@ -54,44 +54,53 @@ namespace KymiraApplication
             }
         }
 
-        //displays menu items placed just after navigation items that navigates to menu_main layout
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
             return true;
         }
 
-        
-        //a method that will switch through each option inside drawer layout (navigational tabs)
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            int id = item.ItemId;
+            if (id == Resource.Id.action_settings)
+            {
+                return true;
+            }
+
+            return base.OnOptionsItemSelected(item);
+        }
+
+
         public bool OnNavigationItemSelected(IMenuItem item)
         {
-            switch (item.ItemId)
+            int id = item.ItemId;
+
+            if (id == Resource.Id.nav_camera)
             {
-                //case for login option navigation
-                case Resource.Id.nav_login:
-                //on click of login navigation item
-                //calls fragment named LoginFragment that will be replaced by framelayout and displays a new layout
-                    FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new LoginFragment()).Commit();
-                    break;
+                // Handle the camera action
             }
-            //Drawer kayout instance for side bar navigation
+            else if (id == Resource.Id.nav_gallery)
+            {
+
+            }
+            else if (id == Resource.Id.nav_slideshow)
+            {
+
+            }
+            else if (id == Resource.Id.nav_disposables)
+            {
+                var disposablesFragment = new DisposablesFragment();
+
+                fragTrans.Replace(Resource.Id.fragment_container, disposablesFragment);
+
+                fragTrans.Commit();
+            }
+
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);
             return true;
         }
-
-        //Method that will get token from LoginFrgament and assign it to a public variable of Main activity
-        //so that all other connected fragments can use it with get and set methods
-        public void setToken(String token)
-        {
-            this.token = token;
-        }
-
-        public String getToken()
-        {
-            return this.token;
-        }
-        
     }
 }
 
