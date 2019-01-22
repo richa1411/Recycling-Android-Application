@@ -112,7 +112,7 @@ namespace KymiraApplication
 
             var mainFragment = new MainFragment();
 
-            ft.Replace(Resource.Id.fragment_container, mainFragment);
+            ft.Replace(Resource.Id.frameContent, mainFragment);
 
             ft.Commit();
         }
