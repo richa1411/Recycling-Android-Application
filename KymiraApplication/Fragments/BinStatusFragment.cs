@@ -104,20 +104,21 @@ namespace KymiraApplication.Fragments
 
                     if (response.IsSuccessStatusCode)
                     {
+                        //if response came back as successfull, populate the view using the list returned
                         var content = await response.Content.ReadAsStringAsync();
                         obList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
-
-                        //populate and send the obList here (response)
                         CountAndPopulateResults(obList);
                     }
                     else
                     {
-                        tvError.Text = "Sorry, something went wrong. Try again later.";
+                        //response came back as unsuccessfull, no matching site was found in the backend
+                        tvError.Text = "No bins associated with that address.";
                     }
                 }
                 catch (Exception exp)
                 {
-
+                    //response did not work - API not running
+                    tvError.Text = "Sorry, something went wrong. Try again later.";
                 }
                 
             }

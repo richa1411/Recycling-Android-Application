@@ -30,37 +30,37 @@ namespace kymiraAPI.Controllers
          */
         // POST: api/BinStatus/123 Test Street
         [HttpPost]
-        public async Task<IActionResult> PostAddressToSearch([FromBody]string searchAddress)
+        public async Task<List<BinStatus>> PostAddressToSearch([FromBody]string searchAddress)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return new List<BinStatus>();
             }
 
             //if the string passed in is invalid in any way, return a Bad Request
             if (searchAddress == "" || searchAddress.Length > 200)
             {
-                return BadRequest("Bad Request");
-
+                return new List<BinStatus>();
             }
 
             //finding matching site(s) - should only have one match
             var siteFound = await _context.Site.Where(m => m.address == searchAddress).ToListAsync();
 
-            if (siteFound.Count.Equals(0))
+            if (siteFound.Count.Equals(0) || siteFound == null)
             {
-                //site was not found, return not found
-                return NotFound("No match");
+                //site was not found, return empty list
+                return new List<BinStatus>();
             }
 
 
             //find corresponding BinStatus objects
             var binsFound = await _context.BinStatus.Where(m => m.siteID == siteFound[0].siteID).ToListAsync();
 
-            //sort by collection date then reverse the order -- TO DO: reverse list
+            //sort by collection date
             binsFound = binsFound.OrderBy(e => e.collectionDate).ToList();
 
-            var latestDate = binsFound[binsFound.Count - 1 ].collectionDate;
+            //grab the most recent pickup date to use to compare
+            var latestDate = binsFound[binsFound.Count - 1].collectionDate;
             
             //list of most recent bin status objects to return to the front end
             List<BinStatus> recentBins = new List<BinStatus>();
@@ -68,16 +68,13 @@ namespace kymiraAPI.Controllers
             //make sure to grab only the most recent ones for each bin status
             for (int i = 0; i < binsFound.Count; i++)
             {
-                //do some sort of comparisson with the dates here
+                //compare with the most recent date
                 if (binsFound[i].collectionDate.Equals(latestDate))
                 {
                     recentBins.Add(binsFound[i]);
                 }
             }
-
-
-            return Ok(recentBins);
-            //return recentBins;
+            return recentBins;
         }
     }
 
