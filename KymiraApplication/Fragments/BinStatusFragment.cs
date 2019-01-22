@@ -34,6 +34,7 @@ namespace KymiraApplication.Fragments
         List<BinStatus> obList; //list of matching BinStatus objects
 
         private HttpClient client;  //client used for POST/GET requests
+        HttpResponseMessage response;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -87,38 +88,49 @@ namespace KymiraApplication.Fragments
                 tvError.Text = ""; //reset error text to be empty string
 
                 //send address and date string to backend and response will be list of binstatuses to count
-                HttpClient client = new HttpClient();
-                
-                string strAPI = Context.Resources.GetString(Resource.String.UrlAPI);
-                string strBinPath = Context.Resources.GetString(Resource.String.UrlBinStatus);
-                string strUri = strAPI + strBinPath;
-
-                Uri uri = new Uri(strUri, UriKind.Absolute);
-
-                //the following is for a post request
-                var json = JsonConvert.SerializeObject(address);
-                var send = new StringContent(json, Encoding.UTF8, "application/json");
-                try
+                using (client = new HttpClient())
                 {
-                    var response = await client.PostAsync(uri, send);
 
-                    if (response.IsSuccessStatusCode)
+                    string strAPI = Context.Resources.GetString(Resource.String.UrlAPI);
+                    string strBinPath = Context.Resources.GetString(Resource.String.UrlBinStatus);
+                    string strUri = strAPI + strBinPath;
+                    client.Timeout = System.TimeSpan.FromSeconds(3);
+
+                    Uri uri = new Uri(strUri, UriKind.Absolute);
+
+                    //the following is for a post request
+                    var json = JsonConvert.SerializeObject(address);
+                    var send = new StringContent(json, Encoding.UTF8, "application/json");
+                    try
                     {
-                        //if response came back as successfull, populate the view using the list returned
-                        var content = await response.Content.ReadAsStringAsync();
-                        obList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
-                        CountAndPopulateResults(obList);
+                        response = await client.PostAsync(uri, send);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            //if response came back as successfull, populate the view using the list returned
+                            var content = await response.Content.ReadAsStringAsync();
+                            obList = JsonConvert.DeserializeObject<List<BinStatus>>(content);
+
+                            if(obList.Count != 0)
+                            {
+                                CountAndPopulateResults(obList);
+                            }
+                            else
+                            {
+                                //response came back as unsuccessfull, no matching site was found in the backend
+                                tvError.Text = "No bins associated with that address.";
+                            }
+                            
+                        }
+                        
                     }
-                    else
+                    catch (Exception exp)
                     {
-                        //response came back as unsuccessfull, no matching site was found in the backend
-                        tvError.Text = "No bins associated with that address.";
+                        //response did not work - API not running
+                        response = new HttpResponseMessage();
+                        response.StatusCode = System.Net.HttpStatusCode.RequestTimeout;
+                        tvError.Text = "Sorry, something went wrong, please try again in a few minutes";
                     }
-                }
-                catch (Exception exp)
-                {
-                    //response did not work - API not running
-                    tvError.Text = "Sorry, something went wrong. Try again later.";
                 }
                 
             }

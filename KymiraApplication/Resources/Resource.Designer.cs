@@ -2660,17 +2660,17 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f08009c
 			public const int largeLabel = 2131230876;
 			
+			// aapt resource value: 0x7f080093
+			public const int lblCollected = 2131230867;
+			
 			// aapt resource value: 0x7f080094
-			public const int lblCollected = 2131230868;
+			public const int lblContaminated = 2131230868;
+			
+			// aapt resource value: 0x7f080099
+			public const int lblError = 2131230873;
 			
 			// aapt resource value: 0x7f080095
-			public const int lblContaminated = 2131230869;
-			
-			// aapt resource value: 0x7f080093
-			public const int lblError = 2131230867;
-			
-			// aapt resource value: 0x7f080096
-			public const int lblInaccessible = 2131230870;
+			public const int lblInaccessible = 2131230869;
 			
 			// aapt resource value: 0x7f080049
 			public const int left = 2131230793;
@@ -2945,17 +2945,17 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080013
 			public const int transition_transform = 2131230739;
 			
-			// aapt resource value: 0x7f080097
-			public const int tvCollected = 2131230871;
+			// aapt resource value: 0x7f080096
+			public const int tvCollected = 2131230870;
 			
-			// aapt resource value: 0x7f080098
-			public const int tvContaminated = 2131230872;
+			// aapt resource value: 0x7f080097
+			public const int tvContaminated = 2131230871;
 			
 			// aapt resource value: 0x7f0800ad
 			public const int tvError = 2131230893;
 			
-			// aapt resource value: 0x7f080099
-			public const int tvInaccessible = 2131230873;
+			// aapt resource value: 0x7f080098
+			public const int tvInaccessible = 2131230872;
 			
 			// aapt resource value: 0x7f0800a9
 			public const int txtWel = 2131230889;

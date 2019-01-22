@@ -14,7 +14,6 @@ namespace KymiraApplicationUITests
         IApp app;
         Platform platform;
 
-
         public BinStatusUITests(Platform platform)
         {
             this.platform = platform;
@@ -25,8 +24,8 @@ namespace KymiraApplicationUITests
         {
             //navigate to the bin status view page each time
             app = AppInitializer.StartApp(platform);
-            //app.Tap(c => c.Marked("nav_view"));
-            //app.Tap(c => c.Marked("nav_bin_status"));
+            app.Tap(c => c.Marked("nav_view"));
+            app.Tap(c => c.Marked("nav_bin_status"));
         }
 
         [Test]
@@ -41,24 +40,20 @@ namespace KymiraApplicationUITests
             results.Add(app.WaitForElement(c => c.Marked("lblCollected")));
             results.Add(app.WaitForElement(c => c.Marked("lblContaminated")));
             results.Add(app.WaitForElement(c => c.Marked("lblInaccessible")));
+            results.Add(app.WaitForElement(c => c.Marked("lblError").Text("")));
 
             //check that all elements are here
-            Assert.AreEqual(7, results.Count);
+            Assert.AreEqual(8, results.Count);
         }
 
-
-        //-----------------Address UI tests-------------------------------
         [Test]
-        //test that after tapping the Submit button with no address entered, the user gets a message saying that
-        //there is no bins associated with the address submitted. 
-        public void TestThatListViewNotChangedOnEmptyAddress()
+        //test that incorrect address leaves the textviews unchanged
+        public void TestThatIncorrectAddressAffectsListView()
         {
             ArrayList results = new ArrayList();
-
+            app.EnterText("12345 Fake Street");
             app.Tap(c => c.Marked("btnSubmit"));
-
-            results.Add(app.WaitForElement(c => c.Marked("Address cannot be empty")));
-
+            results.Add(app.WaitForElement(c => c.Marked("No bins associated with that address.")));
             Assert.AreEqual(1, results.Count);
         }
 
@@ -73,21 +68,6 @@ namespace KymiraApplicationUITests
             app.Tap(c => c.Marked("btnSubmit"));
 
             results.Add(app.WaitForElement(c => c.Marked("Address must be 1 to 200 characters")));
-
-            Assert.AreEqual(1, results.Count);
-        }
-
-        [Test]
-        //test that address can be 200 characters (no matching bins but does not give user an error)
-        public void TestThatListViewUnchangedOn200CharAddress()
-        {
-            ArrayList results = new ArrayList();
-
-            app.Tap(c => c.Marked("addressEntry"));
-            app.EnterText(new String('a', 200));
-            app.Tap(c => c.Marked("btnSubmit"));
-
-            results.Add(app.WaitForElement(c => c.Marked("No matching bins with that address")));
 
             Assert.AreEqual(1, results.Count);
         }
@@ -112,19 +92,33 @@ namespace KymiraApplicationUITests
         }
 
         [Test]
-        //test that incorrect address leaves the textviews unchanged
-        public void TestThatIncorrectAddressAffectsListView()
+        //test that address can be 200 characters (no matching bins but does not give user an error)
+        public void TestThatListViewUnchangedOn200CharAddress()
         {
             ArrayList results = new ArrayList();
 
-            app.EnterText("12345 Fake Street");
+            app.Tap(c => c.Marked("addressEntry"));
+            app.EnterText(new String('a', 200));
             app.Tap(c => c.Marked("btnSubmit"));
 
             results.Add(app.WaitForElement(c => c.Marked("No bins associated with that address.")));
 
             Assert.AreEqual(1, results.Count);
         }
-    }
 
-    //add emtpy test 
+        //-----------------Address UI tests-------------------------------
+        [Test]
+        //test that after tapping the Submit button with no address entered, the user gets a message saying that
+        //there is no bins associated with the address submitted. 
+        public void TestThatListViewNotChangedOnEmptyAddress()
+        {
+            ArrayList results = new ArrayList();
+
+            app.Tap(c => c.Marked("btnSubmit"));
+
+            results.Add(app.WaitForElement(c => c.Marked("Address must be 1 to 200 characters")));
+
+            Assert.AreEqual(1, results.Count);
+        }
+    } 
 }
