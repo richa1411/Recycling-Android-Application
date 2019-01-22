@@ -3,20 +3,22 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
+  <TextView
         android:text="FAQ"
         android:textSize="32.0dp"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70.0dp" />
-    <EditText
-        android:layout_width="match_parent"
+        android:layout_marginTop="70.0dp"/>
+  
+  <EditText
+        android:layout_width="match_parent",
         android:layout_height="wrap_content"
         android:hint="Search"
         android:id="@+id/etxtSearchBox" />
-    <ListView
+  <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lvFAQ" />
+
 </LinearLayout>
