@@ -73,6 +73,11 @@ namespace KymiraApplication
                 //calls fragment named LoginFragment that will be replaced by framelayout and displays a new layout
                     FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new LoginFragment()).Commit();
                     break;
+                case Resource.Id.nav_faq:
+                    //on click of login navigation item
+                    //calls fragment named LoginFragment that will be replaced by framelayout and displays a new layout
+                    FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new FAQFragment()).Commit();
+                    break;
             }
             //Drawer kayout instance for side bar navigation
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
