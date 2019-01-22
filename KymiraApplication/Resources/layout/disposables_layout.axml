@@ -2,22 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/linearLayout1">
         <Button
             android:text="Recyclables"
             android:id="@+id/btnViewRecyclableItems"
-            android:layout_width="190dp"
+            android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_marginTop="55.0dp"
             android:layout_height="72.0dp" />
         <Button
             android:text="Non-Recyclables"
             android:id="@+id/btnViewNonRecyclableItems"
-            android:layout_width="190.0dp"
-            android:layout_height="match_parent" />
+            android:layout_width="match_parent"
+            android:layout_weight="0.5"
+            android:layout_marginTop="55.0dp"
+            android:layout_height="72.0dp" />
     </LinearLayout>
     <ListView
         android:minWidth="25px"
