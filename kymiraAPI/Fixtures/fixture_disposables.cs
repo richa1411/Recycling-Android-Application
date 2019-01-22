@@ -37,7 +37,7 @@ namespace kymiraAPI.Fixtures
            
             name = "Tin Cans",
             description = "Tins Cans Description",
-            imageURL = "TinCans.png",
+            imageURL = "tincan.png",
             isRecyclable = true,
             recycleReason = "Tin Cans Reason",
             endResult = "Tin Cans End Result",

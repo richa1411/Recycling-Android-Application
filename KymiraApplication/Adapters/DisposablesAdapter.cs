@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -58,8 +59,15 @@ namespace KymiraApplication
             // This grabs the "ImageURL" from the Disposable Object
             // and parses it into a URI that is then set to the 
             // Imageview's ImageURI
+
             Android.Net.Uri url = Android.Net.Uri.Parse(disposablesList[position].imageURL);
-            ivDisposableItemName.SetImageURI(url);
+
+            Bitmap bitmap = BitmapFactory.DecodeFile(url.ToString());
+
+
+            int id = int.Parse(disposablesList[position].imageURL);
+            ivDisposableItemName.SetImageResource(id);
+            //ivDisposableItemName.SetImageURI(url);
 
             // This is the backup image, we won't need this here if we are
             // adding our placeholder image to Disposables in the fragment

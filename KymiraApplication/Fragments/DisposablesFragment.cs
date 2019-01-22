@@ -117,7 +117,7 @@ namespace KymiraApplication.Fragments
 
             List<Disposable> rList = new List<Disposable>();
 
-            //String uriString = "http://10.0.2.2:55085/api/Disposables";
+            
             String sUri = Context.Resources.GetString(Resource.String.UrlAPI);
             sUri += Context.Resources.GetString(Resource.String.UrlDisposables); 
 
@@ -201,9 +201,17 @@ namespace KymiraApplication.Fragments
                  */
                 foreach (Disposable disposableItem in disposables)
                 {
-                    if (disposableItem.imageURL == null || disposableItem.imageURL == "")
+
+                 
+
+                    if (disposableItem.imageURL == null || disposableItem.imageURL == "" || Resources.GetIdentifier(disposableItem.imageURL, "drawable", Context.PackageName) == 0)
                     {
-                        disposableItem.imageURL = "/Resources/Drawable/no_image.png";
+
+
+
+
+                        //disposableItem.imageURL = "android.resource://KymiraApplication/drawable/no_image.png";
+                        disposableItem.imageURL = ""+ Resource.Drawable.no_image;
                     }
 
 
@@ -222,10 +230,14 @@ namespace KymiraApplication.Fragments
                         }
                     }
 
+
+
+
                     // We have to Validate the object
                     // var results = HelperTestModel.Validate(disposableItem);
+                    
                 }
-
+                displayDisposablesList(recItems);
             }
             else
             {
