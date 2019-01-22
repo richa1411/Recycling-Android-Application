@@ -3374,8 +3374,11 @@ namespace KymiraApplication
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f09002d
-			public const int UrlCredentials = 2131296301;
+			// aapt resource value: 0x7f09002c
+			public const int UrlAPI = 2131296300;
+			
+			// aapt resource value: 0x7f09002e
+			public const int UrlCredentials = 2131296302;
 			
 			// aapt resource value: 0x7f09002b
 			public const int UrlResidents = 2131296299;
@@ -3482,8 +3485,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f090020
 			public const int character_counter_pattern = 2131296288;
 			
-			// aapt resource value: 0x7f09002c
-			public const int login_btn = 2131296300;
+			// aapt resource value: 0x7f09002d
+			public const int login_btn = 2131296301;
 			
 			// aapt resource value: 0x7f090029
 			public const int navigation_drawer_close = 2131296297;

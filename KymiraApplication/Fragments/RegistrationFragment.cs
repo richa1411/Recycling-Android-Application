@@ -301,7 +301,9 @@ namespace KymiraApplication.Fragments
         public async Task<HttpResponseMessage> sendJsonAsync(Registration item)
         {
             //Get the string value of the Resident controller from the application's string resources
-            string strURI = Context.Resources.GetString(Resource.String.UrlResidents);
+            string strRes = Context.Resources.GetString(Resource.String.UrlResidents);
+            string strApi = Context.Resources.GetString(Resource.String.UrlAPI);
+            string strURI = strRes + strApi;
             
             //Convert the given string to a URI
             Uri uri = new Uri(strURI, UriKind.Absolute);
