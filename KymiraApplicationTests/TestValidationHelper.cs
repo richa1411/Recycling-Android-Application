@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KymiraApplicationTests
 {
+    /*
+    * This class will be responsible for validating objects associated with this project
+    **/
     public class TestValidationHelper
     {
         public static List<ValidationResult> Validate(object model)

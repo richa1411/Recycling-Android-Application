@@ -13,6 +13,9 @@ using Android.Widget;
 
 namespace KymiraApplication.Fragments
 {
+    /*
+     * This class is responsible for the operation of the app's main fragment
+     **/
     public class MainFragment : Fragment
     {
         public override void OnCreate(Bundle savedInstanceState)

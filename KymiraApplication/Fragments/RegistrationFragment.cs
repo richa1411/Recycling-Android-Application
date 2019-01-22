@@ -11,6 +11,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 using KymiraApplication.Models;
 using Newtonsoft.Json;
@@ -25,6 +26,7 @@ namespace KymiraApplication.Fragments
         // The class has a private HttpClient for POST and GET requests
         private HttpClient client;
         private View view;
+
         //Declare edit text fields that we will need access to
         private EditText etEmail;
         private EditText etPassword;
@@ -69,6 +71,11 @@ namespace KymiraApplication.Fragments
         //Array that holds the programatically calculated days in the month that the user selects
         private string[] birthDayRange;
 
+        //Create a view to hold the loading layout
+        private View progressOverlay;
+
+        private TableLayout tableLayout;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -79,8 +86,6 @@ namespace KymiraApplication.Fragments
          * */
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
             view = inflater.Inflate(Resource.Layout.registration_layout, container, false);
             client = new HttpClient();
@@ -99,6 +104,8 @@ namespace KymiraApplication.Fragments
             etPostalCode = view.FindViewById<EditText>(Resource.Id.postalCode_value);
             termsCheckbox = view.FindViewById<CheckBox>(Resource.Id.termsCheckbox);
             btnSubmit = view.FindViewById<Button>(Resource.Id.btnSubmit);
+            progressOverlay = view.FindViewById<View>(Resource.Id.loading_overlay);
+            tableLayout = view.FindViewById<TableLayout>(Resource.Id.tableLayout);
 
             //Set click handler for the registration submit button
             btnSubmit.Click += BtnSubmit_Click;
@@ -116,6 +123,7 @@ namespace KymiraApplication.Fragments
          * */
         private void createSpinners()
         {
+            //Create an array that will store the range of dates based on the current year
             birthYearRange = new string[120];
 
             //Create listener and adapter for birth date spinner month
@@ -246,30 +254,42 @@ namespace KymiraApplication.Fragments
             //Otherwise, create a JSON object from the form data and send a post request to the API
             else
             {
+                //Make the call to the API
                 try
                 {
+                    //Hide the registration layout, show the loading layout instead
+                    tableLayout.Visibility = ViewStates.Gone;
+                    progressOverlay.Visibility = ViewStates.Visible;
+
+                    //Hide the keyboard
+                    InputMethodManager inputManager = (InputMethodManager)Activity.GetSystemService(Context.InputMethodService);
+                    inputManager.HideSoftInputFromWindow(Activity.CurrentFocus.WindowToken, HideSoftInputFlags.NotAlways);
+
                     var success = await sendJsonAsync(obRegistration);
 
                     if (success.IsSuccessStatusCode)
                     {
                         //success case
-                        Toast.MakeText(this.Context, "Successful Registration: " + success.StatusCode.ToString(), ToastLength.Short).Show();
+                        Toast.MakeText(this.Context, "Successful Registration: " + success.StatusCode.ToString(), ToastLength.Long).Show();
+
                         //switch back to main fragment
-                        //var ft = this.Activity.FragmentManager.BeginTransaction();
-                        //var mainfrag = new MainFragment();
-
-                        //ft.Replace(Resource.Id.fragment_container, mainfrag);
-
                         ((MainActivity)Activity).replaceWithMain();
                     }
                     else
                     {
+                        progressOverlay.Visibility = ViewStates.Gone;
+                        tableLayout.Visibility = ViewStates.Visible;
+
                         //fail case
-                        Toast.MakeText(this.Context, "Registration Failed: " + success.StatusCode.ToString(), ToastLength.Short).Show();
+                        Toast.MakeText(this.Context, "Registration Failed: " + success.StatusCode.ToString(), ToastLength.Long).Show();
                     }
                 }
+                //Catch all case if something unexpected happens
                 catch(System.Net.Http.HttpRequestException)
                 {
+                    progressOverlay.Visibility = ViewStates.Gone;
+                    tableLayout.Visibility = ViewStates.Visible;
+
                     Toast.MakeText(this.Context, "Connection failed, try again later", ToastLength.Long).Show();
                 }              
             }
@@ -303,10 +323,11 @@ namespace KymiraApplication.Fragments
             {
 
                 response = new HttpResponseMessage();
-
+                //Get the status code for a request that timed out
                 response.StatusCode = System.Net.HttpStatusCode.RequestTimeout;
             }
 
+            //Return the http message response
             return response;
          }
 
