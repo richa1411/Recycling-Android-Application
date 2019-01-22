@@ -13,6 +13,7 @@ namespace kymiraAPI.Controllers
     [Route("api/BinStatus")]
     public class BinStatusController : Controller
     {
+        //context object
         private readonly kymiraAPIContext _context;
 
         public BinStatusController(kymiraAPIContext context)
@@ -25,10 +26,8 @@ namespace kymiraAPI.Controllers
          * It will search for a Site object with the address passed in and then go through that Site's corresponding list of BinStatus objects.
          * It will then bring back a list of BinStatus's with the most RECENT COLLECTION DATES.
          * 
-         * The method will return a Bad Request if the string passed in is an empty string or if it is greater than 200 characters.
-         * The method will return 404 not found if something went wrong (no matching site with that address).
+         * The method will return an empty list if the address is invalid or there was no matching site with that address passed in.
          */
-        // POST: api/BinStatus/123 Test Street
         [HttpPost]
         public async Task<List<BinStatus>> PostAddressToSearch([FromBody]string searchAddress)
         {

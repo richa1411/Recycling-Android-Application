@@ -31,10 +31,10 @@ namespace KymiraApplication.Fragments
         private TextView tvContaminated;
         private TextView tvInaccessible;
 
-        List<BinStatus> obList; //list of matching BinStatus objects
+        private List<BinStatus> obList; //list of matching BinStatus objects
 
         private HttpClient client;  //client used for POST/GET requests
-        HttpResponseMessage response;
+        private HttpResponseMessage response;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,10 +43,9 @@ namespace KymiraApplication.Fragments
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            //inflate the proper bin status layout to show
             var view = inflater.Inflate(Resource.Layout.bin_status_layout, container, false);
 
-            client = new HttpClient(); //instantiate the HTTP client once
-            
             //grab the controls from the layout
             etAddress = view.FindViewById<EditText>(Resource.Id.addressEntry);
             btnSubmit = view.FindViewById<Button>(Resource.Id.btnSubmit);

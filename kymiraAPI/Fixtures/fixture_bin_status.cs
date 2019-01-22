@@ -81,11 +81,6 @@ namespace kymiraAPI.Fixtures
             collectionDate = "2019-02-02"
         }});
 
-
-        //public static Site site1 = new Site { siteID = 10, address = "123 Test Street" };
-
-        //public static BinStatus obBinAdd = new BinStatus { binID = 100, siteID = site1.siteID, collectionDate = "2019-01-01", status = 2 };
-
         /**
          * This function will create a connection to a local test database and load the specific data into it.
          * It first adds the Site objects needed and then loads in the following BinStatus objects.
@@ -93,21 +88,8 @@ namespace kymiraAPI.Fixtures
         public static void Load(kymiraAPIContext _context)
         {
             _context.Site.AddRange(obSites);
-
-            /*
-            _context.Site.Add(site1);
-            int id = site1.siteID;
-            site1.binStatus.Add(obBinAdd);
-            _context.SaveChangesAsync();
-            List<BinStatus> bins = site1.binStatus;
-             */
-             
-            //this doesn't work
-            //int pickupIdGenerated = obBinAdd.pickupID;
-            
            _context.BinStatus.AddRange(obBins);
            _context.SaveChangesAsync();
-        
         }
 
         /**

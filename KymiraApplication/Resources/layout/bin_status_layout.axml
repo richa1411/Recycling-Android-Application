@@ -11,7 +11,8 @@
         android:gravity="center"
         android:textSize="100px"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="24.5dp" />
+        android:layout_marginBottom="24.5dp"
+        android:layout_marginTop="120.0dp" />
     <TextView
         android:text="@string/address"
         android:id="@+id/addressLabel"
@@ -96,6 +97,7 @@
         android:layout_width="wrap_content"
         android:textSize="50px"
         android:textColor="#ffff0000"
+        android:text=""
         android:layout_below="@id/addressEntry"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

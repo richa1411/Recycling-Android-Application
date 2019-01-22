@@ -25,16 +25,18 @@ namespace KymiraApplicationUITests
         {
             //navigate to the bin status view page each time
             app = AppInitializer.StartApp(platform);
-            app.Tap(c => c.Marked("nav_view"));
-            app.Tap(c => c.Marked("nav_bin_status"));
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 900);
         }
 
+        [Test]
+        //test that error message is displayed when app cannot create connection with server/backend
         public void TestThatGetErrorMessageNoConnection()
         {
             ArrayList results = new ArrayList();
 
+            app.Tap(c => c.Marked("addressEntry"));
             app.EnterText("1 Example Street");
-
             app.Tap(c => c.Marked("btnSubmit"));
 
             results.Add(app.WaitForElement(c => c.Marked("Sorry, something went wrong, please try again in a few minutes")));

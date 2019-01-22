@@ -24,8 +24,8 @@ namespace KymiraApplicationUITests
         {
             //navigate to the bin status view page each time
             app = AppInitializer.StartApp(platform);
-            app.Tap(c => c.Marked("nav_view"));
-            app.Tap(c => c.Marked("nav_bin_status"));
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 900);
         }
 
         [Test]
@@ -33,24 +33,25 @@ namespace KymiraApplicationUITests
         public void TestThatAppInterfaceLoadsCorrectly()
         {
             ArrayList results = new ArrayList();
-            results.Add(app.WaitForElement(c => c.Marked("Bin Statuses")));
+           // results.Add(app.WaitForElement(c => c.Marked("Bin Statuses")));
             results.Add(app.WaitForElement(c => c.Marked("Address")));
             results.Add(app.WaitForElement(c => c.Marked("addressEntry").Text("")));
             results.Add(app.WaitForElement(c => c.Marked("btnSubmit")));
             results.Add(app.WaitForElement(c => c.Marked("lblCollected")));
             results.Add(app.WaitForElement(c => c.Marked("lblContaminated")));
             results.Add(app.WaitForElement(c => c.Marked("lblInaccessible")));
-            results.Add(app.WaitForElement(c => c.Marked("lblError").Text("")));
+            //results.Add(app.WaitForElement(c => c.Marked("lblError")));
 
             //check that all elements are here
-            Assert.AreEqual(8, results.Count);
+            Assert.AreEqual(6, results.Count);
         }
 
         [Test]
-        //test that incorrect address leaves the textviews unchanged
-        public void TestThatIncorrectAddressAffectsListView()
+        //test that we get the correct error message when an address with no matching bins is returned
+        public void TestThatAddressWithNoBinsReturnsMsg()
         {
             ArrayList results = new ArrayList();
+            app.Tap(c => c.Marked("addressEntry"));
             app.EnterText("12345 Fake Street");
             app.Tap(c => c.Marked("btnSubmit"));
             results.Add(app.WaitForElement(c => c.Marked("No bins associated with that address.")));
@@ -58,8 +59,8 @@ namespace KymiraApplicationUITests
         }
 
         [Test]
-        //test that address cannot be greater than 200 characters
-        public void TestThatListViewNotChangedOnLargeAddress()
+        //test that address cannot be greater than 200 characters (error msg is displayed)
+        public void TestThatLargeAddressReturnsErrorMsg()
         {
             ArrayList results = new ArrayList();
 
@@ -73,14 +74,12 @@ namespace KymiraApplicationUITests
         }
 
         [Test]
-        //test that correct address updates the textviews with the correct information. A fixture class has data that
-        //states that there are three bins for the supplied address two of which are collected and one contaminated. This
-        //test checks that the lables and the associated values load in
-        public void TestThatCorrectAddressUpdatesListView()
+        //test that correct address returns matching bins and displayed on the app layout
+        public void TestThatCorrectAddressReturnsBins()
         {
             ArrayList results = new ArrayList();
-
-            app.EnterText("123 Test Street");
+            app.Tap(c => c.Marked("addressEntry"));
+            app.EnterText("123 Another Street");
             app.Tap(c => c.Marked("btnSubmit"));
 
             //make sure populated textviews are correct/not empty
@@ -88,12 +87,12 @@ namespace KymiraApplicationUITests
             results.Add(app.WaitForElement(c => c.Marked("1/3")));
             results.Add(app.WaitForElement(c => c.Marked("0/3")));
 
-            Assert.AreEqual(2, results.Count);
+            Assert.AreEqual(3, results.Count);
         }
 
         [Test]
         //test that address can be 200 characters (no matching bins but does not give user an error)
-        public void TestThatListViewUnchangedOn200CharAddress()
+        public void TestThatMaxAddressShowsNoMatch()
         {
             ArrayList results = new ArrayList();
 
@@ -105,12 +104,10 @@ namespace KymiraApplicationUITests
 
             Assert.AreEqual(1, results.Count);
         }
-
-        //-----------------Address UI tests-------------------------------
+        
         [Test]
-        //test that after tapping the Submit button with no address entered, the user gets a message saying that
-        //there is no bins associated with the address submitted. 
-        public void TestThatListViewNotChangedOnEmptyAddress()
+        //test that an empty address will show an error message
+        public void TestThatEmptyAddressReturnsErrorMsg()
         {
             ArrayList results = new ArrayList();
 
