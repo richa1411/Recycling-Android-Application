@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/masterLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -23,6 +24,10 @@
             android:layout_marginTop="55.0dp"
             android:layout_height="72.0dp" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/errorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <ListView
         android:minWidth="25px"
         android:minHeight="25px"

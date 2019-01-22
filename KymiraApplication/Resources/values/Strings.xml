@@ -7,4 +7,5 @@
     <string name="UrlAPI">http://10.0.2.2:55085</string>
     <string name="UrlCredentials">/api/Credentials</string>
     <string name="UrlDisposables">/api/Disposables</string>
+    
 </resources>

@@ -117,10 +117,12 @@ namespace KymiraApplication.Fragments
 
             List<Disposable> rList = new List<Disposable>();
 
-            String uriString = "http://10.0.2.2:55085/api/Disposables";
+            //String uriString = "http://10.0.2.2:55085/api/Disposables";
+            String sUri = Context.Resources.GetString(Resource.String.UrlAPI);
+            sUri += Context.Resources.GetString(Resource.String.UrlDisposables); 
 
    
-            Uri uri = new Uri(uriString, UriKind.Absolute);
+            Uri uri = new Uri(sUri, UriKind.Absolute);
 
         
 
@@ -175,10 +177,11 @@ namespace KymiraApplication.Fragments
 
         public  async void setDisposables()
         {
-
+            LinearLayout layout = view.FindViewById<LinearLayout>(Resource.Id.masterLayout); 
+                
                 List<Disposable> displist = await receiveDisposablesAsync();
                 disposables = displist;
-
+                
             if (disposables.Count != 0)
             {
 
@@ -226,11 +229,17 @@ namespace KymiraApplication.Fragments
             }
             else
             {
+                var error = view.FindViewById<TextView>(Resource.Id.errorLabel);
+                error.Text = "Something went wrong, please try again later";
+                error.SetTextSize(ComplexUnitType.Px, 120);
+                
 
+               
                 // TODO:
 
                 // If the disposables list is empty
                 // Notify the user that server can't be reached.
+
                 
             }
 
