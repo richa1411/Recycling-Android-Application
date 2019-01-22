@@ -65,6 +65,8 @@
     <Compile Include="Fragments\LoginFragment.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\Credentials.cs" />
+    <Compile Include="Models\FAQs.cs" />
+    <Compile Include="Models\searchFAQ.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
