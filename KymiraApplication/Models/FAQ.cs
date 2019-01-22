@@ -4,14 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace kymiraApplication.Models
+namespace KymiraApplication.Models
 {
     public class FAQ
     {
+        //ID is extra for now but could prove to be beneficial if needing to pinpoint FAQ objects in the future
+        //Perhaps we could use the ID to link the appropriate question and answer together
         public int ID { get; set; }
 
         //Set required for the question field so the question MUST be populated, if the question field is empty
-        //an error message of "Qustion is Required" will be displayed
+        //an error message will be displayed
         [Required(ErrorMessage = "Question cannot be empty")]
         public string question { get; set; }
 

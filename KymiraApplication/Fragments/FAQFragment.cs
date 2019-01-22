@@ -31,7 +31,6 @@ namespace KymiraApplication.Fragments
         //This view will run when the fragment is called
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-
             
 
             return view;

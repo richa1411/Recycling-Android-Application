@@ -49,7 +49,7 @@ namespace KymiraApplicationUITests
         }
 
         [Test]
-        public void TestThatValidSearchReturnsResults()
+        public void TestThatPartialValidSearchReturnsResults()
         {
 
             ArrayList results = new ArrayList();
@@ -58,11 +58,13 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(350, 890);
             results.Add(app.WaitForElement(c => c.Marked("etxtSearchBox")));
             app.Tap("etxtSearchBox");
-            app.EnterText("How can I register with different bin locations");
-            results.Add(app.WaitForElement(c => c.Marked("You can register as many time as you can with different addresses")));
+            app.EnterText("How can I");
+            results.Add(app.WaitForElement(c => c.Marked("How can I register for an account")));
+            results.Add(app.WaitForElement(c => c.Marked("You can use the register option from the navigation pane to register an account")));
             Assert.AreEqual(2, results.Count);
 
         }
+
 
         [Test]
         public void TestThatInvalidSearchReturnsError()
@@ -77,6 +79,24 @@ namespace KymiraApplicationUITests
             results.Add(app.WaitForElement(c => c.Marked("The search didn’t match any answers")));
             Assert.AreEqual(2, results.Count);
         }
+
+        [Test]
+        public void TestThatValidSearchReturnsResults()
+        {
+
+            ArrayList results = new ArrayList();
+
+            app.TapCoordinates(100, 100);
+            app.TapCoordinates(350, 890);
+            results.Add(app.WaitForElement(c => c.Marked("etxtSearchBox")));
+            app.Tap("etxtSearchBox");
+            app.EnterText("How can I register for an account");
+            results.Add(app.WaitForElement(c => c.Marked("You can use the register option from the navigation pane to register an account")));
+            Assert.AreEqual(2, results.Count);
+
+        }
+
+
 
 
 
