@@ -9,6 +9,7 @@ using kymiraAPI.Models;
 
 namespace kymiraAPI.Controllers
 {
+    //this controller handles request from front end it will return a list containing question and answers
     [Produces("application/json")]
     [Route("api/FAQs")]
     public class FAQsController : Controller
@@ -20,6 +21,7 @@ namespace kymiraAPI.Controllers
             _context = context;
         }
 
+        //gets all data from the database
         // GET: api/FAQs
         [HttpGet]
         public IEnumerable<FAQ> GetFAQ()
@@ -27,17 +29,20 @@ namespace kymiraAPI.Controllers
             return _context.FAQ;
         }
 
+        //this getFAQ method will accept the request from frontend and grab all data from database and send back to the front end
         // GET: api/FAQs/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetFAQ([FromRoute] int id)
         {
+            //checks if model is valid or not, if not then gives error with bad request status
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
+            //gets data from database for particular id gets question and answer
             var fAQ = await _context.FAQ.SingleOrDefaultAsync(m => m.ID == id);
 
+            //if not got data from database then returns not found status
             if (fAQ == null)
             {
                 return NotFound();
@@ -46,80 +51,26 @@ namespace kymiraAPI.Controllers
             return Ok(fAQ);
         }
 
-        // PUT: api/FAQs/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFAQ([FromRoute] int id, [FromBody] FAQ fAQ)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != fAQ.ID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(fAQ).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FAQExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+       //post method is saving data to FAQ database
         // POST: api/FAQs
         [HttpPost]
         public async Task<IActionResult> PostFAQ([FromBody] FAQ fAQ)
         {
+            //checks if model is valid or not
             if (!ModelState.IsValid)
             {
+                //if not then returns bad request status
                 return BadRequest(ModelState);
             }
-
+            //adds faq object to database of project
             _context.FAQ.Add(fAQ);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetFAQ", new { id = fAQ.ID }, fAQ);
         }
 
-        // DELETE: api/FAQs/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFAQ([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+       
 
-            var fAQ = await _context.FAQ.SingleOrDefaultAsync(m => m.ID == id);
-            if (fAQ == null)
-            {
-                return NotFound();
-            }
-
-            _context.FAQ.Remove(fAQ);
-            await _context.SaveChangesAsync();
-
-            return Ok(fAQ);
-        }
-
-        private bool FAQExists(int id)
-        {
-            return _context.FAQ.Any(e => e.ID == id);
-        }
+       
     }
 }

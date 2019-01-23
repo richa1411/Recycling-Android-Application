@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace kymiraAPI.Models
 {
+    //model class that will contain array attributes of list to be returned from api
     public class FAQ
     {
         public int ID { get; set; }

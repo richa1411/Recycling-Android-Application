@@ -41,7 +41,9 @@ namespace kymiraAPI
                 app.UseDeveloperExceptionPage();
             }
             context.Database.EnsureCreated();
-            Fixtures.fixture_faq.delete(context);
+            Fixtures.fixture_resident.delete(context);
+            Fixtures.fixture_resident.load(context);
+          //  Fixtures.fixture_faq.delete(context);
             Fixtures.fixture_faq.load(context);
             app.UseMvc();
         }

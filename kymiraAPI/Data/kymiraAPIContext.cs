@@ -17,7 +17,7 @@ namespace kymiraAPI.Models
         }
         public DbSet<kymiraAPI.Models.Resident> ResidentDBSet { get; set; }
         public DbSet<kymiraAPI.Models.FAQ> FAQ { get; set; }
-       // public Dbset<kymiraAPI.Models.FAQ> FAQDB { get; set; }
+       
      }
 
     }
