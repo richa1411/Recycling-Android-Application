@@ -20,7 +20,7 @@ namespace KymiraApplicationTests
         }
 
 
-        /*   Unit tests for Phonenumber   */
+        /*   Unit tests for the FAQs   */
         [TestMethod]
         public void TestThatQuestionIsEmpty()
 
@@ -37,7 +37,7 @@ namespace KymiraApplicationTests
         public void TestThatAnswerIsEmpty()
 
         {
-            //Test that the question is an empty string
+            //Test that the answer is an empty string
             objFAQ.answer = "";
 
             //checks against the validation helper class and sends the FAQ object and matches errors
@@ -47,38 +47,29 @@ namespace KymiraApplicationTests
         }
 
         [TestMethod]
-        public void TestThatAnswerIsEmpty()
+        public void TestThatAnswerIsNotEmpty()
 
         {
-            //Test that the question is an empty string
-            objFAQ.answer = "";
+            //Test that the answer is not an empty string
+            objFAQ.answer = "1302 Alberta Ave. Saskatoon";
 
             //checks against the validation helper class and sends the FAQ object and matches errors
             var results = TestValidationHelper.Validate(objFAQ);
-            Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("Answer cannot be empty", results[0].ErrorMessage);
+
+            Assert.AreEqual(0, results.Count);
         }
 
-
-
-
-
-        /*
-         * MIGHT NOT BE NECESSARY
-         */
-
-
         [TestMethod]
-        public void TestThatInvalidSearchStringReturnsError()
+        public void TestThatQuestionIsNotEmpty()
 
         {
-            //Test that the question is an empty string
-            objFAQ.question = "1234";
+            //Test that the answer is not an empty string
+            objFAQ.answer = "Where is Cosmo Industries?";
 
             //checks against the validation helper class and sends the FAQ object and matches errors
             var results = TestValidationHelper.Validate(objFAQ);
-            Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("The search didn’t match any answers", results[0].ErrorMessage);
+
+            Assert.AreEqual(0, results.Count);
         }
     }
 }

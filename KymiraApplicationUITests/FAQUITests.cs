@@ -28,76 +28,45 @@ namespace KymiraApplicationUITests
         }
 
         [Test]
-        //test that all elements load onto the app upon startup
+        //Test that all elements load onto the app upon startup
         public void TestThatAppInterfaceLoadsCorrectly()
         {
             ArrayList results = new ArrayList();
-            results.Add(app.WaitForElement(c => c.Marked("drawer_layout")));
+            results.Add(app.WaitForElement(c => c.Marked("drawer_layout"))); //look for the drawer layout on the app startup page
             Assert.AreEqual(1, results.Count);
         }
 
+        //Test that clicking the FAQ button in the navigation pane will open the FAQ page
         [Test]
         public void TestThatFAQOptionClickOpensFAQPage()
         {
             ArrayList results = new ArrayList();
 
-            app.TapCoordinates(100, 100);
-            app.TapCoordinates(350, 890);
-            results.Add(app.WaitForElement(c => c.Marked("etxtSearchBox")));
-            results.Add(app.WaitForElement(c => c.Marked("lvFAQ")));
+            app.TapCoordinates(100, 100); //tap the hamburger button
+            app.Tap("FAQ"); //tap the FAQ button in the navigation drawer
+            results.Add(app.WaitForElement(c => c.Marked("FAQ")));
+            results.Add(app.WaitForElement(c => c.Marked("tvList")));
+
             Assert.AreEqual(2, results.Count);
         }
 
+        /*
+         * When the user taps an item on the list, it will open up a new fragment showing the entire answer to the question
+         */ 
         [Test]
-        public void TestThatPartialValidSearchReturnsResults()
-        {
-
-            ArrayList results = new ArrayList();
-
-            app.TapCoordinates(100, 100);
-            app.TapCoordinates(350, 890);
-            results.Add(app.WaitForElement(c => c.Marked("etxtSearchBox")));
-            app.Tap("etxtSearchBox");
-            app.EnterText("How can I");
-            results.Add(app.WaitForElement(c => c.Marked("How can I register for an account")));
-            results.Add(app.WaitForElement(c => c.Marked("You can use the register option from the navigation pane to register an account")));
-            Assert.AreEqual(2, results.Count);
-
-        }
-
-
-        [Test]
-        public void TestThatInvalidSearchReturnsError()
+        public void TestThatTappingQuestionOpensDetailsPage()
         {
             ArrayList results = new ArrayList();
 
-            app.TapCoordinates(100, 100);
-            app.TapCoordinates(350, 890);
-            results.Add(app.WaitForElement(c => c.Marked("etxtSearchBox")));
-            app.Tap("etxtSearchBox");
-            app.EnterText("1234");
-            results.Add(app.WaitForElement(c => c.Marked("The search didn’t match any answers")));
-            Assert.AreEqual(2, results.Count);
-        }
+            app.TapCoordinates(100, 100); //tap the hamburger button
+            app.Tap("FAQ"); //tap the FAQ button in the navigation drawer
+            app.Tap("lvItem"); //list item ID
+            results.Add(app.WaitForElement(c => c.Marked("FAQ Details")));
+            results.Add(app.WaitForElement(c => c.Marked("tvListDetails")));
 
-        [Test]
-        public void TestThatValidSearchReturnsResults()
-        {
-
-            ArrayList results = new ArrayList();
-
-            app.TapCoordinates(100, 100);
-            app.TapCoordinates(350, 890);
-            results.Add(app.WaitForElement(c => c.Marked("etxtSearchBox")));
-            app.Tap("etxtSearchBox");
-            app.EnterText("How can I register for an account");
-            results.Add(app.WaitForElement(c => c.Marked("You can use the register option from the navigation pane to register an account")));
             Assert.AreEqual(2, results.Count);
 
         }
-
-
-
 
 
     }

@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:text="FAQ"
+        android:text="FAQ Details"
         android:textSize="32.0dp"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70.0dp" />
-    <ListView
+    <TextView
+        android:hint="FAQ Details here"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvList" />
+        android:id="@+id/tvListDetails" />
 </LinearLayout>
