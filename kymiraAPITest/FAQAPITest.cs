@@ -116,7 +116,7 @@ namespace kymiraAPITest
 
         {
             //Test that the question is less than 15 character string
-            objFAQ.question = "Hii";
+            objFAQ.question = new string('a', 14);
 
             //checks against the validation helper class and sends the FAQ object and finds that there is an error and matches with regards model class
             var results = TestValidationHelper.Validate(objFAQ);
@@ -129,7 +129,7 @@ namespace kymiraAPITest
         public void TestThatQuestionIsHigherThan255Character()
 
         {
-            objFAQ.question = new string('a', 260);
+            objFAQ.question = new string('a', 256);
             //checks against the validation helper class and sends the FAQ object and finds that there is an error and matches with regards model class
             var results2 = TestValidationHelper.Validate(objFAQ);
             Assert.AreEqual(1, results2.Count());//finds one error

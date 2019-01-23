@@ -51,23 +51,7 @@ namespace kymiraAPI.Controllers
             return Ok(fAQ);
         }
 
-       //post method is saving data to FAQ database
-        // POST: api/FAQs
-        [HttpPost]
-        public async Task<IActionResult> PostFAQ([FromBody] FAQ fAQ)
-        {
-            //checks if model is valid or not
-            if (!ModelState.IsValid)
-            {
-                //if not then returns bad request status
-                return BadRequest(ModelState);
-            }
-            //adds faq object to database of project
-            _context.FAQDBSet.Add(fAQ);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetFAQ", new { id = fAQ.ID }, fAQ);
-        }
+      
 
        
 
