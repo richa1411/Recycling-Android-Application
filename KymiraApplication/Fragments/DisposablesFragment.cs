@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using Mono;
 
 using Android.Support.V4.View;
+using System.IO;
 
 namespace KymiraApplication.Fragments
 {
@@ -202,9 +203,20 @@ namespace KymiraApplication.Fragments
                 foreach (Disposable disposableItem in disposables)
                 {
 
-                 
 
-                    if (disposableItem.imageURL == null || disposableItem.imageURL == "" || Resources.GetIdentifier(disposableItem.imageURL, "drawable", Context.PackageName) == 0)
+                    var name = Path.GetFileNameWithoutExtension(disposableItem.imageURL);
+                    //if(disposableItem != null)
+                    //{
+                    //    var holder = (int)typeof(Resource.Drawable).GetField(disposableItem.imageURL.ToLower()).GetValue(null);
+                    //}
+
+                    var resID2 = (int)typeof(Resource.Drawable).GetField("tincan").GetValue(null);
+
+
+
+
+
+                    if (disposableItem.imageURL == null || disposableItem.imageURL == "" || Resources.GetIdentifier(name, "drawable", Context.PackageName) == 0)
                     {
 
 
