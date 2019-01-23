@@ -270,7 +270,7 @@ namespace KymiraApplication.Fragments
                     if (success.IsSuccessStatusCode)
                     {
                         //success case
-                        Toast.MakeText(this.Context, "Successful Registration: " + success.StatusCode.ToString(), ToastLength.Long).Show();
+                        Toast.MakeText(this.Context, "Successful Registration", ToastLength.Long).Show();
 
                         //unselect the registration fragment from the drawer menu and switch back to main fragment    
                         ((MainActivity)Activity).navigationView.Menu.GetItem(1).SetChecked(false);
@@ -282,7 +282,7 @@ namespace KymiraApplication.Fragments
                         tableLayout.Visibility = ViewStates.Visible;
 
                         //fail case
-                        Toast.MakeText(this.Context, "Registration Failed: " + success.StatusCode.ToString(), ToastLength.Long).Show();
+                        Toast.MakeText(this.Context, "Something went wrong, try again later", ToastLength.Long).Show();
                     }
                 }
                 //Catch all case if something unexpected happens

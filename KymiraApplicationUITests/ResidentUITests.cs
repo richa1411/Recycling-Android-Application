@@ -28,7 +28,50 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(100, 100);
             app.Tap("Registration");
 
-            //move common stuff up here to each test
+            //common valid field entries
+            app.Tap("email_value");
+            app.EnterText("test@asddsa.com");
+
+            app.Tap("password_value");
+            app.EnterText("testingpassword");
+
+            app.Tap("phone_value");
+            app.EnterText("3063828221");
+
+            app.Tap("firstName_value");
+            app.EnterText("Joey");
+
+            app.Tap("lastName_value");
+            app.EnterText("Only");
+
+            app.ScrollDownTo("addressLine2_label");
+
+            app.Tap("birthDateSpinnerMonth");
+            app.Tap("June");
+
+            app.Tap("birthDateSpinnerYear");
+            app.ScrollDownTo(m => m.Text("2004"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
+            app.Tap("2004");
+
+            app.Tap("addressLine1_value");
+            app.EnterText("128 Cooper Cres");
+
+            app.ScrollDownTo("btnSubmit");
+
+            app.Tap("city_value");
+            app.EnterText("Saskatoon");
+
+            app.Tap("provinceSpinner");
+            app.ScrollDownTo(m => m.Text("Saskatchewan"), x => x.Id("provinceSpinner"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
+            app.Tap("Saskatchewan");
+
+            app.Tap("postalCode_value");
+            app.EnterText("S7M2K7");
+
+            app.ScrollDownTo("btnSubmit");
+            app.Tap("termsCheckbox");
+
+            app.Tap("btnSubmit");
         }
 
         [Test]
@@ -162,6 +205,20 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatInvalidEmailThrowsError()
         {
+            //empty email
+            app.ScrollUpTo("email_value");
+            app.Tap("email_value");
+            app.EnterText("");
+
+            app.ScrollDownTo("btnSubmit");
+
+            app.Tap("btnSubmit");
+
+            app.WaitForElement("An email address is required");
+
+            //invalid format
+            app.ScrollUpTo("email_value");
+
             app.Tap("email_value");
             app.EnterText("test");
 
@@ -178,22 +235,6 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatInvalidPasswordThrowsError()
         {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.ScrollDownTo("btnSubmit");
-
-            app.Tap("btnSubmit");
-
-            app.WaitForElement("A password is required");
-
-            app.ScrollUpTo("password_value");
-
-            app.Tap("password_value");
-            app.EnterText("test");
-
-            app.ScrollDownTo("btnSubmit");
-
             app.Tap("btnSubmit");
 
             //BOUNDS TESTING - have descriptive names like password too short etc.
@@ -207,23 +248,7 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatInvalidPhoneThrowsError()
         {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.Tap("password_value");
-            app.EnterText("testingpassword");
-
-            app.ScrollDownTo("btnSubmit");
-
-            app.Tap("btnSubmit");
-
-            app.WaitForElement("A phone number is required");
-
-            app.ScrollUpTo("phone_value");
-            app.Tap("phone_value");
-            app.EnterText("123");
-
-            app.ScrollDownTo("btnSubmit");
+           
             app.Tap("btnSubmit");
 
             app.WaitForElement("Phone number must contain 10 digits");
@@ -235,15 +260,6 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatInvalidFNameThrowsError()
         {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.Tap("password_value");
-            app.EnterText("testingpassword");
-
-            app.Tap("phone_value");
-            app.EnterText("3063828221");
-
             app.ScrollDownTo("btnSubmit");
 
             app.Tap("btnSubmit");
@@ -257,19 +273,7 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatInvalidLNameThrowsError()
         {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.Tap("password_value");
-            app.EnterText("testingpassword");
-
-            app.Tap("phone_value");
-            app.EnterText("3063828221");
-
-            app.Tap("firstName_value");
-            app.EnterText("Joey");
-
-            app.ScrollDownTo("btnSubmit");
+            
 
             app.Tap("btnSubmit");
 
@@ -282,25 +286,7 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatInvalidBirthDateThrowsError()
         {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.Tap("password_value");
-            app.EnterText("testingpassword");
-
-            app.Tap("phone_value");
-            app.EnterText("3063828221");
-
-            app.Tap("firstName_value");
-            app.EnterText("Joey");
-
-            app.Tap("lastName_value");
-            app.EnterText("Only");
-
-            app.ScrollDownTo("addressLine2_label");
-
-            app.ScrollDownTo("btnSubmit");
-
+            
             app.Tap("btnSubmit");
 
             app.WaitForElement("Birth date must be a valid date.");
@@ -312,31 +298,7 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatInvalidAddress1ThrowsError()
         {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.Tap("password_value");
-            app.EnterText("testingpassword");
-
-            app.Tap("phone_value");
-            app.EnterText("3063828221");
-
-            app.Tap("firstName_value");
-            app.EnterText("Joey");
-
-            app.Tap("lastName_value");
-            app.EnterText("Only");
-
-            app.ScrollDownTo("addressLine2_label");
-
-            app.Tap("birthDateSpinnerMonth");
-            app.Tap("June");
-
-            app.Tap("birthDateSpinnerYear");
-            app.ScrollDownTo(m => m.Text("2004"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
-            app.Tap("2004");
-
-            app.ScrollDownTo("btnSubmit");
+           
 
             app.Tap("btnSubmit");
 
@@ -348,36 +310,7 @@ namespace KymiraApplicationUITests
          **/
         [Test]
         public void TestThatInvalidCityThrowsError()
-        {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.Tap("password_value");
-            app.EnterText("testingpassword");
-
-            app.Tap("phone_value");
-            app.EnterText("3063828221");
-
-            app.Tap("firstName_value");
-            app.EnterText("Joey");
-
-            app.Tap("lastName_value");
-            app.EnterText("Only");
-
-            app.ScrollDownTo("addressLine2_label");
-
-            app.Tap("birthDateSpinnerMonth");
-            app.Tap("June");
-
-            app.Tap("birthDateSpinnerYear");
-            app.ScrollDownTo(m => m.Text("2004"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
-            app.Tap("2004");
-
-            app.Tap("addressLine1_value");
-            app.EnterText("128 Cooper Cres");
-
-            app.ScrollDownTo("btnSubmit");
-
+        {            
             app.Tap("btnSubmit");
 
             app.WaitForElement("A City is required");
@@ -389,45 +322,6 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatInvalidProvinceThrowsError()
         {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.Tap("password_value");
-            app.EnterText("testingpassword");
-
-            app.Tap("phone_value");
-            app.EnterText("3063828221");
-
-            app.Tap("firstName_value");
-            app.EnterText("Joey");
-
-            app.Tap("lastName_value");
-            app.EnterText("Only");
-
-            app.ScrollDownTo("addressLine2_label");
-
-            app.Tap("birthDateSpinnerMonth");
-            app.Tap("June");
-
-            app.Tap("birthDateSpinnerYear");
-            app.ScrollDownTo(m => m.Text("2004"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
-            app.Tap("2004");
-
-            app.Tap("addressLine1_value");
-            app.EnterText("128 Cooper Cres");
-
-            app.ScrollDownTo("btnSubmit");
-
-            app.Tap("city_value");
-            app.EnterText("Saskatoon");
-
-            app.Tap("postalCode_value");
-            app.EnterText("S7M2K7");
-
-            app.ScrollDownTo("btnSubmit");
-
-            app.Tap("termsCheckbox");
-
             app.Tap("btnSubmit");
 
             app.WaitForElement("A province is required");
@@ -440,43 +334,7 @@ namespace KymiraApplicationUITests
         [Test]
         public void TestThatInvalidPostalCodeThrowsError()
         {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.Tap("password_value");
-            app.EnterText("testingpassword");
-
-            app.Tap("phone_value");
-            app.EnterText("3063828221");
-
-            app.Tap("firstName_value");
-            app.EnterText("Joey");
-
-            app.Tap("lastName_value");
-            app.EnterText("Only");
-
-            app.ScrollDownTo("addressLine2_label");
-
-            app.Tap("birthDateSpinnerMonth");
-            app.Tap("June");
-
-            app.Tap("birthDateSpinnerYear");
-            app.ScrollDownTo(m => m.Text("2004"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
-            app.Tap("2004");
-
-            app.Tap("addressLine1_value");
-            app.EnterText("128 Cooper Cres");
-
-            app.ScrollDownTo("btnSubmit");
-
-            app.Tap("city_value");
-            app.EnterText("Saskatoon");
-
-            app.Tap("provinceSpinner");
-            app.Tap("Alberta");
-
-            app.ScrollDownTo("btnSubmit");
-
+           
             app.Tap("btnSubmit");
 
             app.WaitForElement("A postal code is required");
@@ -487,48 +345,7 @@ namespace KymiraApplicationUITests
          **/
         [Test]
         public void TestThatUncheckedTermsThrowsError()
-        {
-            app.Tap("email_value");
-            app.EnterText("test@asddsa.com");
-
-            app.Tap("password_value");
-            app.EnterText("testingpassword");
-
-            app.Tap("phone_value");
-            app.EnterText("3063828221");
-
-            app.Tap("firstName_value");
-            app.EnterText("Joey");
-
-            app.Tap("lastName_value");
-            app.EnterText("Only");
-
-            app.ScrollDownTo("addressLine2_label");
-
-            app.Tap("birthDateSpinnerMonth");
-            app.Tap("June");
-
-            app.Tap("birthDateSpinnerYear");
-            app.ScrollDownTo(m => m.Text("2004"), x => x.Id("birthDateSpinnerYear"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
-            app.Tap("2004");
-
-            app.Tap("addressLine1_value");
-            app.EnterText("128 Cooper Cres");
-
-            app.ScrollDownTo("btnSubmit");
-
-            app.Tap("city_value");
-            app.EnterText("Saskatoon");
-
-            app.Tap("provinceSpinner");
-            app.ScrollDownTo(m => m.Text("Saskatchewan"), x => x.Id("provinceSpinner"), strategy: ScrollStrategy.Gesture, timeout: new TimeSpan(0, 1, 0));
-            app.Tap("Saskatchewan");
-
-            app.Tap("postalCode_value");
-            app.EnterText("S7M2K7");
-
-            app.ScrollDownTo("btnSubmit");
-
+        { 
             app.Tap("btnSubmit");
 
             app.WaitForElement("You must agree to the terms and conditions");

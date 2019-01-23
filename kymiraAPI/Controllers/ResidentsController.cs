@@ -42,14 +42,21 @@ namespace kymiraAPI.Controllers
             }
 
             _context.ResidentDBSet.Add(resident);
-            await _context.SaveChangesAsync();
+            if (await _context.SaveChangesAsync() == 1)
+            {
+                //Did it save to database? Send back a not found or already found
+                //Email has to be unique
+                //Don't send result back by default
 
-            //Did it save to database? Send back a not found or already found
-            //Email has to be unique
-            //Don't send result back by default
+                var result = CreatedAtAction("GetResident", new { id = resident.id }, resident);
+                return result;
+            }
+            else
+            {
+                return StatusCode(500);
+            }
 
-            var result = CreatedAtAction("GetResident", new { id = resident.id }, resident);
-            return result;
+            
         }
     }
 }
