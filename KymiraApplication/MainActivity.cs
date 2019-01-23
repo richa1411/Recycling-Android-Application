@@ -17,6 +17,8 @@ namespace KymiraApplication
         //variable that will store token generated from LoginAPI on successful login for each user got from LoginFragment(front end)
         public String token;
 
+        public NavigationView navigationView;
+
         //this method creates and sets an instance of main activity and assigns view of this activity
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -34,7 +36,7 @@ namespace KymiraApplication
             toggle.SyncState();
 
             //instance of navigational view
-            NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
             
         }

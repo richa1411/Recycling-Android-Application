@@ -26,7 +26,9 @@ namespace KymiraApplicationUITests
             app = AppInitializer.StartApp(platform);
 
             app.TapCoordinates(100, 100);
-            app.TapCoordinates(370, 890);
+            app.Tap("Registration");
+
+            //move common stuff up here to each test
         }
 
         [Test]
@@ -193,6 +195,8 @@ namespace KymiraApplicationUITests
             app.ScrollDownTo("btnSubmit");
 
             app.Tap("btnSubmit");
+
+            //BOUNDS TESTING - have descriptive names like password too short etc.
 
             app.WaitForElement("Password must be between 8 and 50 characters");
         }

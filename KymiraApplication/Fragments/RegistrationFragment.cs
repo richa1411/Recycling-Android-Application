@@ -272,7 +272,8 @@ namespace KymiraApplication.Fragments
                         //success case
                         Toast.MakeText(this.Context, "Successful Registration: " + success.StatusCode.ToString(), ToastLength.Long).Show();
 
-                        //switch back to main fragment
+                        //unselect the registration fragment from the drawer menu and switch back to main fragment    
+                        ((MainActivity)Activity).navigationView.Menu.GetItem(1).SetChecked(false);
                         ((MainActivity)Activity).replaceWithMain();
                     }
                     else
@@ -303,10 +304,10 @@ namespace KymiraApplication.Fragments
             //Get the string value of the Resident controller from the application's string resources
             string strRes = Context.Resources.GetString(Resource.String.UrlResidents);
             string strApi = Context.Resources.GetString(Resource.String.UrlAPI);
-            string strURI = strRes + strApi;
+            string strURI = strApi + strRes;
             
             //Convert the given string to a URI
-            Uri uri = new Uri(strURI, UriKind.Absolute);
+            //Uri uri = new Uri(strURI, UriKind.Absolute);
 
             // Serialize the Registration item into a JSON object
             var json = JsonConvert.SerializeObject(item);
@@ -319,7 +320,7 @@ namespace KymiraApplication.Fragments
             try
             {
                 // Create an HttpResponseMessage to hold the response of the HttpClient's POST
-                response = await client.PostAsync(uri, content);
+                response = await client.PostAsync(strURI, content);
             }
             catch(System.Threading.Tasks.TaskCanceledException)
             {
