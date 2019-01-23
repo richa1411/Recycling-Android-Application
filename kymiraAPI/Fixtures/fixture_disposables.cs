@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using kymiraAPI;
 
 namespace kymiraAPI.Fixtures
-{
+{/**
+    this class will be used to wipe and reload the database with test data used in unit tests
+        */
     static class fixture_disposables
     {
 
@@ -43,6 +45,7 @@ namespace kymiraAPI.Fixtures
             endResult = "Tin Cans End Result",
             qtyRecycled = 1200
         },
+            //Non recycalble items
             new Disposable
         {
             
@@ -90,7 +93,7 @@ namespace kymiraAPI.Fixtures
     
         }
         /**
-         * this function will delete all tests information in the database.
+         * this function will delete all entries  in the database.
          * */
         public static void Unload(kymiraAPIContext _context) {
            

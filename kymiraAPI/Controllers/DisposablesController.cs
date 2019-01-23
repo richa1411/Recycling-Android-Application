@@ -9,6 +9,9 @@ using kymiraAPI.Models;
 
 namespace kymiraAPI.Controllers
 {
+    /**
+     * This controller is used to send and receive JSON objects relating to the disposableDB set.
+     * */
     [Produces("application/json")]
     [Route("api/Disposables")]
     public class DisposablesController : Controller

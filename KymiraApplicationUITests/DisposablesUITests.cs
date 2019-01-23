@@ -25,7 +25,10 @@ namespace KymiraApplicationUITests
             app = AppInitializer.StartApp(platform);
         }
 
-
+        /**
+         * This tests that the Navigation button exists and can be tapped, aswell as testing to see if the disposables list option exists
+         * and is clickable in the menu
+         * */
         [Test]
         public void TestThatNavigationBurgerExistsAndDispsoableItemsButtonExists()
         {
@@ -38,7 +41,11 @@ namespace KymiraApplicationUITests
             app.Tap("Disposables List");
 
         }
-
+        /**
+         * This tests that once both the hamburger and disposables list buttons have been clicked that the view recyclable
+         * button is displayed and able to be clicked on. the test then checks to make sure each item in the List view is populated with the right 
+         * information and in the right order.
+         * */
         [Test]
         public void TestThatRecyclableButtonExistsAndPopulatesListWithOnlyRecyclableItemsinAlpheticalOrder()
         {
@@ -70,6 +77,11 @@ namespace KymiraApplicationUITests
 
             Assert.AreEqual(3, results.Count);
         }
+        /**
+      * This tests that once both the hamburger and disposables list buttons have been clicked that the view non-recyclable
+      * button is displayed and able to be clicked on. the test then checks to make sure each item in the List view is populated with the right 
+      * information and in the right order.
+      * */
         [Test]
         public void TestThatNonRecylcableButtonExistsAndPopulatesListwithOnlyNonRecyclableItemsInAlphabeticalOrder()
         {

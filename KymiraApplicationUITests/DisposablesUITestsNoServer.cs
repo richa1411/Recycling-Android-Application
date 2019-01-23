@@ -25,7 +25,9 @@ namespace KymiraApplicationUITests
             app = AppInitializer.StartApp(platform);
         }
 
-
+        /**
+         * This will test that the errorlabel is probably displayed when a request to the backend is not available or returns an empty list.
+         * */
         [Test]
         public void TestsThatErrorTextViewShowsUpWhenServerDoesNotReturnADisposableList()
         {

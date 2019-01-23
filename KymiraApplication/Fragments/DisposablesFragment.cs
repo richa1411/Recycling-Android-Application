@@ -19,9 +19,12 @@ using Android.Support.V4.View;
 
 namespace KymiraApplication.Fragments
 {
+    /**
+     * Fragment used to display disposable information on the screen.
+     * */
     public class DisposablesFragment : Fragment
     {
-
+        //Declaration of Views
         private View view;
         private static List<Disposable> disposables; // This will store all of the disposable items
         private static List<Disposable> recItems; // This will store all of the recyclable Items
@@ -38,7 +41,7 @@ namespace KymiraApplication.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your fragment here
+            
 
 
         }
@@ -51,14 +54,15 @@ namespace KymiraApplication.Fragments
 
 
 
-            // Instantiate the HTTP Client
+            // Instantiate the HTTP Client used to contact the API
             client = new HttpClient();
             client.Timeout = System.TimeSpan.FromSeconds(10);
 
-
+            //List of recyclable items
             recItems = new List<Disposable>();
+            //List of non recyclable items
             nonRecItems = new List<Disposable>();
-
+            //assiging the button views
             btnViewRecyclables = view.FindViewById<Button>(Resource.Id.btnViewRecyclableItems);
             btnViewNonRecyclables = view.FindViewById<Button>(Resource.Id.btnViewNonRecyclableItems);
 
@@ -70,14 +74,13 @@ namespace KymiraApplication.Fragments
 
             disposables = new List<Disposable>();
 
-
+            // Calling the function setDisposables that will contact the API requesting disposable information.
             setDisposables();
 
-            // When the view loads, retrieve the disposables list from the database
+       
 
            
-
-            //return base.OnCreateView(inflater, container, savedInstanceState);
+            
             return view;
 
 
@@ -111,41 +114,41 @@ namespace KymiraApplication.Fragments
 
 
 
-        // This method handles receiving json from the uri specified
+        /**
+         * This method handles receiving json from the uri specified 
+         * returns a Task<list<Disposable> of all recyclable items from the database
+         */
         public async Task<List<Disposable>> receiveDisposablesAsync()
         {
-
+            //list used to return disposables
             List<Disposable> rList = new List<Disposable>();
 
-            
+            //URI of API
             String sUri = Context.Resources.GetString(Resource.String.UrlAPI);
-            sUri += Context.Resources.GetString(Resource.String.UrlDisposables); 
-
-   
+            sUri += Context.Resources.GetString(Resource.String.UrlDisposables);
             Uri uri = new Uri(sUri, UriKind.Absolute);
 
-        
-
-           
             HttpResponseMessage response = null;
 
+           
             try
             {
-
+                //contacting API making a GET request for all recylcable items in the database.
                  response = await client.GetAsync(uri);
 
                 try
                 {
+                    //if the GET request was successful
                     if (response.IsSuccessStatusCode)
                     {
                         // Create a variable which will store the response of the GET
                         var content = await response.Content.ReadAsStringAsync();
 
                         // Deserialize and set this object to our Disposables List
-
                         rList = JsonConvert.DeserializeObject<List<Disposable>>(content);
 
                     }
+                    //If the request was invalid we throw an exception.
                     else
                     {
                         throw new Exception("Error reaching the server, please try again later.");
@@ -162,12 +165,13 @@ namespace KymiraApplication.Fragments
 
             }
 
+            //returns Dipsoables List
             return rList;
 
             
             
             
-            // Check if the message was sent successfully
+       
            
             
 
@@ -177,66 +181,49 @@ namespace KymiraApplication.Fragments
 
         public  async void setDisposables()
         {
+            //Assigning the layout
             LinearLayout layout = view.FindViewById<LinearLayout>(Resource.Id.masterLayout); 
-                
-                List<Disposable> displist = await receiveDisposablesAsync();
-                disposables = displist;
-                
+            //Makes the request to t    
+            List<Disposable> displist = await receiveDisposablesAsync();
+            disposables = displist;
+
+            // If the list has items in it
             if (disposables.Count != 0)
             {
 
-                // If the list has items in it
+             
 
 
-                // Validate those items to make sure they work
-
-                /** TODO:
-                 *  This loop handles validation.
-                 *  We have to set our placeholder image before doing the validation
-                 *  That way if an item doesn't have an image, it isn't removed from the list
-                 *  The URL has to be set to where our image is gonna be located (So G:/ThisImage.png)
-                 *  The URL itself is parsed in the adapter, so we don't have to worry about any of that
-                 *  the URL is simply a String that points to an image.
-                 *  
-                 */
+                
                 foreach (Disposable disposableItem in disposables)
                 {
-
+                    //declaration
                     var resourceId = 0;
-
-
-                    var contextpackname = Context.PackageName;
-                    var disposableItemName = disposableItem.imageURL;
-
                     var var1 = disposableItem.imageURL;
-
                     try
                     {
+                        //sets resourceID to Drawable id of the current disposable items imageURL
+                        //it is set to 0 if it does not exist and will have a placeholder inserted below
                         resourceId = (int)typeof(Resource.Drawable).GetField(var1).GetValue(null);
                     }
                     catch (Exception e)
                     {
 
                     }
-
-
-
-
+                    //if the imageURL does not exist, is null or empty a place holder will be inserted.
                     if (disposableItem.imageURL == null || disposableItem.imageURL == "" || resourceId == 0)
                     {
 
-
-
-
-                        //disposableItem.imageURL = "android.resource://KymiraApplication/drawable/no_image.png";
-                        disposableItem.imageURL = ""+ Resource.Drawable.no_image;
+                        //Place holder image is inserted.
+                        disposableItem.imageURL = Resource.Drawable.no_image.ToString();
                     }
                     else
                     {
-                        disposableItem.imageURL = "" + resourceId;
+                        //will change the image url to the Drawable resource number. ex: "2010102991"
+                        disposableItem.imageURL = resourceId.ToString();
                     }
 
-
+                    // Validate those items to make sure they are valid
                     var results = ValidationHelper.Validate(disposableItem);
 
                     if (results.Count == 0)
@@ -251,27 +238,18 @@ namespace KymiraApplication.Fragments
                         }
                     }
 
-
-
-
-                    // We have to Validate the object
-                    // var results = HelperTestModel.Validate(disposableItem);
                     
                 }
+                //the first time the app loads in. it sets the Listview to be of only recyclable items.
                 displayDisposablesList(recItems);
             }
             else
             {
+            
+                //If the list is empty and no responce was recieved from the server. we create a TextView to show an error.
                 var error = view.FindViewById<TextView>(Resource.Id.errorLabel);
                 error.Text = "Something went wrong, please try again later";
                 error.SetTextSize(ComplexUnitType.Px, 120);
-                
-
-               
-                // TODO:
-
-                // If the disposables list is empty
-                // Notify the user that server can't be reached.
 
                 
             }

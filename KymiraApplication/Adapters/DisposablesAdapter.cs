@@ -14,6 +14,9 @@ using KymiraApplication.Models;
 
 namespace KymiraApplication
 {
+    /**
+     * This adapter is used to populate a list view in the disposables fragment with items from the dipsoables list.
+     * */
     class DisposablesAdapter : BaseAdapter<Disposable>
     {
 
@@ -58,20 +61,10 @@ namespace KymiraApplication
 
             // This grabs the "ImageURL" from the Disposable Object
             // and parses it into a URI that is then set to the 
-            // Imageview's ImageURI
-
-            Android.Net.Uri url = Android.Net.Uri.Parse(disposablesList[position].imageURL);
-
-            Bitmap bitmap = BitmapFactory.DecodeFile(url.ToString());
-
-
+            //imageview's imageResource.
             int id = int.Parse(disposablesList[position].imageURL);
             ivDisposableItemName.SetImageResource(id);
-            //ivDisposableItemName.SetImageURI(url);
 
-            // This is the backup image, we won't need this here if we are
-            // adding our placeholder image to Disposables in the fragment
-            //ivDisposableItemName.SetImageResource(Resource.Drawable.No_Image);
 
             return row;
         }
