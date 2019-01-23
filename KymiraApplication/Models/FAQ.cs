@@ -15,6 +15,8 @@ namespace KymiraApplication.Models
         //Set required for the question field so the question MUST be populated, if the question field is empty
         //an error message will be displayed
         [Required(ErrorMessage = "Question cannot be empty")]
+        //Create a required range of 15 - 255 characters
+        [StringLength(255, MinimumLength = 15, ErrorMessage = "Question must be between 15 - 255 characters")]
         public string question { get; set; }
 
         //answer field is used to authenticate whether the answer exists in the database
