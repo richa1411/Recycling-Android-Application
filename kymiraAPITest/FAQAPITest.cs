@@ -78,8 +78,78 @@ namespace kymiraAPITest
 
         }
 
+        /* a test method that checks if a question field is 255 characters or not */
+        [TestMethod]
+        public void TestThatQuestionIs255Character()
+
+        {
+            //Test that the question is a 255 characters string
+            objFAQ.question = new string('a', 255);
+
+            //checks against the validation helper class and sends the FAQ object and finds that there are no any errors
+            var results = TestValidationHelper.Validate(objFAQ);
+
+            Assert.AreEqual(0, results.Count);
+            
+
+        }
+
+        /* a test method that checks if a question field is 15 characters or not */
+        [TestMethod]
+        public void TestThatQuestionIs15Character()
+
+        {
+            //Test that the question is a 15 character string
+            objFAQ.question = new string('a', 15);
+
+            //checks against the validation helper class and sends the FAQ object and finds that there are no any errors
+            var results = TestValidationHelper.Validate(objFAQ);
+
+            Assert.AreEqual(0, results.Count);
 
 
+        }
+
+        /* a test method that checks if a question field is less than 15 characters */
+        [TestMethod]
+        public void TestThatQuestionIsLessThan15Character()
+
+        {
+            //Test that the question is less than 15 character string
+            objFAQ.question = "Hii";
+
+            //checks against the validation helper class and sends the FAQ object and finds that there is an error and matches with regards model class
+            var results = TestValidationHelper.Validate(objFAQ);
+            Assert.AreEqual(1, results.Count());//finds one error
+            Assert.AreEqual("Question must be between 15 - 255 characters", results[0].ErrorMessage);
+        }
+
+        //Test that the question is higher than 255 character string
+        [TestMethod]
+        public void TestThatQuestionIsHigherThan255Character()
+
+        {
+            objFAQ.question = new string('a', 260);
+            //checks against the validation helper class and sends the FAQ object and finds that there is an error and matches with regards model class
+            var results2 = TestValidationHelper.Validate(objFAQ);
+            Assert.AreEqual(1, results2.Count());//finds one error
+            Assert.AreEqual("Question must be between 15 - 255 characters", results2[0].ErrorMessage);
+
+        }
+
+        //Test that the question is in between 15-255 character 
+        [TestMethod]
+        public void TestThatQuestionIsInBetween15255Character()
+
+        {
+            objFAQ.question = new string('a', 150);
+             
+            //checks against the validation helper class and sends the FAQ object and finds that there are no any errors
+            var results = TestValidationHelper.Validate(objFAQ);
+
+            Assert.AreEqual(0, results.Count);
+
+        }
 
 
 
