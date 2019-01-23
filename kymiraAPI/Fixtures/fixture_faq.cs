@@ -53,9 +53,9 @@ namespace kymiraAPI.Fixtures
          * This function will create a connection to a local test database and load the specific data into it.
          * It first adds the Site objects needed and then loads in the following BinStatus objects.
          * */
-        public static void load(kymiraAPIContext _context)
+        public static void Load(kymiraAPIContext _context)
         {
-            _context.FAQ.AddRange(listFAQ);
+            _context.FAQDBSet.AddRange(listFAQ);
 
             _context.SaveChangesAsync();
 
@@ -65,11 +65,11 @@ namespace kymiraAPI.Fixtures
 
         /**
          * This function will delete all test information in the database.
-         * remove everything from FAQ database
+         * remove everything from FAQ table
          * */
-        public static void delete(kymiraAPIContext _context)
+        public static void Unload(kymiraAPIContext _context)
         {
-            _context.FAQ.RemoveRange(_context.FAQ);
+            _context.FAQDBSet.RemoveRange(_context.FAQDBSet);
             _context.SaveChangesAsync();
         }
     }

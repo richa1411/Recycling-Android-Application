@@ -26,7 +26,7 @@ namespace kymiraAPI.Controllers
         [HttpGet]
         public IEnumerable<FAQ> GetFAQ()
         {
-            return _context.FAQ;
+            return _context.FAQDBSet;
         }
 
         //this getFAQ method will accept the request from frontend and grab all data from database and send back to the front end
@@ -40,7 +40,7 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
             //gets data from database for particular id gets question and answer
-            var fAQ = await _context.FAQ.SingleOrDefaultAsync(m => m.ID == id);
+            var fAQ = await _context.FAQDBSet.SingleOrDefaultAsync(m => m.ID == id);
 
             //if not got data from database then returns not found status
             if (fAQ == null)
@@ -63,7 +63,7 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
             //adds faq object to database of project
-            _context.FAQ.Add(fAQ);
+            _context.FAQDBSet.Add(fAQ);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetFAQ", new { id = fAQ.ID }, fAQ);
