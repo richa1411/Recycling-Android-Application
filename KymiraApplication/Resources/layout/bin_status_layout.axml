@@ -99,5 +99,6 @@
         android:textColor="#ffff0000"
         android:text=""
         android:layout_below="@id/addressEntry"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
 </RelativeLayout>

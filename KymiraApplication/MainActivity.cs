@@ -14,17 +14,8 @@ namespace KymiraApplication
 {
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
     public class MainActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
-    { /*
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.activity_main);
-
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
-        }*/
+    { 
+        
 		//variable that will store token generated from LoginAPI on successful login for each user got from LoginFragment(front end)
         public String token;
 
@@ -47,14 +38,7 @@ namespace KymiraApplication
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
         }
-        /*
-        public override void OnBackPressed()
-        {
-            //instance of navigational view
-            NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
-            navigationView.SetNavigationItemSelectedListener(this);
-            
-        }*/
+        
         
         //this method handles event for back button press
         public override void OnBackPressed()

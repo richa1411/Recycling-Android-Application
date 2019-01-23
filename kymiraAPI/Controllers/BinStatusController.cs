@@ -36,31 +36,19 @@ namespace kymiraAPI.Controllers
                 return new List<BinStatus>();
             }
 
-            //if the string passed in is invalid in any way, return a Bad Request
+            //if the string passed in is invalid in any way, return an empty list
             if (searchAddress == "" || searchAddress.Length > 200)
             {
                 return new List<BinStatus>();
             }
 
-            //finding matching site(s) - should only have one match
-            var siteFound = await _context.Site.Where(m => m.address == searchAddress).ToListAsync();
-
-            if (siteFound.Count.Equals(0) || siteFound == null)
-            {
-                //site was not found, return empty list
-                return new List<BinStatus>();
-            }
-
-
-            //find corresponding BinStatus objects
-            var binsFound = await _context.BinStatus.Where(m => m.siteID == siteFound[0].siteID).ToListAsync();
-
-            //sort by collection date
-            binsFound = binsFound.OrderBy(e => e.collectionDate).ToList();
+            //finding matching site and grab it's corresponding bin statuses then order by the collectiondate
+            //note: will only grab the last/most recent 10 records*****
+            var binsFound =  _context.Site.Where(m => m.address == searchAddress).First().binStatus.OrderByDescending(e => e.collectionDate).Take(10).ToList();
 
             //grab the most recent pickup date to use to compare
             var latestDate = binsFound[binsFound.Count - 1].collectionDate;
-            
+
             //list of most recent bin status objects to return to the front end
             List<BinStatus> recentBins = new List<BinStatus>();
 

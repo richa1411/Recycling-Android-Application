@@ -14,7 +14,7 @@ namespace kymiraAPI.Models
      */
     public class BinStatus
     {
-        [Key] //this is auto-incrementing -- need this because a single bin may have many records with different collectionDates
+        [Key] 
         public int pickupID { get; set; }
         
         [Range(1, int.MaxValue, ErrorMessage = "BinID must be a valid number")] //to hold a Bin serial number/ID code

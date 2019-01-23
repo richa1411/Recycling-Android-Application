@@ -25,7 +25,7 @@ namespace KymiraApplicationUITests
             //navigate to the bin status view page each time
             app = AppInitializer.StartApp(platform);
             app.TapCoordinates(100, 100);
-            app.TapCoordinates(350, 900);
+            app.Tap(c => c.Marked("View Recent Bin Statuses"));
         }
 
         [Test]
