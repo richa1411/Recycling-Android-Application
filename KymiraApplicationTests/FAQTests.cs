@@ -63,7 +63,7 @@ namespace KymiraApplicationTests
         public void TestThatQuestionIsNotEmpty()
 
         {
-            //Test that the answer is not an empty string
+            //Test that the question is not an empty string
             objFAQ.answer = "Where is Cosmo Industries?";
 
             //checks against the validation helper class and sends the FAQ object and matches errors

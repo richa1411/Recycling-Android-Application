@@ -14,6 +14,7 @@ namespace KymiraApplication.Fragments
 {
     class FAQDetailsFragment:Fragment
     {
+        //Define the view and the textView
         private View view;
         private TextView tvDetails;
 

@@ -20,6 +20,7 @@ namespace KymiraApplication.Fragments
     public class FAQFragment : Fragment
     {
 
+        //Define the view and the List
         private View view;
         private List<string> faqList;
 
