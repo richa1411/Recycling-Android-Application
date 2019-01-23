@@ -44,7 +44,17 @@ namespace kymiraAPI.Controllers
 
             //finding matching site and grab it's corresponding bin statuses then order by the collectiondate
             //note: will only grab the last/most recent 10 records*****
-            var binsFound =  _context.Site.Where(m => m.address == searchAddress).First().binStatus.OrderByDescending(e => e.collectionDate).Take(10).ToList();
+            var siteFound = await _context.Site.Where(m => m.address == searchAddress).ToListAsync();
+
+            if (siteFound.Count.Equals(0) || siteFound == null)
+            {
+                //site was not found, return empty list
+                return new List<BinStatus>();
+            }
+
+
+            //find corresponding BinStatus objects
+            var binsFound = await _context.BinStatus.Where(m => m.siteID == siteFound[0].siteID).OrderByDescending(c => c.collectionDate).Take(10).ToListAsync();
 
             //grab the most recent pickup date to use to compare
             var latestDate = binsFound[binsFound.Count - 1].collectionDate;
