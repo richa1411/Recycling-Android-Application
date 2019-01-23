@@ -202,9 +202,27 @@ namespace KymiraApplication.Fragments
                 foreach (Disposable disposableItem in disposables)
                 {
 
-                 
+                    var resourceId = 0;
 
-                    if (disposableItem.imageURL == null || disposableItem.imageURL == "" || Resources.GetIdentifier(disposableItem.imageURL, "drawable", Context.PackageName) == 0)
+
+                    var contextpackname = Context.PackageName;
+                    var disposableItemName = disposableItem.imageURL;
+
+                    var var1 = disposableItem.imageURL;
+
+                    try
+                    {
+                        resourceId = (int)typeof(Resource.Drawable).GetField(var1).GetValue(null);
+                    }
+                    catch (Exception e)
+                    {
+
+                    }
+
+
+
+
+                    if (disposableItem.imageURL == null || disposableItem.imageURL == "" || resourceId == 0)
                     {
 
 
@@ -213,7 +231,10 @@ namespace KymiraApplication.Fragments
                         //disposableItem.imageURL = "android.resource://KymiraApplication/drawable/no_image.png";
                         disposableItem.imageURL = ""+ Resource.Drawable.no_image;
                     }
-
+                    else
+                    {
+                        disposableItem.imageURL = "" + resourceId;
+                    }
 
 
                     var results = ValidationHelper.Validate(disposableItem);

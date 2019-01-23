@@ -16,7 +16,7 @@ namespace kymiraAPI.Fixtures
           
             name = "Cardboard",
             description = "Cardboard Description",
-            imageURL = "Cardboard.png",
+            imageURL = "Cardboard",
             isRecyclable = true,
             recycleReason = "Cardboard Reason",
             endResult = "Cardboard End Result",
@@ -37,7 +37,7 @@ namespace kymiraAPI.Fixtures
            
             name = "Tin Cans",
             description = "Tins Cans Description",
-            imageURL = "tincan.png",
+            imageURL = "tincan",
             isRecyclable = true,
             recycleReason = "Tin Cans Reason",
             endResult = "Tin Cans End Result",
@@ -48,7 +48,7 @@ namespace kymiraAPI.Fixtures
             
             name = "Pizza",
             description = "Pizza Description",
-            imageURL = "Pizza.png",
+            imageURL = "Pizza",
             isRecyclable = false,
             recycleReason = "Pizza Reason",
             endResult = "Pizza End Result",
@@ -59,7 +59,7 @@ namespace kymiraAPI.Fixtures
            
             name = "Orange Peels",
             description = "Orange Peels Description",
-            imageURL = "OrangePeels.png",
+            imageURL = "OrangePeels",
             isRecyclable = false,
             recycleReason = "Orange Peels Reason",
             endResult = "Orange Peels End Result",
@@ -70,7 +70,7 @@ namespace kymiraAPI.Fixtures
             
             name = "Candy",
             description = "Candy Description",
-            imageURL = "Candy.png",
+            imageURL = "Candy",
             isRecyclable = false,
             recycleReason = "Candy Reason",
             endResult = "Candy End Result",
