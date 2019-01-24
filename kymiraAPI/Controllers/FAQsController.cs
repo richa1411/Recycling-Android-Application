@@ -40,7 +40,7 @@ namespace kymiraAPI.Controllers
                 return BadRequest(ModelState);
             }
             //gets data from database for particular id gets question and answer
-            var fAQ = await _context.FAQDBSet.SingleOrDefaultAsync(m => m.ID == id);
+            var fAQ = await _context.FAQDBSet.SingleOrDefaultAsync(m => m.id == id);
 
             //if not got data from database then returns not found status
             if (fAQ == null)

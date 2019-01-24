@@ -62,7 +62,7 @@ namespace kymiraAPI.Fixtures
         {
             //Add the list of residents to the database
             _context.ResidentDBSet.AddRange(residentList);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         /*
@@ -72,7 +72,7 @@ namespace kymiraAPI.Fixtures
         {
             //Remove everything from the Resident table
             _context.ResidentDBSet.RemoveRange(_context.ResidentDBSet);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }

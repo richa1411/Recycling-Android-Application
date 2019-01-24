@@ -9,7 +9,8 @@ namespace kymiraAPI.Models
     //model class that will contain array attributes of list to be returned from api
     public class FAQ
     {
-        public int ID { get; set; }
+        [Key]
+        public int id { get; set; }
         //Set required for the question field so the question MUST be populated, if the question field is empty
         //an error message of "Qustion is Required" will be displayed
         [Required(ErrorMessage = "Question cannot be empty")]
