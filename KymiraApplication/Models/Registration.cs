@@ -12,8 +12,9 @@ namespace KymiraApplication.Models
 
 
         [Required(ErrorMessage = "An email address is required")]
-        [StringLength(100, MinimumLength = 10, ErrorMessage = "Email address must be between 1 and 100 characters")]
         [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Email address is not in a valid format")]
+        [StringLength(100, MinimumLength = 10, ErrorMessage = "Email address must be between 1 and 100 characters")]
+        
         public String emailAddress { get; set; }
 
         [Required(ErrorMessage = "A password is required")]
