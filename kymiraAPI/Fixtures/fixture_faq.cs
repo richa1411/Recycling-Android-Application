@@ -10,7 +10,7 @@ namespace kymiraAPI.Fixtures
      */
     public static class fixture_faq
     {
-        //Define the static list of Resident objects to add to the FAQ table of the database
+        //Define the static list of FAQ objects to add to the FAQ table of the database
         private static List<FAQ> listFAQ = new List<FAQ> { 
            
                 new FAQ {

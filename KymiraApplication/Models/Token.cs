@@ -15,7 +15,7 @@ namespace KymiraApplication.Models
      * app fragments will be able to verify that the users session has this token with them, that will guarantee to the 
      * other fragments that the user is properly logged in.
      */
-   public class Token
+    public class Token
     {
         //The token is required and must follow this format as created by the built in GUID function:
         //56f32541-8082-41e2-91a7-c2103859ff1c

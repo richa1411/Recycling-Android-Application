@@ -34,17 +34,23 @@ namespace kymiraAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,kymiraAPIContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, kymiraAPIContext context)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             context.Database.EnsureCreated();
+
             Fixtures.fixture_resident.delete(context);
-           Fixtures.fixture_resident.load(context);
-           Fixtures.fixture_faq.Unload(context);
+            Fixtures.fixture_resident.load(context);
+
+            Fixtures.fixture_bin_status.Unload(context);
+            Fixtures.fixture_bin_status.Load(context);
+
+            Fixtures.fixture_faq.Unload(context);
             Fixtures.fixture_faq.Load(context);
+
             app.UseMvc();
         }
     }
