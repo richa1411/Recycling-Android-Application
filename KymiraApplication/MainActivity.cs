@@ -84,7 +84,7 @@ namespace KymiraApplication
                     FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new FAQFragment()).Commit();
                     break;
             }
-            //Drawer kayout instance for side bar navigation
+            //Drawer layout instance for side bar navigation
 
         DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);

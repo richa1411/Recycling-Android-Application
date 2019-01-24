@@ -11,7 +11,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-
+using KymiraApplication.Adapters;
 using KymiraApplication.Models;
 using Newtonsoft.Json;
 
@@ -27,6 +27,9 @@ namespace KymiraApplication.Fragments
 
         private HttpClient client; // This client is used for GET and POST requests
 
+        private ExpandableListView expListView;
+        private IExpandableListAdapter expListAdapter;
+
 
         //Will run when the app is run. It is the initial creation of the fragment
         public override void OnCreate(Bundle savedInstanceState)
@@ -37,6 +40,9 @@ namespace KymiraApplication.Fragments
         //This view will run when the fragment is called
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+
+
+            
             //Will create a listview adapter that will populate the list
             //will get the FAQ items from the backend and populate the list view
 
@@ -45,14 +51,34 @@ namespace KymiraApplication.Fragments
             //Have a timeout of 10 seconds if the server can't be reached
             client.Timeout = System.TimeSpan.FromSeconds(10);
 
-            FAQList = new List<FAQ>();
+            var view = inflater.Inflate(Resource.Layout.faq_layout, container, false);
 
-            lvFAQs = view.FindViewById<ListView>(Resource.Id.lvFAQ);
 
-            setFAQs();
+            expListAdapter = new ArrayAdapter<String>(Resource.Layout.faq_details_layout);
+
+            expListView = view.FindViewById<ExpandableListView>(Resource.Id.lvFAQ);
+
+            
+
+
+
+
+
+            //FAQList = new List<FAQ>();
+            //lvFAQs = view.FindViewById<ListView>(Resource.Id.lvFAQ); ////////////
+            //setFAQs();
 
             return view;
 
+        }
+
+        // This method creates a new DisposablesAdapter and sets 
+        // the listview to use it.
+        private void dsiplayFAQList(List<FAQ> faq)
+        {
+            FAQListAdapter adapter = new FAQListAdapter(Context, faq);
+
+            lvFAQs.Adapter = adapter;
         }
 
         //Will run when an item in the listView is selected. This will bring up the next "faq_details" fragment page
