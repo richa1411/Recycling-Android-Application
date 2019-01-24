@@ -9,7 +9,7 @@ namespace kymiraAPI.Fixtures
 {/**
     this class will be used to wipe and reload the database with test data used in unit tests
         */
-    static class fixture_disposables
+    public static class fixture_disposables
     {
 
         //** Recyclable Items **/

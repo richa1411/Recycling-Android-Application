@@ -36,6 +36,8 @@
     <PackageReference Include="NUnitTestAdapter" Version="2.1.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BinStatusUITestNoServer.cs" />
+    <Compile Include="BinStatusUITests.cs" />
     <Compile Include="DisposablesUITests.cs" />
     <Compile Include="DisposablesUITestsNoServer.cs" />
     <Compile Include="LoginUITests.cs" />
