@@ -20,7 +20,7 @@ namespace kymiraAPI.Models
         public string lastName { get; set; }
 
         [Required(ErrorMessage = "Birth Date is required.")]
-        [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))",ErrorMessage = "Birth date must be a valid date.")]
+        [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", ErrorMessage = "Birth date must be a valid date.")]
         public string birthDate { get; set; }
 
         [MaxLength(100, ErrorMessage = "Email must be 100 characters or less.")]
