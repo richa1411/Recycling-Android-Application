@@ -9,11 +9,13 @@ using kymiraAPI.Models;
 
 namespace kymiraAPI.Controllers
 {
-    //this controller handles request from front end it will return a list containing question and answers
+    //this controller handles requests from the front end and will return either all the data from the FAQDBSet table or
+    //the id-specified FAQ object
     [Produces("application/json")]
     [Route("api/FAQs")]
     public class FAQsController : Controller
     {
+        //defining the context object to use
         private readonly kymiraAPIContext _context;
 
         public FAQsController(kymiraAPIContext context)
@@ -21,7 +23,7 @@ namespace kymiraAPI.Controllers
             _context = context;
         }
 
-        //gets all data from the database
+        // This method gets all the data from the FAQDBSet table in the database.
         // GET: api/FAQs
         [HttpGet]
         public IEnumerable<FAQ> GetFAQ()
@@ -29,32 +31,6 @@ namespace kymiraAPI.Controllers
             return _context.FAQDBSet;
         }
 
-        //this getFAQ method will accept the request from frontend and grab all data from database and send back to the front end
-        // GET: api/FAQs/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetFAQ([FromRoute] int id)
-        {
-            //checks if model is valid or not, if not then gives error with bad request status
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            //gets data from database for particular id gets question and answer
-            var fAQ = await _context.FAQDBSet.SingleOrDefaultAsync(m => m.id == id);
 
-            //if not got data from database then returns not found status
-            if (fAQ == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(fAQ);
-        }
-
-      
-
-       
-
-       
     }
 }

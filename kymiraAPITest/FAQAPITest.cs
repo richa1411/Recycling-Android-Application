@@ -18,7 +18,7 @@ namespace kymiraAPITest
         [TestInitialize]
         public void InitializeTest()
         {
-            objFAQ = new FAQ { ID = 1, question = "Where is Cosmo Industries?", answer = "1302 Alberta Ave. Saskatoon" };
+            objFAQ = new FAQ { question = "Where is Cosmo Industries?", answer = "1302 Alberta Ave. Saskatoon" };
         }
 
 
@@ -50,9 +50,9 @@ namespace kymiraAPITest
             Assert.AreEqual("Answer cannot be empty", results[0].ErrorMessage);
         }
 
-        /* a test method that checks if a question field is non mepty string or not */
+        /* a test method that checks if a question field is between 15 and 255 characters */
         [TestMethod]
-        public void TestThatQuestionIsNonEmpty()
+        public void TestThatQuestionIsValid()
 
         {
             //Test that the question is an empty string
@@ -64,7 +64,7 @@ namespace kymiraAPITest
            
         }
 
-        /* a test method that checks if an answer field is non mepty string or not */
+        /* a test method that checks if an answer field is non empty string or not */
         [TestMethod]
         public void TestThatAnswerIsNonEmpty()
 
@@ -134,20 +134,6 @@ namespace kymiraAPITest
             var results2 = TestValidationHelper.Validate(objFAQ);
             Assert.AreEqual(1, results2.Count());//finds one error
             Assert.AreEqual("Question must be between 15 - 255 characters", results2[0].ErrorMessage);
-
-        }
-
-        //Test that the question is in between 15-255 character 
-        [TestMethod]
-        public void TestThatQuestionIsInBetween15255Character()
-
-        {
-            objFAQ.question = new string('a', 150);
-             
-            //checks against the validation helper class and sends the FAQ object and finds that there are no any errors
-            var results = TestValidationHelper.Validate(objFAQ);
-
-            Assert.AreEqual(0, results.Count);
 
         }
 
