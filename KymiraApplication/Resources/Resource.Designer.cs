@@ -2585,11 +2585,11 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080040
 			public const int enterAlwaysCollapsed = 2131230784;
 			
-			// aapt resource value: 0x7f0800af
-			public const int etxtPassword = 2131230895;
+			// aapt resource value: 0x7f0800b0
+			public const int etxtPassword = 2131230896;
 			
-			// aapt resource value: 0x7f0800ae
-			public const int etxtPhone = 2131230894;
+			// aapt resource value: 0x7f0800af
+			public const int etxtPhone = 2131230895;
 			
 			// aapt resource value: 0x7f080041
 			public const int exitUntilCollapsed = 2131230785;
@@ -2645,8 +2645,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f0800b2
 			public const int imageView = 2131230898;
 			
-			// aapt resource value: 0x7f0800ad
-			public const int imgLogo = 2131230893;
+			// aapt resource value: 0x7f0800ae
+			public const int imgLogo = 2131230894;
 			
 			// aapt resource value: 0x7f0800c1
 			public const int info = 2131230913;
@@ -2957,11 +2957,11 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f080097
 			public const int tvContaminated = 2131230871;
 			
-			// aapt resource value: 0x7f0800b0
-			public const int tvError = 2131230896;
-			
 			// aapt resource value: 0x7f0800ab
-			public const int tvFAQItemName = 2131230891;
+			public const int tvError = 2131230891;
+			
+			// aapt resource value: 0x7f0800ac
+			public const int tvFAQItemName = 2131230892;
 			
 			// aapt resource value: 0x7f080098
 			public const int tvInaccessible = 2131230872;
@@ -2969,8 +2969,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f0800a9
 			public const int tvListDetails = 2131230889;
 			
-			// aapt resource value: 0x7f0800ac
-			public const int txtWel = 2131230892;
+			// aapt resource value: 0x7f0800ad
+			public const int txtWel = 2131230893;
 			
 			// aapt resource value: 0x7f08002d
 			public const int uniform = 2131230765;
@@ -3319,8 +3319,11 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f09002c
 			public const int UrlBinStatus = 2131296300;
 			
-			// aapt resource value: 0x7f090034
-			public const int UrlCredentials = 2131296308;
+			// aapt resource value: 0x7f090035
+			public const int UrlCredentials = 2131296309;
+			
+			// aapt resource value: 0x7f09002d
+			public const int UrlFAQ = 2131296301;
 			
 			// aapt resource value: 0x7f090000
 			public const int abc_action_bar_home_description = 2131296256;
@@ -3412,8 +3415,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f09002a
 			public const int action_settings = 2131296298;
 			
-			// aapt resource value: 0x7f09002e
-			public const int address = 2131296302;
+			// aapt resource value: 0x7f09002f
+			public const int address = 2131296303;
 			
 			// aapt resource value: 0x7f090027
 			public const int app_name = 2131296295;
@@ -3421,29 +3424,29 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f09001e
 			public const int appbar_scrolling_view_behavior = 2131296286;
 			
-			// aapt resource value: 0x7f09002d
-			public const int binStatusLayoutTitle = 2131296301;
+			// aapt resource value: 0x7f09002e
+			public const int binStatusLayoutTitle = 2131296302;
 			
 			// aapt resource value: 0x7f09001f
 			public const int bottom_sheet_behavior = 2131296287;
 			
-			// aapt resource value: 0x7f09002f
-			public const int btnSubmit = 2131296303;
+			// aapt resource value: 0x7f090030
+			public const int btnSubmit = 2131296304;
 			
 			// aapt resource value: 0x7f090020
 			public const int character_counter_pattern = 2131296288;
 			
-			// aapt resource value: 0x7f090030
-			public const int lblCollected = 2131296304;
-			
 			// aapt resource value: 0x7f090031
-			public const int lblContaminated = 2131296305;
+			public const int lblCollected = 2131296305;
 			
 			// aapt resource value: 0x7f090032
-			public const int lblInaccessible = 2131296306;
+			public const int lblContaminated = 2131296306;
 			
 			// aapt resource value: 0x7f090033
-			public const int login_btn = 2131296307;
+			public const int lblInaccessible = 2131296307;
+			
+			// aapt resource value: 0x7f090034
+			public const int login_btn = 2131296308;
 			
 			// aapt resource value: 0x7f090029
 			public const int navigation_drawer_close = 2131296297;

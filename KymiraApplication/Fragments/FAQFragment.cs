@@ -22,14 +22,12 @@ namespace KymiraApplication.Fragments
 
         //Define the view and the List
         private View view;
-        private static List<FAQ> FAQList; // This will store all of the FAQ items
+        private List<FAQ> obList; //list of matching FAQ objects
         private ListView lvFAQs;
+        private TextView tvError;
 
         private HttpClient client; // This client is used for GET and POST requests
-
-        private ExpandableListView expListView;
-        private IExpandableListAdapter expListAdapter;
-
+        private HttpResponseMessage response;
 
         //Will run when the app is run. It is the initial creation of the fragment
         public override void OnCreate(Bundle savedInstanceState)
@@ -40,9 +38,10 @@ namespace KymiraApplication.Fragments
         //This view will run when the fragment is called
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            var view = inflater.Inflate(Resource.Layout.faq_layout, container, false);
 
+            tvError = (TextView)view.FindViewById(Resource.Id.tvError);
 
-            
             //Will create a listview adapter that will populate the list
             //will get the FAQ items from the backend and populate the list view
 
@@ -51,34 +50,12 @@ namespace KymiraApplication.Fragments
             //Have a timeout of 10 seconds if the server can't be reached
             client.Timeout = System.TimeSpan.FromSeconds(10);
 
-            var view = inflater.Inflate(Resource.Layout.faq_layout, container, false);
-
-
-            expListAdapter = new ArrayAdapter<String>(Resource.Layout.faq_details_layout);
-
-            expListView = view.FindViewById<ExpandableListView>(Resource.Id.lvFAQ);
-
             
-
-
-
-
-
-            //FAQList = new List<FAQ>();
-            //lvFAQs = view.FindViewById<ListView>(Resource.Id.lvFAQ); ////////////
-            //setFAQs();
+            
+            SetFAQs();
 
             return view;
 
-        }
-
-        // This method creates a new DisposablesAdapter and sets 
-        // the listview to use it.
-        private void dsiplayFAQList(List<FAQ> faq)
-        {
-            FAQListAdapter adapter = new FAQListAdapter(Context, faq);
-
-            lvFAQs.Adapter = adapter;
         }
 
         //Will run when an item in the listView is selected. This will bring up the next "faq_details" fragment page
@@ -88,78 +65,54 @@ namespace KymiraApplication.Fragments
         }
 
 
-        public async void setFAQs()
+        public async void SetFAQs()
         {
-            ////Assigning the layout
-            //LinearLayout layout = view.FindViewById<LinearLayout>(Resource.Id.masterLayout);
-            ////Makes the request to t    
-            //List<FAQ> FAQlist = await receiveDisposablesAsync();
-            //disposables = displist;
+            using (client = new HttpClient())
+            {
+                string strAPI = Context.Resources.GetString(Resource.String.UrlAPI);
+                string strFAQPath = Context.Resources.GetString(Resource.String.UrlFAQ);
+                string strUri = strAPI + strFAQPath;
+                client.Timeout = System.TimeSpan.FromSeconds(3);
 
-            //// If the list has items in it
-            //if (disposables.Count != 0)
-            //{
+                Uri uri = new Uri(strUri, UriKind.Absolute);
 
-            //    foreach (Disposable disposableItem in disposables)
-            //    {
-            //        //declaration
-            //        var resourceId = 0;
-            //        var var1 = disposableItem.imageURL;
-            //        try
-            //        {
-            //            //sets resourceID to Drawable id of the current disposable items imageURL
-            //            //it is set to 0 if it does not exist and will have a placeholder inserted below
-            //            resourceId = (int)typeof(Resource.Drawable).GetField(var1).GetValue(null);
-            //        }
-            //        catch (Exception e)
-            //        {
+                try
+                {
+                    response = await client.GetAsync(uri);
 
-            //        }
-            //        //if the imageURL does not exist, is null or empty a place holder will be inserted.
-            //        if (disposableItem.imageURL == null || disposableItem.imageURL == "" || resourceId == 0)
-            //        {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        //if response came back as successfull, populate the view using the list returned
+                        var content = await response.Content.ReadAsStringAsync();
+                        obList = JsonConvert.DeserializeObject<List<FAQ>>(content); //All of the items
 
-            //            //Place holder image is inserted.
-            //            disposableItem.imageURL = Resource.Drawable.logoBlue.ToString();
-            //        }
-            //        else
-            //        {
-            //            //will change the image url to the Drawable resource number. ex: "2010102991"
-            //            disposableItem.imageURL = resourceId.ToString();
-            //        }
+                        //If the list has items in it
+                        if (obList.Count != 0)
+                        {
+                            PopulateList(obList);
+                        }
+                        else //If the list is empty after adding the FAQs from Content (content had no content)
+                        {
+                            //response came back as unsuccessfull, no matching site was found in the backend
+                            tvError.Text = "Sorry, something went wrong, please try again in a few minutes";
+                        }
 
-            //        // Validate those items to make sure they are valid
-            //        var results = ValidationHelper.Validate(disposableItem);
+                    }
+                }
+                catch (Exception exp)
+                {
+                    //response did not work - API not running
+                    response = new HttpResponseMessage();
+                    response.StatusCode = System.Net.HttpStatusCode.RequestTimeout;
+                    tvError.Text = "Sorry, something went wrong, please try again in a few minutes";
+                }
+            }
 
-            //        if (results.Count == 0)
-            //        {
-            //            if (disposableItem.isRecyclable)
-            //            {
-            //                recItems.Add(disposableItem);
-            //            }
-            //            else
-            //            {
-            //                nonRecItems.Add(disposableItem);
-            //            }
-            //        }
+        }
 
-
-            //    }
-            //    //the first time the app loads in. it sets the Listview to be of only recyclable items.
-            //    displayDisposablesList(recItems);
-            //}
-            //else
-            //{
-
-            //    //If the list is empty and no responce was recieved from the server. we create a TextView to show an error.
-            //    var error = view.FindViewById<TextView>(Resource.Id.errorLabel);
-            //    error.Text = "Something went wrong, please try again later";
-            //    error.SetTextSize(ComplexUnitType.Px, 120);
-
-
-            //}
-
-
+        //Populate list will take the content inside of obList, and populate a list with it.
+        private void PopulateList(List<FAQ> obList)
+        {
 
         }
     }
