@@ -61,6 +61,8 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\FAQListAdapter.cs" />
+    <Compile Include="Fragments\DisposablesFragment.cs" />
     <Compile Include="Fragments\FAQDetailsFragment.cs" />
     <Compile Include="Fragments\FAQFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
@@ -167,6 +169,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\menu\menu_main.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\faq_row_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
