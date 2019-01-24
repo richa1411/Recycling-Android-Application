@@ -19,6 +19,7 @@ namespace KymiraApplication
 		//variable that will store token generated from LoginAPI on successful login for each user got from LoginFragment(front end)
         public String token;
 
+        //Create a class variable to store the navigation view so it can be accessed by fragments
         public NavigationView navigationView;
 
         //this method creates and sets an instance of main activity and assigns view of this activity
@@ -80,7 +81,15 @@ namespace KymiraApplication
                 //calls BinStatus fragment to replace the framelayout and display bin status layout
 				    FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new BinStatusFragment()).Commit();
 					break;
-			}
+                case Resource.Id.nav_registration:
+                    //open registration fragment
+                    var ft = FragmentManager.BeginTransaction();
+                    ft.SetCustomAnimations(Android.Resource.Animator.FadeIn, Android.Resource.Animator.FadeOut);
+                    var registrationFragment = new RegistrationFragment();
+                    ft.Replace(Resource.Id.frameContent, registrationFragment);
+                    ft.Commit();
+                    break;
+            }
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);
@@ -101,6 +110,9 @@ namespace KymiraApplication
             return this.token;
         }
 
+        /*
+         * Method that will replace the main fragment that is being displayed in the MainActivity with the main layout
+         **/
         public void replaceWithMain()
         {
 

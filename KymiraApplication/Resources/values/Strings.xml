@@ -17,6 +17,7 @@
   <string name="UrlCredentials">/api/Credentials</string>
   <!-- String for Residents -->
   <string name="UrlResidents">/api/Residents</string>
+  <!--String array to hold the hardcoded province values for the RegistrationFragment spinner -->
   <string-array name="province_array">
     <item>Select Province</item>
     <item>Alberta</item>
@@ -33,6 +34,7 @@
     <item>Nunavut</item>
     <item>Northwest Territories</item>
   </string-array>
+  <!-- String array to hold the hardcoded month values for the RegistrationFragment spinner -->
   <string-array name="month_array">
     <item>Select Month</item>
     <item>January</item>
