@@ -66,6 +66,9 @@ namespace KymiraApplication.Fragments
             btnViewRecyclables = view.FindViewById<Button>(Resource.Id.btnViewRecyclableItems);
             btnViewNonRecyclables = view.FindViewById<Button>(Resource.Id.btnViewNonRecyclableItems);
 
+            btnViewRecyclables.SetBackgroundColor(new Android.Graphics.Color(192, 192, 192));
+            btnViewNonRecyclables.SetBackgroundColor(new Android.Graphics.Color(192, 192, 192));
+
             lvDisposables = view.FindViewById<ListView>(Resource.Id.lvDisposables);
 
             // Event Handlers for the buttons
@@ -92,6 +95,7 @@ namespace KymiraApplication.Fragments
         private void btnViewRecyclables_Click(object sender, EventArgs e)
         {
             displayDisposablesList(recItems);
+            highlightButton(btnViewRecyclables, btnViewNonRecyclables);
         }
 
         // Event handler for the View Non-Recyclables Button.
@@ -100,6 +104,7 @@ namespace KymiraApplication.Fragments
         private void btnViewNonRecyclables_Click(object sender, EventArgs e)
         {
             displayDisposablesList(nonRecItems);
+            highlightButton( btnViewNonRecyclables, btnViewRecyclables);
         }
 
 
@@ -108,10 +113,16 @@ namespace KymiraApplication.Fragments
         private void displayDisposablesList(List<Disposable> disposables)
         {
             DisposablesAdapter adapter = new DisposablesAdapter(Context, disposables);
-
+           
             lvDisposables.Adapter = adapter;
         }
 
+        private void highlightButton(Button set,Button revert)
+        {
+
+            set.SetBackgroundColor(new Android.Graphics.Color(173, 216, 230));
+            revert.SetBackgroundColor(new Android.Graphics.Color(192, 192, 192));
+        }
 
 
         /**
@@ -210,7 +221,7 @@ namespace KymiraApplication.Fragments
                     {
 
                     }
-                    //if the imageURL does not exist, is null or empty a place holder will be inserted.
+                    //if the imageURL does not have a matching image in the Drawable folder, is null or is empty a place holder will be inserted.
                     if (disposableItem.imageURL == null || disposableItem.imageURL == "" || resourceId == 0)
                     {
 
@@ -240,8 +251,9 @@ namespace KymiraApplication.Fragments
 
                     
                 }
-                //the first time the app loads in. it sets the Listview to be of only recyclable items.
+                //the first time the app loads in. it sets the Listview to be of only recyclable items
                 displayDisposablesList(recItems);
+                highlightButton(btnViewRecyclables, btnViewNonRecyclables);
             }
             else
             {
@@ -249,7 +261,9 @@ namespace KymiraApplication.Fragments
                 //If the list is empty and no responce was recieved from the server. we create a TextView to show an error.
                 var error = view.FindViewById<TextView>(Resource.Id.errorLabel);
                 error.Text = "Something went wrong, please try again later";
-                error.SetTextSize(ComplexUnitType.Px, 120);
+                error.SetTextSize(ComplexUnitType.Px, 69);
+                
+                error.SetTextColor(new Android.Graphics.Color(255, 0, 0));
 
                 
             }
