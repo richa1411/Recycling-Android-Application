@@ -47,14 +47,14 @@ namespace KymiraApplication.Fragments
             phoneField = (EditText)view.FindViewById(Resource.Id.etxtPhone);
             passField = (EditText)view.FindViewById(Resource.Id.etxtPassword);
             txtError = (TextView)view.FindViewById(Resource.Id.tvError);
-            
+
 
             //calls a method on click of button
             btnlogin.Click += btnLogin_Click;
 
             return view;
 
-          
+
 
         }
         //Will be called once the login button is tapped
@@ -87,17 +87,17 @@ namespace KymiraApplication.Fragments
                         client.Timeout = System.TimeSpan.FromSeconds(3);
 
                         //  send a POST request  to backend API
-                        string stringAPI = Context.Resources.GetString(Resource.String.UrlAPI);
+                        string stringUri = Context.Resources.GetString(Resource.String.UrlAPI);
                         string stringPath = Context.Resources.GetString(Resource.String.UrlCredentials);
-                        string uri = stringAPI + stringPath;
+                        string uri = stringUri + stringPath;
                         //result variable gets output from API
 
                         try
                         {
                             result = await client.PostAsync(uri, content);
-                        
-                        //checks status code that API returns 
-                        var success = result.StatusCode;
+
+                            //checks status code that API returns 
+                            var success = result.StatusCode;
                             //if status code is not 200 that is OK it means worked well, no not found or bad request or so on
                             if ((int)success != 200)
                             {
@@ -116,8 +116,8 @@ namespace KymiraApplication.Fragments
                                 Token objToken = new Token
                                 {
                                     token = resultString
-                            };
-                       
+                                };
+
 
                                 var validationResult = ValidationHelper.Validate(objToken);
                                 //if token is not in proper GUID format then displays an error message
@@ -127,7 +127,7 @@ namespace KymiraApplication.Fragments
                                     mainAct.setToken(objToken.token);
                                     //on successful authentication takes user to a new home screen 
                                     FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new HomeFragment()).Commit();
-                                
+
                                 }
                                 else
                                 {
@@ -147,7 +147,7 @@ namespace KymiraApplication.Fragments
                         }
                     }
                 };
-                
+
             }
             //displays an error on invalid credentials entries
             else

@@ -3,26 +3,36 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
-    <string name="UrlResidents">/api/Residents</string>
     <string name="UrlAPI">http://10.0.2.2:55085</string>
-    <string name="login_btn">Login</string>
-    <string name="UrlCredentials">/api/Credentials</string>
-    <string-array name="province_array">
-      <item>Select Province</item>
-      <item>Alberta</item>
-      <item>British Columbia</item>
-      <item>Manitoba</item>
-      <item>New Brunswick</item>
-      <item>Newfoundland and Labrador</item>
-      <item>Nova Scotia</item>
-      <item>Ontario</item>
-      <item>Prince Edward Island</item>
-      <item>Quebec</item>
-      <item>Saskatchewan</item>
-      <item>Yukon</item>
-      <item>Nunavut</item>
-      <item>Northwest Territories</item>
-    </string-array>
+    <string name="UrlBinStatus">/api/BinStatus/</string>
+  <!-- Strings for showing recent Bin Statuses -->
+  <string name="binStatusLayoutTitle">Bin Statuses</string>
+  <string name="address">Address</string>
+  <string name="btnSubmit">Search</string>
+  <string name="lblCollected">Collected:</string>
+  <string name="lblContaminated">Contaminated:</string>
+  <string name="lblInaccessible">Inaccessible:</string>
+  <!-- Strings for logging in -->
+  <string name="login_btn">Login</string>
+  <string name="UrlCredentials">/api/Credentials</string>
+  <!-- String for Residents -->
+  <string name="UrlResidents">/api/Residents</string>
+  <string-array name="province_array">
+    <item>Select Province</item>
+    <item>Alberta</item>
+    <item>British Columbia</item>
+    <item>Manitoba</item>
+    <item>New Brunswick</item>
+    <item>Newfoundland and Labrador</item>
+    <item>Nova Scotia</item>
+    <item>Ontario</item>
+    <item>Prince Edward Island</item>
+    <item>Quebec</item>
+    <item>Saskatchewan</item>
+    <item>Yukon</item>
+    <item>Nunavut</item>
+    <item>Northwest Territories</item>
+  </string-array>
   <string-array name="month_array">
     <item>Select Month</item>
     <item>January</item>

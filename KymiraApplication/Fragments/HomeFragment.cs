@@ -20,15 +20,15 @@ namespace KymiraApplication.Fragments
         {
             base.OnCreate(savedInstanceState);
 
-            
+
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            
-             return inflater.Inflate(Resource.Layout.home_layout, container, false);
 
-           
+            return inflater.Inflate(Resource.Layout.home_layout, container, false);
+
+
         }
     }
 }

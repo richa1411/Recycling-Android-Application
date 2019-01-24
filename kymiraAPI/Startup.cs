@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using kymiraAPI.Models;
+using kymiraAPI.Fixtures;
 
 namespace kymiraAPI
 {
@@ -39,12 +40,14 @@ namespace kymiraAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
             context.Database.EnsureCreated();
 
             Fixtures.fixture_resident.delete(context);
             Fixtures.fixture_resident.load(context);
 
+            //Fixtures.fixture_bin_status.Unload(context);
+            Fixtures.fixture_bin_status.Load(context);
+            
             app.UseMvc();
         }
     }
