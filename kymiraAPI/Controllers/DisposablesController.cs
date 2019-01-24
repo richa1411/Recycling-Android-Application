@@ -30,26 +30,6 @@ namespace kymiraAPI.Controllers
             return _context.DisposableDBSet;
         }
 
-        // GET: api/Disposables/true
-        [HttpGet("{isRecyclable}")]
-        public async Task<IActionResult> GetDisposable([FromRoute] bool isRecyclable)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-          
-            
-            var disposable = await _context.DisposableDBSet.Where(m => m.isRecyclable == isRecyclable).ToListAsync();
-
-            if (disposable == null)
-            {
-                return NotFound();
-            }
-            
-            return Ok(disposable);
-        }
 
 
 

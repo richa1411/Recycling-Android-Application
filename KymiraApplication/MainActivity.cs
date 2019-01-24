@@ -16,7 +16,6 @@ namespace KymiraApplication
     {
         //variable that will store token generated from LoginAPI on successful login for each user got from LoginFragment(front end)
         public String token;
-        FragmentTransaction fragTrans;
 
         //this method creates and sets an instance of main activity and assigns view of this activity
         protected override void OnCreate(Bundle savedInstanceState)
@@ -28,7 +27,6 @@ namespace KymiraApplication
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
-            fragTrans = FragmentManager.BeginTransaction();
 
             //an instance of drawer layout is made
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
@@ -78,7 +76,7 @@ namespace KymiraApplication
                     FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new LoginFragment()).Commit();
                     break;
                 case Resource.Id.nav_disposables:
-                    fragTrans.Replace(Resource.Id.frameContent, new DisposablesFragment()).Commit();
+                    FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new DisposablesFragment()).Commit();
                     break;
             }
             //Drawer kayout instance for side bar navigation

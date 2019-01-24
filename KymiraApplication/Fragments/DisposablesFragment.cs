@@ -215,7 +215,7 @@ namespace KymiraApplication.Fragments
                     {
 
                         //Place holder image is inserted.
-                        disposableItem.imageURL = Resource.Drawable.no_image.ToString();
+                        disposableItem.imageURL = Resource.Drawable.logoBlue.ToString();
                     }
                     else
                     {
