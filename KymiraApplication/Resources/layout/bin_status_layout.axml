@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="@string/binStatusLayoutTitle"
+        android:id="@+id/binStatusTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="100px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24.5dp"
+        android:layout_marginTop="120.0dp" />
+    <TextView
+        android:text="@string/address"
+        android:id="@+id/addressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/binStatusTitle"
+        android:textSize="60px" />
+    <EditText
+        android:id="@+id/addressEntry"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:inputType="text"
+        android:layout_toRightOf="@+id/addressLabel"
+        android:textSize="50px"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@id/addressLabel"
+        android:layout_marginLeft="17.5dp" />
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/btnSubmit"
+        android:layout_below="@id/addressLabel"
+        android:textSize="50px" />
+<!-- The hard-coded string values to display to the app -->
+    <TextView
+        android:id="@+id/lblCollected"
+        android:text="@string/lblCollected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSubmit"
+        android:textSize="50px"
+        android:padding="5px"
+        android:layout_marginTop="30.5dp" />
+    <TextView
+        android:id="@+id/lblContaminated"
+        android:text="@string/lblContaminated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblCollected"
+        android:textSize="50px"
+        android:padding="5px" />
+    <TextView
+        android:id="@+id/lblInaccessible"
+        android:text="@string/lblInaccessible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblContaminated"
+        android:textSize="50px"
+        android:padding="5px" />
+<!-- The "labels" to be populated upon receiving results from a search (start as empty strings) -->
+    <TextView
+        android:id="@+id/tvCollected"
+        android:text="n/n"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50px"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@id/lblCollected"
+        android:layout_marginLeft="197.5dp" />
+    <TextView
+        android:id="@+id/tvContaminated"
+        android:text="n/n"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50px"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@id/lblContaminated"
+        android:layout_marginLeft="197.5dp" />
+    <TextView
+        android:id="@+id/tvInaccessible"
+        android:text="n/n"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="50px"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBaseline="@id/lblInaccessible"
+        android:layout_marginLeft="197.5dp" />
+    <TextView
+        android:id="@+id/lblError"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="50px"
+        android:textColor="#ffff0000"
+        android:text=""
+        android:layout_below="@id/addressEntry"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+</RelativeLayout>

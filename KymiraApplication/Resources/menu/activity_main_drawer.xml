@@ -9,6 +9,9 @@
             android:icon="@drawable/loginIcon"
             android:title="Login" />
       <item
+            android:id="@+id/nav_bin_status"
+            android:title="View Recent Bin Statuses"/> 
+      <item
             android:id="@+id/nav_faq"
             android:icon="@drawable/FAQIcon"
             android:title="FAQ" />
