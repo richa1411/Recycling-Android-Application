@@ -17,4 +17,39 @@
   <string name="UrlCredentials">/api/Credentials</string>
   <!-- Disposables List URL -->
   <string name="UrlDisposables">/api/Disposables</string>
+  <!-- String for Residents -->
+  <string name="UrlResidents">/api/Residents</string>
+  <!--String array to hold the hardcoded province values for the RegistrationFragment spinner -->
+  <string-array name="province_array">
+    <item>Select Province</item>
+    <item>Alberta</item>
+    <item>British Columbia</item>
+    <item>Manitoba</item>
+    <item>New Brunswick</item>
+    <item>Newfoundland and Labrador</item>
+    <item>Nova Scotia</item>
+    <item>Ontario</item>
+    <item>Prince Edward Island</item>
+    <item>Quebec</item>
+    <item>Saskatchewan</item>
+    <item>Yukon</item>
+    <item>Nunavut</item>
+    <item>Northwest Territories</item>
+  </string-array>
+  <!-- String array to hold the hardcoded month values for the RegistrationFragment spinner -->
+  <string-array name="month_array">
+    <item>Select Month</item>
+    <item>January</item>
+    <item>February</item>
+    <item>March</item>
+    <item>April</item>
+    <item>May</item>
+    <item>June</item>
+    <item>July</item>
+    <item>August</item>
+    <item>September</item>
+    <item>October</item>
+    <item>November</item>
+    <item>December</item>
+  </string-array>
 </resources>
