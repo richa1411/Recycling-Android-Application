@@ -58,9 +58,12 @@
     <Compile Include="Fragments\BinStatusFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
     <Compile Include="Fragments\LoginFragment.cs" />
+    <Compile Include="Fragments\MainFragment.cs" />
+    <Compile Include="Fragments\RegistrationFragment.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\BinStatus.cs" />
     <Compile Include="Models\Credentials.cs" />
+    <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="ValidationHelper.cs" />
@@ -154,9 +157,13 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\content_main.axml">
-      <SubType>Designer</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\loading_layout.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\main_layout.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\registration_layout.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
