@@ -55,7 +55,9 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\DisposablesAdapter.cs" />
     <Compile Include="Fragments\BinStatusFragment.cs" />
+    <Compile Include="Fragments\DisposablesFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
     <Compile Include="Fragments\LoginFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Models\BinStatus.cs" />
     <Compile Include="Models\Credentials.cs" />
+    <Compile Include="Models\Disposable.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Models\Token.cs" />
@@ -164,6 +167,27 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\registration_layout.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\OrangePeels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Pizza.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\tincan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Cardboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Candy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\disposables_layout.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\disposables_row_layout.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="BinStatusUITestNoServer.cs" />
     <Compile Include="BinStatusUITests.cs" />
+    <Compile Include="DisposablesUITests.cs" />
+    <Compile Include="DisposablesUITestsNoServer.cs" />
     <Compile Include="LoginUITests.cs" />
     <Compile Include="AppInitializer.cs" />
     <Compile Include="LoginUITestsNoServer.cs" />

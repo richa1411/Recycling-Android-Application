@@ -14,6 +14,10 @@
       <item
             android:id="@+id/nav_bin_status"
             android:title="View Recent Bin Statuses"/>
+      <item
+           android:id="@+id/nav_disposables"
+           android:icon="@drawable/ic_menu_gallery"
+           android:title="Disposables List" />
     </group>
 
     <item android:title="Communicate">

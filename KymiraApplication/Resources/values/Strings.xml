@@ -15,6 +15,8 @@
   <!-- Strings for logging in -->
   <string name="login_btn">Login</string>
   <string name="UrlCredentials">/api/Credentials</string>
+  <!-- Disposables List URL -->
+  <string name="UrlDisposables">/api/Disposables</string>
   <!-- String for Residents -->
   <string name="UrlResidents">/api/Residents</string>
   <!--String array to hold the hardcoded province values for the RegistrationFragment spinner -->

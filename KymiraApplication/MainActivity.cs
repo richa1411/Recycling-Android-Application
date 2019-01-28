@@ -89,6 +89,11 @@ namespace KymiraApplication
                     ft.Replace(Resource.Id.frameContent, registrationFragment);
                     ft.Commit();
                     break;
+                // Launches the Disposables List Activity
+                case Resource.Id.nav_disposables:
+                    FragmentManager.BeginTransaction().Replace(Resource.Id.frameContent, new DisposablesFragment()).Commit();
+                    break;
+
             }
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
