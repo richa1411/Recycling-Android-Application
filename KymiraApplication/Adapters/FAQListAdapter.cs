@@ -47,37 +47,14 @@ namespace KymiraApplication.Adapters
             }
 
             // Set the TextView
-            TextView tvFAQItemName = row.FindViewById<TextView>(Resource.Id.tvFAQItemName);
+            TextView tvFAQQ = row.FindViewById<TextView>(Resource.Id.tvFAQQuestion);
+            TextView tvFAQA = row.FindViewById<TextView>(Resource.Id.tvFAQAnswer);
 
             // Set the Text of the Textview to the name of the Disposable Object
-            tvFAQItemName.Text = FAQList[position].answer;
-            
-
-
+            tvFAQQ.Text = FAQList[position].question;
+            tvFAQA.Text = FAQList[position].answer;
+          
             return row;
-
-            var view = convertView;
-            FAQListAdapterViewHolder holder = null;
-
-            if (view != null)
-                holder = view.Tag as FAQListAdapterViewHolder;
-
-            if (holder == null)
-            {
-                holder = new FAQListAdapterViewHolder();
-                var inflater = context.GetSystemService(Context.LayoutInflaterService).JavaCast<LayoutInflater>();
-                //replace with your item and your holder items
-                //comment back in
-                //view = inflater.Inflate(Resource.Layout.item, parent, false);
-                //holder.Title = view.FindViewById<TextView>(Resource.Id.text);
-                view.Tag = holder;
-            }
-
-
-            //fill in your items
-            //holder.Title.Text = "new text here";
-
-            return view;
         }
 
         //Fill in cound here, currently 0

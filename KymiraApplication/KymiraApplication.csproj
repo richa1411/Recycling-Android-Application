@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\FAQListAdapter.cs" />
-    <Compile Include="FAQListAdapter.cs" />
     <Compile Include="Fragments\BinStatusFragment.cs" />
     <Compile Include="Fragments\FAQDetailsFragment.cs" />
     <Compile Include="Fragments\FAQFragment.cs" />
@@ -162,9 +161,6 @@
     <AndroidResource Include="Resources\layout\content_main.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\layout\faq_details_layout.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\faq_layout.axml" />

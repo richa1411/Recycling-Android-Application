@@ -19,15 +19,16 @@ namespace KymiraApplication.Fragments
 {
     public class FAQFragment : Fragment
     {
-
-        //Define the view and the List
         private View view;
-        private List<FAQ> obList; //list of matching FAQ objects
-        private ListView lvFAQs;
-        private TextView tvError;
+        private static TextView tvError;
+        private static List<FAQ> faqList; //list of matching FAQ objects
 
-        private HttpClient client; // This client is used for GET and POST requests
+        private ListView lvFAQs;
+
+        private HttpClient client;  //client used for POST/GET requests
         private HttpResponseMessage response;
+
+
 
         //Will run when the app is run. It is the initial creation of the fragment
         public override void OnCreate(Bundle savedInstanceState)
@@ -38,20 +39,18 @@ namespace KymiraApplication.Fragments
         //This view will run when the fragment is called
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            var view = inflater.Inflate(Resource.Layout.faq_layout, container, false);
-
-            tvError = (TextView)view.FindViewById(Resource.Id.tvError);
-
-            //Will create a listview adapter that will populate the list
-            //will get the FAQ items from the backend and populate the list view
+            view = inflater.Inflate(Resource.Layout.faq_layout, container, false);
 
             //Instantiate the HTTP Client used to contact the API
             client = new HttpClient();
             //Have a timeout of 10 seconds if the server can't be reached
             client.Timeout = System.TimeSpan.FromSeconds(10);
 
-            
-            
+            faqList = new List<FAQ>();
+
+            tvError = (TextView)view.FindViewById(Resource.Id.tvError);
+            lvFAQs = view.FindViewById<ListView>(Resource.Id.lvFAQ);
+
             SetFAQs();
 
             return view;
@@ -76,6 +75,8 @@ namespace KymiraApplication.Fragments
 
                 Uri uri = new Uri(strUri, UriKind.Absolute);
 
+                HttpResponseMessage response = null;
+
                 try
                 {
                     response = await client.GetAsync(uri);
@@ -84,12 +85,12 @@ namespace KymiraApplication.Fragments
                     {
                         //if response came back as successfull, populate the view using the list returned
                         var content = await response.Content.ReadAsStringAsync();
-                        obList = JsonConvert.DeserializeObject<List<FAQ>>(content); //All of the items
+                        faqList = JsonConvert.DeserializeObject<List<FAQ>>(content); //All of the items
 
                         //If the list has items in it
-                        if (obList.Count != 0)
+                        if (faqList.Count != 0)
                         {
-                            PopulateList(obList);
+                            PopulateList(faqList);
                         }
                         else //If the list is empty after adding the FAQs from Content (content had no content)
                         {
@@ -108,12 +109,21 @@ namespace KymiraApplication.Fragments
                 }
             }
 
+            displayFAQ(faqList);
+
         }
 
         //Populate list will take the content inside of obList, and populate a list with it.
         private void PopulateList(List<FAQ> obList)
         {
 
+        }
+
+        private void displayFAQ(List<FAQ> faqs)
+        {
+            FAQListAdapter adapter = new FAQListAdapter(Context, faqs);
+
+            lvFAQs.Adapter = adapter;
         }
     }
     
