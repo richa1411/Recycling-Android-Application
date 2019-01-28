@@ -131,9 +131,9 @@ namespace kymiraAPITest
         {
             objFAQ.question = new string('a', 256);
             //checks against the validation helper class and sends the FAQ object and finds that there is an error and matches with regards model class
-            var results2 = TestValidationHelper.Validate(objFAQ);
-            Assert.AreEqual(1, results2.Count());//finds one error
-            Assert.AreEqual("Question must be between 15 - 255 characters", results2[0].ErrorMessage);
+            var results = TestValidationHelper.Validate(objFAQ);
+            Assert.AreEqual(1, results.Count());//finds one error
+            Assert.AreEqual("Question must be between 15 - 255 characters", results[0].ErrorMessage);
 
         }
 
