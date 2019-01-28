@@ -55,6 +55,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\DisposableDetailListAdapter.cs" />
     <Compile Include="Adapters\DisposablesAdapter.cs" />
     <Compile Include="Fragments\BinStatusFragment.cs" />
     <Compile Include="Fragments\DisposablesFragment.cs" />
