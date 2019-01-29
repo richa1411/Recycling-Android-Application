@@ -16,7 +16,7 @@ using KymiraApplication.Models;
 
 namespace KymiraApplication.Adapters
 {
-    class DisposableDetailListAdapter : Java.Lang.Object, IExpandableListAdapter
+    class DisposableDetailListAdapter : BaseExpandableListAdapter
     {
         public List<Disposable> disposableList;
         Context context;
@@ -27,64 +27,26 @@ namespace KymiraApplication.Adapters
             this.disposableList = disposableList;
         }
 
+        public override int GroupCount => disposableList.Count();
 
-        //public  Java.Lang.Object GetItem(int position)
-        //{
-        //    return position;
-        //}
+        public override bool HasStableIds => true;
 
-        //public override long GetItemId(int position)
-        //{
-        //    return position;
-        //}
-
-        //public override View GetView(int position, View convertView, ViewGroup parent)
-        //{
-        //    var view = convertView;
-        //    DisposableDetailListAdapterViewHolder holder = null;
-
-        //    if (view != null)
-        //        holder = view.Tag as DisposableDetailListAdapterViewHolder;
-
-        //    if (holder == null)
-        //    {
-        //        holder = new DisposableDetailListAdapterViewHolder();
-        //        var inflater = context.GetSystemService(Context.LayoutInflaterService).JavaCast<LayoutInflater>();
-        //        //replace with your item and your holder items
-        //        //comment back in
-        //        //view = inflater.Inflate(Resource.Layout.item, parent, false);
-        //        //holder.Title = view.FindViewById<TextView>(Resource.Id.text);
-        //        view.Tag = holder;
-        //    }
-
-
-        //    //fill in your items
-        //    //holder.Title.Text = "new text here";
-
-        //    return view;
-        //}
-
-        public bool AreAllItemsEnabled()
+        public override Java.Lang.Object GetChild(int groupPosition, int childPosition)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public Java.Lang.Object GetChild(int groupPosition, int childPosition)
+        public override long GetChildId(int groupPosition, int childPosition)
         {
-            throw new NotImplementedException();
+            return childPosition;
         }
 
-        public long GetChildId(int groupPosition, int childPosition)
+        public override int GetChildrenCount(int groupPosition)
         {
-            throw new NotImplementedException();
+            return 1;
         }
 
-        public int GetChildrenCount(int groupPosition)
-        {
-            throw new NotImplementedException();
-        }
-
-        public View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
+        public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
         {
             //throw new NotImplementedException();
 
@@ -92,35 +54,34 @@ namespace KymiraApplication.Adapters
 
             if (view == null)
             {
-                var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
-                view = inflater.Inflate(Resource.Layout.detail_layout, null);
+                //var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+                view = LayoutInflater.From(context).Inflate(Resource.Layout.detail_layout, null, false);
             }
 
+            TextView descView = view.FindViewById<TextView>(Resource.Id.description_detail);
+            TextView reasonView = view.FindViewById<TextView>(Resource.Id.reason_detail);
+            TextView endView = view.FindViewById<TextView>(Resource.Id.result_detail);
+            TextView qtyView = view.FindViewById<TextView>(Resource.Id.qtyrecycled_detail);
+
+            descView.Text = disposableList[childPosition].description;
+            reasonView.Text = disposableList[childPosition].recycleReason;
+            endView.Text = disposableList[childPosition].endResult;
+            qtyView.Text = disposableList[childPosition].qtyRecycled.ToString();
 
             return view;
         }
 
-        public long GetCombinedChildId(long groupId, long childId)
+        public override Java.Lang.Object GetGroup(int groupPosition)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public long GetCombinedGroupId(long groupId)
+        public override long GetGroupId(int groupPosition)
         {
-            throw new NotImplementedException();
+            return groupPosition;
         }
 
-        public Java.Lang.Object GetGroup(int groupPosition)
-        {
-            throw new NotImplementedException();
-        }
-
-        public long GetGroupId(int groupPosition)
-        {
-            throw new NotImplementedException();
-        }
-
-        public View GetGroupView(int groupPosition, bool isExpanded, View convertView, ViewGroup parent)
+        public override View GetGroupView(int groupPosition, bool isExpanded, View convertView, ViewGroup parent)
         {
             // throw new NotImplementedException();
             var row = convertView; // Set the Row/View
@@ -147,51 +108,11 @@ namespace KymiraApplication.Adapters
 
 
             return row;
-
         }
 
-        public bool IsChildSelectable(int groupPosition, int childPosition)
+        public override bool IsChildSelectable(int groupPosition, int childPosition)
         {
-            throw new NotImplementedException();
+            return true;
         }
-
-        public void OnGroupCollapsed(int groupPosition)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnGroupExpanded(int groupPosition)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RegisterDataSetObserver(DataSetObserver observer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UnregisterDataSetObserver(DataSetObserver observer)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
-        
-        public int GroupCount => throw new NotImplementedException();
-
-        public bool HasStableIds => throw new NotImplementedException();
-
-        public bool IsEmpty => throw new NotImplementedException();
-
-        public IntPtr Handle => throw new NotImplementedException();
-    }
-
-    class DisposableDetailListAdapterViewHolder : Java.Lang.Object
-    {
-        //Your adapter views to re-use
-        //public TextView Title { get; set; }
     }
 }
