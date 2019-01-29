@@ -75,10 +75,10 @@ namespace KymiraApplication.Fragments
 
                 //HttpResponseMessage response = null;
 
+                
                 try
                 {
                     response = await client.GetAsync(uri);
-
                     //checks status code that API returns 
                     var success = response.StatusCode;
                     if ((int)success != 200)
