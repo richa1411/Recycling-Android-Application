@@ -96,6 +96,7 @@ namespace KymiraApplication.Adapters
                 view = inflater.Inflate(Resource.Layout.detail_layout, null);
             }
 
+
             return view;
         }
 
