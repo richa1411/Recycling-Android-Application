@@ -41,17 +41,18 @@ namespace KymiraAdminTests
 
         [TestMethod]
         //testing that the valid BinStatus object is indeed valid
-        public void TestThatValidBinStatusIsValid()
+        public void TestThatdBinStatusIsValidWithMinimumEntry()
         {
+            testBin.status = 1;
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
         //testing that the status of a BinStatus object can be between 1 and 3
-        public void TestThatBinStatusOfValidNumberIsValid()
+        public void TestThatBinStatusIsValidWithMaximumEntry()
         {
-            testBin.status = 2;
+            testBin.status = 3;
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }
@@ -114,6 +115,25 @@ namespace KymiraAdminTests
             Assert.AreEqual("BinID is not valid", results[0].ErrorMessage);
         }
 
+        [TestMethod]
+        //testing that the binID of a BinStatus object cannot be in an invalid format
+        public void TestThatBinStatusSiteIDLessThanOneIsInvalid()
+        {
+            testBin.siteID = 0;
+            results = TestValidationHelper.Validate(testBin);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        //testing that the binID of a BinStatus object cannot be in an invalid format
+        public void TestThatBinStatusSiteIDIsValid()
+        {
+            testBin.siteID = 1345;
+            results = TestValidationHelper.Validate(testBin);
+            Assert.AreEqual(0, results.Count);
+           
+        }
     }
     
 }
