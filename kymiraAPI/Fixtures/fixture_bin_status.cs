@@ -89,7 +89,7 @@ namespace kymiraAPI.Fixtures
         {
             _context.Site.AddRange(obSites);
            _context.BinStatus.AddRange(obBins);
-           _context.SaveChangesAsync();
+           _context.SaveChanges();
         }
 
         /**
@@ -98,7 +98,7 @@ namespace kymiraAPI.Fixtures
         public static void Unload(kymiraAPIContext _context)
         {
             _context.Site.RemoveRange(_context.Site); //removes corresponding BinStatus's for each Site as well
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
     }
 }

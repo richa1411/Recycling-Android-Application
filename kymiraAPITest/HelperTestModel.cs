@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace KymiraApplicationTests
+namespace kymiraAPITest
 {
-    public class HelperTestModel
+    class HelperTestModel
     {
-        public static List<ValidationResult> Validate(object model)
+        public static IList<ValidationResult> Validate(object model)
         {
             var results = new List<ValidationResult>();
 
