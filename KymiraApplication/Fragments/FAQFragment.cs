@@ -45,9 +45,7 @@ namespace KymiraApplication.Fragments
             client = new HttpClient();
             //Have a timeout of 10 seconds if the server can't be reached
             client.Timeout = System.TimeSpan.FromSeconds(10);
-
             faqList = new List<FAQ>();
-
             tvError = (TextView)view.FindViewById(Resource.Id.tvError);
             lvFAQs = view.FindViewById<ListView>(Resource.Id.lvFAQ);
 
@@ -75,15 +73,23 @@ namespace KymiraApplication.Fragments
 
                 Uri uri = new Uri(strUri, UriKind.Absolute);
 
-                HttpResponseMessage response = null;
+                //HttpResponseMessage response = null;
 
                 try
                 {
                     response = await client.GetAsync(uri);
 
-                    if (response.IsSuccessStatusCode)
+                    //checks status code that API returns 
+                    var success = response.StatusCode;
+                    if ((int)success != 200)
                     {
-                        //if response came back as successfull, populate the view using the list returned
+
+                        //displays error messsage
+                        tvError.Text = "Sorry, something went wrong. Try later!!";
+                    }
+                    else
+                    {
+                        //if response came back as successful, populate the view using the list returned
                         var content = await response.Content.ReadAsStringAsync();
                         faqList = JsonConvert.DeserializeObject<List<FAQ>>(content); //All of the items
 
@@ -95,12 +101,10 @@ namespace KymiraApplication.Fragments
                         else //If the list is empty after adding the FAQs from Content (content had no content)
                         {
                             //response came back as unsuccessfull, no matching site was found in the backend
-                            tvError.Text = "Sorry, something went wrong, please try again in a few minutes";
+                            tvError.Text = "Sorry, something went wrong, please try again in a few minutes (Success code was not 200)";
                         }
-
                     }
-                }
-                catch (Exception exp)
+                } catch (Exception exp)
                 {
                     //response did not work - API not running
                     response = new HttpResponseMessage();
