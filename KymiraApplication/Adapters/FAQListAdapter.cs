@@ -12,7 +12,7 @@ using Android.Views;
 using Android.Widget;
 using KymiraApplication.Models;
 
-namespace KymiraApplication.Adapters
+namespace KymiraApplication
 {
     class FAQListAdapter : BaseAdapter<FAQ>
     {
@@ -62,7 +62,7 @@ namespace KymiraApplication.Adapters
         {
             get
             {
-                return 0;
+                return FAQList.Count();
             }
         }
 
