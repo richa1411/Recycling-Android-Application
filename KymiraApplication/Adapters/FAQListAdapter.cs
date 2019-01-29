@@ -57,7 +57,7 @@ namespace KymiraApplication.Adapters
             return row;
         }
 
-        //Fill in cound here, currently 0
+        //Fill in count here, currently 0
         public override int Count
         {
             get
@@ -66,7 +66,13 @@ namespace KymiraApplication.Adapters
             }
         }
 
-        public override FAQ this[int position] => throw new NotImplementedException();
+        public override FAQ this[int position]
+        {
+            get
+            {
+                return FAQList[position];
+            }
+        }
     }
 
     class FAQListAdapterViewHolder : Java.Lang.Object

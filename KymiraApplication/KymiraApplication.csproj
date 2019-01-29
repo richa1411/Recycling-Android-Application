@@ -199,7 +199,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\faq_row_layout.axml" />
+    <AndroidResource Include="Resources\layout\faq_row_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\FAQIcon.png" />
