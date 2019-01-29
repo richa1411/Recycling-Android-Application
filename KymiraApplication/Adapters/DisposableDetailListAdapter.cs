@@ -86,7 +86,17 @@ namespace KymiraApplication.Adapters
 
         public View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+
+            var view = convertView;
+
+            if (view == null)
+            {
+                var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
+                view = inflater.Inflate(Resource.Layout.detail_layout, null);
+            }
+
+            return view;
         }
 
         public long GetCombinedChildId(long groupId, long childId)
@@ -111,7 +121,32 @@ namespace KymiraApplication.Adapters
 
         public View GetGroupView(int groupPosition, bool isExpanded, View convertView, ViewGroup parent)
         {
-            throw new NotImplementedException();
+            // throw new NotImplementedException();
+            var row = convertView; // Set the Row/View
+            if (row == null)
+            {
+                // Inflate the Row/View
+                row = LayoutInflater.From(context).Inflate(Resource.Layout.disposables_row_layout, null, false);
+            }
+
+            // Set the TextView
+            TextView tvDisposableItemName = row.FindViewById<TextView>(Resource.Id.tvDisposableItemName);
+
+            // Set the Text of the Textview to the name of the Disposable Object
+            tvDisposableItemName.Text = disposableList[groupPosition].name;
+
+            // Set our ImageView
+            ImageView ivDisposableItemName = row.FindViewById<ImageView>(Resource.Id.ivDisposableItemImage);
+
+            // This grabs the "ImageURL" from the Disposable Object
+            // and parses it into a URI that is then set to the 
+            //imageview's imageResource.
+            int id = int.Parse(disposableList[groupPosition].imageURL);
+            ivDisposableItemName.SetImageResource(id);
+
+
+            return row;
+
         }
 
         public bool IsChildSelectable(int groupPosition, int childPosition)
