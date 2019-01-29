@@ -75,6 +75,8 @@ namespace KymiraApplication
         }
     }
 
+
+
     class FAQListAdapterViewHolder : Java.Lang.Object
     {
         //Your adapter views to re-use
