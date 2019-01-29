@@ -13,20 +13,22 @@ using Android.Widget;
 using Java.Lang;
 using KymiraApplication.Models;
 
+
 namespace KymiraApplication.Adapters
 {
-    class DisposableDetailListAdapter : IExpandableListAdapter
+    class DisposableDetailListAdapter : Java.Lang.Object, IExpandableListAdapter
     {
         public List<Disposable> disposableList;
         Context context;
 
-        public DisposableDetailListAdapter(Context context)
+        public DisposableDetailListAdapter(Context context, List<Disposable> disposableList)
         {
             this.context = context;
+            this.disposableList = disposableList;
         }
 
 
-        //public override Java.Lang.Object GetItem(int position)
+        //public  Java.Lang.Object GetItem(int position)
         //{
         //    return position;
         //}
