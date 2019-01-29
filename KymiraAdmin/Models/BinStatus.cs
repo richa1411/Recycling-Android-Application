@@ -3,16 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-
-namespace KymiraApplication.Models
+namespace KymiraAdmin.Models
 {
     /**
      *  This class contains definitions for a BinStatus object that will be saved to the database.
@@ -21,7 +14,7 @@ namespace KymiraApplication.Models
      */
     public class BinStatus
     {
-        [Key] 
+        [Key]
         public int pickupID { get; set; }
 
         [StringLength(20, MinimumLength = 1, ErrorMessage = "BinID must be between 1 and 20 characters")]
@@ -39,5 +32,4 @@ namespace KymiraApplication.Models
         [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", ErrorMessage = "Collection date must be a valid date")]
         public string collectionDate { get; set; }
     }
-
 }

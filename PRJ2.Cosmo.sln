@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationTests", "K
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationUITests", "KymiraApplicationUITests\KymiraApplicationUITests.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraAdmin", "KymiraAdmin\KymiraAdmin.csproj", "{A204215D-5B8F-49FC-A29B-15F5181FC7FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraAdminTests", "KymiraAdminTests\KymiraAdminTests.csproj", "{7B5F39E1-6184-4736-9621-D24807A05F40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,22 @@ Global
 		{B19C892E-2628-4CA7-AD27-08D406A3B14B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B19C892E-2628-4CA7-AD27-08D406A3B14B}.Release|x86.ActiveCfg = Release|Any CPU
 		{B19C892E-2628-4CA7-AD27-08D406A3B14B}.Release|x86.Build.0 = Release|Any CPU
+		{A204215D-5B8F-49FC-A29B-15F5181FC7FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A204215D-5B8F-49FC-A29B-15F5181FC7FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A204215D-5B8F-49FC-A29B-15F5181FC7FA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A204215D-5B8F-49FC-A29B-15F5181FC7FA}.Debug|x86.Build.0 = Debug|Any CPU
+		{A204215D-5B8F-49FC-A29B-15F5181FC7FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A204215D-5B8F-49FC-A29B-15F5181FC7FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A204215D-5B8F-49FC-A29B-15F5181FC7FA}.Release|x86.ActiveCfg = Release|Any CPU
+		{A204215D-5B8F-49FC-A29B-15F5181FC7FA}.Release|x86.Build.0 = Release|Any CPU
+		{7B5F39E1-6184-4736-9621-D24807A05F40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B5F39E1-6184-4736-9621-D24807A05F40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B5F39E1-6184-4736-9621-D24807A05F40}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B5F39E1-6184-4736-9621-D24807A05F40}.Debug|x86.Build.0 = Debug|Any CPU
+		{7B5F39E1-6184-4736-9621-D24807A05F40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B5F39E1-6184-4736-9621-D24807A05F40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B5F39E1-6184-4736-9621-D24807A05F40}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B5F39E1-6184-4736-9621-D24807A05F40}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

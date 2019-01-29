@@ -7,7 +7,6 @@ using KymiraApplication.Fragments;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using KymiraApplication.Models;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;

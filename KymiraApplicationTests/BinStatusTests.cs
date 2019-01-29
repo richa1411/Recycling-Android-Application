@@ -20,7 +20,7 @@ namespace KymiraApplicationTests
         //a valid BinStatus object
         BinStatus testBinStatus = new BinStatus
         {
-            binID = 1,
+            binID = "1",
             collectionDate = "2019-01-01",
             siteID = 30,
             status = 2
@@ -77,23 +77,37 @@ namespace KymiraApplicationTests
         //************* BIN TESTS *************
 
         [TestMethod]
-        //tests that the bin object ID is valid
-        public void TestThatBinWithPosIDIsValid()
+        //testing that the valid binID of a BinStatus object is valid
+        public void TestThatBinStatusBinIDIsValid()
         {
-            testBinStatus.binID = 1;
+            testBinStatus.binID = "W114-320-257";
             results = TestValidationHelper.Validate(testBinStatus);
-            Assert.AreEqual(0, results.Count());
+            Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
-        //tests that a bin object with a negative int is invalid
-        public void TestThatBinsWithNegIDAreInvalid()
+        //testing that the binID of a BinStatus object cannot be an empty string
+        public void TestThatBinStatusBinIDEmptyStringIsInvalid()
         {
-            testBinStatus.binID = -1;
+            testBinStatus.binID = "";
             results = TestValidationHelper.Validate(testBinStatus);
-            Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("BinID must be a valid number", results[0].ErrorMessage);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("BinID must be between 1 and 20 characters", results[0].ErrorMessage);
         }
+
+        [TestMethod]
+        //testing that the binID of a BinStatus object cannot be in an invalid format
+        public void TestThatBinStatusBinIDInvalidFormatIsInvalid()
+        {
+            testBinStatus.binID = "A3/D";
+            results = TestValidationHelper.Validate(testBinStatus);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("BinID is not valid", results[0].ErrorMessage);
+        }
+
+
+
+        
 
         [TestMethod]
         //tests that a BinStatus status cannot be greater than 3 - acceptable statuses are 1, 2, and 3

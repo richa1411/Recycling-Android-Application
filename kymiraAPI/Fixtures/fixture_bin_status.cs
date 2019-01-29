@@ -18,42 +18,42 @@ namespace kymiraAPI.Fixtures
         //BinStatus objects to add to the database
         public static List<BinStatus> obBins = new List<BinStatus>(new BinStatus[] { new BinStatus
         {
-            binID = 1,
+            binID = "1",
             siteID = obSites[0].siteID,
             status = 1,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
-            binID = 2,
+            binID = "2",
             siteID = obSites[0].siteID,
             status = 2,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
-            binID = 3,
+            binID = "3",
             siteID = obSites[1].siteID,
             status = 1,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
-             binID = 4,
+             binID = "4",
             siteID = obSites[1].siteID,
             status = 1,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
-            binID = 5,
+            binID = "5",
             siteID = obSites[1].siteID,
             status = 3,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
-            binID = 6,
+            binID = "6",
             siteID = obSites[2].siteID,
             status = 1,
             collectionDate = "2019-01-01"
@@ -61,21 +61,21 @@ namespace kymiraAPI.Fixtures
             //---------history pickups for 3 bins---------------
             new BinStatus
         {
-            binID = 3,
+            binID = "3",
             siteID = obSites[1].siteID,
             status = 1,
             collectionDate = "2019-02-02"
         },
             new BinStatus
         {
-             binID = 4,
+             binID = "4",
             siteID = obSites[1].siteID,
             status = 1,
             collectionDate = "2019-02-02"
         },
             new BinStatus
         {
-            binID = 5,
+            binID = "5",
             siteID = obSites[1].siteID,
             status = 3,
             collectionDate = "2019-02-02"

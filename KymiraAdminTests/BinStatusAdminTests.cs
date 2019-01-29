@@ -1,35 +1,23 @@
-﻿using kymiraAPI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
+using KymiraAdmin.Models;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Collections.Generic;
 
-namespace kymiraAPITest
+namespace KymiraAdminTests
 {
-    //This test class will validate the properties of a BinStatus and Site object.
-
     [TestClass]
-    public class BinStatusAPITests
+    public class BinStatusAdminTests
     {
+        
         //valid BinStatus object to be used to validate
-        BinStatus testBin = new BinStatus {
+        BinStatus testBin = new BinStatus
+        {
             binID = "1",
             status = 1,
             collectionDate = "2019-01-01",
             siteID = 101010
         };
-
-        //valid Site object to be used to validate
-        Site testSite = new Site {
-            siteID = 10,
-            address = "123 Test Street",
-        };
-
-        //list to hold ValidationResults
-        public IList<ValidationResult> results;
-
-        /*--------------------------------BinStatus validation tests--------------------------------*/
+        List<ValidationResult> results; //to hold a list of validation results
 
         [TestMethod]
         //testing that the status of a BinStatus object cannot be less than 1
@@ -126,64 +114,6 @@ namespace kymiraAPITest
             Assert.AreEqual("BinID is not valid", results[0].ErrorMessage);
         }
 
-
-        /*--------------------------------Site validation tests--------------------------------*/
-        [TestMethod]
-        //testing that the siteID of a Site object cannot be less than 1
-        public void TestThatSiteIDLessThanOneIsInvalid()
-        {
-            testSite.siteID = 0;
-            results = TestValidationHelper.Validate(testSite);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
-        }
-
-        [TestMethod]
-        //testing that the valid Site object is indeed valid
-        public void TestThatValidSiteIsValid()
-        {
-            results = TestValidationHelper.Validate(testSite);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        [TestMethod]
-        //testing that the address of a Site object cannot be an empty string
-        public void TestThatSiteAddressOfEmptyStringIsInvalid()
-        {
-            testSite.address = "";
-            results = TestValidationHelper.Validate(testSite);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
-        }
-
-        [TestMethod]
-        //testing that the address of a Site object can be 1 character
-        public void TestThatSiteAddressOfOneCharacterIsValid()
-        {
-            testSite.address = "a";
-            results = TestValidationHelper.Validate(testSite);
-            Assert.AreEqual(0, results.Count);
-        }
-
-        [TestMethod]
-        //testing that the address of a Site object can be 200 characters
-        public void TestThatSiteAddressOf200CharactersIsValid()
-        {
-            testSite.address = new string('a',200);
-            results = TestValidationHelper.Validate(testSite);
-            Assert.AreEqual(0, results.Count);
-        }
-
-
-        [TestMethod]
-        //testing that the address of a Site object cannot be 201 characters
-        public void TestThatSiteAddressOfLargeStringIsInvalid()
-        {
-            testSite.address = new string('a',201);
-            results = TestValidationHelper.Validate(testSite);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
-        }
-
     }
+    
 }
