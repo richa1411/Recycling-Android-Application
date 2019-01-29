@@ -30,28 +30,21 @@ namespace KymiraAdmin.Models
         //a list of the associated bin status objects
         public List<BinStatus> binStatus { get; set; }
 
-
-
         // This is how often a bin is collected 'Weekly', 'Bi-Weekly', etc.
+        [Required (ErrorMessage = "Frequency is required")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Frequency must be between 1 and 50 characters")]
         public string frequency { get; set; }
-
-        // This is the "Address Number" of the place on the street. i.e. '1160' 33rd St.
-        public string stNumber { get; set; }
-
-        // This is the street name i.e. '33rd', 'Idylwyld"
-        public string stName { get; set; }
-
-        // This is the Street Suffix, i.e. St, Ave, Dr, etc.
-        public string stSuffix { get; set; }
-
-        // This is the 'direction' of the street i.e. The 'W' in 33rd St. W
-        public string stDirection { get; set; }
 
         // The 4 digit number (1004, 2003) that shows week and the day of the week
         // that a bin is collected.
+        [Required (ErrorMessage = "At least one collection date must be specified")]
+        [RegularExpression("^([0-9]{4})?$", ErrorMessage = "Collection date must either be empty or 4 digits")]
         public string collection1 { get; set; }
+        [RegularExpression("^([0-9]{4})?$", ErrorMessage = "Collection date must either be empty or 4 digits")]
         public string collection2 { get; set; }
+        [RegularExpression("^([0-9]{4})?$", ErrorMessage = "Collection date must either be empty or 4 digits")]
         public string collection3 { get; set; }
+        [RegularExpression("^([0-9]{4})?$", ErrorMessage = "Collection date must either be empty or 4 digits")]
         public string collection4 { get; set; }
     }
 }
