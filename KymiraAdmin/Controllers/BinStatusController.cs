@@ -62,7 +62,7 @@ namespace KymiraAdmin.Controllers
          * It will then validate the object and add it to a list to be added to the database.
          * The method will return the correct View or error messages if something went wrong.
          */
-        public IActionResult UploadFile(IFormFile gg)
+        public IActionResult UploadFile(BinStatus objBin, IFormFile objFile)
         {
             return View("Upload");
         }
