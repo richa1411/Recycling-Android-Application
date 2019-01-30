@@ -36,7 +36,7 @@ namespace KymiraApplicationUITests
             //tap the list item
             app.Tap("Tin Cans");
             //check that the title apears
-            app.WaitForElement(c => c.Marked("Description"));
+            app.WaitForElement(c => c.Marked("What is it? "));
             //check that the description contents appear
             app.WaitForElement(c => c.Marked("Tins Cans Description"));
         }
@@ -47,7 +47,7 @@ namespace KymiraApplicationUITests
             //tap the list item
             app.Tap("Tin Cans");
             //check that the title apears
-            app.WaitForElement(c => c.Marked("Reason"));
+            app.WaitForElement(c => c.Marked("Reason: "));
             //check that the recycle reason contents appear
             app.WaitForElement(c => c.Marked("Tin Cans Reason"));
         }
@@ -58,7 +58,7 @@ namespace KymiraApplicationUITests
             //tap the list item
             app.Tap("Tin Cans");
             //check that the title apears
-            app.WaitForElement(c => c.Marked("Result"));
+            app.WaitForElement(c => c.Marked("End Result: "));
             //check that the end results contents appear
             app.WaitForElement(c => c.Marked("Tin Cans End Result"));
         }
@@ -69,9 +69,26 @@ namespace KymiraApplicationUITests
             //tap the list item
             app.Tap("Tin Cans");
             //check that the title apears
-            app.WaitForElement(c => c.Marked("Quantity Recycled"));
+            app.WaitForElement(c => c.Marked("Quantity Recycled: "));
             //check that the qtyRecycled contents appear
             app.WaitForElement(c => c.Marked("1200"));
+        }
+
+        //tests that if an item is pushed offscreen it can still be interacted with
+        [Test]
+        public void TestScrollingCapabilities()
+        {
+            //taps on cardboard to expand it
+            app.Tap("Cardboard");
+            //taps on paper item to expand it
+            app.Tap("Paper");
+            //scrolls down so Tin Cans is displayed properly on screen
+            app.ScrollDownTo("Tin Cans");
+            //taps on tin cans
+            app.Tap("Tin Cans");
+
+
+
         }
     }
 }

@@ -38,7 +38,7 @@ namespace KymiraApplication.Adapters
 
         public override long GetChildId(int groupPosition, int childPosition)
         {
-            return childPosition;
+            return groupPosition;
         }
 
         public override int GetChildrenCount(int groupPosition)
@@ -63,10 +63,10 @@ namespace KymiraApplication.Adapters
             TextView endView = view.FindViewById<TextView>(Resource.Id.result_detail);
             TextView qtyView = view.FindViewById<TextView>(Resource.Id.qtyrecycled_detail);
 
-            descView.Text = disposableList[childPosition].description;
-            reasonView.Text = disposableList[childPosition].recycleReason;
-            endView.Text = disposableList[childPosition].endResult;
-            qtyView.Text = disposableList[childPosition].qtyRecycled.ToString();
+            descView.Text = disposableList[groupPosition].description;
+            reasonView.Text = disposableList[groupPosition].recycleReason;
+            endView.Text = disposableList[groupPosition].endResult;
+            qtyView.Text = disposableList[groupPosition].qtyRecycled.ToString();
 
             return view;
         }
