@@ -12,6 +12,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using KymiraApplication.Models;
+using KymiraApplication.Adapters;
 using Newtonsoft.Json;
 
 namespace KymiraApplication.Fragments
@@ -23,7 +24,7 @@ namespace KymiraApplication.Fragments
         private static List<FAQ> faqs; //list of matching FAQ objects
         private static List<FAQ> faqItems;
 
-        private ListView lvFAQs;
+        private ExpandableListView lvFAQs;
 
         private HttpClient client;  //client used for POST/GET requests
         private HttpResponseMessage response;
@@ -48,7 +49,7 @@ namespace KymiraApplication.Fragments
          
             //Link the errors textview
             tvError = (TextView)view.FindViewById(Resource.Id.tvError);
-            lvFAQs = view.FindViewById<ListView>(Resource.Id.lvFAQ);
+            lvFAQs = view.FindViewById<ExpandableListView>(Resource.Id.lvFAQ);
 
             //List of FAQs
             faqs = new List<FAQ>();
@@ -149,8 +150,15 @@ namespace KymiraApplication.Fragments
 
         private void displayFAQsList(List<FAQ> faqs)
         {
-            FAQListAdapter adapter = new FAQListAdapter(Context, faqs);
-            lvFAQs.Adapter = adapter;
+
+            //DisposablesAdapter adapter = new DisposablesAdapter(Context, disposables);
+
+            lvFAQs.SetAdapter(new FAQDetailListAdapter(Context, faqs));
+            //lvDisposables.GroupClick += (sender, e) => lvDisposables.ChildClick(sender, new ExpandableListView.ChildClickEventArgs(true, e.Parent, e.ClickedView, e.GroupPosition, (int)e.Id, 0));
+
+
+            //FAQDetailListAdapter adapter = new FAQDetailListAdapter(Context, faqs);
+            //lvFAQs.Adapter = adapter;
         }
     }
 }

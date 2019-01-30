@@ -43,16 +43,14 @@ namespace KymiraApplication
             if (row == null)
             {
                 // Inflate the Row/View
-                row = LayoutInflater.From(context).Inflate(Resource.Layout.faq_row_layout, null, false);
+                row = LayoutInflater.From(context).Inflate(Resource.Layout.faq_question_layout, null, false);
             }
 
             // Set the TextView
             TextView tvFAQQ = row.FindViewById<TextView>(Resource.Id.tvFAQQuestion);
-            TextView tvFAQA = row.FindViewById<TextView>(Resource.Id.tvFAQAnswer);
 
             // Set the Text of the Textview to the name of the Disposable Object
             tvFAQQ.Text = FAQList[position].question;
-            tvFAQA.Text = FAQList[position].answer;
           
             return row;
         }

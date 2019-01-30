@@ -4,16 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:text="Q"
-        android:layout_width="361.5dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvFAQQuestion"
-        android:layout_marginBottom="0.0dp"
-        android:layout_marginTop="3.5dp"
-        android:textSize="75px"
-        android:textStyle="bold"
-        android:layout_marginLeft="5.0dp" />
-    <TextView
         android:text="A"
         android:layout_width="371.5dp"
         android:layout_height="wrap_content"
