@@ -74,6 +74,26 @@ namespace KymiraApplicationUITests
             app.WaitForElement(c => c.Marked("1200"));
         }
 
+        [Test]
+        public void TestThatDetailsCollapseProperly()
+        {
+            //tap the list item
+            app.Tap("Tin Cans");
+            //check that the titles appear
+            app.WaitForElement(c => c.Marked("What is it? "));
+            app.WaitForElement(c => c.Marked("Reason: "));
+            app.WaitForElement(c => c.Marked("Quantity Recycled: "));
+            app.WaitForElement(c => c.Marked("End Result: "));
+
+            app.Tap("Tin Cans");
+
+            app.WaitForNoElement(c => c.Marked("What is it? "));
+            app.WaitForNoElement(c => c.Marked("Reason: "));
+            app.WaitForNoElement(c => c.Marked("Quantity Recycled: "));
+            app.WaitForNoElement(c => c.Marked("End Result: "));
+
+        }
+
         //tests that if an item is pushed offscreen it can still be interacted with
         [Test]
         public void TestScrollingCapabilities()
