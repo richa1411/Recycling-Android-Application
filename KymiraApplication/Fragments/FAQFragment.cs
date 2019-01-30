@@ -110,13 +110,7 @@ namespace KymiraApplication.Fragments
             //returns Dipsoables List
             return rList;         
         }
-
-        //Will run when an item in the listView is selected. This will bring up the next "faq_details" fragment page
-        private async void Item_Select(Object sender, EventArgs e)
-        {
-            
-
-        }
+        
 
         public async void SetFAQs()
         {
@@ -145,11 +139,11 @@ namespace KymiraApplication.Fragments
             else
             {
                 //If the list is empty and no responce was recieved from the server. we create a TextView to show an error.
-                var error = view.FindViewById<TextView>(Resource.Id.errorLabel);
-                error.Text = "Something went wrong, please try again later";
-                error.SetTextSize(ComplexUnitType.Px, 69);
+                
+                tvError.Text = "Something went wrong, please try again later";
+                tvError.SetTextSize(ComplexUnitType.Px, 69);
 
-                error.SetTextColor(new Android.Graphics.Color(255, 0, 0));
+                tvError.SetTextColor(new Android.Graphics.Color(255, 0, 0));
             }
         }
 

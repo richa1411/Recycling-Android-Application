@@ -2790,8 +2790,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f0800ad
 			public const int lvDisposables = 2131230893;
 			
-			// aapt resource value: 0x7f0800b1
-			public const int lvFAQ = 2131230897;
+			// aapt resource value: 0x7f0800b2
+			public const int lvFAQ = 2131230898;
 			
 			// aapt resource value: 0x7f0800bb
 			public const int mainTitle = 2131230907;
@@ -3108,8 +3108,8 @@ namespace KymiraApplication
 			// aapt resource value: 0x7f0800af
 			public const int tvDisposableItemName = 2131230895;
 			
-			// aapt resource value: 0x7f0800b2
-			public const int tvError = 2131230898;
+			// aapt resource value: 0x7f0800b1
+			public const int tvError = 2131230897;
 			
 			// aapt resource value: 0x7f0800b4
 			public const int tvFAQAnswer = 2131230900;
