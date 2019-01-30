@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace KymiraAdminTests
 {
+    /**
+     * This test class will test validation of a BinStatus object. 
+     */
     [TestClass]
     public class BinStatusAdminTests
     {
@@ -126,7 +129,7 @@ namespace KymiraAdminTests
         }
 
         [TestMethod]
-        //testing that the binID of a BinStatus object cannot be in an invalid format
+        //testing that the siteID of a valid BinStatus object is indeed valid
         public void TestThatBinStatusSiteIDIsValid()
         {
             testBin.siteID = 1345;

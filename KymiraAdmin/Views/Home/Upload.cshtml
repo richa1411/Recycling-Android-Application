@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Upload";
+}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+        crossorigin="anonymous"></script>
+<script>
+    //button click event handler - 
+    $(document).ready(function () {
+        $('#btnUpload').on('click', function () {
+            //will make a call to BinStatusController
+        })
+    });
+</script>
+<h2>Upload</h2>
+<!-- Setting up form controls -->
+<input type="file" name="uploadFile" id="uploadFile"/>
+<button name="btnUpload" id="btnUpload">Upload</button>
+
