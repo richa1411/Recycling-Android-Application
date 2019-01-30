@@ -74,6 +74,7 @@ namespace KymiraApplicationUITests
             app.WaitForElement(c => c.Marked("1200"));
         }
 
+        //test that items will collapse
         [Test]
         public void TestThatDetailsCollapseProperly()
         {
