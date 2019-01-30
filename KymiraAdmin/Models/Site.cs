@@ -11,7 +11,6 @@ namespace KymiraAdmin.Models
     {
 
         public enum PickupFrequency { Weekly = 1, BiWeekly = 2}
-        public enum CollectionDay { Monday = 1,}
         /**
          * A Site object is associated with many BinStatus objects.
          **/
@@ -36,7 +35,6 @@ namespace KymiraAdmin.Models
 
         // This is how often a bin is collected 'Weekly', 'Bi-Weekly', etc.
         [Required(ErrorMessage = "Frequency is required")]
-        
         public PickupFrequency frequency { get; set; }
 
         // The 4 digit number (1004, 2003) that shows week and the day of the week
