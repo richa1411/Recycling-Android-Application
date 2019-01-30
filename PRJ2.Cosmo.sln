@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationTests", "K
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationUITests", "KymiraApplicationUITests\KymiraApplicationUITests.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraAdmin", "KymiraAdmin\KymiraAdmin.csproj", "{5480FE0F-06C9-4585-8093-17E58FBB4D03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraAdmin", "KymiraAdmin\KymiraAdmin.csproj", "{379943FF-0173-4BFF-80ED-658F575839A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,14 +67,14 @@ Global
 		{B19C892E-2628-4CA7-AD27-08D406A3B14B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B19C892E-2628-4CA7-AD27-08D406A3B14B}.Release|x86.ActiveCfg = Release|Any CPU
 		{B19C892E-2628-4CA7-AD27-08D406A3B14B}.Release|x86.Build.0 = Release|Any CPU
-		{5480FE0F-06C9-4585-8093-17E58FBB4D03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5480FE0F-06C9-4585-8093-17E58FBB4D03}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5480FE0F-06C9-4585-8093-17E58FBB4D03}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5480FE0F-06C9-4585-8093-17E58FBB4D03}.Debug|x86.Build.0 = Debug|Any CPU
-		{5480FE0F-06C9-4585-8093-17E58FBB4D03}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5480FE0F-06C9-4585-8093-17E58FBB4D03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5480FE0F-06C9-4585-8093-17E58FBB4D03}.Release|x86.ActiveCfg = Release|Any CPU
-		{5480FE0F-06C9-4585-8093-17E58FBB4D03}.Release|x86.Build.0 = Release|Any CPU
+		{379943FF-0173-4BFF-80ED-658F575839A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{379943FF-0173-4BFF-80ED-658F575839A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{379943FF-0173-4BFF-80ED-658F575839A8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{379943FF-0173-4BFF-80ED-658F575839A8}.Debug|x86.Build.0 = Debug|Any CPU
+		{379943FF-0173-4BFF-80ED-658F575839A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{379943FF-0173-4BFF-80ED-658F575839A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{379943FF-0173-4BFF-80ED-658F575839A8}.Release|x86.ActiveCfg = Release|Any CPU
+		{379943FF-0173-4BFF-80ED-658F575839A8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
