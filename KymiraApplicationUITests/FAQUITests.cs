@@ -45,7 +45,7 @@ namespace KymiraApplicationUITests
             app.TapCoordinates(100, 100); //tap the hamburger button
             app.Tap("FAQ"); //tap the FAQ button in the navigation drawer
             results.Add(app.WaitForElement(c => c.Marked("FAQ")));
-            results.Add(app.WaitForElement(c => c.Marked("tvList")));
+            results.Add(app.WaitForElement(c => c.Marked("lvFAQ")));
 
             Assert.AreEqual(2, results.Count);
         }
@@ -54,20 +54,26 @@ namespace KymiraApplicationUITests
          * When the user taps an item on the list, it will open up a new fragment showing the entire answer to the question
          */ 
         [Test]
-        public void TestThatTappingQuestionOpensDetailsPage()
+        public void TestThatTappingQuestionExpandsListView()
         {
             ArrayList results = new ArrayList();
 
             app.TapCoordinates(100, 100); //tap the hamburger button
             app.Tap("FAQ"); //tap the FAQ button in the navigation drawer
-            app.Tap("lvItem"); //list item ID
-            results.Add(app.WaitForElement(c => c.Marked("FAQ Details")));
-            results.Add(app.WaitForElement(c => c.Marked("tvListDetails")));
+            app.Tap("Do I have to register to view bin collection dates?"); //List item text
+            app.Tap("Where is Cosmo Industries?"); //List item text
+            app.Tap("How can I register with different bin locations?"); //List item text
+            app.Tap("How do I get more rewards?"); //List item text
+            app.Tap("What is COSMO Industries?"); //List item text
 
-            Assert.AreEqual(2, results.Count);
+            results.Add(app.WaitForElement(c => c.Marked("1302 Alberta Ave. Saskatoon.")));
+            results.Add(app.WaitForElement(c => c.Marked("You can register as many time as you can with different addresses.")));
+            results.Add(app.WaitForElement(c => c.Marked("Be the part of weekly quizes and kepp updated with next collection dates to make your bin filled.")));
+            results.Add(app.WaitForElement(c => c.Marked("Absolutely not, \"you\"  can just open an application enter your bin address and there's your date!")));
+            results.Add(app.WaitForElement(c => c.Marked("It is a recycling place.")));
 
-        }
+            Assert.AreEqual(5, results.Count);
 
-
+        }    
     }
 }
