@@ -23,7 +23,7 @@ namespace kymiraAPI.Fixtures
             {
                   
             question = "How can I register with different bin locations?",
-                answer = "You can register as many time as you can with different addresses."
+                answer = "You can register as many times as you can with different addresses."
             },
             new FAQ
             {

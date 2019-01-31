@@ -72,8 +72,9 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
+        //Test the upper bounds (one too high)
         [TestMethod]
-        public void TestThatQuestionIsBetween15And255CharactersMore()
+        public void TestThatQuestionIsBetween15And255CharactersUpper()
 
         {
             //Test that the question is more than 255 characters
@@ -86,8 +87,9 @@ namespace KymiraApplicationTests
             Assert.AreEqual(1, results.Count);
         }
 
+        //Test the lower bounds (one too low)
         [TestMethod]
-        public void TestThatQuestionIsBetween15And255CharactersLess()
+        public void TestThatQuestionIsBetween15And255CharactersLower()
 
         {
             //Test that the question is less than 15 characters
@@ -99,8 +101,10 @@ namespace KymiraApplicationTests
             Assert.AreEqual("Question must be between 15 - 255 characters", results[0].ErrorMessage);
             Assert.AreEqual(1, results.Count);
         }
+
+        //Test the minimum characters
         [TestMethod]
-        public void TestThatQuestionIsBetween15And255CharactersLowValid()
+        public void TestThatQuestionIsBetween15And255CharactersMin()
 
         {
             //Test that the question is less than 15 characters
@@ -112,8 +116,9 @@ namespace KymiraApplicationTests
             Assert.AreEqual(0, results.Count);
         }
 
+        //Test the maximum characters
         [TestMethod]
-        public void TestThatQuestionIsBetween15And255CharactersHighValid()
+        public void TestThatQuestionIsBetween15And255CharactersMax()
 
         {
             //Test that the question is in between 15 and 255 characters
