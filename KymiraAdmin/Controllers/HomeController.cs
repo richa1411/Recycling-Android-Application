@@ -8,27 +8,22 @@ using KymiraAdmin.Models;
 
 namespace KymiraAdmin.Controllers
 {
+    //this is home controller concerned with actions of each individual page
     public class HomeController : Controller
     {
+        //this opens index view
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        //this method returns Upload view that display form with file input box and a submit button 
+        public IActionResult Upload()
         {
-            ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
+        //this method return errorview
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

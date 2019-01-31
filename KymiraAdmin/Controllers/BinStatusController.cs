@@ -23,36 +23,6 @@ namespace KymiraAdmin.Controllers
             _context = context;
         }
 
-        // GET: BinStatus
-        /*
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.BinStatus.ToListAsync());
-        }
-        */
-
-
-        // GET: BinStatus/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        //// POST: BinStatus/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("pickupID,binID,status,siteID,collectionDate")] BinStatus binStatus)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(binStatus);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(binStatus);
-        //}
 
 
 
@@ -62,9 +32,10 @@ namespace KymiraAdmin.Controllers
          * It will then validate the object and add it to a list to be added to the database.
          * The method will return the correct View or error messages if something went wrong.
          */
-        public IActionResult UploadFile(BinStatus objBin, IFormFile objFile)
+        public IActionResult UploadFile(IFormCollection objForm)
         {
-            return View("Upload");
+
+            return Ok();
         }
 
     }

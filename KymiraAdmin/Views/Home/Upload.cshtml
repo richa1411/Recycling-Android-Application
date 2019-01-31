@@ -2,19 +2,30 @@
 @{
     ViewData["Title"] = "Upload";
 }
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-        crossorigin="anonymous"></script>
-<script>
-    //button click event handler - 
-    $(document).ready(function () {
-        $('#btnUpload').on('click', function () {
-            //will make a call to BinStatusController
-        })
-    });
-</script>
-<h2>Upload</h2>
-<!-- Setting up form controls -->
-<input type="file" name="uploadFile" id="uploadFile"/>
-<button name="btnUpload" id="btnUpload">Upload</button>
+
+<!-- this page will work as our view upload page that includes form with one input box with browse button that will allow user to select file from his computer
+    and also a submit button that will be triggered on click and form will be posted and redirected to the BinStatus Controllers and UploadFile methods-->
+<form method="post" enctype="multipart/form-data" asp-controller="BinStatus" asp-action="UploadFile">
+
+    <div class="row">
+
+        <div class="col-md-4">
+
+            <input type="file" id="fUpload" name="files" class="form-control" />
+
+        </div>
+
+        <div class="col-md-8">
+
+            <input type="submit" id="btnUpload" value="Upload" />
+
+        </div>
+
+    </div>
+
+    <br />
+
+    <div id="dvData"></div>
+
+</form>
 
