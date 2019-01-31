@@ -35,18 +35,26 @@ namespace KymiraAdmin.Models
 
         // This is how often a bin is collected 'Weekly', 'Bi-Weekly', etc.
         [Required(ErrorMessage = "Frequency is required")]
+        [EnumDataType(typeof(PickupFrequency), ErrorMessage = "Pickup Frequency must be Weekly or BiWeekly")]
         public PickupFrequency frequency { get; set; }
 
         // The 4 digit number (1004, 2003) that shows week and the day of the week
         // that a bin is collected.
         [Required(ErrorMessage = "At least one collection date must be specified")]
-        [RegularExpression("^([1-5]{1})?$", ErrorMessage = "Collection date a single digit in the range of 1-5")]
+
+        [Range((int)DayOfWeek.Monday, (int)DayOfWeek.Friday, ErrorMessage = "Collection date must be a valid day of the week (Monday to Friday)")]
         public DayOfWeek collection1 { get; set; }
-        [RegularExpression("^([1-5]{1})?$", ErrorMessage = "Collection date a single digit in the range of 1-5")]
+
+
+        [Range((int) DayOfWeek.Monday, (int) DayOfWeek.Friday, ErrorMessage = "Collection date must be a valid day of the week (Monday to Friday)")]
         public DayOfWeek collection2 { get; set; }
-        [RegularExpression("^([1-5]{1})?$", ErrorMessage = "Collection date a single digit in the range of 1-5")]
+
+
+        [Range((int)DayOfWeek.Monday, (int)DayOfWeek.Friday, ErrorMessage = "Collection date must be a valid day of the week (Monday to Friday)")]
         public DayOfWeek collection3 { get; set; }
-        [RegularExpression("^([1-5]{1})?$", ErrorMessage = "Collection date a single digit in the range of 1-5")]
+
+
+        [Range((int)DayOfWeek.Monday, (int)DayOfWeek.Friday, ErrorMessage = "Collection date must be a valid day of the week (Monday to Friday)")]
         public DayOfWeek collection4 { get; set; }
     }
 
