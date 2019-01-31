@@ -18,6 +18,7 @@ namespace KymiraAdmin.Controllers
         //context object - readonly
         private readonly KymiraAdminContext _context;
 
+        //default constructor for BinStatusController
         public BinStatusController(KymiraAdminContext context)
         {
             _context = context;
@@ -30,7 +31,7 @@ namespace KymiraAdmin.Controllers
          * This method will go through the excel file uploaded from the view. It will first check to ensure that the 
          * file is an excel file and then it will go through each record of the file and create a BinStatus object. 
          * It will then validate the object and add it to a list to be added to the database.
-         * The method will return the correct View or error messages if something went wrong.
+         * The method will return a 200 OK response if upload was successful or error messages if something went wrong.
          */
         public IActionResult UploadFile(IFormCollection objForm)
         {
