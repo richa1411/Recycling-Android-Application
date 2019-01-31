@@ -44,6 +44,7 @@ namespace KymiraApplication.Adapters
             return 1;
         }
 
+        //Will get the answer layout that matches the corresponding question 
         public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
         {
             var view = convertView;
@@ -53,6 +54,7 @@ namespace KymiraApplication.Adapters
                 view = LayoutInflater.From(context).Inflate(Resource.Layout.faq_answer_layout, null, false);
             }
 
+            //link the textview  to the layout textview with the appropriate ID
             TextView answerView = view.FindViewById<TextView>(Resource.Id.tvFAQAnswer);
 
             answerView.Text = FAQList[groupPosition].answer;
