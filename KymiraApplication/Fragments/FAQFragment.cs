@@ -97,19 +97,17 @@ namespace KymiraApplication.Fragments
             else
             {
                 tvError.Text = "Something went wrong, please try again later";
-                tvError.SetTextSize(ComplexUnitType.Px, 69);
-                tvError.SetTextColor(new Android.Graphics.Color(255, 0, 0));
             }
         }
 
         /*
          * This methods will make a call to the API and grab a list of 
-         * FAQs for us to use. If it fails to connect it throws tthe exception 
+         * FAQs for us to use. If it fails to connect it throws the exception 
          * that there was a problem.
          */
         public async Task<List<FAQ>> receiveFAQAsync()
         {
-            //list used to return disposables
+            //list used to return FAQs
             List<FAQ> faqList = new List<FAQ>();
 
             //URI of API
