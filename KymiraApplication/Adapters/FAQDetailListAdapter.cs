@@ -47,13 +47,10 @@ namespace KymiraApplication.Adapters
 
         public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
         {
-            //throw new NotImplementedException();
-
             var view = convertView;
 
             if (view == null)
             {
-                //var inflater = context.GetSystemService(Context.LayoutInflaterService) as LayoutInflater;
                 view = LayoutInflater.From(context).Inflate(Resource.Layout.faq_answer_layout, null, false);
             }
 
@@ -76,7 +73,6 @@ namespace KymiraApplication.Adapters
 
         public override View GetGroupView(int groupPosition, bool isExpanded, View convertView, ViewGroup parent)
         {
-            // throw new NotImplementedException();
             var row = convertView; // Set the Row/View
             if (row == null)
             {
@@ -89,7 +85,6 @@ namespace KymiraApplication.Adapters
 
             // Set the Text of the Textview to the name of the Disposable Object
             tvFAQQ.Text = FAQList[groupPosition].question;
-
 
             return row;
         }
