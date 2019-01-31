@@ -55,7 +55,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapters\DisposablesAdapter.cs" />
+    <Compile Include="Adapters\DisposableDetailListAdapter.cs" />
     <Compile Include="Fragments\BinStatusFragment.cs" />
     <Compile Include="Fragments\DisposablesFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
@@ -188,6 +188,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\disposables_row_layout.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\detail_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,6 +16,7 @@ using Newtonsoft.Json;
 using Mono;
 
 using Android.Support.V4.View;
+using KymiraApplication.Adapters;
 
 namespace KymiraApplication.Fragments
 {
@@ -32,7 +33,7 @@ namespace KymiraApplication.Fragments
 
         private Button btnViewRecyclables; // Button that will display the recyclable items
         private Button btnViewNonRecyclables; // Button that will display the non-recyclable items
-        private ListView lvDisposables; // Our list view that will display the Disposable items
+        private ExpandableListView lvDisposables; // Our list view that will display the Disposable items
 
         private HttpClient client; // This client is used for GET and POST requests
 
@@ -69,7 +70,7 @@ namespace KymiraApplication.Fragments
             btnViewRecyclables.SetBackgroundColor(new Android.Graphics.Color(192, 192, 192));
             btnViewNonRecyclables.SetBackgroundColor(new Android.Graphics.Color(192, 192, 192));
 
-            lvDisposables = view.FindViewById<ListView>(Resource.Id.lvDisposables);
+            lvDisposables = view.FindViewById<ExpandableListView>(Resource.Id.lvDisposables);
 
             // Event Handlers for the buttons
             btnViewRecyclables.Click += btnViewRecyclables_Click;
@@ -112,9 +113,10 @@ namespace KymiraApplication.Fragments
         // the listview to use it.
         private void displayDisposablesList(List<Disposable> disposables)
         {
-            DisposablesAdapter adapter = new DisposablesAdapter(Context, disposables);
-           
-            lvDisposables.Adapter = adapter;
+            //DisposablesAdapter adapter = new DisposablesAdapter(Context, disposables);
+            
+            lvDisposables.SetAdapter(new DisposableDetailListAdapter(Context, disposables));
+            //lvDisposables.GroupClick += (sender, e) => lvDisposables.ChildClick(sender, new ExpandableListView.ChildClickEventArgs(true, e.Parent, e.ClickedView, e.GroupPosition, (int)e.Id, 0));
         }
 
         private void highlightButton(Button set,Button revert)
@@ -179,15 +181,6 @@ namespace KymiraApplication.Fragments
             //returns Dipsoables List
             return rList;
 
-            
-            
-            
-       
-           
-            
-
-
-
         }
 
         public  async void setDisposables()
@@ -201,11 +194,6 @@ namespace KymiraApplication.Fragments
             // If the list has items in it
             if (disposables.Count != 0)
             {
-
-             
-
-
-                
                 foreach (Disposable disposableItem in disposables)
                 {
                     //declaration
