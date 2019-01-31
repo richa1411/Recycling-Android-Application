@@ -90,6 +90,7 @@ namespace KymiraAdminTests
         }
 
         [TestMethod]
+        //Test that a Site object with an "empty" frequency is not valid
         public void TestThatEmptySiteFrequencyIsInValid()
         {
             testSite.frequency = 0;
@@ -99,7 +100,7 @@ namespace KymiraAdminTests
 
         }
 
-
+        //Test that a Site object with a frequency of "Weekly" is valid
         [TestMethod]
         public void TestThatSiteFrequencyOfWeeklyIsValid()
         {
@@ -109,7 +110,7 @@ namespace KymiraAdminTests
 
         }
 
-
+        //Test that a Site object with a frequency of "BiWeekly" is valid
         [TestMethod]
         public void TestThatSiteFrequencyOfBiWeeklyIsValid()
         {
@@ -119,6 +120,7 @@ namespace KymiraAdminTests
 
         }
 
+        //Test that a Site object with a collection 1 day of Monday to Friday is valid
         [TestMethod]
         public void TestThatCollection1WithDayOfWeekMondayToFridayIsValid()
         {
@@ -149,6 +151,7 @@ namespace KymiraAdminTests
 
         }
 
+        //Test that a Site object with a collection 1 day that isn't Monday to Friday is invalid
         [TestMethod]
         public void TestThatCollection1WithDayOfWeekNotMonToFriIsInvalid()
         {
@@ -158,6 +161,7 @@ namespace KymiraAdminTests
             Assert.AreEqual("Collection date must be a valid day of the week (Monday to Friday)", results[0].ErrorMessage);
         }
 
+        //Test that a Site object with collections 2, 3, and 4 are empty is still valid
         [TestMethod]
         public void TestThatCollection234AreEmptyButValid()
         {
@@ -165,6 +169,7 @@ namespace KymiraAdminTests
             Assert.AreEqual(0, results.Count);
         }
 
+        //Test that a Site object with collections 2, 3, and 4 of Monday to Friday are valid
         [TestMethod]
         public void TestThatCollection234ValidDaysOfWeekAndValid()
         {
@@ -175,7 +180,7 @@ namespace KymiraAdminTests
             Assert.AreEqual(0, results.Count);
         }
 
-        
+        //Test that a Site object with collections 2, 3, and 4 that aren't Monday to Friday are invalid
         [TestMethod]
         public void TestThatCollections234WithDayOfWeekSaturdayOrSundayAreInvalid()
         {
