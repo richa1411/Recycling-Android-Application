@@ -21,7 +21,10 @@ namespace KymiraAdminTests
             siteID = 101010
         };
         List<ValidationResult> results; //to hold a list of validation results
+        StatusList objStatus = new StatusList
+        {
 
+        };
         [TestMethod]
         //testing that the status of a BinStatus object cannot be less than 1
         public void TestThatBinStatusLessThan1IsInvalid()
@@ -137,6 +140,17 @@ namespace KymiraAdminTests
             Assert.AreEqual(0, results.Count);
            
         }
+
+        [TestMethod]
+        //testing that the siteID of a valid BinStatus object is indeed valid
+        public void TestThatListIsValid()
+        {
+            testBin.siteID = 1345;
+            results = TestValidationHelper.Validate(testBin);
+            Assert.AreEqual(0, results.Count);
+
+        }
+
     }
     
 }

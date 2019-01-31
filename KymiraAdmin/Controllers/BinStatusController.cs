@@ -35,7 +35,10 @@ namespace KymiraAdmin.Controllers
          */
         public IActionResult UploadFile(IFormCollection objForm)
         {
-
+            //go through file and get list/collection of ROWS
+            //send list/collection of ROWS to parser class
+            //parser class goes through and grabs certain values, uses the parseDate/parseBinID/etc. methods to convert data into
+            //"valid" BinStatus data to create a BinStatus -- then validate and add to list or send error message
             return Ok();
         }
 
