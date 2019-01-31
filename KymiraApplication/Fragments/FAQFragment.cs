@@ -35,7 +35,6 @@ namespace KymiraApplication.Fragments
         private ExpandableListView lvFAQs; //where the questions will bes stored
 
         private HttpClient client;  //client used for POST/GET requests
-        private HttpResponseMessage response;
 
 
 

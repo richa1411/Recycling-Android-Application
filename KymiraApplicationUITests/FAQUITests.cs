@@ -94,11 +94,13 @@ namespace KymiraApplicationUITests
             app.Tap("How do I get more rewards?"); //List item text
             app.Tap("What is COSMO Industries?"); //List item text
 
-            results.Add(app.WaitForElement(c => c.Marked("1302 Alberta Ave. Saskatoon.")));
-            results.Add(app.WaitForElement(c => c.Marked("Absolutely not, \"you\"  can just open an application enter your bin address and there's your date!")));
-            
+            app.WaitForElement(c => c.Marked("1302 Alberta Ave. Saskatoon."));
+            app.WaitForElement(c => c.Marked("Absolutely not, \"you\"  can just open an application enter your bin address and there's your date!"));
 
-            Assert.AreEqual(5, results.Count);
+            app.WaitForNoElement(c => c.Marked("You can register as many times as you can with different addresses."));
+            app.WaitForNoElement(c => c.Marked("Be the part of weekly quizes and kepp updated with next collection dates to make your bin filled."));
+            app.WaitForNoElement(c => c.Marked("It is a recycling place."));
+            
 
         }
 
