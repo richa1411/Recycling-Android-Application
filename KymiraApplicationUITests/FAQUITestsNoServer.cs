@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
@@ -10,8 +8,11 @@ using Xamarin.UITest.Queries;
 
 namespace KymiraApplicationUITests
 {
-    public class FAQUITestsNoServer
+    [TestFixture(Platform.Android)]
+
+    class FAQUITestsNoServer
     {
+
         IApp app;
         Platform platform;
 
@@ -27,7 +28,8 @@ namespace KymiraApplicationUITests
         }
 
         [Test]
-        public void TestThatNoConnectionDisplaysError()
+        //Test that all elements load onto the app upon startup
+        public void TestThatAppDisplaysError()
         {
             ArrayList results = new ArrayList();
 
@@ -35,7 +37,7 @@ namespace KymiraApplicationUITests
             app.Tap("FAQ"); //tap the FAQ button in the navigation drawer
 
             //There will be a timeout so  and when that happens the following error message will be displayed
-            results.Add(app.WaitForElement(c => c.Marked("Sorry, something went wrong. Try later!!")));
+            results.Add(app.WaitForElement(c => c.Marked("Something went wrong, please try again later")));
 
             Assert.AreEqual(1, results.Count);
 
