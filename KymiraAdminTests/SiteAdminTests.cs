@@ -21,10 +21,7 @@ namespace KymiraAdminTests
                 siteID = 10,
                 address = "123 Test Street",
                 frequency = Site.PickupFrequency.Weekly,
-                collection1 = System.DayOfWeek.Monday,
-                collection2 = System.DayOfWeek.Tuesday,
-                collection3 = System.DayOfWeek.Thursday,
-                collection4 = System.DayOfWeek.Wednesday
+                pickupDays = Site.PickupDays.Monday
 
 
              };
@@ -124,29 +121,9 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatCollection1WithDayOfWeekMondayToFridayIsValid()
         {
-            // Collection1 is on Monday
-            testSite.collection1 = System.DayOfWeek.Monday;
+            testSite.pickupDays = (Site.PickupDays) 127;
+
             var results = HelperTestModel.Validate(testSite);
-            Assert.AreEqual(0, results.Count);
-
-            // Collection1 is on Tuesday
-            testSite.collection1 = System.DayOfWeek.Tuesday;
-             results = HelperTestModel.Validate(testSite);
-            Assert.AreEqual(0, results.Count);
-
-            // Collection1 is on Wednesday
-            testSite.collection1 = System.DayOfWeek.Wednesday;
-             results = HelperTestModel.Validate(testSite);
-            Assert.AreEqual(0, results.Count);
-
-            // Collection1 is on Thursday
-            testSite.collection1 = System.DayOfWeek.Thursday;
-             results = HelperTestModel.Validate(testSite);
-            Assert.AreEqual(0, results.Count);
-
-            // Collection1 is on Friday
-            testSite.collection1 = System.DayOfWeek.Friday;
-             results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(0, results.Count);
 
         }
@@ -155,44 +132,14 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatCollection1WithDayOfWeekNotMonToFriIsInvalid()
         {
-            testSite.collection1 = System.DayOfWeek.Saturday;
+            testSite.pickupDays = Site.PickupDays.Friday | Site.PickupDays.Monday;
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Collection date must be a valid day of the week (Monday to Friday)", results[0].ErrorMessage);
         }
 
-        //Test that a Site object with collections 2, 3, and 4 are empty is still valid
-        [TestMethod]
-        public void TestThatCollection234AreEmptyButValid()
-        {
-            var results = HelperTestModel.Validate(testSite);
-            Assert.AreEqual(0, results.Count);
-        }
 
-        //Test that a Site object with collections 2, 3, and 4 of Monday to Friday are valid
-        [TestMethod]
-        public void TestThatCollection234ValidDaysOfWeekAndValid()
-        {
-            testSite.collection2 = System.DayOfWeek.Monday;
-            testSite.collection3 = System.DayOfWeek.Tuesday;
-            testSite.collection4 = System.DayOfWeek.Thursday;
-            var results = HelperTestModel.Validate(testSite);
-            Assert.AreEqual(0, results.Count);
-        }
 
-        //Test that a Site object with collections 2, 3, and 4 that aren't Monday to Friday are invalid
-        [TestMethod]
-        public void TestThatCollections234WithDayOfWeekSaturdayOrSundayAreInvalid()
-        {
-            testSite.collection2 = System.DayOfWeek.Saturday;
-            testSite.collection3 = System.DayOfWeek.Sunday;
-            testSite.collection4 = System.DayOfWeek.Saturday;
-            var results = HelperTestModel.Validate(testSite);
-            Assert.AreEqual(3, results.Count);
-            Assert.AreEqual("Collection date must be a valid day of the week (Monday to Friday)", results[0].ErrorMessage);
-            Assert.AreEqual("Collection date must be a valid day of the week (Monday to Friday)", results[1].ErrorMessage);
-            Assert.AreEqual("Collection date must be a valid day of the week (Monday to Friday)", results[2].ErrorMessage);
-        }
 
 
 

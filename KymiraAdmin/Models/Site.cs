@@ -11,6 +11,18 @@ namespace KymiraAdmin.Models
     {
 
         public enum PickupFrequency { Weekly = 1, BiWeekly = 2}
+        [Flags]
+        public enum PickupDays {
+            Sunday = 1,
+            Monday = 2,
+            Tuesday = 4,
+            Wednesday = 8,
+            Thursday = 16,
+            Friday = 32,
+            Saturday = 64
+        }
+
+
         /**
          * A Site object is associated with many BinStatus objects.
          **/
@@ -20,6 +32,7 @@ namespace KymiraAdmin.Models
         {
             this.binStatus = new List<BinStatus>();
 
+            
         }
 
         [Key]  //the primary key for a Site object, the decoration below makes it so that this is not auto-incrementing
@@ -41,21 +54,9 @@ namespace KymiraAdmin.Models
         // The 4 digit number (1004, 2003) that shows week and the day of the week
         // that a bin is collected.
         [Required(ErrorMessage = "At least one collection date must be specified")]
+        [Range(1, 127, ErrorMessage = "Specified Pickup Days are invalid")]
+        public PickupDays pickupDays { get; set; }
 
-        [Range((int)DayOfWeek.Monday, (int)DayOfWeek.Friday, ErrorMessage = "Collection date must be a valid day of the week (Monday to Friday)")]
-        public DayOfWeek collection1 { get; set; }
-
-
-        [Range((int) DayOfWeek.Monday, (int) DayOfWeek.Friday, ErrorMessage = "Collection date must be a valid day of the week (Monday to Friday)")]
-        public DayOfWeek collection2 { get; set; }
-
-
-        [Range((int)DayOfWeek.Monday, (int)DayOfWeek.Friday, ErrorMessage = "Collection date must be a valid day of the week (Monday to Friday)")]
-        public DayOfWeek collection3 { get; set; }
-
-
-        [Range((int)DayOfWeek.Monday, (int)DayOfWeek.Friday, ErrorMessage = "Collection date must be a valid day of the week (Monday to Friday)")]
-        public DayOfWeek collection4 { get; set; }
     }
 
 }
