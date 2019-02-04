@@ -14,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraApplicationUITests", "KymiraApplicationUITests\KymiraApplicationUITests.csproj", "{B19C892E-2628-4CA7-AD27-08D406A3B14B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KymiraAdmin", "KymiraAdmin\KymiraAdmin.csproj", "{EC16DB41-3ADA-49AE-BBE3-F790A4628B4A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{437060E6-ED6E-4BF6-A333-406AD7D93A3E} = {437060E6-ED6E-4BF6-A333-406AD7D93A3E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KymiraAdminTests", "KymiraAdminTests\KymiraAdminTests.csproj", "{D4992B1B-EE75-4F82-9646-1093AF4944F6}"
 EndProject

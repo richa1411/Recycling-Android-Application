@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace kymiraAPITest
+namespace KymiraAdminTests
 {
     //this validation helper class has a method called validate that will accept Model class's object,
     //and stores results of validating objects (error messages) in a list
