@@ -1,4 +1,6 @@
+using kymiraAPI.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace KymiraAdminTests
 {
@@ -9,8 +11,20 @@ namespace KymiraAdminTests
          * Test that after being deleted the item is no longer in the list
          * **/
         [TestMethod]
-        public void TestThatDeleteButtonRemovesListItem()
+        public void TestThatListItemRemoved()
         {
+            List<FAQ> faqList = new List<FAQ>();
+
+            faqList.Add(new FAQ { question="What is Cosmo", answer="A reccyling place" });
+            faqList.Add(new FAQ { question = "is paper recyclable", answer = "yes" });
+            faqList.Add(new FAQ { question = "is glass recyclable", answer = "no" });
+
+            removeQuestion((new FAQ { question = "What is Cosmo", answer = "A reccyling place" });
+
+            var res = !faqList.Contains((new FAQ { question = "What is Cosmo", answer = "A reccyling place" });
+
+            Assert.IsTrue(res);
+
 
         }
 
@@ -18,7 +32,7 @@ namespace KymiraAdminTests
          * Test to confirm that save button makes changes to the database list
          * **/
         [TestMethod]
-        public void TestThatSaveButtonSavesChangesCorrectly()
+        public void TestThatChangesSaveSuccessfully()
         {
 
         }
