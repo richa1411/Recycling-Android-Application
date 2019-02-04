@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KymiraAdmin.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +8,20 @@ using System.Text;
 namespace KymiraAdmin
 {
     /*
-     *  This static class will contain all the private methods for parsing data in the Excel spreadsheet.
+     *  This static class will contain all the private methods for parsing data in the Excel spreadsheet
+     *  regarding BinStatus / Bin Collection information.
      */
-	public static class ExcelParser 
+	public static class BinStatusParser 
 	{
+        /*
+         * This method will call each of the Parse methods to create a new BinStatus object.
+         * It will return a list of valid BinStatus objects to be added to the database (empty if no valid BinStatus objects could be created).
+         */
+        public static List<BinStatus> ParseExcelForBinStatusData()
+        {
+            return new List<BinStatus>();
+        }
+
         /*
          * This method will parse the date in an Excel sheet in the format of "3-Jan-18" or "1/1/2018"
          * It will return the correct format required to create a Bin Status object: "2018-01-01"
@@ -35,7 +46,7 @@ namespace KymiraAdmin
          * "Inaccessible" = int of 2 
          * "Contaminated" = int of 3
          */
-        private static int ParseStatus(List<string> values)
+        public static int ParseStatus(List<string> values)
         {
             //case statement on string passed in
             //return corresponding int value or default of 3 (Inaccessible)
@@ -47,7 +58,7 @@ namespace KymiraAdmin
          * It will grab the correct information from the sheet and then return the correct string
          * to be used to create a valid BinStatus object.
          */
-        private static string ParseSerialNumber(List<string> values)
+        public static string ParseSerialNum(List<string> values)
         {
             //find the correct column
             //grab the string and return it
@@ -59,7 +70,7 @@ namespace KymiraAdmin
          * This method will parse the SiteID field in the Excel spreadsheet.
          * It will return the SiteID as a string.
          */
-        private static string ParseSiteID(List<string> values)
+        public static string ParseSiteID(List<string> values)
         {
             return "";
         }

@@ -150,18 +150,19 @@ namespace KymiraAdminTests
         }
 
 
+        /*-----------------------Testing ExcelParser methods---------------------------*/
         //test row with valid information
         List<string> testRow = new List<string> { "" };
 
         //test row with invalid information
         List<string> testRowInvalid = new List<string> { "" };
 
-        /*--------------------Testing ExcelParser methods------------------*/
+        
         [TestMethod]
         //testing that the date format "1-Jan-18" is parsed correctly
         public void TestThatValidParseDateReturnsValidDateOneFormat()
         {
-            string date = ExcelParser.ParseDate(testRow);
+            string date = BinStatusParser.ParseDate(testRow);
             Assert.AreEqual("2018-01-01", date);
         }
 
@@ -170,8 +171,40 @@ namespace KymiraAdminTests
         public void TestThatValidParseDateReturnsValidDateOtherFormat()
         {
             //change testRow date to be other format
-            string date = ExcelParser.ParseDate(testRow);
+            string date = BinStatusParser.ParseDate(testRow);
             Assert.AreEqual("2018-01-01", date);
+        }
+
+        [TestMethod]
+        //testing that the siteID is parsed correctly
+        public void TestThatValidSiteIDReturnsValidString()
+        {
+            string siteID = BinStatusParser.ParseSiteID(testRow);
+            Assert.AreEqual("1609312", siteID);
+        }
+
+        [TestMethod]
+        //testing that the expected bin status is parsed correctly
+        public void TestThatExpectedStatusReturnsValidInt()
+        {
+            int status = BinStatusParser.ParseStatus(testRow);
+            Assert.AreEqual(1, status);
+        }
+
+        [TestMethod]
+        //testing that the unexpected bin status is parsed correctly
+        public void TestThatUnexpectedStatusReturnsValidInt()
+        {
+            int status = BinStatusParser.ParseStatus(testRow);
+            Assert.AreEqual(2, status);
+        }
+
+        [TestMethod]
+        //testing that the serial number is parsed correctly
+        public void TestThatValidSerialNumReturnsValidString()
+        {
+            string status = BinStatusParser.ParseSerialNum(testRow);
+            Assert.AreEqual(2, status);
         }
 
 
