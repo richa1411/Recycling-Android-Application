@@ -10,7 +10,7 @@ namespace KymiraAdmin
     /*
      * Static utility class with helper methods for KymiraAdmin web application operations
      **/
-    public static class SiteHelper
+    public static class ExcelParser
     {
 
         //Method that parses through Excel data and tries to create Site objects, adding them to a collection if valid. This collection will eventually be added to the database
