@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using KymiraAdmin.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using KymiraAdmin;
 
 namespace KymiraAdminTests
 {
@@ -11,7 +12,7 @@ namespace KymiraAdminTests
     [TestClass]
     public class BinStatusAdminTests
     {
-        
+
         //valid BinStatus object to be used to validate
         BinStatus testBin = new BinStatus
         {
@@ -21,10 +22,8 @@ namespace KymiraAdminTests
             siteID = 101010
         };
         List<ValidationResult> results; //to hold a list of validation results
-        StatusList objStatus = new StatusList
-        {
 
-        };
+        /*------------------------Testing BinStatus validation-----------------------------------*/
         [TestMethod]
         //testing that the status of a BinStatus object cannot be less than 1
         public void TestThatBinStatusLessThan1IsInvalid()
@@ -138,7 +137,7 @@ namespace KymiraAdminTests
             testBin.siteID = 1345;
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
-           
+
         }
 
         [TestMethod]
@@ -148,9 +147,33 @@ namespace KymiraAdminTests
             testBin.siteID = 1345;
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
-
         }
 
+
+        //test row with valid information
+        List<string> testRow = new List<string> { "" };
+
+        //test row with invalid information
+        List<string> testRowInvalid = new List<string> { "" };
+
+        /*--------------------Testing ExcelParser methods------------------*/
+        [TestMethod]
+        //testing that the date format "1-Jan-18" is parsed correctly
+        public void TestThatValidParseDateReturnsValidDateOneFormat()
+        {
+            string date = ExcelParser.ParseDate(testRow);
+            Assert.AreEqual("2018-01-01", date);
+        }
+
+        [TestMethod]
+        //testing that the date format "1/1/2018" is parsed correctly
+        public void TestThatValidParseDateReturnsValidDateOtherFormat()
+        {
+            //change testRow date to be other format
+            string date = ExcelParser.ParseDate(testRow);
+            Assert.AreEqual("2018-01-01", date);
+        }
+
+
     }
-    
 }
