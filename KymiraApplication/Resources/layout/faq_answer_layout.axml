@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:text="A"
+        android:layout_width="371.5dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvFAQAnswer"
+        android:layout_marginBottom="4.5dp"
+        android:layout_marginTop="3.5dp"
+        android:textSize="50px"
+        android:textStyle="italic"
+        android:layout_marginLeft="7.0dp" />
+</LinearLayout>
