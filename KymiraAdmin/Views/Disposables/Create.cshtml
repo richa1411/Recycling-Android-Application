@@ -1,0 +1,65 @@
+﻿@model KymiraAdmin.Models.Disposable
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Disposable</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label"></label>
+                <input asp-for="description" class="form-control" />
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="imageURL" class="control-label"></label>
+                <input asp-for="imageURL" class="form-control" />
+                <span asp-validation-for="imageURL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="isRecyclable" /> @Html.DisplayNameFor(model => model.isRecyclable)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="recycleReason" class="control-label"></label>
+                <input asp-for="recycleReason" class="form-control" />
+                <span asp-validation-for="recycleReason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="endResult" class="control-label"></label>
+                <input asp-for="endResult" class="form-control" />
+                <span asp-validation-for="endResult" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="qtyRecycled" class="control-label"></label>
+                <input asp-for="qtyRecycled" class="form-control" />
+                <span asp-validation-for="qtyRecycled" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
