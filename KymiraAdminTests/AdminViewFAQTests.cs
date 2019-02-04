@@ -8,7 +8,9 @@ namespace KymiraAdminTests
     public class AdminViewFAQTests
     {
         /**
-         * Test that after being deleted the item is no longer in the list
+         * Test that after being deleted the item is no longer in the list. Afte selecting the item to delete
+         * it will be passed into the delete method and then be removed from the list BUT NOT from the database
+         * until the save button is pressed. 
          * **/
         [TestMethod]
         public void TestThatListItemRemoved()
@@ -17,15 +19,27 @@ namespace KymiraAdminTests
 
             faqList.Add(new FAQ { question="What is Cosmo", answer="A reccyling place" });
             faqList.Add(new FAQ { question = "is paper recyclable", answer = "yes" });
-            faqList.Add(new FAQ { question = "is glass recyclable", answer = "no" });
+            faqList.Add(new FAQ {id=3, question = "is glass recyclable", answer = "no" });
 
-            removeQuestion((new FAQ { question = "What is Cosmo", answer = "A reccyling place" });
+            //Removes the question based on the ID
+            removeQuestion(3);
 
-            var res = !faqList.Contains((new FAQ { question = "What is Cosmo", answer = "A reccyling place" });
+            var res = !faqList.Contains((new FAQ {id=3}));
 
             Assert.IsTrue(res);
+        }
 
+        [TestMethod]
+        public void TestThatListItemAdded()
+        {
+            List<FAQ> faqList = new List<FAQ>();
 
+            //Removes the question based on the ID
+            addQuestion(new FAQ { id=0, question = "Whats the meaning of life", answer = "42" });
+
+            var res = faqList.Contains((new FAQ { id = 0 }));
+
+            Assert.IsTrue(res);
         }
 
         /**
