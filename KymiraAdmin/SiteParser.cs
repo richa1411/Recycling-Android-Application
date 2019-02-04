@@ -10,7 +10,7 @@ namespace KymiraAdmin
     /*
      * Static utility class with helper methods for KymiraAdmin web application operations
      **/
-    public static class ExcelParser
+    public static class SiteParser
     {
 
         //Method that parses through Excel data and tries to create Site objects, adding them to a collection if valid. This collection will eventually be added to the database
@@ -39,7 +39,26 @@ namespace KymiraAdmin
 
             return new Site();
         }
-    }
 
-    
+
+        public static int parseSiteID(String sCell)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static string parseAddress(String sCell)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Site.PickupFrequency parseFrequency(String sCell)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static Site.PickupDays parsePickupDays(String sCell)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
