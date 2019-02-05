@@ -25,7 +25,7 @@ namespace KymiraAdmin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(List<IFormFile> files)
+        public IActionResult Index(IFormFile excelFile)
         {
             //Handle uploading the Excel file
 

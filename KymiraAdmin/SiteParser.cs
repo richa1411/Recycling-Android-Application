@@ -32,7 +32,7 @@ namespace KymiraAdmin
         }
 
         //Method that tries to create a valid Site object given the current row's data
-        public static Site GenerateSiteObjectFromRow(List<string> row)
+        public static Site GenerateSiteObjectFromRow(List<string> sRow)
         {
             //Helper method to try and generate valid site objects from the rows of the Excel spreadsheet
 
@@ -59,7 +59,7 @@ namespace KymiraAdmin
             throw new NotImplementedException();
         }
 
-        public static Site.PickupDays parsePickupDays(String[] sCell)
+        public static Site.PickupDays parsePickupDays(String[] sCells)
         {
             throw new NotImplementedException();
         }

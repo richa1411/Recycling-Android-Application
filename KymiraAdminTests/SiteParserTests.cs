@@ -24,6 +24,9 @@ namespace KymiraAdminTests
             //Create a static "row" for testing that is actually a list of strings
             //Each string in the list is the string value of an indiviudal cell from the row
             cellList = new List<string>();
+
+            #region Cells
+
             //Container Serial Number cell
             cellList[0] = "W114-320-438";
 
@@ -80,6 +83,8 @@ namespace KymiraAdminTests
 
             //Collection 4 cell
             cellList[18] = "";
+
+            #endregion Cells
         }
 
         //Test that a valid site ID is correctly parsed
@@ -157,5 +162,71 @@ namespace KymiraAdminTests
 
             Assert.IsTrue(pickupDays == Site.PickupDays.Friday);
         }
+
+        // Test that an invalid Collection Day returns null
+        [TestMethod]
+        public void TestThatParseSitePickupDaysWithInvalidDaysReturnsNull()
+        {
+            string[] collectionDays = new string[]
+            {
+                "SomeRandomString",
+                "String",
+                "1092",
+                "12321"
+            };
+
+            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
+
+            Assert.IsNull(pickupDays);
+        }
+
+        // Test that a valid array of Collection days is parsed properly
+        [TestMethod]
+        public void TestThatParseSitePickupDaysWithMultipleDaysIsValid()
+        {
+            string[] collectionDays = new string[]
+            {
+                "1002",
+                "1005",
+                "2002",
+                "2005"
+            };
+
+            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
+
+            Assert.IsTrue(pickupDays == (Site.PickupDays.Tuesday | Site.PickupDays.Friday));
+        }
+
+        // Test that A Valid Site object is created when GenerateSiteObjectFromRow method is given valid info
+        [TestMethod]
+        public void TestThatValidSiteObjectIsCreatedWithValidSiteInformation()
+        {
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList);
+
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(0, results.Count);
+
+        }
+
+        // Test that An invalid Site object is created when GenerateSiteObjectFromRow method is given invalid info
+        [TestMethod]
+        public void TestThatInvalidSiteObjectIsCreatedWithInvalidSiteInformation()
+        {
+            cellList[1] = "dsfhjeswihfeh";
+            cellList[7] = "";
+            cellList[10] = "322343";
+            cellList[15] = "asad4ttg";
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList);
+
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(4, results.Count);
+
+            Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
+            Assert.AreEqual("Address must be between 1 and 200 characters", results[1].ErrorMessage);
+            Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[2].ErrorMessage);
+            Assert.AreEqual("Specified Pickup Days are invalid", results[3].ErrorMessage);
+        }
+        
     }
 }

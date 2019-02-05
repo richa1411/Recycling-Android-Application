@@ -24,6 +24,8 @@ namespace kymiraAPITest
         Site testSite = new Site {
             siteID = 10,
             address = "123 Test Street",
+            pickupDays = Site.PickupDays.Monday,
+            frequency = Site.PickupFrequency.Weekly
         };
 
         //list to hold ValidationResults
