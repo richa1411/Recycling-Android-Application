@@ -34,12 +34,12 @@ namespace KymiraAdmin.Controllers
         [HttpPost]
         /* This method gets called upon a POST request. It takes in a file and then returns an appropriate response.
          */
-        public IActionResult Index(List<IFormFile> files)
+        public IActionResult Index(IFormFile excelFile)
         {
             //converts rows for excel sheet to array of strings
             //then sends array of strings to the BinStatusParser class
 
-            //BinstyatusParser class sends parsed object
+            //BinstatusParser class sends parsed object
             //here we will validate the object and add it to a list of either 
             //valid (to be added to database) or invalid
             //save valid list of bin status objects to database
