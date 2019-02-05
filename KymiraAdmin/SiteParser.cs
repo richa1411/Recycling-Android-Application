@@ -1,4 +1,5 @@
 ﻿using KymiraAdmin.Models;
+using Microsoft.AspNetCore.Http;
 using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace KymiraAdmin
     {
 
         //Method that parses through Excel data and tries to create Site objects, adding them to a collection if valid. This collection will eventually be added to the database
-        public static List<Site> ParseExcelForSiteData()
+        public static List<Site> ParseExcelForSiteData(IFormFile excelFile)
         {
             //Parse through the Excel file and try to create Site objects from the rows of the Excel spreadsheet
 

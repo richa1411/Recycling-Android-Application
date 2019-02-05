@@ -1,9 +1,12 @@
 ﻿using KymiraAdmin;
 using KymiraAdmin.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NPOI.SS.UserModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -14,6 +17,8 @@ namespace KymiraAdminTests
     {
 
         public List<string> cellList;
+        public List<Site> siteList;
+        public IFormFile excelFile;
 
         [TestInitialize]
         public void Setup()
@@ -85,6 +90,8 @@ namespace KymiraAdminTests
             cellList[18] = "";
 
             #endregion Cells
+
+
         }
 
         //Test that a valid site ID is correctly parsed
@@ -226,6 +233,24 @@ namespace KymiraAdminTests
             Assert.AreEqual("Address must be between 1 and 200 characters", results[1].ErrorMessage);
             Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[2].ErrorMessage);
             Assert.AreEqual("Specified Pickup Days are invalid", results[3].ErrorMessage);
+        }
+
+        //Test that parsing the Excel file for Site data returns a list of valid Site objects
+        [TestMethod]
+        public void TestThatParseExcelFileReturnsListOfValidSites()
+        {
+            siteList = SiteParser.ParseExcelForSiteData();
+
+            Assert.IsTrue(siteList.Count > 0);
+        }
+
+        //Test that parsing the Excel file returns an empty list upon failure
+        [TestMethod]
+        public void TestThatParseExcelFileFailureReturnsEmptyList()
+        {
+            siteList = SiteParser.ParseExcelForSiteData();
+
+            Assert.IsTrue(siteList.Count == 0);
         }
         
     }
