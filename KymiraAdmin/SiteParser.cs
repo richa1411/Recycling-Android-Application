@@ -19,6 +19,9 @@ namespace KymiraAdmin
             //Parse through the Excel file and try to create Site objects from the rows of the Excel spreadsheet
 
             //For each row in spreadsheet, grab raw data from that row
+
+            //Convert the row from an IRow to a list of strings for each cell
+
             //Call GenerateSiteObjectFromRow with raw data from current row
 
             //Check if GenerateSiteObjectFromRow returns a valid Site object or null
@@ -29,7 +32,7 @@ namespace KymiraAdmin
         }
 
         //Method that tries to create a valid Site object given the current row's data
-        public static Site GenerateSiteObjectFromRow(IRow row)
+        public static Site GenerateSiteObjectFromRow(List<string> row)
         {
             //Helper method to try and generate valid site objects from the rows of the Excel spreadsheet
 
@@ -56,7 +59,7 @@ namespace KymiraAdmin
             throw new NotImplementedException();
         }
 
-        public static Site.PickupDays parsePickupDays(String sCell)
+        public static Site.PickupDays parsePickupDays(String[] sCell)
         {
             throw new NotImplementedException();
         }
