@@ -71,8 +71,9 @@ namespace KymiraAdminTests
 
             //get a list back from the database
 
-            //check that the list contains the items expected
 
+            //check that the list contains the items expected
+            CollectionAssert.Contains(/**The list and Whatever new change was made **/);
         }
 
         /**
@@ -103,6 +104,22 @@ namespace KymiraAdminTests
         {
             //test that the FAQ list item titles are alphabetical
 
+            //Suggestion: Use CollectionAssert
+
+            FAQ newFAQ1 = new FAQ { question = "A Question", answer = "no" };
+            FAQ newFAQ2 = new FAQ { question = "B Question", answer = "yes" };
+            FAQ newFAQ3 = new FAQ { question = "C Question", answer = "no" };
+
+
+            
+
+            //use the controller to add some questions
+            FAQPage.addQuestion(newFAQ1);
+            FAQPage.addQuestion(newFAQ2);
+            FAQPage.addQuestion(newFAQ3);
+
+            //use a sort method to sort the questions then make sure they are in the correct order 
+
         }
 
         /**
@@ -111,7 +128,10 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatCancelPageCanCancelChanges()
         {
-            
+            //Record the orgiginal page
+            //Make some changes tp the (new duplicated) list 
+            //press cancel
+            //check that the page is identical to the original page recorded.
 
         }
 
@@ -121,7 +141,9 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatCancelPageShowsObject()
         {
+            //change up the list - record the changes? 
 
+            //display only the changes made to the user
 
         }
 
@@ -131,8 +153,29 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatCancelPageOpens()
         {
+            //check that it pops up containing a list and two buttons "yes" and "no" 
 
+        }
 
+        /**
+         * Test that when an item is deleted and set to inactive, it does
+         * not show up in the list. 
+         */
+        [TestMethod]
+        public void TestThatInactiveItemsNoShow()
+        {
+            FAQ inacFAQ = new FAQ
+            {
+                question = "What is the airspeed velocity of an unladden swallow?",
+                answer = "African or European?",
+                inactive = true
+            };
+
+            FAQPage.editList(inacFAQ);
+
+            FAQPage.GetList();
+
+            CollectionAssert.DoesNotContain(FAQPage.faqList, inacFAQ);
         }
 
 
