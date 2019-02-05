@@ -48,5 +48,8 @@ namespace KymiraAdmin.Models
         [Required(ErrorMessage = "A qty recycled is required")]
         public int qtyRecycled { get; set; }
 
+        [Required(ErrorMessage = "inactive cannot be null")]
+        public bool inactive { get; set; }
+
     }
 }
