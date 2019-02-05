@@ -17,13 +17,14 @@ namespace KymiraAdmin
          * This method will call each of the Parse methods to create a new BinStatus object.
          * It will return a list of valid BinStatus objects to be added to the database (empty if no valid BinStatus objects could be created).
          */
-        public static List<BinStatus> ParseExcelForBinStatusData(String stringRow)
+        public static BinStatus ParseExcelForBinStatusData(String[] stringRow)
         {
-            //for each string object calls parse method
+            //for each index of string, call associated parse method
 
             //craetes BinStaus Object once it gets all the parsed data from methods
-            //add object to list of binstatus objects
-            return new List<BinStatus>();
+
+            //return BinStatus object created back to the HomeController
+            return null;
         }
 
         /*
@@ -72,11 +73,11 @@ namespace KymiraAdmin
 
         /*
          * This method will parse the SiteID field in the Excel spreadsheet.
-         * It will return the SiteID as a string.
+         * It will return the SiteID as an int or 0.
          */
-        public static string ParseSiteID(string siteid)
+        public static int ParseSiteID(string siteid)
         {
-            return "";
+            return 0;
         }
        
 	}

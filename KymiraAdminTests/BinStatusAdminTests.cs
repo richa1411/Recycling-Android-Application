@@ -152,17 +152,17 @@ namespace KymiraAdminTests
 
         /*-----------------------Testing ExcelParser methods---------------------------*/
         //test row with valid information
-        string[] testRow = "1609312,W114-320-203,1-Jan-18,Collected";
+        string[] testRow = { "1609312", "W114-320-203", "1-Jan-18", "Collected" };
 
         //test row with invalid information
-        string testRowInvalid =  ",,,,";
+        string[] testRowInvalid = { "", "", "", "" };
 
-        
+
         [TestMethod]
         //testing that the date format "1-Jan-18" is parsed correctly
         public void TestThatValidParseDateReturnsValidDateOneFormat()
         {
-            string date = BinStatusParser.ParseDate(testRow);
+            string date = BinStatusParser.ParseDate(testRow[2]);
             Assert.AreEqual("2018-01-01", date);
         } 
 
@@ -171,24 +171,24 @@ namespace KymiraAdminTests
         public void TestThatValidParseDateReturnsValidDateOtherFormat()
         {
             //change testRow date to be other format
-            testRow = "1609312,W114-320-203,1/1/18,Collected";
-            string date = BinStatusParser.ParseDate(testRow);
+            string[] testRow2 = { "1609312", "W114-320-203", "1/1/18", "Collected" };
+            string date = BinStatusParser.ParseDate(testRow2[2]);
             Assert.AreEqual("2018-01-01", date);
         }
 
         [TestMethod]
         //testing that the siteID is parsed correctly
-        public void TestThatValidSiteIDReturnsValidString()
+        public void TestThatValidSiteIDReturnsValidInt()
         {
-            string siteID = BinStatusParser.ParseSiteID(testRow);
-            Assert.AreEqual("1609312", siteID);
+            int siteID = BinStatusParser.ParseSiteID(testRow[0]);
+            Assert.AreEqual(1609312, siteID);
         }
 
         [TestMethod]
         //testing that the expected bin status is parsed correctly
         public void TestThatExpectedStatusReturnsValidInt()
         {
-            int status = BinStatusParser.ParseStatus(testRow);
+            int status = BinStatusParser.ParseStatus(testRow[3]);
             Assert.AreEqual(1, status);
         }
 
@@ -196,8 +196,8 @@ namespace KymiraAdminTests
         //testing that the unexpected bin status is parsed correctly
         public void TestThatUnexpectedStatusReturnsValidInt()
         {
-            testRow = "1609312,W114-320-203,1-Jan-18, Blocked";
-            int status = BinStatusParser.ParseStatus(testRow);
+            string[] testRow2 = { "1609312", "W114-320-203", "1-Jan-18", "Blocked" };
+            int status = BinStatusParser.ParseStatus(testRow2[3]);
             Assert.AreEqual(2, status);
         }
 
@@ -205,29 +205,25 @@ namespace KymiraAdminTests
         //testing that the serial number is parsed correctly
         public void TestThatValidSerialNumReturnsValidString()
         {
-            string status = BinStatusParser.ParseSerialNum(testRow);
+            string status = BinStatusParser.ParseSerialNum(testRow[1]);
             Assert.AreEqual("W114-320-203", status);
         }
-
-
-      
+        
 
         [TestMethod]
         //testing that the invalid date (empty, other charcters except -, /) is parsed correctly
         public void TestThatInValidParseDateReturnsEmptystring()
         {
-            
-            
-            string date = BinStatusParser.ParseDate(testRowInvalid);
+            string date = BinStatusParser.ParseDate(testRowInvalid[2]);
             Assert.AreEqual("", date);
         }
 
         [TestMethod]
         //testing that the invalid siteID is parsed correctly
-        public void TestThatValidSiteIDReturnsEmptyString()
+        public void TestThatValidSiteIDReturnsZero()
         {
-            string siteID = BinStatusParser.ParseSiteID(testRowInvalid);
-            Assert.AreEqual("", siteID);
+            int siteID = BinStatusParser.ParseSiteID(testRowInvalid[0]);
+            Assert.AreEqual(0, siteID);
         }
 
      
@@ -237,7 +233,7 @@ namespace KymiraAdminTests
         public void TestThatInvalidStatusReturnsZero()
         {
             
-            int status = BinStatusParser.ParseStatus(testRowInvalid);
+            int status = BinStatusParser.ParseStatus(testRowInvalid[3]);
             Assert.AreEqual(0, status);
         }
 
@@ -245,9 +241,39 @@ namespace KymiraAdminTests
         //testing that the invalid serial number is parsed correctly
         public void TestThatInValidSerialNumReturnsEmptyString()
         {
-            string status = BinStatusParser.ParseSerialNum(testRowInvalid);
+            string status = BinStatusParser.ParseSerialNum(testRowInvalid[1]);
             Assert.AreEqual("", status);
         }
 
+
+        [TestMethod]
+        //testing that valid data returns parsed bin status object with same data
+        public void TestThatParseDataMethodReturnsBinStatusObjectWithValidData()
+        {
+            var binStatus = BinStatusParser.ParseExcelForBinStatusData(testRow);
+            BinStatus bin = new BinStatus
+            {
+                binID = "W114-320-203",
+                status = 1,
+                collectionDate = "2018-01-01",
+                siteID = 1609312
+            };
+            Assert.AreEqual(bin, binStatus);
+        }
+
+        [TestMethod]
+        //testing that invalid data returns parsed bin status object with invalid data
+        public void TestThatParseDataMethodReturnsBinStatusObjectWithInalidData()
+        {
+            var binStatus = BinStatusParser.ParseExcelForBinStatusData(testRowInvalid);
+            BinStatus bin = new BinStatus
+            {
+                binID = "",
+                status = 0,
+                collectionDate = "",
+                siteID = 0
+            };
+            Assert.AreEqual(bin, binStatus);
+        }
     }
 }
