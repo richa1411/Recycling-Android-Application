@@ -152,10 +152,10 @@ namespace KymiraAdminTests
 
         /*-----------------------Testing ExcelParser methods---------------------------*/
         //test row with valid information
-        List<string> testRow = new List<string> { "" };
+        string testRow = "1609312,W114-320-203,1-Jan-18,Collected";
 
         //test row with invalid information
-        List<string> testRowInvalid = new List<string> { "" };
+        string testRowInvalid =  ",,,,";
 
         
         [TestMethod]
@@ -164,13 +164,14 @@ namespace KymiraAdminTests
         {
             string date = BinStatusParser.ParseDate(testRow);
             Assert.AreEqual("2018-01-01", date);
-        }
+        } 
 
         [TestMethod]
         //testing that the date format "1/1/2018" is parsed correctly
         public void TestThatValidParseDateReturnsValidDateOtherFormat()
         {
             //change testRow date to be other format
+            testRow = "1609312,W114-320-203,1/1/18,Collected";
             string date = BinStatusParser.ParseDate(testRow);
             Assert.AreEqual("2018-01-01", date);
         }
@@ -195,6 +196,7 @@ namespace KymiraAdminTests
         //testing that the unexpected bin status is parsed correctly
         public void TestThatUnexpectedStatusReturnsValidInt()
         {
+            testRow = "1609312,W114-320-203,1-Jan-18, Blocked";
             int status = BinStatusParser.ParseStatus(testRow);
             Assert.AreEqual(2, status);
         }
@@ -204,7 +206,7 @@ namespace KymiraAdminTests
         public void TestThatValidSerialNumReturnsValidString()
         {
             string status = BinStatusParser.ParseSerialNum(testRow);
-            Assert.AreEqual(2, status);
+            Assert.AreEqual("W114-320-203", status);
         }
 
 

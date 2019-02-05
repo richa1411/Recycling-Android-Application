@@ -6,41 +6,147 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KymiraAdmin.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace KymiraAdmin.Controllers
 {
-    /**
-     *  This controller class will handle the post request of a file that the admin wants to upload.
-     */
     public class BinStatusController : Controller
     {
-        //context object - readonly
         private readonly KymiraAdminContext _context;
 
-        //default constructor for BinStatusController
         public BinStatusController(KymiraAdminContext context)
         {
             _context = context;
         }
 
-
-
-
-        /*
-         * This method will go through the excel file uploaded from the view. It will first check to ensure that the 
-         * file is an excel file and then it will go through each record of the file and create a BinStatus object. 
-         * It will then validate the object and add it to a list to be added to the database.
-         * The method will return a 200 OK response if upload was successful or error messages if something went wrong.
-         */
-        public IActionResult UploadFile(IFormCollection objForm)
+        // GET: BinStatus
+        public async Task<IActionResult> Index()
         {
-            //go through file and get list/collection of ROWS
-            //send list/collection of ROWS to parser class
-            //parser class goes through and grabs certain values, uses the parseDate/parseBinID/etc. methods to convert data into
-            //"valid" BinStatus data to create a BinStatus -- then validate and add to list or send error message
-            return Ok();
+            return View(await _context.BinStatus.ToListAsync());
         }
 
+        // GET: BinStatus/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var binStatus = await _context.BinStatus
+                .SingleOrDefaultAsync(m => m.pickupID == id);
+            if (binStatus == null)
+            {
+                return NotFound();
+            }
+
+            return View(binStatus);
+        }
+
+        // GET: BinStatus/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: BinStatus/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("pickupID,binID,status,siteID,collectionDate")] BinStatus binStatus)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(binStatus);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(binStatus);
+        }
+
+        // GET: BinStatus/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var binStatus = await _context.BinStatus.SingleOrDefaultAsync(m => m.pickupID == id);
+            if (binStatus == null)
+            {
+                return NotFound();
+            }
+            return View(binStatus);
+        }
+
+        // POST: BinStatus/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("pickupID,binID,status,siteID,collectionDate")] BinStatus binStatus)
+        {
+            if (id != binStatus.pickupID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(binStatus);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!BinStatusExists(binStatus.pickupID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(binStatus);
+        }
+
+        // GET: BinStatus/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var binStatus = await _context.BinStatus
+                .SingleOrDefaultAsync(m => m.pickupID == id);
+            if (binStatus == null)
+            {
+                return NotFound();
+            }
+
+            return View(binStatus);
+        }
+
+        // POST: BinStatus/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var binStatus = await _context.BinStatus.SingleOrDefaultAsync(m => m.pickupID == id);
+            _context.BinStatus.Remove(binStatus);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool BinStatusExists(int id)
+        {
+            return _context.BinStatus.Any(e => e.pickupID == id);
+        }
     }
 }

@@ -33,22 +33,14 @@ namespace KymiraAdmin.Controllers
          */
         public IActionResult Index(List<IFormFile> files)
         {
+            
             //handle uploading excel file
+            
             //parse info needed
             //save data to _context / database
             return Ok();
         }
 
-        //this method returns Upload view that display form with file input box and a submit button 
-        public IActionResult Upload()
-        {
-            return View();
-        }
-
-        //this method return errorview
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
 }
