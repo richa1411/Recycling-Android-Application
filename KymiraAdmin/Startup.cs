@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using kymiraAPI.Fixtures;
+using Microsoft.EntityFrameworkCore;
+using KymiraAdmin.Data;
 
 namespace KymiraAdmin
 {
@@ -23,6 +25,9 @@ namespace KymiraAdmin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddDbContext<KymiraAdminContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("KymiraAdminContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

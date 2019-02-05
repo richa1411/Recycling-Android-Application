@@ -23,5 +23,7 @@ namespace KymiraApplication.Models
         [Required(ErrorMessage = "Answer cannot be empty")]
         public string answer { get; set; }
 
+        //the status of the answer whether it has been deleted and is no longer visible to users
+        public bool inactive { get; set; }
     }
 }
