@@ -33,10 +33,11 @@ namespace KymiraAdmin.Controllers
          */
         public IActionResult Index(List<IFormFile> files)
         {
-            
-            //handle uploading excel file
-            
-            //parse info needed
+            //converts rows for excel sheet to array of strings
+            //then sends array of strings to the BinStatusParser class
+            //BinstyatusParser class sends validated and parsed object as a list
+            //List of objects will besaved to database
+
             //save data to _context / database
             return Ok();
         }
