@@ -1,33 +1,44 @@
-using KymiraAdmin.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace KymiraAdministratorTests
 {
     [TestClass]
     public class AdminViewFAQTests
     {
-        FAQ newFAQ1;
+        //FAQ newFAQ1;
         static IWebDriver driver;
 
-        [ClassInitialize]
-        public static void LoadDriver(TestContext context)
-        {
-            driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdministratorTests\\bin\\Debug\\netcoreapp2.0");
-            driver.Navigate().GoToUrl("http://localhost:59649/FAQs");
-        }
-
         [TestInitialize]
-        public void Setup()
+        public void InitializeTest()
         {
-            newFAQ1 = new FAQ { question = "This is a test question", answer = "Test" };
+
+            ChromeOptions chrome_options = new ChromeOptions();
+            //Wont open up a new chrome tab when run
+            chrome_options.AddArgument("--headless");
+
+            //disable various chrome services that may interfer with the test
+            chrome_options.AddArgument("--disable-sync");
+            chrome_options.AddArgument("--disable-extensions");
+            chrome_options.AddArgument("--remote-debugging-address=0.0.0.0");
+            chrome_options.AddArgument("--remote-debugging-port=9222");
+
+            //Not necessary if running in headless mode
+            chrome_options.AddArgument("--window-size=1280,720");
+
+            //Assign the driver to the location of the chromedriver.exe on the local drive
+            driver = new ChromeDriver("D:\\COSACMPG\\prj2.cosmo\\KymiraAdministratorTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
         }
 
         [TestMethod]
         public void TestThatPageLoadsCorrectly()
         {
+            driver.Navigate().GoToUrl("http://localhost:59649/FAQs");
             var table = driver.FindElement(By.Id("FAQTable"));
             var btnEdit = driver.FindElement(By.Id("btnEdit"));
             var btnDel = driver.FindElement(By.Id("btnDelete"));
@@ -72,7 +83,7 @@ namespace KymiraAdministratorTests
         public void TestThatListItemAdded()
         {
             //create a new FAQ to add to the site's list
-            FAQ newFAQ = new FAQ { id = 0, question = "Whats the meaning of life", answer = "42" };
+            //FAQ newFAQ = new FAQ { id = 0, question = "Whats the meaning of life", answer = "42" };
 
             //adds a new question to the page's list of questions (waiting to be saved to the database
 
@@ -121,9 +132,9 @@ namespace KymiraAdministratorTests
 
             //Suggestion: Use CollectionAssert
 
-            FAQ newFAQ1 = new FAQ { question = "A Question", answer = "no" };
-            FAQ newFAQ2 = new FAQ { question = "B Question", answer = "yes" };
-            FAQ newFAQ3 = new FAQ { question = "C Question", answer = "no" };
+            //FAQ newFAQ1 = new FAQ { question = "A Question", answer = "no" };
+            //FAQ newFAQ2 = new FAQ { question = "B Question", answer = "yes" };
+           // FAQ newFAQ3 = new FAQ { question = "C Question", answer = "no" };
 
             
             //use the controller to add some questions
@@ -175,12 +186,7 @@ namespace KymiraAdministratorTests
         [TestMethod]
         public void TestThatInactiveItemsNoShow()
         {
-            FAQ inacFAQ = new FAQ
-            {
-                question = "What is the airspeed velocity of an unladden swallow?",
-                answer = "African or European?",
-                inactive = true
-            };
+     
         }
 
 
