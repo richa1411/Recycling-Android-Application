@@ -166,19 +166,21 @@ namespace KymiraAdminTests
             Assert.AreEqual("2018-01-01", date);
         } 
 
-        [TestMethod]
+        [DataTestMethod]
+        [DataRow("3-Dec-2018")]
+        [DataRow(@"3\12\2018")]
         //testing that the date format "1/1/2018" is parsed correctly
-        public void TestThatValidParseDateReturnsValidDateOtherFormat()
+        public void TestThatValidParseDateReturnsValidDateOtherFormat(string dateString)
         {
             //change testRow date to be other format
-            string[] testRow2 = { "1609312", "W114-320-203", "1/1/18", "Collected" };
-            string date = BinStatusParser.ParseDate(testRow2[2]);
+            //string[] testRow2 = { "1609312", "W114-320-203", "1/1/18", "Collected" };
+            string date = BinStatusParser.ParseDate(dateString);
             Assert.AreEqual("2018-01-01", date);
         }
 
         [TestMethod]
         //testing that the siteID is parsed correctly
-        public void TestThatValidSiteIDReturnsValidInt()
+        public void TestThatValidSiteIDReturnsValidInt(string siteID)
         {
             int siteID = BinStatusParser.ParseSiteID(testRow[0]);
             Assert.AreEqual(1609312, siteID);
@@ -265,7 +267,7 @@ namespace KymiraAdminTests
         //testing that invalid data returns parsed bin status object with invalid data
         public void TestThatParseDataMethodReturnsBinStatusObjectWithInalidData()
         {
-            var binStatus = BinStatusParser.ParseExcelForBinStatusData(testRowInvalid);
+            var binStatus = BinStatusParser.ParseExcelForBinStatusData(testRowInvalid);//change name of the method
             BinStatus bin = new BinStatus
             {
                 binID = "",

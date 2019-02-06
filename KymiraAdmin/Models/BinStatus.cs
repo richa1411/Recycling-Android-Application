@@ -14,7 +14,9 @@ namespace KymiraAdmin.Models
      */
     public class BinStatus
     {
-        
+
+        [Key]
+        public int pickupID { get; set; }
 
         [StringLength(20, MinimumLength = 1, ErrorMessage = "BinID must be between 1 and 20 characters")]
         [RegularExpression("^[A-Z0-9 -]*$", ErrorMessage = "BinID is not valid")] //to hold a Bin serial number/ID code
