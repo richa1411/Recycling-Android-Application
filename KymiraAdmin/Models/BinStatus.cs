@@ -15,11 +15,11 @@ namespace KymiraAdmin.Models
     public class BinStatus
     {
 
-        [Key]
+        [Key] //primary auto-incrementing key
         public int pickupID { get; set; }
 
         [StringLength(20, MinimumLength = 1, ErrorMessage = "BinID must be between 1 and 20 characters")]
-        [RegularExpression("^[A-Z0-9 -]*$", ErrorMessage = "BinID is not valid")] //to hold a Bin serial number/ID code
+        [RegularExpression("^[A-Z0-9]*$", ErrorMessage = "BinID is not valid")] //to hold a Bin serial number/ID code
         public string binID { get; set; }
 
         //1 -> Collected, 2 -> Inaccessible, 3 -> Contaminated

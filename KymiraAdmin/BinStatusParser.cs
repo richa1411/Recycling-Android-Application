@@ -8,16 +8,17 @@ using System.Text;
 namespace KymiraAdmin
 {
     /*
-     *  This static class will contain all the private methods for parsing data in the Excel spreadsheet
-     *  regarding BinStatus / Bin Collection information.
+     *  This static class will contain all the methods for parsing data in a string array that contains
+     *  BinStatus information.
      */
 	public static class BinStatusParser 
 	{
         /*
-         * This method will call each of the Parse methods to create a new BinStatus object.
-         * It will return a list of valid BinStatus objects to be added to the database (empty if no valid BinStatus objects could be created).
+         * This method takes in a string array to then be parsed with the Parse methods and used to create
+         * a BinStatus object. The method will return the BinStatus object 
+         * (without any regard to whether the object is valid or invalid).
          */
-        public static BinStatus ParseExcelForBinStatusData(String[] stringRow)
+        public static BinStatus ParseBinStatusData(String[] stringRow)
         {
             //for each index of string, call associated parse method
 
@@ -44,18 +45,24 @@ namespace KymiraAdmin
         }
 
         /*
-         * This method will parse the ContainerCollectionRecord field from the Excel sheet. 
-         * It will return the corresponding integer value needed to create a Bin Status object.
-         * If the status passed in is not any of the following strings, it will be considered Inaccessible:
-         * "Collected" = int of 1
-         * "Inaccessible" = int of 2 
-         * "Contaminated" = int of 3
+         * This method will return the corresponding integer value needed to create a Bin Status object.
+         * If the status passed in is not one of the following strings, it will be considered Inaccessible
+         * and return an int of 2:
+         * "Collected" = returns int of 1
+         * "Inaccessible" = returns int of 2 
+         * "Contaminated" = returns int of 3
          */
         public static int ParseStatus(string status)
         {
-            //case statement on string passed in
-            //return corresponding int value or default of 3 (Inaccessible)
-            return 0;
+            switch(status) //return corresponding int value
+            {
+                case "Collected":
+                    return 1;
+                case "Contaminated":
+                    return 3;
+                default: //"Inaccessible"
+                    return 2;
+            }
         }
 
         /*
