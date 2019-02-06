@@ -8,6 +8,9 @@ using System.Text;
 
 namespace KymiraAdminTests
 {
+    //*******************************************************************************************//
+    //Will need to load the disposables fixture each time so we will populate our database again.//
+    //*******************************************************************************************//
     [TestClass]
     public class DisposablesAdminUITests
     {
@@ -40,6 +43,9 @@ namespace KymiraAdminTests
         {
 
             driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+
+            driver.FindElement(By.LinkText("Back to List")).Click();
+
 
         }
 
@@ -77,19 +83,29 @@ namespace KymiraAdminTests
 
             driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
-            var btn = driver.FindElement(By.Id("delete46"));
-
-            btn.Click();
-
-
+            //Will search for the delete link by its text
+            //Could also search each individual Delete button 
+            driver.FindElement(By.LinkText("Delete"));
         }
 
         //Test that the deleting an item removes it from the list
         [TestMethod]
         public void TestThatDeletingItemRemovesItFromList()
         {
-
             driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+
+            var delCandyLink = driver.FindElement(By.Id("deleteCandy"));
+
+            delCandyLink.Click();
+
+            //the Back button.. Just to verify that it is seeing the next page
+            var delBtn = driver.FindElement(By.Id("btnDelete"));
+            delBtn.Click();
+            
+
+            //Need a way to verify that the element has been removed.
+            //Assert.IsNull(driver.FindElement(By.Id("deleteCandy")));
+
 
         }
 
