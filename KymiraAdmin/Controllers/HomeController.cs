@@ -12,6 +12,7 @@ namespace KymiraAdmin.Controllers
     public class HomeController : Controller
     {
         private readonly KymiraAdminContext _context;
+        private List<Site> listSites;
 
         public HomeController(KymiraAdminContext context)
         {
@@ -28,6 +29,10 @@ namespace KymiraAdmin.Controllers
         public IActionResult Index(IFormFile excelFile)
         {
             //Handle uploading the Excel file
+
+            // Go through each row in the excel file
+            // Call SiteParser for each row
+            // Add returned site to List
 
             //Parse the Excel file
 

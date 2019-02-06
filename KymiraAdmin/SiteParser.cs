@@ -14,23 +14,6 @@ namespace KymiraAdmin
     public static class SiteParser
     {
 
-        //Method that parses through Excel data and tries to create Site objects, adding them to a collection if valid. This collection will eventually be added to the database
-        public static List<Site> ParseExcelForSiteData(IFormFile excelFile)
-        {
-            //Parse through the Excel file and try to create Site objects from the rows of the Excel spreadsheet
-
-            //For each row in spreadsheet, grab raw data from that row
-
-            //Convert the row from an IRow to a list of strings for each cell
-
-            //Call GenerateSiteObjectFromRow with raw data from current row
-
-            //Check if GenerateSiteObjectFromRow returns a valid Site object or null
-
-            //If not null, add it to list of Site objects
-
-            return new List<Site>();
-        }
 
         //Method that tries to create a valid Site object given the current row's data
         public static Site GenerateSiteObjectFromRow(List<string> sRow)
@@ -45,21 +28,29 @@ namespace KymiraAdmin
         }
 
 
+        // This method will take in a String value of an Excel cell
+        // and tries to parse to a valid SiteID
         public static int parseSiteID(String sCell)
         {
             throw new NotImplementedException();
         }
 
+        // This method will take in a String value of an Excel cell
+        // and tries to parse to a valid Address
         public static string parseAddress(String sCell)
         {
             throw new NotImplementedException();
         }
 
+        // This method will take in a String value of an Excel cell
+        // and tries to parse to a valid Pickup Frequency
         public static Site.PickupFrequency parseFrequency(String sCell)
         {
             throw new NotImplementedException();
         }
 
+        // This method will take in a String value of an Excel cell
+        // and tries to parse to a valid Pickup Day
         public static Site.PickupDays parsePickupDays(String[] sCells)
         {
             throw new NotImplementedException();

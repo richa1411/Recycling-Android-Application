@@ -10,7 +10,12 @@ namespace KymiraAdmin.Models
     public class Site
     {
 
+        // This enum represents the pickup frequency,
+        // either weekly or bi-weekly
         public enum PickupFrequency { Weekly = 1, BiWeekly = 2}
+
+        // This enum represents the collection days
+        // This can be Sunday-Saturday
         [Flags]
         public enum PickupDays {
             Sunday = 1,

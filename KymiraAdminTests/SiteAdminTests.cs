@@ -128,15 +128,6 @@ namespace KymiraAdminTests
 
         }
 
-        //Test that a Site object with a collection 1 day that isn't Monday to Friday is invalid
-        //[TestMethod]
-        //public void TestThatCollectionDayOfWeekNotMonToFriIsInvalid()
-        //{
-        //    testSite.pickupDays = Site.PickupDays.Saturday | Site.PickupDays.Sunday;
-        //    var results = HelperTestModel.Validate(testSite);         
-        //    Assert.AreEqual("Collection date must be a valid day of the week (Monday to Friday)", results[0].ErrorMessage);
-        //    Assert.AreEqual(1, results.Count);
-        //}
 
 
 

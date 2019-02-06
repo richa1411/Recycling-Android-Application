@@ -235,23 +235,7 @@ namespace KymiraAdminTests
             Assert.AreEqual("Specified Pickup Days are invalid", results[3].ErrorMessage);
         }
 
-        //Test that parsing the Excel file for Site data returns a list of valid Site objects
-        [TestMethod]
-        public void TestThatParseExcelFileReturnsListOfValidSites()
-        {
-            siteList = SiteParser.ParseExcelForSiteData();
-
-            Assert.IsTrue(siteList.Count > 0);
-        }
-
-        //Test that parsing the Excel file returns an empty list upon failure
-        [TestMethod]
-        public void TestThatParseExcelFileFailureReturnsEmptyList()
-        {
-            siteList = SiteParser.ParseExcelForSiteData();
-
-            Assert.IsTrue(siteList.Count == 0);
-        }
+        
         
     }
 }
