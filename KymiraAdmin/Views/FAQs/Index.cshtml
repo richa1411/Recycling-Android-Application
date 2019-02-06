@@ -19,23 +19,17 @@
                 <th>
                     @Html.DisplayNameFor(model => model.answer)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.inactive)
-                </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td id="@String.Concat("question", item.id)">
                 @Html.DisplayFor(modelItem => item.question)
             </td>
-            <td>
+            <td id="@String.Concat("answer", item.id)">
                 @Html.DisplayFor(modelItem => item.answer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.inactive)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |

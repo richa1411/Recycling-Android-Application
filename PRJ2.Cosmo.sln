@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KymiraAdmin", "KymiraAdmin\
 		{437060E6-ED6E-4BF6-A333-406AD7D93A3E} = {437060E6-ED6E-4BF6-A333-406AD7D93A3E}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KymiraAdminTests", "KymiraAdminTests\KymiraAdminTests.csproj", "{D4992B1B-EE75-4F82-9646-1093AF4944F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KymiraAdministratorTests", "KymiraAdministratorTests\KymiraAdministratorTests.csproj", "{AFA81199-0087-455E-A4B3-DD956E7EBE37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,14 +80,14 @@ Global
 		{EC16DB41-3ADA-49AE-BBE3-F790A4628B4A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EC16DB41-3ADA-49AE-BBE3-F790A4628B4A}.Release|x86.ActiveCfg = Release|Any CPU
 		{EC16DB41-3ADA-49AE-BBE3-F790A4628B4A}.Release|x86.Build.0 = Release|Any CPU
-		{D4992B1B-EE75-4F82-9646-1093AF4944F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4992B1B-EE75-4F82-9646-1093AF4944F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4992B1B-EE75-4F82-9646-1093AF4944F6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D4992B1B-EE75-4F82-9646-1093AF4944F6}.Debug|x86.Build.0 = Debug|Any CPU
-		{D4992B1B-EE75-4F82-9646-1093AF4944F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4992B1B-EE75-4F82-9646-1093AF4944F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4992B1B-EE75-4F82-9646-1093AF4944F6}.Release|x86.ActiveCfg = Release|Any CPU
-		{D4992B1B-EE75-4F82-9646-1093AF4944F6}.Release|x86.Build.0 = Release|Any CPU
+		{AFA81199-0087-455E-A4B3-DD956E7EBE37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA81199-0087-455E-A4B3-DD956E7EBE37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA81199-0087-455E-A4B3-DD956E7EBE37}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AFA81199-0087-455E-A4B3-DD956E7EBE37}.Debug|x86.Build.0 = Debug|Any CPU
+		{AFA81199-0087-455E-A4B3-DD956E7EBE37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA81199-0087-455E-A4B3-DD956E7EBE37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA81199-0087-455E-A4B3-DD956E7EBE37}.Release|x86.ActiveCfg = Release|Any CPU
+		{AFA81199-0087-455E-A4B3-DD956E7EBE37}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
