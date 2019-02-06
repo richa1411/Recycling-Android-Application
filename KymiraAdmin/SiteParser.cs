@@ -30,28 +30,28 @@ namespace KymiraAdmin
 
         // This method will take in a String value of an Excel cell
         // and tries to parse to a valid SiteID
-        public static int parseSiteID(String sCell)
+        public static int parseSiteID(String siteIDString)
         {
             throw new NotImplementedException();
         }
 
         // This method will take in a String value of an Excel cell
         // and tries to parse to a valid Address
-        public static string parseAddress(String sCell)
+        public static string parseAddress(String fullAddressString)
         {
             throw new NotImplementedException();
         }
 
         // This method will take in a String value of an Excel cell
         // and tries to parse to a valid Pickup Frequency
-        public static Site.PickupFrequency parseFrequency(String sCell)
+        public static Site.PickupFrequency parseFrequency(String pickupFrequency)
         {
             throw new NotImplementedException();
         }
 
         // This method will take in a String value of an Excel cell
         // and tries to parse to a valid Pickup Day
-        public static Site.PickupDays parsePickupDays(String[] sCells)
+        public static Site.PickupDays parsePickupDays(String[] pickupDays)
         {
             throw new NotImplementedException();
         }

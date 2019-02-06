@@ -196,7 +196,16 @@ namespace KymiraAdminTests
                 "1002",
                 "1005",
                 "2002",
-                "2005"
+                "2005",
+                "3002",
+                "3005",
+                "2002",
+                "2005",
+                "1002",
+                "1005",
+                "2002",
+                "2005",
+
             };
 
             Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
