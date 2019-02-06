@@ -140,6 +140,7 @@ namespace KymiraAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            //Instead of deleting the object from the database, just set the inactive 
             var disposable = await _context.DisposableDBSet.SingleOrDefaultAsync(m => m.ID == id);
             _context.DisposableDBSet.Remove(disposable);
             await _context.SaveChangesAsync();
