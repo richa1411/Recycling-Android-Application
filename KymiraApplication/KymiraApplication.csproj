@@ -55,9 +55,11 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapters\DisposablesAdapter.cs" />
+    <Compile Include="Adapters\DisposableDetailListAdapter.cs" />
+    <Compile Include="Adapters\FAQDetailListAdapter.cs" />
     <Compile Include="Fragments\BinStatusFragment.cs" />
     <Compile Include="Fragments\DisposablesFragment.cs" />
+    <Compile Include="Fragments\FAQFragment.cs" />
     <Compile Include="Fragments\HomeFragment.cs" />
     <Compile Include="Fragments\LoginFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
@@ -66,6 +68,7 @@
     <Compile Include="Models\BinStatus.cs" />
     <Compile Include="Models\Credentials.cs" />
     <Compile Include="Models\Disposable.cs" />
+    <Compile Include="Models\FAQ.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\Site.cs" />
     <Compile Include="Models\Token.cs" />
@@ -188,6 +191,23 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\disposables_row_layout.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\detail_layout.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\faq_answer_layout.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\faq_layout.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\faq_question_layout.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\FAQIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
