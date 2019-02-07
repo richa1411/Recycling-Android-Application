@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using KymiraAdmin.Models;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using NPOI.HSSF.UserModel;
+using System.IO;
+using NPOI.XSSF.UserModel;
+using NPOI.SS.UserModel;
+using System.Web;
 
 namespace KymiraAdmin.Controllers
 {
@@ -18,6 +23,7 @@ namespace KymiraAdmin.Controllers
 
         private List<BinStatus> validBins; //list of valid BinStatus objects to be added to the database
         private List<BinStatus> invalidBins; //list of invalid BinStatus objects to be displayed to user (future story**)
+        ISheet sheet;
 
         //constructor that creates new context object (database)
         public HomeController(KymiraAdminContext context)
@@ -32,33 +38,52 @@ namespace KymiraAdmin.Controllers
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("Home")]
         /* This method gets called upon a POST request. It takes in a file and then returns an appropriate response.
          */
         public  IActionResult Index(IFormFile excelFile)
         {
+           
             //converts rows for excel sheet to array of strings
-            //then sends array of strings to the BinStatusParser class
-
-            //while (true) //loop while there are still rows of data to convert
-            //{
-            string[] rowData = { };
-
-            BinStatus binToAdd = BinStatusParser.ParseBinStatusData(rowData);
-
-            
-            List<ValidationResult> validationResults = ValidationHelper.Validate(binToAdd);
-
-            //add converted BinStatus to appropriate list
-            if (validationResults.Count == 0)
+            if (excelFile.ContentType == ".xls" || excelFile.ContentType == ".xlsx")
             {
-                validBins.Add(binToAdd);
+                
+                HSSFWorkbook hssfwb = new HSSFWorkbook(excelFile.OpenReadStream()); //This will read the Excel 97-2000 formats   
+                sheet = hssfwb.GetSheetAt(1); //get first sheet from workbook   
             }
             else
             {
-                invalidBins.Add(binToAdd);
+                XSSFWorkbook hssfwb = new XSSFWorkbook(excelFile.OpenReadStream()); //This will read 2007 Excel format   
+                sheet = hssfwb.GetSheetAt(1); //get first sheet from workbook    
             }
+            IRow headerRow = sheet.GetRow(0); //Get Header Row 
 
+            int cellCount = headerRow.LastCellNum;
+            for (int j = 0; j < cellCount; j++)
+            {
+                NPOI.SS.UserModel.ICell cell = headerRow.GetCell(j);
+                if (cell == null || string.IsNullOrWhiteSpace(cell.ToString())) continue;
+            }
+            for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File 
+            {
+                IRow row = sheet.GetRow(i);
+                if (row == null) continue;
+                if (row.Cells.All(d => d.CellType == CellType.Blank)) continue;
+                var stringRow = row.Cells.Select(c => c.ToString()).ToArray();
+                BinStatus binToAdd = BinStatusParser.ParseBinStatusData(stringRow);
+
+                List<ValidationResult> validationResults = ValidationHelper.Validate(binToAdd);
+
+                //add converted BinStatus to appropriate list
+                if (validationResults.Count == 0)
+                {
+                    validBins.Add(binToAdd);
+                }
+                else
+                {
+                    invalidBins.Add(binToAdd);
+                }
+            }
             //}
 
             //only accesses database if there are valid Bins to add
