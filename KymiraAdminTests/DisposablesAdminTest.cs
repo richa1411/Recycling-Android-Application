@@ -385,6 +385,9 @@ namespace KymiraAdminTests
 
         }
 
+
+        //*********** Inactive ***********
+
         //Test that the Inactive field is true
         [TestMethod]
         public void TestThatInactiveIsTrue()

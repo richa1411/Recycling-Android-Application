@@ -49,7 +49,7 @@ namespace KymiraAdmin.Fixtures
             qtyRecycled = 1200,
             inactive = false
         },
-            //Non recycalble items
+            //Non Recyclable items
             new Disposable
         {
             

@@ -13,6 +13,7 @@ namespace KymiraAdminTests
     //*******************************************************************************************//
     //Will need to load the disposables fixture each time so we will populate our database again.//
     //*******************************************************************************************//
+
     [TestClass]
     public class DisposablesAdminUITests
     {
@@ -22,8 +23,8 @@ namespace KymiraAdminTests
         [TestInitialize]
         public void InitializeTest()
         {
+
             ChromeOptions chrome_options = new ChromeOptions();
-            
 
             //Wont open up a new chrome tab when run
             chrome_options.AddArgument("--headless");
@@ -107,7 +108,7 @@ namespace KymiraAdminTests
             int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
             //Assert there are 7 rows in the table
-            Assert.AreEqual(rows,7);
+            Assert.AreEqual(7, rows);
             //click the delete link for Candy
             var delCandyLink = driver.FindElement(By.Id("deleteCandy"));
             delCandyLink.Click();
@@ -122,12 +123,12 @@ namespace KymiraAdminTests
             rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
             //Assert that there are 6t rows (one less) than before
-            Assert.AreEqual(rows, 6);
+            Assert.AreEqual(6, rows);
 
 
         }
 
-
+        //Will test that an inactive item does not show up in the table
         [TestMethod]
         public void TestThatInactiveItemIsNotVisibleInList()
         {
@@ -139,6 +140,12 @@ namespace KymiraAdminTests
 
             //Assert there are 7 rows in the table
             Assert.AreEqual(rows, 7);
+
+            //Find a way to set a piece of data in the list to inactive
+
+
+            //Assert that the number of rows have decreased... Not sure how to pinpoint an item to verify it isnt there.
+
         }
     }
 }
