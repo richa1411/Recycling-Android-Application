@@ -91,11 +91,16 @@ namespace KymiraAdminTests
             Assert.AreEqual("Collection date is required", results[0].ErrorMessage);
         }
 
-        [TestMethod]
+        [DataTestMethod]
+        [DataRow("COSMO-123")]
+        [DataRow("1234567")]
+        [DataRow("W114-320-257")]
+        [DataRow("DFGHRT")]
+        
         //testing that the valid binID of a BinStatus object is valid
-        public void TestThatBinStatusBinIDIsValid()
+        public void TestThatBinStatusBinIDIsValid(string binId)
         {
-            testBin.binID = "W114-320-257";
+            testBin.binID = binId;
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }
@@ -110,11 +115,14 @@ namespace KymiraAdminTests
             Assert.AreEqual("BinID must be between 1 and 20 characters", results[0].ErrorMessage);
         }
 
-        [TestMethod]
+        [DataTestMethod]
+        [DataRow("------")]
+        [DataRow("A3/D")]
+        [DataRow("////")]
         //testing that the binID of a BinStatus object cannot be in an invalid format
-        public void TestThatBinStatusBinIDInvalidFormatIsInvalid()
+        public void TestThatBinStatusBinIDInvalidFormatIsInvalid(string binID)
         {
-            testBin.binID = "A3/D";
+            testBin.binID = binID;
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("BinID is not valid", results[0].ErrorMessage);
@@ -190,8 +198,7 @@ namespace KymiraAdminTests
 
         [DataTestMethod]
         [DataRow("W114-320-203")]
-        [DataRow("1234567890")]
-        [DataRow("COSMO1055")]
+       
         //testing that the serial number is parsed correctly
         public void TestThatValidSerialNumReturnsValidString(string serialnum)
         {
@@ -234,18 +241,16 @@ namespace KymiraAdminTests
         //testing that valid data returns parsed bin status object with same data
         public void TestThatParseDataMethodReturnsBinStatusObjectWithValidData()
         {
-            var binStatus = BinStatusParser.ParseBinStatusData(new string[] { "1609312", "W114-320-203", "1-Jan-18", "Collected" });
-            BinStatus bin = new BinStatus
-            {
-                binID = "W114-320-203",
-                status = 1,
-                collectionDate = "2018-01-01",
-                siteID = 1609312
-            };
-            Assert.AreEqual(bin, binStatus);
+            var binStatus = BinStatusParser.ParseBinStatusData(new string[] { "1609312", "w114-320-203", "1-Jan-18", "Collected" });
+
+
+            Assert.AreEqual("W114-320-203", binStatus.binID);
+            Assert.AreEqual(1609312, binStatus.siteID);
+            Assert.AreEqual(1, binStatus.status);
+            Assert.AreEqual("2018-01-01", binStatus.collectionDate);
 
             //ensure bin received back is valid
-            results = TestValidationHelper.Validate(bin);
+            results = TestValidationHelper.Validate(binStatus);
             Assert.AreEqual(0, results.Count);
         }
 
@@ -254,20 +259,15 @@ namespace KymiraAdminTests
         public void TestThatParseDataMethodReturnsBinStatusObjectWithInalidData()
         {
             BinStatus binStatus = BinStatusParser.ParseBinStatusData(new string[] { "", "", "", "" });
-            /*
-            BinStatus bin = new BinStatus
-            {
-                //pickupID = 0,
-                siteID = 0,
-                binID = "",
-                collectionDate = "",
-                status = 0
-            };
-            */
+          
+            Assert.AreEqual("", binStatus.binID);
+            Assert.AreEqual(0, binStatus.siteID);
+            Assert.AreEqual(0, binStatus.status);
+            Assert.AreEqual("", binStatus.collectionDate);
 
             //ensure bin received back is invalid
-            //results = TestValidationHelper.Validate(bin);
-            //Assert.AreEqual(4, results.Count);
+            results = TestValidationHelper.Validate(binStatus);
+            Assert.AreEqual(4, results.Count);
         }
     }
 }

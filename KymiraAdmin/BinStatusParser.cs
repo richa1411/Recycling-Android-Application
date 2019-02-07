@@ -90,7 +90,7 @@ namespace KymiraAdmin
             {
                 return "";
             }
-            return serialnum;
+            return serialnum.ToUpper();
         }
 
         /*

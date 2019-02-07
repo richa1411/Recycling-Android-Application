@@ -45,16 +45,21 @@ namespace KymiraAdmin.Controllers
         {
            
             //converts rows for excel sheet to array of strings
-            if (excelFile.ContentType == ".xls" || excelFile.ContentType == ".xlsx")
+            if (excelFile.ContentType == "application/vnd.ms-excel")
             {
                 
                 HSSFWorkbook hssfwb = new HSSFWorkbook(excelFile.OpenReadStream()); //This will read the Excel 97-2000 formats   
-                sheet = hssfwb.GetSheetAt(1); //get first sheet from workbook   
+                sheet = hssfwb.GetSheetAt(1); //get BinCollectionStatus sheet from workbook   
             }
+          else if (excelFile.ContentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+            {
+               XSSFWorkbook hssfwb = new XSSFWorkbook(excelFile.OpenReadStream()); //This will read 2007 Excel format   
+               sheet = hssfwb.GetSheetAt(1); //get BinCollectionStatus sheet from workbook    
+           }
             else
             {
-                XSSFWorkbook hssfwb = new XSSFWorkbook(excelFile.OpenReadStream()); //This will read 2007 Excel format   
-                sheet = hssfwb.GetSheetAt(1); //get first sheet from workbook    
+                ViewData["Message"] = "Upload unsuccessful. Please select an Excel file to upload.";
+                return View();
             }
             IRow headerRow = sheet.GetRow(0); //Get Header Row 
 
@@ -63,12 +68,14 @@ namespace KymiraAdmin.Controllers
             {
                 NPOI.SS.UserModel.ICell cell = headerRow.GetCell(j);
                 if (cell == null || string.IsNullOrWhiteSpace(cell.ToString())) continue;
+                
             }
+
             for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File 
             {
                 IRow row = sheet.GetRow(i);
-                if (row == null) continue;
-                if (row.Cells.All(d => d.CellType == CellType.Blank)) continue;
+               // if (row == null) continue;
+               // if (row.Cells.All(d => d.CellType == CellType.Blank)) continue;
                 var stringRow = row.Cells.Select(c => c.ToString()).ToArray();
                 BinStatus binToAdd = BinStatusParser.ParseBinStatusData(stringRow);
 
@@ -82,6 +89,19 @@ namespace KymiraAdmin.Controllers
                 else
                 {
                     invalidBins.Add(binToAdd);
+                    if (validationResults.Count == 1)
+                    {
+                        ViewData["Message"] += "There is " + validationResults.Count + "error inside your rows of excel file" ;
+                        
+                    }
+                    else
+                    { ViewData["Message"] += "There are " + validationResults.Count + "errors inside your rows of excel file"; }
+
+                    for (int invalid = 0; invalid < invalidBins.Count; invalid++)
+                    {
+                        ViewData["Message"] += " with the binId  " + invalidBins[invalid].binID.ToString();
+                    }
+                    return View();
                 }
             }
 
@@ -89,10 +109,27 @@ namespace KymiraAdmin.Controllers
             if (validBins.Count > 0)
             {
                 _context.BinStatus.AddRange(validBins);
-                _context.SaveChanges();
+                try
+                {
+                    var result = _context.SaveChanges();
+                    if (result > 0)
+                    {
+                        ViewData["Message"] = "Upload Successful.";
+                        return View();
+                    }
+                }
+                catch(Exception e)
+                {
+                    ViewData["Message"] = "Upload unsuccessful. something went wrong, try again.";
+                    return View();
+                }
+            }
+            else
+            {
+                ViewData["Message"] = "something went wrong, try again.";
             }
             
-            return Ok();
+            return View();
         }
 
         
