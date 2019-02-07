@@ -15,8 +15,8 @@ namespace KymiraAdministratorTests
         //FAQ newFAQ1;
         static IWebDriver driver;
 
-        [TestInitialize]
-        public void InitializeTest()
+        [ClassInitialize]
+        public static void InitializeTest(TestContext context)
         {
 
             ChromeOptions chrome_options = new ChromeOptions();
@@ -36,52 +36,40 @@ namespace KymiraAdministratorTests
             driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdministratorTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
         }
 
+        /**
+        * Test that all elements are diplayed on the list page
+        * **/
         [TestMethod]
-        public void TestThatPageLoadsCorrectly()
+        public void TestThatListPageLoadsCorrectly()
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             var table = driver.FindElement(By.ClassName("table"));
-            var btnEdit = driver.FindElement(By.Id("btnEdit"));
-            var btnDel = driver.FindElement(By.Id("btnDelete"));
             var btnAdd = driver.FindElement(By.Id("btnAdd"));
-            var elementList = table.FindElements(By.ClassName("tr"));
+            var elementList = table.FindElements(By.TagName("tr"));
             //for each item in the list of FAQs check that the item is displayed properly
             for (int i = 0; i < elementList.Count; i++)
             {
-                //find the item texts 
-                var questionField = driver.FindElement(By.Id("question" + i));
-                var answerField = driver.FindElement(By.Id("answer" + i));       
+                var item = elementList[i];
+                var itemElementList = item.FindElements(By.TagName("td"));
+
+                //check that there are 3 td elements
+                Assert.AreEqual(3, itemElementList.Count);
+
+                //check that the "question" id occurs
+                item.FindElement(By.Id("question"));
+
+                //check that the "answer" id occurs
+                item.FindElements(By.TagName("answer"));
+
+                //check that the two a elements are withing the 3rd td
+                Assert.AreEqual(2, item.FindElements(By.TagName("a")).Count);
             }
         }
 
+
         /**
-         * Test that after being deleted the item is no longer in the list. Afte selecting the item to delete
-         * it will be passed into the delete method and then be removed from the list BUT NOT from the database
-         * until the save button is pressed. 
+         * Test that all elements are diplayed on the create page
          * **/
-        [TestMethod]
-        public void TestThatListItemRemoved()
-        {
-            var table = driver.FindElement(By.ClassName("table"));
-            //find all the page elements
-            var btnDel = driver.FindElement(By.Id("btnDelete"));
-            var question = driver.FindElement(By.Id("question6"));
-
-       
-            var elementList = table.FindElements(By.ClassName("tr"));
-            //count the items displayed on the page
-            int itemCount = 0;
-
-            //delete an object from the list
-                //click on the delete link and the delete link on the delete page
-            btnDel.Click();
-
-            //upon return ToString the list page, check that the count of items is one less than it was before
-
-            //Assert.AreEqual(/** Do a recount of the items **/, itemCount -1 );
-
-        }
-
         [TestMethod]
         public void TestThatCreatePageDisplaysCorrectly()
         {
@@ -94,6 +82,9 @@ namespace KymiraAdministratorTests
             var btnBack = driver.FindElement(By.Id("btnBack"));
         }
 
+        /**
+         * Test that all elements are diplayed on the edit page
+         * **/
         [TestMethod]
         public void TestThatEditPageDisplaysCorrectly()
         {
@@ -116,37 +107,72 @@ namespace KymiraAdministratorTests
         }
 
         /**
+         * Test that after being deleted the item is no longer in the list. Afte selecting the item to delete
+         * it will be passed into the delete method and then be removed from the list
+         * **/
+        [TestMethod]
+        public void TestThatListItemRemoved()
+        {
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            //find all the page elements
+            var table = driver.FindElement(By.ClassName("table"));
+            var listQuestion = table.FindElements(By.Id("question"));
+            var btnDel = table.FindElement(By.Id("btnDelete"));
+       
+            var elementList = table.FindElements(By.ClassName("tr"));
+            //count the items displayed on the page
+            int itemCount = listQuestion.Count;
+
+            //delete an object from the list
+                //click on the delete link and the delete link on the delete page
+            btnDel.Click();
+            btnDel = driver.FindElement(By.Id("btnDel"));
+            btnDel.Click();
+
+            //upon return to the list page, check that the count of items is one less than it was before
+            table = driver.FindElement(By.ClassName("table"));
+            listQuestion = table.FindElements(By.Id("question"));
+
+            Assert.AreEqual(listQuestion.Count, itemCount - 1 );
+
+        }
+
+        /**
          * Tests that we can add a FAQ to the page's list
          * **/
         [TestMethod]
         public void TestThatListItemAdded()
         {
-            //navigate to the add new item field
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs/Create");
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            var table = driver.FindElement(By.ClassName("table"));
+            var listQuestion = table.FindElements(By.Id("question"));
+
+            var itemCount = listQuestion.Count;
+
+            //navigate to the add new item page
+            var btnCreate = driver.FindElement(By.Id("btnAdd"));
+            btnCreate.Click();
+
+            //find all the page elements
+            var inptQuestion = driver.FindElement(By.Id("inptQuestion"));
+            var inptAnswer = driver.FindElement(By.Id("inptAnswer"));
+            btnCreate = driver.FindElement(By.Id("btnSubmit"));
 
             //create a new FAQ to add to the site's list
+            inptQuestion.SendKeys("This is a new test question to make sure that this works");
+            inptAnswer.SendKeys("This is the matching test answer");
 
-            //adds a new question to the page's list of questions (waiting to be saved to the database
+            //add the new FAQ
+            btnCreate.Click();
 
             //check that the page's list contains the newly added FAQ
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            table = driver.FindElement(By.ClassName("table"));
+            listQuestion = table.FindElements(By.Id("question"));
 
-            //Assert.IsTrue(res);
+            Assert.AreEqual(itemCount + 1, listQuestion.Count);
         }
-
-        /**
-         * Test to confirm that save button makes changes to the database list
-         * **/
-        [TestMethod]
-        public void TestThatChangesSaveSuccessfully()
-        {
-            //send a list of questions to save to the database
-
-            //get a list back from the database
-
-
-            //check that the list contains the items expected
-        }
-
+        
         /**
          * Test to ensure that a FAQ will be editted in the list when the 
          * item loses focus after being editted
@@ -154,6 +180,7 @@ namespace KymiraAdministratorTests
         [TestMethod]
         public void TestThatFAQsEditCorrectlyInList()
         {
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //change one of the faqs already in list
 
             //call the edit method
@@ -169,15 +196,16 @@ namespace KymiraAdministratorTests
         [TestMethod]
         public void TestThatFAQsInAlphabeticalOrder()
         {
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //test that the FAQ list item titles are alphabetical
 
             //Suggestion: Use CollectionAssert
 
             //FAQ newFAQ1 = new FAQ { question = "A Question", answer = "no" };
             //FAQ newFAQ2 = new FAQ { question = "B Question", answer = "yes" };
-           // FAQ newFAQ3 = new FAQ { question = "C Question", answer = "no" };
+            // FAQ newFAQ3 = new FAQ { question = "C Question", answer = "no" };
 
-            
+
             //use the controller to add some questions
 
 
@@ -191,6 +219,7 @@ namespace KymiraAdministratorTests
         [TestMethod]
         public void TestThatCancelPageCanCancelChanges()
         {
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //Record the orgiginal page
             //Make some changes tp the (new duplicated) list 
             //press cancel
@@ -204,19 +233,10 @@ namespace KymiraAdministratorTests
         [TestMethod]
         public void TestThatCancelPageShowsObject()
         {
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //change up the list - record the changes? 
 
             //display only the changes made to the user
-
-        }
-
-        /**
-         * Test to ensure that the confirmation page opens on changes
-         * **/
-        [TestMethod]
-        public void TestThatCancelPageOpens()
-        {
-            //check that it pops up containing a list and two buttons "yes" and "no" 
 
         }
 
@@ -225,9 +245,10 @@ namespace KymiraAdministratorTests
          * not show up in the list. 
          */
         [TestMethod]
-        public void TestThatInactiveItemsNoShow()
+        public void TestThatInactiveItemsDontShow()
         {
-     
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+
         }
 
 
