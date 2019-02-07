@@ -21,8 +21,8 @@ namespace KymiraAdmin.Controllers
         //context object - needed for saving data into the database
         private readonly KymiraAdminContext _context;
 
-        private List<BinStatus> validBins; //list of valid BinStatus objects to be added to the database
-        private List<BinStatus> invalidBins; //list of invalid BinStatus objects to be displayed to user (future story**)
+        private List<BinStatus> validBins = new List<BinStatus>(); //list of valid BinStatus objects to be added to the database
+        private List<BinStatus> invalidBins = new List<BinStatus>(); //list of invalid BinStatus objects to be displayed to user (future story**)
         ISheet sheet;
 
         //constructor that creates new context object (database)
@@ -84,7 +84,6 @@ namespace KymiraAdmin.Controllers
                     invalidBins.Add(binToAdd);
                 }
             }
-            //}
 
             //only accesses database if there are valid Bins to add
             if (validBins.Count > 0)

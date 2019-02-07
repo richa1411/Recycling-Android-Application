@@ -30,7 +30,7 @@ namespace KymiraAdmin.Models
         [ForeignKey("Site")] //BinStatus(siteID(FK)) references Site(siteID(PK))
         public int siteID { get; set; }
 
-        [Required(ErrorMessage = "Collection date is required")]
+        [Required(ErrorMessage = "Collection date is required")] //format is "yyyy-mm-dd"
         [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", ErrorMessage = "Collection date must be a valid date")]
         public string collectionDate { get; set; }
     }

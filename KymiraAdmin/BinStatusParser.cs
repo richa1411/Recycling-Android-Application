@@ -20,12 +20,16 @@ namespace KymiraAdmin
          */
         public static BinStatus ParseBinStatusData(String[] stringRow)
         {
-            //for each index of string, call associated parse method
+            BinStatus bin = new BinStatus
+            {
+                siteID = ParseSiteID(stringRow[0]),
+                binID = ParseSerialNum(stringRow[1]),
+                collectionDate = ParseDate(stringRow[2]),
+                status = ParseStatus(stringRow[3])
 
-            //craetes BinStaus Object once it gets all the parsed data from methods
-
-            //return BinStatus object created back to the HomeController
-            return null;
+            };
+            
+            return bin;
         }
 
         /*
@@ -34,14 +38,20 @@ namespace KymiraAdmin
          */
 		public static string ParseDate(string date)
         {
-
-            //accommodate for either format - either slashes or dashes, leading zeros, etc.
-
-            //grab the year
-            //grab the month
-            //grab the day
-
-            return "";
+            string convertedDate;  
+            try
+            {
+                //parse and convert string to proper format
+                convertedDate = DateTime.Parse(date).ToString("yyyy-MM-dd");
+            }
+            //catch any exceptions thrown by the DateTime parsing method
+            catch(Exception exp)
+            {
+                convertedDate = "";
+            }
+            //return converted string or empty string
+            return convertedDate;
+            
         }
 
         /*
@@ -54,6 +64,10 @@ namespace KymiraAdmin
          */
         public static int ParseStatus(string status)
         {
+            if(status == "")
+            {
+                return 0;
+            }
             switch(status) //return corresponding int value
             {
                 case "Collected":
@@ -72,10 +86,11 @@ namespace KymiraAdmin
          */
         public static string ParseSerialNum(string serialnum)
         {
-            //find the correct column
-            //grab the string and return it
-
-            return "";
+            if(serialnum == "")
+            {
+                return "";
+            }
+            return serialnum;
         }
 
         /*
@@ -84,7 +99,11 @@ namespace KymiraAdmin
          */
         public static int ParseSiteID(string siteid)
         {
-            return 0;
+            if(siteid == "")
+            {
+                return 0;
+            }
+            return Convert.ToInt32(siteid);
         }
        
 	}
