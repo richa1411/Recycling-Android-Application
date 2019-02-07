@@ -25,10 +25,10 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td id="@String.Concat("question", item.id)">
+            <td id="question">
                 @Html.DisplayFor(modelItem => item.question)
             </td>
-            <td id="@String.Concat("answer", item.id)">
+            <td id="answer">
                 @Html.DisplayFor(modelItem => item.answer)
             </td>
             <td>

@@ -99,16 +99,19 @@ namespace KymiraAdministratorTests
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             var table = driver.FindElement(By.ClassName("table"));
-            var listItem = table.FindElements(By.ClassName("tr"));
+            var listQuestion = table.FindElement(By.Id("question")).Text;
+            var listAnswer = table.FindElement(By.Id("answer")).Text;
             var btnEdit = driver.FindElement(By.Id("btnEdit"));
+
             btnEdit.Click();
 
-            var inptQuestion = driver.FindElement(By.Id("inptQuestion"));
-            var inptAnswer = driver.FindElement(By.Id("inptAnswer"));
+            var inptQuestion = driver.FindElement(By.Id("inptQuestion")).GetAttribute("value");
+            var inptAnswer = driver.FindElement(By.Id("inptAnswer")).GetAttribute("value");
             var btnSubmit = driver.FindElement(By.Id("btnSave"));
             var btnBack = driver.FindElement(By.Id("btnBack"));
 
-            //Assert.AreEqual(inptQuestion.Text, );
+            Assert.AreEqual(listQuestion, inptQuestion);
+            Assert.AreEqual(listAnswer, inptAnswer);
             
         }
 
