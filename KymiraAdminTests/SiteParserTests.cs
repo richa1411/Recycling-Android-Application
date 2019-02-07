@@ -159,15 +159,17 @@ namespace KymiraAdminTests
         {
             string[] collectionDays = new string[4];
 
-            collectionDays[0] = cellList[15];
-            collectionDays[1] = cellList[16];
-            collectionDays[2] = cellList[17];
-            collectionDays[3] = cellList[18];
+            collectionDays[0] = "1005";
+            collectionDays[1] = "2005";
+            collectionDays[2] = "";
+            collectionDays[3] = "";
 
-            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
+            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays, Site.PickupFrequency.Weekly);
 
             Assert.IsTrue(pickupDays == Site.PickupDays.Friday);
         }
+
+
 
         // Test that an invalid Collection Day returns null
         [TestMethod]
@@ -181,9 +183,9 @@ namespace KymiraAdminTests
                 "12321"
             };
 
-            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
+            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays, Site.PickupFrequency.Weekly);
 
-            Assert.IsNull(pickupDays);
+            Assert.IsTrue(pickupDays == Site.PickupDays.Invalid);
         }
 
         // Test that a valid array of Collection days is parsed properly
@@ -196,18 +198,9 @@ namespace KymiraAdminTests
                 "1005",
                 "2002",
                 "2005",
-                "3002",
-                "3005",
-                "2002",
-                "2005",
-                "1002",
-                "1005",
-                "2002",
-                "2005",
-
             };
 
-            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
+            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays, Site.PickupFrequency.Weekly);
 
             Assert.IsTrue(pickupDays == (Site.PickupDays.Tuesday | Site.PickupDays.Friday));
         }

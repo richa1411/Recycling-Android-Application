@@ -89,35 +89,43 @@ namespace KymiraAdmin
         // and tries to parse to a valid PickupDay. If it fails, it will return an invalid PickupDay
         public static Site.PickupDays parsePickupDays(string[] pickupDays, Site.PickupFrequency pickupFrequency)
         {
-            Site.PickupDays parsedPickupDays = Site.PickupDays.Invalid;
+            pickupDays = pickupDays.Where(s => !string.IsNullOrEmpty(s)).OrderByDescending(s=>s).ToArray();
 
-            List<string> validPickupDays = new List<string>();
+            Site.PickupDays parsedPickupDays = (Site.PickupDays) 0;
 
-            int validCollection = 0;
+            int largestNumber = 0;
 
-            //If array of pickup day strings is empty, return invalid PickupDay
-            if(pickupDays.Length == 0)
+            if (pickupDays.Length == 0)
             {
-                return parsedPickupDays;
+                return Site.PickupDays.Invalid;
             }
 
-            //
-            for(int i = 0; i < pickupDays.Length; i++)
+            Int32.TryParse(pickupDays[0], out largestNumber);
+                
+            if(largestNumber > 9999 || largestNumber < 1000 || largestNumber == 0)
             {
-                if((pickupDays[i].Length == numberOfCollectionDigits) && (Int32.TryParse(pickupDays[i], out validCollection) != false))
+                return Site.PickupDays.Invalid;
+            }
+
+            string collectionDay = pickupDays[0];
+            char largestDigit = collectionDay[0];
+
+            foreach(string day in pickupDays)
+            {
+                if(day[0] == largestDigit && day.Length == 4)
                 {
-                    for(int j = 0; j < pickupDays.Length; j++)
-                    {
-                        string pickupDayCollectionDay1 = pickupDays[i];
-                        string pickupDayCollection2 = pickupDays[j];
-
-                        if (pickupDayCollectionDay1[1] < pickupDayCollection2[1])
-                        {
-
-                        }
-                    }
+                    int lastDigit = Convert.ToInt32(day[3].ToString());
+                    int lastPickupDay = Convert.ToInt32(Math.Pow(2, (lastDigit - 1)));
+                    parsedPickupDays = parsedPickupDays | ((Site.PickupDays) lastPickupDay);
+                }
+                else
+                {
+                    break;
                 }
             }
+
+            return parsedPickupDays;
         }
+        
     }
 }
