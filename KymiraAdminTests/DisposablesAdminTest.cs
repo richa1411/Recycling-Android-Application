@@ -21,7 +21,8 @@ namespace KymiraAdminTests
             isRecyclable = true,
             recycleReason = "Glass Bottles Reason",
             endResult = "Glass Bottles End Result",
-            qtyRecycled = 1000
+            qtyRecycled = 1000,
+            inactive = false
         };
 
         Disposable sendTest = new Disposable
@@ -32,7 +33,8 @@ namespace KymiraAdminTests
             isRecyclable = false,
             recycleReason = "Cause",
             endResult = "tomato sauce",
-            qtyRecycled = 1000
+            qtyRecycled = 1000,
+            inactive = false
         };
 
 
@@ -382,5 +384,32 @@ namespace KymiraAdminTests
 
 
         }
+
+        //Test that the Inactive field is true
+        [TestMethod]
+        public void TestThatInactiveIsTrue()
+        {
+
+            testDbItem.inactive = true;
+            var results = TestValidationHelper.Validate(testDbItem);
+            Assert.AreEqual(0, results.Count);
+            //NoError
+
+
+        }
+
+        //Test that the Inactive field is false
+        [TestMethod]
+        public void TestThatInactiveIsFalse()
+        {
+
+            testDbItem.inactive = false;
+            var results = TestValidationHelper.Validate(testDbItem);
+            Assert.AreEqual(0, results.Count);
+            //NoError
+
+
+        }
+
     }
 }

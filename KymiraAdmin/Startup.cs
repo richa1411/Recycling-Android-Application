@@ -30,7 +30,7 @@ namespace KymiraAdmin
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, KymiraAdminContext context)
         {
             if (env.IsDevelopment())
             {
@@ -43,6 +43,10 @@ namespace KymiraAdmin
             }
 
             app.UseStaticFiles();
+
+            // Fixtures for Disposables List Table
+            Fixtures.fixture_disposables.Unload(context);
+            Fixtures.fixture_disposables.Load(context);
 
             app.UseMvc(routes =>
             {

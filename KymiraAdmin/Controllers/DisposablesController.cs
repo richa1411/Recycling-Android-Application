@@ -21,7 +21,7 @@ namespace KymiraAdmin.Controllers
         // GET: Disposables
         public async Task<IActionResult> Index()
         {
-            //Will sort the list alphabetically by name
+            //Will sort the list alphabetically by name and only display the items that are NOT inactive
 
             return View(await _context.DisposableDBSet.ToListAsync());
         }

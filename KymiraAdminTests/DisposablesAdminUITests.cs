@@ -5,6 +5,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using KymiraAdmin.Models;
+using KymiraAdmin.Fixtures;
 
 namespace KymiraAdminTests
 {
@@ -14,13 +16,15 @@ namespace KymiraAdminTests
     [TestClass]
     public class DisposablesAdminUITests
     {
+
         IWebDriver driver;
 
         [TestInitialize]
         public void InitializeTest()
         {
-
             ChromeOptions chrome_options = new ChromeOptions();
+            
+
             //Wont open up a new chrome tab when run
             chrome_options.AddArgument("--headless");
 
@@ -35,6 +39,8 @@ namespace KymiraAdminTests
 
             //Assign the driver to the location of the chromedriver.exe on the local drive
             driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
+
+            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
         }
 
         //Test that the list displays correctly on launch
@@ -46,35 +52,40 @@ namespace KymiraAdminTests
 
             driver.FindElement(By.LinkText("Back to List")).Click();
 
+            int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+
+            //Assert there are 7 rows in the table
+            Assert.AreEqual(rows, 7);
+
 
         }
 
-        //Test that the recyclable reason is hidden from view
-        [TestMethod]
-        public void TestThatRecycleReasonIsHidden()
-        {
+        ////Test that the recyclable reason is hidden from view
+        //[TestMethod]
+        //public void TestThatRecycleReasonIsHidden()
+        //{
 
-            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+        //    driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
-        }
+        //}
 
-        //Test that the end result is hidden from view
-        [TestMethod]
-        public void TestThatEndResultIsHidden()
-        {
+        ////Test that the end result is hidden from view
+        //[TestMethod]
+        //public void TestThatEndResultIsHidden()
+        //{
 
-            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+        //    driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
-        }
+        //}
 
-        //Test that the quantity recycled is hidden from view
-        [TestMethod]
-        public void TestThatQtyRecycledIsHidden()
-        {
+        ////Test that the quantity recycled is hidden from view
+        //[TestMethod]
+        //public void TestThatQtyRecycledIsHidden()
+        //{
 
-            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+        //    driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
-        }
+        //}
 
         //Test that the Delete link visible for each item
         [TestMethod]
@@ -92,20 +103,25 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatDeletingItemRemovesItFromList()
         {
-            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
             int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
+            //Assert there are 7 rows in the table
             Assert.AreEqual(rows,7);
+            //click the delete link for Candy
             var delCandyLink = driver.FindElement(By.Id("deleteCandy"));
             delCandyLink.Click();
 
-            //the Back button.. Just to verify that it is seeing the next page
+            //the Back to List link.. Just to verify that it is seeing the next page
             driver.FindElement(By.LinkText("Back to List"));
+            //Click the delete button to remove the item
             var delBtn = driver.FindElement(By.Id("btnDelete"));
             delBtn.Click();
 
+            //Check how many rows are in the table now
             rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+
+            //Assert that there are 6t rows (one less) than before
             Assert.AreEqual(rows, 6);
 
 
@@ -115,8 +131,14 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatInactiveItemIsNotVisibleInList()
         {
+            Disposable disposableItem = new Disposable();
             driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
+
+            int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+
+            //Assert there are 7 rows in the table
+            Assert.AreEqual(rows, 7);
         }
     }
 }
