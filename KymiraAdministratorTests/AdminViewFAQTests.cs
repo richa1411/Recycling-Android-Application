@@ -1,3 +1,4 @@
+using KymiraAdmin.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -32,20 +33,20 @@ namespace KymiraAdministratorTests
             chrome_options.AddArgument("--window-size=1280,720");
 
             //Assign the driver to the location of the chromedriver.exe on the local drive
-            driver = new ChromeDriver("D:\\COSACMPG\\prj2.cosmo\\KymiraAdministratorTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
+            driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdministratorTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
         }
 
         [TestMethod]
         public void TestThatPageLoadsCorrectly()
         {
-            driver.Navigate().GoToUrl("http://localhost:59649/FAQs");
-            var table = driver.FindElement(By.Id("FAQTable"));
-            var btnEdit = driver.FindElement(By.Id("btnEdit"));
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            var table = driver.FindElement(By.ClassName("table"));
+            var btnEdit = driver.FindElement(By.Name("btnEdit"));
             var btnDel = driver.FindElement(By.Id("btnDelete"));
             var btnAdd = driver.FindElement(By.Id("btnAdd"));
             var elementList = table.FindElements(By.ClassName("tr"));
             //for each item in the list of FAQs check that the item is displayed properly
-            for(int i = 0; i < elementList.Count; i++)
+            for (int i = 0; i < elementList.Count; i++)
             {
                 //find the item texts 
                 var questionField = driver.FindElement(By.Id("question" + i));
@@ -65,14 +66,20 @@ namespace KymiraAdministratorTests
         [TestMethod]
         public void TestThatListItemRemoved()
         {
+            //find all the page elements
             var btnDel = driver.FindElement(By.Id("btnDelete"));
             var question = driver.FindElement(By.Id("question6"));
 
-            Assert.AreEqual(question.Text, "What is the airspeed velocity of an unladden swallow?");
+            //count the items displayed on the page
+            int itemCount = 0;
 
-
+            //delete an object from the list
+                //click on the delete link and the delete link on the delete page
             btnDel.Click();
 
+            //upon return ToString the list page, check that the count of items is one less than it was before
+
+            //Assert.AreEqual(/** Do a recount of the items **/, itemCount -1 );
 
         }
 
@@ -82,8 +89,10 @@ namespace KymiraAdministratorTests
         [TestMethod]
         public void TestThatListItemAdded()
         {
+            //navigate to the add new item field
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs/Create");
+
             //create a new FAQ to add to the site's list
-            //FAQ newFAQ = new FAQ { id = 0, question = "Whats the meaning of life", answer = "42" };
 
             //adds a new question to the page's list of questions (waiting to be saved to the database
 
