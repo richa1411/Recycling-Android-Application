@@ -16,30 +16,23 @@
             <input type="hidden" asp-for="id" />
             <div class="form-group">
                 <label asp-for="question" class="control-label"></label>
-                <input asp-for="question" class="form-control" />
+                <input id="inptQuestion" asp-for="question" class="form-control" />
                 <span asp-validation-for="question" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="answer" class="control-label"></label>
-                <input asp-for="answer" class="form-control" />
+                <input id="inptAnswer" asp-for="answer" class="form-control" />
                 <span asp-validation-for="answer" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="inactive" /> @Html.DisplayNameFor(model => model.inactive)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input id="btnSave" type="submit" value="Save" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a id="btnBack" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

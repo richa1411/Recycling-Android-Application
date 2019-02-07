@@ -41,7 +41,7 @@ namespace KymiraAdministratorTests
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             var table = driver.FindElement(By.ClassName("table"));
-            var btnEdit = driver.FindElement(By.Name("btnEdit"));
+            var btnEdit = driver.FindElement(By.Id("btnEdit"));
             var btnDel = driver.FindElement(By.Id("btnDelete"));
             var btnAdd = driver.FindElement(By.Id("btnAdd"));
             var elementList = table.FindElements(By.ClassName("tr"));
@@ -50,11 +50,7 @@ namespace KymiraAdministratorTests
             {
                 //find the item texts 
                 var questionField = driver.FindElement(By.Id("question" + i));
-                var answerField = driver.FindElement(By.Id("answer" + i));
-
-                //check that the text is proper
-                Assert.AreEqual(elementList[i].Text, questionField);
-                Assert.AreEqual(elementList[i].Text, questionField);
+                var answerField = driver.FindElement(By.Id("answer" + i));       
             }
         }
 
@@ -66,10 +62,13 @@ namespace KymiraAdministratorTests
         [TestMethod]
         public void TestThatListItemRemoved()
         {
+            var table = driver.FindElement(By.ClassName("table"));
             //find all the page elements
             var btnDel = driver.FindElement(By.Id("btnDelete"));
             var question = driver.FindElement(By.Id("question6"));
 
+       
+            var elementList = table.FindElements(By.ClassName("tr"));
             //count the items displayed on the page
             int itemCount = 0;
 
@@ -81,6 +80,36 @@ namespace KymiraAdministratorTests
 
             //Assert.AreEqual(/** Do a recount of the items **/, itemCount -1 );
 
+        }
+
+        [TestMethod]
+        public void TestThatCreatePageDisplaysCorrectly()
+        {
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            var btnAdd = driver.FindElement(By.Id("btnAdd"));
+            btnAdd.Click();
+            var inptQuestion = driver.FindElement(By.Id("inptQuestion"));
+            var inptAnswer = driver.FindElement(By.Id("inptAnswer"));
+            var btnSubmit = driver.FindElement(By.Id("btnSubmit"));
+            var btnBack = driver.FindElement(By.Id("btnBack"));
+        }
+
+        [TestMethod]
+        public void TestThatEditPageDisplaysCorrectly()
+        {
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            var table = driver.FindElement(By.ClassName("table"));
+            var listItem = table.FindElements(By.ClassName("tr"));
+            var btnEdit = driver.FindElement(By.Id("btnEdit"));
+            btnEdit.Click();
+
+            var inptQuestion = driver.FindElement(By.Id("inptQuestion"));
+            var inptAnswer = driver.FindElement(By.Id("inptAnswer"));
+            var btnSubmit = driver.FindElement(By.Id("btnSave"));
+            var btnBack = driver.FindElement(By.Id("btnBack"));
+
+            //Assert.AreEqual(inptQuestion.Text, );
+            
         }
 
         /**
