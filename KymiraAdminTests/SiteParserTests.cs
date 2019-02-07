@@ -30,6 +30,8 @@ namespace KymiraAdminTests
             //Each string in the list is the string value of an indiviudal cell from the row
             cellList = new List<string>();
 
+            /**
+
             #region Cells
 
             //Container Serial Number cell
@@ -89,7 +91,7 @@ namespace KymiraAdminTests
             //Collection 4 cell
             cellList[18] = "";
 
-            #endregion Cells
+            #endregion Cells **/
 
 
         }
@@ -98,7 +100,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteIDValidSiteID()
         {
-            int siteID = SiteParser.parseSiteID(cellList[1]);
+            int siteID = SiteParser.parseSiteID("1252181");
 
             Assert.IsTrue(siteID != 0);
         }
@@ -107,9 +109,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteIDWithInvalidIDReturnsZero()
         {
-            cellList[1] = "wklas";
-
-            int siteID = SiteParser.parseSiteID(cellList[1]);
+            int siteID = SiteParser.parseSiteID("wklas");
 
             Assert.IsTrue(siteID == 0);
         }
@@ -118,7 +118,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteAddressValidAddress()
         {
-            string address = SiteParser.parseAddress(cellList[7]);
+            string address = SiteParser.parseAddress("123 Test St");
 
             Assert.IsTrue(address.Length > 0);
         }
@@ -127,9 +127,9 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteAddressWithInvalidAddressReturnsEmptyString()
         {
-            cellList[7] = new String('a', 201);
+            string testString = new String('a', 201);
 
-            string address = SiteParser.parseAddress(cellList[7]);
+            string address = SiteParser.parseAddress(testString);
 
             Assert.IsTrue(address.Length == 0);
         }
@@ -138,7 +138,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteFrequencyValidFrequency()
         {
-            Site.PickupFrequency frequency = SiteParser.parseFrequency(cellList[10]);
+            Site.PickupFrequency frequency = SiteParser.parseFrequency("Weekly");
 
             Assert.IsTrue(frequency == Site.PickupFrequency.Weekly);
         }
@@ -147,11 +147,10 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteFrequencyWithInvalidFrequencyReturnsNull()
         {
-            cellList[10] = "kljas";
 
-            Site.PickupFrequency frequency = SiteParser.parseFrequency(cellList[10]);
+            Site.PickupFrequency frequency = SiteParser.parseFrequency("kljas");
 
-            Assert.IsNull(frequency);
+            Assert.IsTrue(frequency == Site.PickupFrequency.Invalid);
         }
 
         //Test that a valid PickupDays value is parsed correctly
