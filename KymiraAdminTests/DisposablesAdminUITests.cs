@@ -94,17 +94,19 @@ namespace KymiraAdminTests
         {
             driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
-            var delCandyLink = driver.FindElement(By.Id("deleteCandy"));
+            int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
+            Assert.AreEqual(rows,7);
+            var delCandyLink = driver.FindElement(By.Id("deleteCandy"));
             delCandyLink.Click();
 
             //the Back button.. Just to verify that it is seeing the next page
+            driver.FindElement(By.LinkText("Back to List"));
             var delBtn = driver.FindElement(By.Id("btnDelete"));
             delBtn.Click();
-            
 
-            //Need a way to verify that the element has been removed.
-            //Assert.IsNull(driver.FindElement(By.Id("deleteCandy")));
+            rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+            Assert.AreEqual(rows, 6);
 
 
         }
