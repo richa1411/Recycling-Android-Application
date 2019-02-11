@@ -18,7 +18,6 @@ namespace KymiraAdministratorTests
         [ClassInitialize]
         public static void InitializeTest(TestContext context)
         {
-
             ChromeOptions chrome_options = new ChromeOptions();
             //Wont open up a new chrome tab when run
             chrome_options.AddArgument("--headless");
@@ -66,7 +65,6 @@ namespace KymiraAdministratorTests
             }
         }
 
-
         /**
          * Test that all elements are diplayed on the create page
          * **/
@@ -104,6 +102,24 @@ namespace KymiraAdministratorTests
             Assert.AreEqual(listQuestion, inptQuestion);
             Assert.AreEqual(listAnswer, inptAnswer);
             
+        }
+
+        /**
+        * Test to ensure that the confirmation page shows the correct object information
+        * **/
+        [TestMethod]
+        public void TestThatDeletePageDisplaysCorrectly()
+        {
+            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            //change up the list - record the changes? 
+
+            var btnDelete = driver.FindElement(By.Id("btnDelete"));
+            btnDelete.Click();
+
+
+
+            //display only the changes made to the user
+
         }
 
         /**
@@ -210,33 +226,19 @@ namespace KymiraAdministratorTests
 
 
             //use a sort method to sort the questions then make sure they are in the correct order 
-
         }
 
         /**
          * Test to ensure that the confirmation page cancels properly
          * **/
         [TestMethod]
-        public void TestThatCancelPageCanCancelChanges()
+        public void TestThatDeletePageCanCancelChanges()
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //Record the orgiginal page
             //Make some changes tp the (new duplicated) list 
             //press cancel
             //check that the page is identical to the original page recorded.
-
-        }
-
-        /**
-         * Test to ensure that the confirmation page shows the correct object information
-         * **/
-        [TestMethod]
-        public void TestThatCancelPageShowsObject()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            //change up the list - record the changes? 
-
-            //display only the changes made to the user
 
         }
 
@@ -249,8 +251,20 @@ namespace KymiraAdministratorTests
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
 
+            var table = driver.FindElement(By.ClassName("table"));
+            var listQuestion = table.FindElements(By.Id("question"));
+
+            //Ensure we have all but one record.
+            listQuestion = table.FindElements(By.Id("question"));
+            Assert.AreEqual(6, listQuestion.Count);
+
+            //Make sure that record is not the one appearing
+
+            for(int i = 0; i < listQuestion.Count; i++)
+            {
+                Assert.AreNotEqual(listQuestion[i].Text, "What is the airspeed velocity of an unladden swallow?");
+            }
+
         }
-
-
     }
 }
