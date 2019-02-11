@@ -107,11 +107,6 @@ namespace KymiraAdminTests
             
         });
 
-
-        // = new fixture_disposables();
-
-        // KymiraAdmin.Fixtures.fixture_disposables.Unload();
-
         ChromeOptions chrome_options = new ChromeOptions();
 
             //Wont open up a new chrome tab when run
@@ -134,32 +129,27 @@ namespace KymiraAdminTests
 
         //Test that the list displays correctly on launch
         [TestMethod]
-        public void TestThatListDisplaysCorrectly()
+        public void TestThatAListDisplaysCorrectly()
         {
 
-
-           
-           
-
             driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
-
-           // driver.FindElement(By.LinkText("Back to List")).Click();
 
             int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
             var list = driver.FindElements(By.XPath("//table[@class='table']//tr"));
 
-            
+            var names = new List<string>(list[0].Text.Split(' '));
 
-            for(int i = 0; i < list.Count; i++)
+            Assert.IsFalse(names.Contains("recycleReason"));
+            Assert.IsFalse(names.Contains("endResult"));
+            Assert.IsFalse(names.Contains("qtyRecycled"));
+            Assert.IsFalse(names.Contains("inactive"));
+
+            //Loop through
+            for (int i = 0; i < list.Count; i++)
             {
-               // var text = list[i+1].Text.Split(' ');
-                    
-
                 Assert.AreEqual(list[i+1].Text, obList[i].name + " " + obList[i].description + " " + obList[i].imageURL + " " + "Delete");
             }
-
-
 
             //Assert there are 7 rows in the table
             Assert.AreEqual(rows, 7);
@@ -167,10 +157,9 @@ namespace KymiraAdminTests
 
         }
 
-
         //Test that the Delete link visible for each item
         [TestMethod]
-        public void TestThatDeleteLinkIsVisible()
+        public void TestThatADeleteLinkIsVisible()
         {
 
             driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
@@ -203,7 +192,7 @@ namespace KymiraAdminTests
             //Check how many rows are in the table now
             rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
-            //Assert that there are 6t rows (one less) than before
+            //Assert that there are 6 rows (one less) than before
             Assert.AreEqual(6, rows);
 
 
@@ -219,14 +208,23 @@ namespace KymiraAdminTests
 
             int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
+            var list = driver.FindElements(By.XPath("//table[@class='table']//tr"));
+
             //Assert there are 7 rows in the table
             Assert.AreEqual(rows, 7);
 
             //Find a way to set a piece of data in the list to inactive
+            
+
+            foreach (var item in list)
+            {
+                var names = new List<string>(item.Text.Split(' '));
+
+                Assert.IsFalse(names.Contains("Candy"));
+            }
 
 
-            //Assert that the number of rows have decreased... Not sure how to pinpoint an item to verify it isnt there.
-
+            
         }
 
   

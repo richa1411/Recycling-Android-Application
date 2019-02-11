@@ -40,7 +40,8 @@ namespace KymiraApplicationTests
             isRecyclable = true,
             recycleReason = "Cardboard Reason",
             endResult = "Cardboard End Result",
-            qtyRecycled = 1000
+            qtyRecycled = 1000,
+            inactive = false
         }, new Disposable
         {
 
@@ -50,7 +51,8 @@ namespace KymiraApplicationTests
             isRecyclable = true,
             recycleReason = "Paper Reason",
             endResult = "Paper End Result",
-            qtyRecycled = 2500
+            qtyRecycled = 2500,
+            inactive = false
         },
             new Disposable
         {
@@ -61,7 +63,8 @@ namespace KymiraApplicationTests
             isRecyclable = true,
             recycleReason = "Tin Cans Reason",
             endResult = "Tin Cans End Result",
-            qtyRecycled = 1200
+            qtyRecycled = 1200,
+            inactive = false
         },
             new Disposable
         {
@@ -72,7 +75,8 @@ namespace KymiraApplicationTests
             isRecyclable = false,
             recycleReason = "Pizza Reason",
             endResult = "Pizza End Result",
-            qtyRecycled = 0
+            qtyRecycled = 0,
+            inactive = false
         },
             new Disposable
         {
@@ -83,7 +87,8 @@ namespace KymiraApplicationTests
             isRecyclable = false,
             recycleReason = "Orange Peels Reason",
             endResult = "Orange Peels End Result",
-            qtyRecycled = 0
+            qtyRecycled = 0,
+            inactive = false
         },
             new Disposable
         {
@@ -94,7 +99,8 @@ namespace KymiraApplicationTests
             isRecyclable = false,
             recycleReason = "Candy Reason",
             endResult = "Candy End Result",
-            qtyRecycled = 0
+            qtyRecycled = 0,
+            inactive = false
         }
         });
 
@@ -446,6 +452,35 @@ namespace KymiraApplicationTests
             var results = TestValidationHelper.Validate(disposables[0]);
             Assert.AreEqual(0, results.Count);
             //Noerror
+
+
+        }
+
+
+        //*********** Inactive ***********
+
+        //Test that the Inactive field is true
+        [TestMethod]
+        public void TestThatInactiveIsTrue()
+        {
+
+            disposables[0].inactive = true;
+            var results = TestValidationHelper.Validate(disposables[0]);
+            Assert.AreEqual(0, results.Count);
+            //NoError
+
+
+        }
+
+        //Test that the Inactive field is false
+        [TestMethod]
+        public void TestThatInactiveIsFalse()
+        {
+
+            disposables[0].inactive = false;
+            var results = TestValidationHelper.Validate(disposables[0]);
+            Assert.AreEqual(0, results.Count);
+            //NoError
 
 
         }

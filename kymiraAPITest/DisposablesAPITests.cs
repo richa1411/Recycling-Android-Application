@@ -15,11 +15,12 @@ namespace kymiraAPITest
     {
 
 
-       
 
- 
 
-        Disposable testDbItem = new Disposable{
+
+
+        Disposable testDbItem = new Disposable
+        {
             ID = 1,
             name = "Glass Bottles",
             description = "These are Glass Bottles",
@@ -27,7 +28,8 @@ namespace kymiraAPITest
             isRecyclable = true,
             recycleReason = "Glass Bottles Reason",
             endResult = "Glass Bottles End Result",
-            qtyRecycled = 1000
+            qtyRecycled = 1000,
+            inactive = false
         };
 
         Disposable sendTest = new Disposable
@@ -38,15 +40,16 @@ namespace kymiraAPITest
             isRecyclable = false,
             recycleReason = "Cause",
             endResult = "tomato sauce",
-            qtyRecycled = 1000
+            qtyRecycled = 1000,
+            inactive = false
         };
 
 
-       
 
 
 
-     
+
+
 
 
         /**
@@ -392,6 +395,34 @@ namespace kymiraAPITest
             var results = HelperTestModel.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //Noerror
+
+
+        }
+
+        //*********** Inactive ***********
+
+        //Test that the Inactive field is true
+        [TestMethod]
+        public void TestThatInactiveIsTrue()
+        {
+
+            testDbItem.inactive = true;
+            var results = TestValidationHelper.Validate(testDbItem);
+            Assert.AreEqual(0, results.Count);
+            //NoError
+
+
+        }
+
+        //Test that the Inactive field is false
+        [TestMethod]
+        public void TestThatInactiveIsFalse()
+        {
+
+            testDbItem.inactive = false;
+            var results = TestValidationHelper.Validate(testDbItem);
+            Assert.AreEqual(0, results.Count);
+            //NoError
 
 
         }
