@@ -129,7 +129,7 @@ namespace KymiraAdminTests
         }
 
         [TestMethod]
-        //testing that the binID of a BinStatus object cannot be in an invalid format
+        //testing that the siteID of a BinStatus object cannot be in an invalid format
         public void TestThatBinStatusSiteIDLessThanOneIsInvalid()
         {
             testBin.siteID = 0;
@@ -148,14 +148,7 @@ namespace KymiraAdminTests
 
         }
 
-        [TestMethod]
-        //testing that the siteID of a valid BinStatus object is indeed valid
-        public void TestThatListIsValid()
-        {
-            testBin.siteID = 1345;
-            results = TestValidationHelper.Validate(testBin);
-            Assert.AreEqual(0, results.Count);
-        }
+      
 
 
         /*-----------------------Testing ExcelParser methods---------------------------*/
