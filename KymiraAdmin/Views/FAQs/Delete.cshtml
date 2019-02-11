@@ -15,13 +15,13 @@
         <dt>
             @Html.DisplayNameFor(model => model.question)
         </dt>
-        <dd>
+        <dd id="question">
             @Html.DisplayFor(model => model.question)
-        </dd>
-        <dt>
+        </dd >
+        <dt >
             @Html.DisplayNameFor(model => model.answer)
         </dt>
-        <dd>
+        <dd id="answer">
             @Html.DisplayFor(model => model.answer)
         </dd>
     </dl>
@@ -29,6 +29,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="id" />
         <input id="btnDel" type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <a id="btnBack" asp-action="Index">Back to List</a>
     </form>
 </div>

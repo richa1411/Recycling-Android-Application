@@ -116,9 +116,13 @@ namespace KymiraAdministratorTests
             var btnDelete = driver.FindElement(By.Id("btnDelete"));
             btnDelete.Click();
 
+            var question = driver.FindElement(By.Id("question"));
+            var answer = driver.FindElement(By.Id("answer"));
+            driver.FindElement(By.Id("btnDel"));
+            driver.FindElement(By.Id("btnBack"));
 
-
-            //display only the changes made to the user
+            Assert.AreEqual("Do I have to register to view bin collection dates?", question.Text);
+            Assert.AreEqual("Absolutely not, \"you\" can just open an application enter your bin address and there's your date!", answer.Text);
 
         }
 
@@ -197,13 +201,22 @@ namespace KymiraAdministratorTests
         public void TestThatFAQsEditCorrectlyInList()
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            var btn = driver.FindElement(By.Id("btnEdit"));
+            btn.Click();
+
             //change one of the faqs already in list
+            var inptQuestion = driver.FindElement(By.Id("inptQuestion"));
+            inptQuestion.SendKeys("Testing functionality");
 
             //call the edit method
+            var save = driver.FindElement(By.Id("btnSave"));
+            save.Click();
 
             //get the FAQ from the list
+            var text = driver.FindElement(By.Id("question")).Text;
 
             //check that the answer has changed as expected
+            Assert.AreEqual("Do I have to register to view bin collection dates?Testing functionality", text);
         }
 
         /**
@@ -217,15 +230,21 @@ namespace KymiraAdministratorTests
 
             //Suggestion: Use CollectionAssert
 
-            //FAQ newFAQ1 = new FAQ { question = "A Question", answer = "no" };
-            //FAQ newFAQ2 = new FAQ { question = "B Question", answer = "yes" };
-            // FAQ newFAQ3 = new FAQ { question = "C Question", answer = "no" };
+            var table = driver.FindElement(By.ClassName("table"));
+            var elementList = table.FindElements(By.Id("question"));
 
+            ArrayList originalList = new ArrayList();
 
-            //use the controller to add some questions
+            foreach(IWebElement item in elementList)
+            {
+                originalList.Add(item.Text);
+            }
 
-
+            ArrayList alphaList = (ArrayList)originalList.Clone();
             //use a sort method to sort the questions then make sure they are in the correct order 
+            alphaList.Sort();
+
+            CollectionAssert.AreEqual(originalList, alphaList);
         }
 
         /**
@@ -236,10 +255,20 @@ namespace KymiraAdministratorTests
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //Record the orgiginal page
-            //Make some changes tp the (new duplicated) list 
-            //press cancel
-            //check that the page is identical to the original page recorded.
+            var table = driver.FindElement(By.ClassName("table"));
+            int elementList = table.FindElements(By.TagName("tr")).Count;
 
+            var btndel = driver.FindElement(By.Id("btnDelete"));
+            btndel.Click();
+            //Make some changes tp the (new duplicated) list 
+            var btn = driver.FindElement(By.Id("btnBack"));
+            //press cancel
+            btn.Click();
+            //check that the page is identical to the original page recorded.
+            var table2 = driver.FindElement(By.ClassName("table"));
+            int elementList2 = table2.FindElements(By.TagName("tr")).Count;
+
+            Assert.AreEqual(elementList, elementList2);
         }
 
         /**
