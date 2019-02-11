@@ -27,6 +27,7 @@ namespace KymiraAdmin.Controllers
         // private List<BinStatus> invalidBins = new List<BinStatus>(); //list of invalid BinStatus objects to be displayed to user (future story**)
        private List<int> invalidRows = new List<int>(); //list that will store invalid rows which carries invalid bin object
         private ISheet sheet;
+        private BinStatus binToAdd;
 
         //constructor that creates new context object (database)
         public HomeController(KymiraAdminContext context)
@@ -95,22 +96,31 @@ namespace KymiraAdmin.Controllers
 
                 //converts current row to an array of strings
                 var stringRow = row.Cells.Select(c => c.ToString()).ToArray();
-
-                //calls BinStatusParser to get BinStatus back
-                BinStatus binToAdd = BinStatusParser.ParseBinStatusData(stringRow);
-
-                List<ValidationResult> validationResults = ValidationHelper.Validate(binToAdd);
-
-                //add converted BinStatus to appropriate list based on validationResults
-                if (validationResults.Count == 0)
+                //checks if any row is null 
+                if (stringRow[0].Equals(""))
                 {
-                    validBins.Add(binToAdd);
+                    string[] stringRowNull = { "", "", "", "" };
+                     binToAdd = BinStatusParser.ParseBinStatusData(stringRowNull);
                 }
                 else
                 {
-                    invalidRows.Add(i);
-                    continue;
+                    //calls BinStatusParser to get BinStatus back
+                     binToAdd = BinStatusParser.ParseBinStatusData(stringRow);
                 }
+
+                    List<ValidationResult> validationResults = ValidationHelper.Validate(binToAdd);
+
+                    //add converted BinStatus to appropriate list based on validationResults
+                    if (validationResults.Count == 0)
+                    {
+                        validBins.Add(binToAdd);
+                    }
+                    else
+                    {
+                        invalidRows.Add(i);
+                        continue;
+                    }
+                
             }
           
 
