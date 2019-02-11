@@ -16,20 +16,20 @@ namespace kymiraAPI.Fixtures
                 new FAQ {
                  
                  question = "Where is Cosmo Industries?",
-                 answer = "1302 Alberta Ave. Saskatoon"
+                 answer = "1302 Alberta Ave. Saskatoon."
                 },
             
             new FAQ
             {
                   
-            question = "How can I register with different bin locations",
-                answer = "You can register as many time as you can with different addresses"
+            question = "How can I register with different bin locations?",
+                answer = "You can register as many times as you can with different addresses."
             },
             new FAQ
             {
                
                 question = "How do I get more rewards?",
-                answer = "Be the part of weekly quizes and kepp updated with next collection dates to make your bin filled "
+                answer = "Be the part of weekly quizes and kepp updated with next collection dates to make your bin filled."
             },
             new FAQ
             {
