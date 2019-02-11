@@ -14,17 +14,76 @@ namespace KymiraAdmin
     public static class SiteParser
     {
         const int numberOfCollectionDigits = 4;
+        const int numberOfExcelColumns = 19;
+
+        public enum ColumnName
+        {
+            SiteIDCol = 1,
+            FullAddressCol = 7,
+            FrequencyCol = 10,
+            Collection1Col = 15,
+            Collection2Col = 16,
+            Collection3Col = 17,
+            Collection4Col = 18
+        }
 
         //Method that tries to create a valid Site object given the current row's data
-        public static Site GenerateSiteObjectFromRow(List<string> sRow)
-        {
-            //Helper method to try and generate valid site objects from the rows of the Excel spreadsheet
+        public static Site GenerateSiteObjectFromRow(List<string> sRow, bool IsHeaderRow)
+        {   
+            //If Excel file does not have the correct number of columns
+            if(sRow.Count > 19 || sRow.Count < 19)
+            {
+                //Return an invalid site
+                return new Site
+                {
+                    siteID = 0,
+                    pickupDays = Site.PickupDays.Invalid,
+                    frequency = Site.PickupFrequency.Invalid
+                };
+            }
 
             //Try and create a Site object from the row data
+            if (IsHeaderRow && sRow[(int)ColumnName.SiteIDCol].Equals("Site ID") && sRow[7].Equals("Full Address") && sRow[10].Equals("Frequency") && sRow[15].Equals("Collection1")
+                    && sRow[16].Equals("Collection2") && sRow[17].Equals("Collection3") && sRow[18].Equals("Collection4"))
+            {
+                //Return a site with the flag value of 0 (header row is OK)
+                return new Site
+                {
+                    siteID = 0
+                };
+            }
+            //If row is a header row and one or more columns are incorrect
+            else if(IsHeaderRow)
+            {
+                //Return an invalid site with flag value of -1 (header row is incorrect)
+                return new Site
+                {
+                    siteID = -1
+                };
+            }
+            //Else row is NOT a header row, try to parse
+            else
+            {
+                Site siteFromRow = new Site();
 
-            //If Site object is invalid, set to null
+                siteFromRow.siteID = parseSiteID(sRow[1]);
 
-            return new Site();
+                siteFromRow.address = parseAddress(sRow[7]);
+
+                siteFromRow.frequency = parseFrequency(sRow[10]);
+
+                string[] collections = new string[4];
+
+                collections[0] = sRow[15];
+                collections[1] = sRow[16];
+                collections[2] = sRow[17];
+                collections[3] = sRow[18];
+
+                siteFromRow.pickupDays = parsePickupDays(collections);
+
+                return siteFromRow;
+
+            }
         }
 
 
@@ -87,7 +146,7 @@ namespace KymiraAdmin
 
         // This method will take in a String value of an Excel cell
         // and tries to parse to a valid PickupDay. If it fails, it will return an invalid PickupDay
-        public static Site.PickupDays parsePickupDays(string[] pickupDays, Site.PickupFrequency pickupFrequency)
+        public static Site.PickupDays parsePickupDays(string[] pickupDays)
         {
             pickupDays = pickupDays.Where(s => !string.IsNullOrEmpty(s)).OrderByDescending(s=>s).ToArray();
 

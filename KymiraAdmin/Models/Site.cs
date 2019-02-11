@@ -55,6 +55,7 @@ namespace KymiraAdmin.Models
         // This is how often a bin is collected 'Weekly', 'Bi-Weekly', etc.
         [Required(ErrorMessage = "Frequency is required")]
         [EnumDataType(typeof(PickupFrequency), ErrorMessage = "Pickup Frequency must be Weekly or BiWeekly")]
+        [Range(1, 2, ErrorMessage = "Pickup Frequency must be Weekly or BiWeekly")]
         public PickupFrequency frequency { get; set; }
 
         // The 4 digit number (1004, 2003) that shows week and the day of the week

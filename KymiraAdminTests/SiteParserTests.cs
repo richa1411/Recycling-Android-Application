@@ -30,68 +30,66 @@ namespace KymiraAdminTests
             //Each string in the list is the string value of an indiviudal cell from the row
             cellList = new List<string>();
 
-            /**
-
             #region Cells
 
             //Container Serial Number cell
-            cellList[0] = "W114-320-438";
+            cellList.Add("W114-320-438");
 
             //Site ID cell
-            cellList[1] = "1252181";
+            cellList.Add("1252181");
 
             //Building Name cell
-            cellList[2] = "Chateu Laurier";
+            cellList.Add("Chateu Laurier");
 
             //Street number cell
-            cellList[3] = "102";
+            cellList.Add("102");
 
             //Street name cell
-            cellList[4] = "104th";
+            cellList.Add("104th");
 
             //Street Suffix cell
-            cellList[5] = "St";
+            cellList.Add("St");
 
             //Street direction cell
-            cellList[6] = "W";
+            cellList.Add("W");
 
             //Full address cell
-            cellList[7] = "102 104th St W";
+            cellList.Add("102 104th St W");
 
             //Neighborhood name cell
-            cellList[8] = "Sutherland";
+            cellList.Add("Sutherland");
 
             //Neighborhood ID cell
-            cellList[9] = "048";
+            cellList.Add("048");
 
             //Frequency cell
-            cellList[10] = "Weekly";
+            cellList.Add("Weekly");
 
             //Container type cell
-            cellList[11] = "Bin";
+            cellList.Add("Bin");
 
             //Size cell
-            cellList[12] = "4";
+            cellList.Add("4");
 
             //Status update cell
-            cellList[13] = "";
+            cellList.Add("");
 
             //Status change date cell
-            cellList[14] = "";
+            cellList.Add("");
 
             //Collection 1 cell
-            cellList[15] = "1005";
+            cellList.Add("1005");
 
             //Collection 2 cell
-            cellList[16] = "2005";
+            cellList.Add("2005");
 
             //Collection 3 cell
-            cellList[17] = "";
+            cellList.Add("");
 
             //Collection 4 cell
-            cellList[18] = "";
+            cellList.Add("");
 
-            #endregion Cells **/
+            #endregion Cells
 
 
         }
@@ -164,7 +162,7 @@ namespace KymiraAdminTests
             collectionDays[2] = "";
             collectionDays[3] = "";
 
-            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays, Site.PickupFrequency.Weekly);
+            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
 
             Assert.IsTrue(pickupDays == Site.PickupDays.Friday);
         }
@@ -183,7 +181,7 @@ namespace KymiraAdminTests
                 "12321"
             };
 
-            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays, Site.PickupFrequency.Weekly);
+            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
 
             Assert.IsTrue(pickupDays == Site.PickupDays.Invalid);
         }
@@ -200,7 +198,7 @@ namespace KymiraAdminTests
                 "2005",
             };
 
-            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays, Site.PickupFrequency.Weekly);
+            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
 
             Assert.IsTrue(pickupDays == (Site.PickupDays.Tuesday | Site.PickupDays.Friday));
         }
@@ -209,7 +207,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatValidSiteObjectIsCreatedWithValidSiteInformation()
         {
-            Site site = SiteParser.GenerateSiteObjectFromRow(cellList);
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
 
             var results = HelperTestModel.Validate(site);
             Assert.AreEqual(0, results.Count);
@@ -220,18 +218,18 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatInvalidSiteObjectIsCreatedWithInvalidSiteInformation()
         {
-            cellList[1] = "dsfhjeswihfeh";
+            cellList[1] = "jdasdfa";
             cellList[7] = "";
-            cellList[10] = "322343";
-            cellList[15] = "asad4ttg";
+            cellList[10] = "jdfsal";
+            cellList[15] = "23kjl32";
 
-            Site site = SiteParser.GenerateSiteObjectFromRow(cellList);
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
 
             var results = HelperTestModel.Validate(site);
             Assert.AreEqual(4, results.Count);
 
             Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
-            Assert.AreEqual("Address must be between 1 and 200 characters", results[1].ErrorMessage);
+            Assert.AreEqual("Address must be 1 to 200 characters", results[1].ErrorMessage);
             Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[2].ErrorMessage);
             Assert.AreEqual("Specified Pickup Days are invalid", results[3].ErrorMessage);
         }
