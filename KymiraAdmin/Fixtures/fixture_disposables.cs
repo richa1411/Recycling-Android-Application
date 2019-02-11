@@ -9,9 +9,10 @@ namespace KymiraAdmin.Fixtures
 {/**
     this class will be used to wipe and reload the database with test data used in unit tests
         */
-    public static class fixture_disposables
+    public class fixture_disposables
     {
 
+     
 
         //** Recyclable Items **/
         public static List<Disposable> obList = new List<Disposable>(new Disposable[] { new Disposable
@@ -87,6 +88,7 @@ namespace KymiraAdmin.Fixtures
              inactive = false
         }
         });
+
 
         /**
          * This function will create a connection to a local test database and load the specific data into it.

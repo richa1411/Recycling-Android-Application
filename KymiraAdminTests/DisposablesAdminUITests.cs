@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Text;
 using KymiraAdmin.Models;
 using KymiraAdmin.Fixtures;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace KymiraAdminTests
 {
@@ -17,14 +19,100 @@ namespace KymiraAdminTests
     [TestClass]
     public class DisposablesAdminUITests
     {
-
+        public static List<Disposable> obList;   
         IWebDriver driver;
 
         [TestInitialize]
         public void InitializeTest()
         {
 
-            ChromeOptions chrome_options = new ChromeOptions();
+              obList = new List<Disposable>(new Disposable[] {
+                  new Disposable
+        {
+
+            name = "Candy",
+            description = "Candy Description",
+            imageURL = "Candy",
+            isRecyclable = false,
+            recycleReason = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+            endResult = "Candy End Result",
+            qtyRecycled = 0,
+             inactive = false
+        }, new Disposable
+        {
+
+            name = "Cardboard",
+            description = "Cardboard Description",
+            imageURL = "Cardboard",
+            isRecyclable = true,
+            recycleReason = "Cardboard Reason",
+            endResult = "Cardboard End Result",
+            qtyRecycled = 1000,
+            inactive = false
+        },
+                  new Disposable
+        {
+
+            name = "Orange Peels",
+            description = "Orange Peels Description",
+            imageURL = "OrangePeels",
+            isRecyclable = false,
+            recycleReason = "Orange Peels Reason",
+            endResult = "Orange Peels End Result",
+            qtyRecycled = 0,
+            inactive = false
+        },
+
+
+
+                  new Disposable
+        {
+
+            name = "Paper",
+            description = "Paper Description",
+            imageURL = "",
+            isRecyclable = true,
+            recycleReason = "Paper Reason",
+            endResult = "Paper End Result",
+            qtyRecycled = 2500,
+            inactive = false
+        },
+                        //Non Recyclable items
+            new Disposable
+        {
+
+            name = "Pizza",
+            description = "Pizza Description",
+            imageURL = "Pizza",
+            isRecyclable = false,
+            recycleReason = "Pizza Reason",
+            endResult = "Pizza End Result",
+            qtyRecycled = 0,
+            inactive = false
+        },
+            new Disposable
+        {
+
+            name = "Tin Cans",
+            description = "Tins Cans Description",
+            imageURL = "tincan",
+            isRecyclable = true,
+            recycleReason = "Tin Cans Reason",
+            endResult = "Tin Cans End Result",
+            qtyRecycled = 1200,
+            inactive = false
+        }
+      
+     
+            
+        });
+
+
+        // = new fixture_disposables();
+
+        // KymiraAdmin.Fixtures.fixture_disposables.Unload();
+
+        ChromeOptions chrome_options = new ChromeOptions();
 
             //Wont open up a new chrome tab when run
             chrome_options.AddArgument("--headless");
@@ -49,11 +137,29 @@ namespace KymiraAdminTests
         public void TestThatListDisplaysCorrectly()
         {
 
+
+           
+           
+
             driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
-            driver.FindElement(By.LinkText("Back to List")).Click();
+           // driver.FindElement(By.LinkText("Back to List")).Click();
 
             int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+
+            var list = driver.FindElements(By.XPath("//table[@class='table']//tr"));
+
+            
+
+            for(int i = 0; i < list.Count; i++)
+            {
+               // var text = list[i+1].Text.Split(' ');
+                    
+
+                Assert.AreEqual(list[i+1].Text, obList[i].name + " " + obList[i].description + " " + obList[i].imageURL + " " + "Delete");
+            }
+
+
 
             //Assert there are 7 rows in the table
             Assert.AreEqual(rows, 7);
@@ -61,32 +167,6 @@ namespace KymiraAdminTests
 
         }
 
-        ////Test that the recyclable reason is hidden from view
-        //[TestMethod]
-        //public void TestThatRecycleReasonIsHidden()
-        //{
-
-        //    driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
-
-        //}
-
-        ////Test that the end result is hidden from view
-        //[TestMethod]
-        //public void TestThatEndResultIsHidden()
-        //{
-
-        //    driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
-
-        //}
-
-        ////Test that the quantity recycled is hidden from view
-        //[TestMethod]
-        //public void TestThatQtyRecycledIsHidden()
-        //{
-
-        //    driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
-
-        //}
 
         //Test that the Delete link visible for each item
         [TestMethod]
@@ -104,6 +184,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatDeletingItemRemovesItFromList()
         {
+      
 
             int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
@@ -147,5 +228,15 @@ namespace KymiraAdminTests
             //Assert that the number of rows have decreased... Not sure how to pinpoint an item to verify it isnt there.
 
         }
+
+  
+
+
+
     }
+
+
+
+
+        
 }
