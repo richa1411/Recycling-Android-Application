@@ -36,7 +36,7 @@ namespace KymiraAdmin
                 //Return an invalid site
                 return new Site
                 {
-                    siteID = 0,
+                    siteID = -2,
                     pickupDays = Site.PickupDays.Invalid,
                     frequency = Site.PickupFrequency.Invalid
                 };

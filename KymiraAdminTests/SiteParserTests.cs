@@ -234,7 +234,130 @@ namespace KymiraAdminTests
             Assert.AreEqual("Specified Pickup Days are invalid", results[3].ErrorMessage);
         }
 
-        
-        
+        [TestMethod]
+        public void TestThatSiteObjectWithAddressOf1PassesValidation()
+        {
+            // Address field
+            cellList[7] = "a";
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
+
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        public void TestThatSiteObjectWithAddressOf200PassesValidation()
+        {
+            // Address field
+            cellList[7] = new string('a', 200);
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
+
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(0, results.Count);
+        }
+
+        [TestMethod]
+        public void TestThatSiteObjectWithAddressOf201FailsValidation()
+        {
+            // Address field
+            cellList[7] = new string('a', 201);
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
+
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        public void TestThatSiteObjectWithFrequencyOfInvalidFailsValidation()
+        {
+            // Frequency field
+            cellList[10] = "sdfafa";
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
+
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[0].ErrorMessage);
+        }
+
+        [TestMethod]
+        public void TestThatSiteObjectWithPickupDayOfInvalidFailsValidation()
+        {
+            // PickupDay field
+            cellList[15] = "sdfafa";
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
+
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Specified Pickup Days are invalid", results[0].ErrorMessage);
+        }
+
+
+        [TestMethod]
+        public void TestThatTooManyColumnsInExcelSheetReturnsASiteObjectWithIDOfNegativeTwo()
+        {
+            
+            cellList.Add("Sdawdawdawdaw");
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
+
+            Assert.AreEqual(-2, site.siteID);
+        }
+
+        [TestMethod]
+        public void TestThatTooFewColumnsInExcelSheetReturnsASiteObjectWithIDOfNegativeTwo()
+        {
+
+            cellList.Remove(cellList[5]);
+            cellList.Remove(cellList[6]);
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
+
+            Assert.AreEqual(-2, site.siteID);
+        }
+
+
+        //***** Header Row Tests *****//
+
+        [TestMethod]
+        public void TestThatHeaderRowWithValidDataReturnsASiteObjectWithSiteIDOfZero()
+        {
+            cellList[1] = "Site ID";
+            cellList[7] = "Full Address";
+            cellList[10] = "Frequency";
+            cellList[15] = "Collection1";
+            cellList[16] = "Collection2";
+            cellList[17] = "Collection3";
+            cellList[18] = "Collection4";
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, true);
+
+            Assert.AreEqual(0, site.siteID);
+
+
+        }
+
+        [TestMethod]
+        public void TestThatHeaderRowWithInValidDataReturnsASiteObjectWithSiteIDOfNegativeOne()
+        {
+            cellList[1] = "Site ID";
+            cellList[7] = "Full Address";
+            cellList[10] = "Frequency";
+            cellList[15] = "Colleasdasction1";
+            cellList[16] = "Collection2";
+            cellList[17] = "Collection3";
+            cellList[18] = "Collection4";
+
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, true);
+
+            Assert.AreEqual(-1, site.siteID);
+
+
+        }
     }
 }
