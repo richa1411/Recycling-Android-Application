@@ -1,3 +1,4 @@
+using KymiraAdmin.Fixtures;
 using KymiraAdmin.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
@@ -14,10 +15,58 @@ namespace KymiraAdministratorTests
     {
         //FAQ newFAQ1;
         static IWebDriver driver;
+        public static List<FAQ> obList;
+
 
         [ClassInitialize]
         public static void InitializeTest(TestContext context)
         {
+            var db = new TestDatabaseContext("kymiraAPIDatabase26");
+            fixture_faq.Unload(db.context);
+            fixture_faq.Load(db.context);
+
+            obList = new List<FAQ>(new FAQ[]
+            {
+ new FAQ {
+
+                 question = "Where is Cosmo Industries?",
+                 answer = "1302 Alberta Ave. Saskatoon."
+            },
+            new FAQ
+            {
+
+            question = "How can I register with different bin locations?",
+                answer = "You can register as many times as you can with different addresses."
+            },
+            new FAQ
+            {
+
+                question = "How do I get more rewards?",
+                answer = "Be the part of weekly quizes and kepp updated with next collection dates to make your bin filled."
+            },
+            new FAQ
+            {
+
+                question = "What is COSMO Industries?",
+                answer = "It is a recycling place."
+            },
+            new FAQ
+            {
+
+                question = "Do I have to register to view bin collection dates?",
+                answer = "Absolutely not, \"you\"  can just open an application enter your bin address and there's your date!"
+
+            },
+            new FAQ
+            {
+                question = "What is the airspeed velocity of an unladden swallow?",
+                answer = "African or European?",
+                inactive = true
+            }
+            });
+
+
+
             ChromeOptions chrome_options = new ChromeOptions();
             //Wont open up a new chrome tab when run
             chrome_options.AddArgument("--headless");
