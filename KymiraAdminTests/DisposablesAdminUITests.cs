@@ -26,6 +26,11 @@ namespace KymiraAdminTests
         public void InitializeTest()
         {
 
+
+            var db = new TestDatabaseContext("kymiraAPIDatabase29");
+            fixture_disposables.Unload(db.context);
+            fixture_disposables.Load(db.context);
+
               obList = new List<Disposable>(new Disposable[] {
                   new Disposable
         {

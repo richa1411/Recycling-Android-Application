@@ -9,10 +9,13 @@ namespace KymiraAdminTests
     {
         private DbContextOptionsBuilder<KymiraAdminContext> config = new DbContextOptionsBuilder<KymiraAdminContext>();
         public KymiraAdminContext context { get; private set; }
-
-        public TestDatabaseContext()
+        //takes in the name of the databse. for example KymiraDatabase29
+        public TestDatabaseContext(String dbName)
         {
-            config.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=kymiraAPIDatabase29;Trusted_Connection=True;MultipleActiveResultSets=true");
+
+            string dbString = dbName; 
+
+            config.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=" + dbString + ";Trusted_Connection=True;MultipleActiveResultSets=true");
             context = new KymiraAdminContext(config.Options);
 
             context.Database.EnsureCreated();
