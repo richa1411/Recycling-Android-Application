@@ -5,49 +5,51 @@
 }
 
 <h2>Index</h2>
-
+<!--
 <p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>-->
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.binID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.status)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.siteID)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.collectionDate)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.siteID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.binID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.collectionDate)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.binID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.siteID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.collectionDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.pickupID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.pickupID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.pickupID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.siteID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.binID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.collectionDate)
+                </td>
+                <td>
+                    <!--
+                    <a asp-action="Edit" asp-route-id="@item.pickupID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.pickupID">Details</a> |-->
+                    <a asp-action="Delete" asp-route-id="@item.pickupID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
