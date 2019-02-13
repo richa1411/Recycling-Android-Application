@@ -13,14 +13,12 @@ using System.Threading;
 
 namespace KymiraAdminTests
 {
-    //*******************************************************************************************//
-    //Will need to load the disposables fixture each time so we will populate our database again.//
-    //*******************************************************************************************//
-    
+  
 
     [TestClass]
     public class DisposablesAdminUITests
     {
+        //declarations
         static TestDatabaseContext db = new TestDatabaseContext("kymiraAPIDatabase29");
         public static List<Disposable> obList = new List<Disposable>(new Disposable[] {
                   new Disposable
@@ -204,8 +202,10 @@ namespace KymiraAdminTests
             delCandyLink.Click();
 
             //on delete confirmation page.
-
+            //list of dd elements that store information about specific item from database displayed on the webpage
             var ddList = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
+
+            //list of dt elements that contain identifier information, ie; name, description
             var dtList = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
 
 
@@ -216,7 +216,7 @@ namespace KymiraAdminTests
             Assert.AreEqual(ddList[5].Text, obList[0].endResult);
             Assert.AreEqual(ddList[6].Text, obList[0].qtyRecycled.ToString());
 
-
+            //making sure the proper information is displayed on the screen
             Assert.AreEqual(dtList[0].Text, "name");
             Assert.AreEqual(dtList[1].Text, "description");
             Assert.AreEqual(dtList[2].Text, "imageURL");
