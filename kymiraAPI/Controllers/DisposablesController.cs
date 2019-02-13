@@ -30,7 +30,24 @@ namespace kymiraAPI.Controllers
             return _context.DisposableDBSet;
         }
 
+        //GET:api/Disposables/false
+        [HttpGet("{inactive}")]
+        public async Task<IActionResult> GetDisposable([FromRoute] bool inactive)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            var disposable = await _context.DisposableDBSet.Where(m => m.inactive == inactive).ToListAsync();
+
+            if(disposable == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(disposable);
+        }
 
 
         // POST: api/Disposables
