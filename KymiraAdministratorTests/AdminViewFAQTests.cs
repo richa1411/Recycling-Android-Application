@@ -25,48 +25,6 @@ namespace KymiraAdministratorTests
             
             fixture_faq.Load(db.context);
 
-            obList = new List<FAQ>(new FAQ[]
-            {
-            new FAQ {
-
-                 question = "Where is Cosmo Industries?",
-                 answer = "1302 Alberta Ave. Saskatoon."
-            },
-            new FAQ
-            {
-
-            question = "How can I register with different bin locations?",
-                answer = "You can register as many times as you can with different addresses."
-            },
-            new FAQ
-            {
-
-                question = "How do I get more rewards?",
-                answer = "Be the part of weekly quizes and kepp updated with next collection dates to make your bin filled."
-            },
-            new FAQ
-            {
-
-                question = "What is COSMO Industries?",
-                answer = "It is a recycling place."
-            },
-            new FAQ
-            {
-
-                question = "Do I have to register to view bin collection dates?",
-                answer = "Absolutely not, \"you\" can just open an application enter your bin address and there's your date!"
-
-            },
-            new FAQ
-            {
-                question = "What is the airspeed velocity of an unladden swallow?",
-                answer = "African or European?",
-                inactive = true
-            }
-            });
-
-
-
             ChromeOptions chrome_options = new ChromeOptions();
             //Wont open up a new chrome tab when run
             chrome_options.AddArgument("--headless");
@@ -151,17 +109,19 @@ namespace KymiraAdministratorTests
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //change up the list - record the changes? 
+            var questionOG = driver.FindElement(By.Id("question")).Text;
+            var answerOG = driver.FindElement(By.Id("answer")).Text;
 
             var btnDelete = driver.FindElement(By.Id("btnDelete"));
             btnDelete.Click();
 
-            var question = driver.FindElement(By.Id("question"));
-            var answer = driver.FindElement(By.Id("answer"));
+            var question = driver.FindElement(By.Id("question")).Text;
+            var answer = driver.FindElement(By.Id("answer")).Text;
             driver.FindElement(By.Id("btnDel"));
             driver.FindElement(By.Id("btnBack"));
 
-            Assert.AreEqual("Do I have to register to view bin collection dates?", question.Text);
-            Assert.AreEqual("Absolutely not, \"you\" can just open an application enter your bin address and there's your date!", answer.Text);
+            Assert.AreEqual(questionOG, question);
+            Assert.AreEqual(answerOG, answer);
 
         }
 
@@ -240,6 +200,7 @@ namespace KymiraAdministratorTests
         public void TestThatFAQsEditCorrectlyInList()
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            var question = driver.FindElement(By.Id("question")).Text;
             var btn = driver.FindElement(By.Id("btnEdit"));
             btn.Click();
 
@@ -255,9 +216,8 @@ namespace KymiraAdministratorTests
             var text = driver.FindElement(By.Id("question")).Text;
 
             //check that the answer has changed as expected
-            Assert.AreEqual("Do I have to register to view bin collection dates?Testing functionality", text);
+            Assert.AreEqual(question + "Testing functionality", text);
 
-            ClassCleanup();
         }
 
         /**
@@ -323,13 +283,8 @@ namespace KymiraAdministratorTests
 
             var table = driver.FindElement(By.ClassName("table"));
             var listQuestion = table.FindElements(By.Id("question"));
-
-            //Ensure we have all but one record.
-            listQuestion = table.FindElements(By.Id("question"));
-            Assert.AreEqual(5, listQuestion.Count);
-
-            //Make sure that record is not the one appearing
-
+            
+            //make sure our monty python reference is not in the list
             for(int i = 0; i < listQuestion.Count; i++)
             {
                 Assert.AreNotEqual(listQuestion[i].Text, "What is the airspeed velocity of an unladden swallow?");
