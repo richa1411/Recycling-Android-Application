@@ -1,7 +1,6 @@
 ﻿using KymiraAdmin.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using KymiraAdmin.Fixtures;
 
 namespace KymiraAdminTests
 {
@@ -20,12 +19,13 @@ namespace KymiraAdminTests
         */
 
         //list of BinStatuses to compare test results to -- in order (siteID, binID, collectionDate(?))
-        List<BinStatus> dbBins = fixture_bin_status.obBins;
+        //List<BinStatus> dbBins = fixture_bin_status.obBins;
         
 
         [TestInitialize]
         public void Setup()
         {
+
             //remove all items from the database and add data to be displayed to test for
             //call fixture class to load bin statuses
         }
@@ -36,6 +36,7 @@ namespace KymiraAdminTests
         {
             //List<BinStatus> list = BinStatusPage.Index();
             //Assert.IsTrue(!dbBins.Contains());
+
         }
 
         [TestMethod]
@@ -59,6 +60,20 @@ namespace KymiraAdminTests
         {
             //assert is true that message is displayed
             //assert is true that list is not displayed
+        }
+
+        [TestMethod]
+        //test that upon clicking the delete button for a collection status takes the admin to a confirmation page
+        public void TestThatAdminIsTakenToDeleteConfirmationPage()
+        {
+
+        }
+
+        [TestMethod]
+        //test that if admin cancels deletion that they are taken back to the list and the list has not changed
+        public void TestThatAdminIsTakenBackToList()
+        {
+            //check that list has not changed / collection item has not been deleted
         }
     }
 }
