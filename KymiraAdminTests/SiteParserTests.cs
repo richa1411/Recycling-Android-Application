@@ -98,7 +98,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteIDValidSiteID()
         {
-            int siteID = SiteParser.parseSiteID("1252181");
+            int siteID = SiteParser.ParseSiteID("1252181");
 
             Assert.IsTrue(siteID != 0);
         }
@@ -107,7 +107,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteIDWithInvalidIDReturnsZero()
         {
-            int siteID = SiteParser.parseSiteID("wklas");
+            int siteID = SiteParser.ParseSiteID("wklas");
 
             Assert.IsTrue(siteID == 0);
         }
@@ -116,7 +116,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteAddressValidAddress()
         {
-            string address = SiteParser.parseAddress("123 Test St");
+            string address = SiteParser.ParseAddress("123 Test St");
 
             Assert.IsTrue(address.Length > 0);
         }
@@ -127,7 +127,7 @@ namespace KymiraAdminTests
         {
             string testString = new String('a', 201);
 
-            string address = SiteParser.parseAddress(testString);
+            string address = SiteParser.ParseAddress(testString);
 
             Assert.IsTrue(address.Length == 0);
         }
@@ -136,7 +136,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatParseSiteFrequencyValidFrequency()
         {
-            Site.PickupFrequency frequency = SiteParser.parseFrequency("Weekly");
+            Site.PickupFrequency frequency = SiteParser.ParseFrequency("Weekly");
 
             Assert.IsTrue(frequency == Site.PickupFrequency.Weekly);
         }
@@ -146,7 +146,7 @@ namespace KymiraAdminTests
         public void TestThatParseSiteFrequencyWithInvalidFrequencyReturnsNull()
         {
 
-            Site.PickupFrequency frequency = SiteParser.parseFrequency("kljas");
+            Site.PickupFrequency frequency = SiteParser.ParseFrequency("kljas");
 
             Assert.IsTrue(frequency == Site.PickupFrequency.Invalid);
         }
@@ -162,7 +162,7 @@ namespace KymiraAdminTests
             collectionDays[2] = "";
             collectionDays[3] = "";
 
-            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
+            Site.PickupDays pickupDays = SiteParser.ParsePickupDays(collectionDays);
 
             Assert.IsTrue(pickupDays == Site.PickupDays.Friday);
         }
@@ -181,7 +181,7 @@ namespace KymiraAdminTests
                 "12321"
             };
 
-            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
+            Site.PickupDays pickupDays = SiteParser.ParsePickupDays(collectionDays);
 
             Assert.IsTrue(pickupDays == Site.PickupDays.Invalid);
         }
@@ -198,7 +198,7 @@ namespace KymiraAdminTests
                 "2005",
             };
 
-            Site.PickupDays pickupDays = SiteParser.parsePickupDays(collectionDays);
+            Site.PickupDays pickupDays = SiteParser.ParsePickupDays(collectionDays);
 
             Assert.IsTrue(pickupDays == (Site.PickupDays.Tuesday | Site.PickupDays.Friday));
         }

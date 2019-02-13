@@ -38,6 +38,14 @@ namespace KymiraAdmin.Controllers
         [HttpPost]
         public IActionResult Index(IFormFile excelFile)
         {
+            //List of type string to store the information a single row
+            listRow = new List<string>();
+
+            //Create a list of Site objects to be populated with valid sites that are parsed from the Excel file
+            validSitesList = new List<Site>();
+
+            //Create a list of Site objects to be populated with invalid sites that are parsed from the Excel file
+            invalidSitesList = new List<Site>();
 
             //checks mime type of excelFile and creates appropriate workbook
             if (excelFile.ContentType == "application/vnd.ms-excel") //This will read the Excel 97-2000 formats  
@@ -58,11 +66,7 @@ namespace KymiraAdmin.Controllers
             }
 
             IRow headerRow = sheet.GetRow(0);
-            int cellCount = headerRow.LastCellNum; //the total number of cells in the header row
-            listRow = new List<string>();
-            validSitesList = new List<Site>();
-            invalidSitesList = new List<Site>();
-
+            int cellCount = headerRow.LastCellNum; //the total number of cells in the header row         
 
             //checks if each cell in the header row isn't empty
             for (int j = 0; j < cellCount; j++)
@@ -72,41 +76,55 @@ namespace KymiraAdmin.Controllers
                 listRow.Add(cell.ToString());
             }
 
+            // *********************** SITE PARSING BLOCK **************************************** //
 
+            //Check the header row of the worksheet in the Excel file that contains Site data
             Site siteObject = SiteParser.GenerateSiteObjectFromRow(listRow, true);
 
+            //Create a list of validation results to hold the resulting header row validation
             List<ValidationResult> validationResultsHeaderRow = ValidationHelper.Validate(siteObject);
 
+            //If header row is invalid in any way, display an error message to the user that the upload failed
             if(validationResultsHeaderRow.Count > 0)
             {
                 ViewData["Message"] = "Upload unsuccessful. Please ensure Excel file was uploaded in the proper format.";
                 return View();
             }
-            else // The header Row is 19 Columns, and is in the right order
+            // The header Row is 19 Columns, and is in the right order
+            else
             {
+                //Go through each row of the Excel file (except the header row)
                 for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++)
                 {
+                    //If the current row has data
                     if(sheet.GetRow(i) != null)
                     {
+                        //Create a row object from the row
                         IRow row = sheet.GetRow(i);
 
+                        //Select each cell in the row and store the data from the row in a list of strings
                         listRow = row.Cells.Select(c => c.ToString()).ToList();
 
+                        //Create a site object from the current row
                         siteObject = SiteParser.GenerateSiteObjectFromRow(listRow, false);
 
+                        //Create a list of ValidationResults to validate the object created from the row
                         List<ValidationResult> validationResults = ValidationHelper.Validate(siteObject);
 
-                        //add converted BinStatus to appropriate list based on validationResults
+                        //If the Site object created from the current row is valid
                         if (validationResults.Count == 0)
                         {
+                            //Add it to the list of valid Site objects (first check if it already exists, do not add duplicate rows)
                             if(validSitesList.Where(s => s.siteID == siteObject.siteID).Count() == 0)
                             {
                                 validSitesList.Add(siteObject);
                             }
                         }
+                        //If the Site object craeted from the current row is invalid
                         else
                         {
-                            if(!invalidSitesList.Contains(siteObject))
+                            //Add it to the list of invalid Site objects (if it doesn't already exist)
+                            if(invalidSitesList.Where(s => s.siteID == siteObject.siteID).Count() == 0)
                             {
                                 invalidSitesList.Add(siteObject);
                             }
@@ -115,39 +133,42 @@ namespace KymiraAdmin.Controllers
                 }
             }
 
-            //only accesses database if there are valid Bins to add
+            //If there are more than 0 Site objects to add, access the database
             if (validSitesList.Count > 0)
             {
-                //attempts to add the list of BinStatuses to the database
-                //_context.Site.AddRange(validSitesList);
-                //_context.Site.UpdateRange(validSitesList);
-                _context.Database.ExecuteSqlCommand("DELETE FROM Site");
-                _context.Site.AddRange(validSitesList);
+                try
+                {
+                    //Delete all rows from the Site table
+                    _context.Database.ExecuteSqlCommand("DELETE FROM Site");
 
+                    //Reload the site table with the new data from the Excel file
+                    _context.Site.AddRange(validSitesList);
 
-                // try
-                // {
-                var result = _context.SaveChanges();
+                    //If the database received a successful result of rows updated
+                    var result = _context.SaveChanges();
+
                     if (result > 0)
                     {
-                        //display success message if save changes was successful
-                        ViewData["Message"] = "Upload Successful.";
+
+                        //Display message letting user know that upload succeeded
+                        ViewData["Message"] = "Upload Successful";
+
                         return View();
                     }
-                //}
-                //catch (Exception e)
-                //{
-                    //display unsuccess message
-                   // ViewData["Message"] = "Upload unsuccessful. something went wrong, try again.";
-                   // return View();
-                //}
+                }
+                //If an exception is ensountered
+                catch (Exception e)
+                {
+                    //Display message that upload was unsuccessful if something went wrong
+                    ViewData["Message"] = "Error 1: Something went wrong, try again later";
+                    return View();
+                }
             }
             else
             {
                 //display appropriate message
-                ViewData["Message"] = "something went wrong, try again.";
+                ViewData["Message"] = "Error 2: Something went wrong, try again later";
             }
-
 
             return View();
         }
