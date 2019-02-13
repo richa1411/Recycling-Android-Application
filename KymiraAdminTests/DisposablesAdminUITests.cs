@@ -9,29 +9,20 @@ using KymiraAdmin.Models;
 using KymiraAdmin.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 
 namespace KymiraAdminTests
 {
     //*******************************************************************************************//
     //Will need to load the disposables fixture each time so we will populate our database again.//
     //*******************************************************************************************//
+    
 
     [TestClass]
     public class DisposablesAdminUITests
     {
-        public static List<Disposable> obList;   
-        IWebDriver driver;
-
-        [TestInitialize]
-        public void InitializeTest()
-        {
-
-
-            var db = new TestDatabaseContext("kymiraAPIDatabase29");
-            fixture_disposables.Unload(db.context);
-            fixture_disposables.Load(db.context);
-
-              obList = new List<Disposable>(new Disposable[] {
+        static TestDatabaseContext db = new TestDatabaseContext("kymiraAPIDatabase29");
+        public static List<Disposable> obList = new List<Disposable>(new Disposable[] {
                   new Disposable
         {
 
@@ -107,13 +98,22 @@ namespace KymiraAdminTests
             qtyRecycled = 1200,
             inactive = false
         }
-      
-     
-            
-        });
 
-        ChromeOptions chrome_options = new ChromeOptions();
 
+
+        });   
+        public static IWebDriver driver;
+        
+
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+           
+
+            fixture_disposables.Load(db.context);
+
+            ChromeOptions chrome_options = new ChromeOptions();
             //Wont open up a new chrome tab when run
             chrome_options.AddArgument("--headless");
 
@@ -122,28 +122,42 @@ namespace KymiraAdminTests
             chrome_options.AddArgument("--disable-extensions");
             chrome_options.AddArgument("--remote-debugging-address=0.0.0.0");
             chrome_options.AddArgument("--remote-debugging-port=9222");
-
             //Not necessary if running in headless mode
             chrome_options.AddArgument("--window-size=1280,720");
 
             //Assign the driver to the location of the chromedriver.exe on the local drive
             driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
+        }
 
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            fixture_disposables.Unload(db.context);
+        }
+
+        [TestInitialize]
+        public void InitializeTest()
+        {
             driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
         }
+
+
 
         //Test that the list displays correctly on launch
         [TestMethod]
         public void TestThatAListDisplaysCorrectly()
         {
 
-            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+            //driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
             int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
             var list = driver.FindElements(By.XPath("//table[@class='table']//tr"));
 
-            var names = new List<string>(list[0].Text.Split(' '));
+            //.table tr td:first-child
+
+            var names = driver.FindElements(By.CssSelector(".table tr td:first-child"));
+            //var names = new List<string>(list[0].Text.Split(' '));
 
             Assert.IsFalse(names.Contains("recycleReason"));
             Assert.IsFalse(names.Contains("endResult"));
@@ -167,7 +181,7 @@ namespace KymiraAdminTests
         public void TestThatADeleteLinkIsVisible()
         {
 
-            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+            //driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
             //Will search for the delete link by its text
             //Could also search each individual Delete button 
@@ -178,14 +192,13 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatDeletingItemRemovesItFromList()
         {
-      
 
             int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
 
             //Assert there are 7 rows in the table
             Assert.AreEqual(7, rows);
             //click the delete link for Candy
-            var delCandyLink = driver.FindElement(By.Id("deleteCandy"));
+            var delCandyLink = driver.FindElement(By.CssSelector("#deleteCandy"));
             delCandyLink.Click();
 
             //the Back to List link.. Just to verify that it is seeing the next page
@@ -195,11 +208,11 @@ namespace KymiraAdminTests
             delBtn.Click();
 
             //Check how many rows are in the table now
-            rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+            rows = driver.FindElements(By.CssSelector(".table tr")).Count;
 
             //Assert that there are 6 rows (one less) than before
             Assert.AreEqual(6, rows);
-
+            
 
         }
 
@@ -208,7 +221,7 @@ namespace KymiraAdminTests
         public void TestThatInactiveItemIsNotVisibleInList()
         {
             Disposable disposableItem = new Disposable();
-            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+            //driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
 
             int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
@@ -227,19 +240,16 @@ namespace KymiraAdminTests
 
                 Assert.IsFalse(names.Contains("Candy"));
             }
-
-
-            
         }
 
   
-
+       
 
 
     }
 
 
-
+    
 
         
 }
