@@ -22,8 +22,11 @@ namespace KymiraAdmin.Controllers
         public async Task<IActionResult> Index()
         {
             //Will sort the list alphabetically by name and only display the items that are NOT inactive
+            var list = await _context.DisposableDBSet.ToListAsync();
+            list.RemoveAll(m => m.inactive == true);
+            return View(list);
 
-            return View(await _context.DisposableDBSet.ToListAsync());
+            //return View(await _context.DisposableDBSet.ToListAsync());
         }
 
                
@@ -53,7 +56,8 @@ namespace KymiraAdmin.Controllers
         {
             //Instead of deleting the object from the database, just set the inactive 
             var disposable = await _context.DisposableDBSet.SingleOrDefaultAsync(m => m.ID == id);
-            _context.DisposableDBSet.Remove(disposable);
+            // _context.DisposableDBSet.Remove(disposable);
+            disposable.inactive = true;
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
