@@ -109,8 +109,8 @@ namespace KymiraAdminTests
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-           
 
+            fixture_disposables.Unload(db.context);
             fixture_disposables.Load(db.context);
 
             ChromeOptions chrome_options = new ChromeOptions();
@@ -128,7 +128,7 @@ namespace KymiraAdminTests
             //Assign the driver to the location of the chromedriver.exe on the local drive
             driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
         }
-
+        // this method runs after the tests have finished and unloads the databse
         [ClassCleanup]
         public static void ClassCleanup()
         {
@@ -150,24 +150,26 @@ namespace KymiraAdminTests
 
             //driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
 
-            int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+            int rows = driver.FindElements(By.CssSelector(".table tr")).Count;
 
-            var list = driver.FindElements(By.XPath("//table[@class='table']//tr"));
+            var list = driver.FindElements(By.CssSelector(".table tr"));
 
             //.table tr td:first-child
 
-            var names = driver.FindElements(By.CssSelector(".table tr td:first-child"));
+            var names = new List<IWebElement>(driver.FindElements(By.CssSelector(".table tr td:first-child")));
             //var names = new List<string>(list[0].Text.Split(' '));
 
-            Assert.IsFalse(names.Contains("recycleReason"));
-            Assert.IsFalse(names.Contains("endResult"));
-            Assert.IsFalse(names.Contains("qtyRecycled"));
-            Assert.IsFalse(names.Contains("inactive"));
+            Assert.AreNotEqual(names[0].Text, "recycleReason");
+            Assert.AreNotEqual(names[0].Text,"endResult");
+            Assert.AreNotEqual(names[0].Text, "qtyRecycled");
+            Assert.AreNotEqual(names[0].Text, "inactive");
 
             //Loop through
             for (int i = 0; i < list.Count; i++)
             {
-                Assert.AreEqual(list[i+1].Text, obList[i].name + " " + obList[i].description + " " + obList[i].imageURL + " " + "Delete");
+
+                Assert.AreEqual(names[i + 1].Text, obList[i].name);
+               // Assert.AreEqual(list[i+1].Text, obList[i].name + " " + obList[i].description + " " + obList[i].imageURL + " " + "Delete");
             }
 
             //Assert there are 7 rows in the table
@@ -193,7 +195,7 @@ namespace KymiraAdminTests
         public void TestThatDeletingItemRemovesItFromList()
         {
 
-            int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+            int rows = driver.FindElements(By.CssSelector(".table tr")).Count;
 
             //Assert there are 7 rows in the table
             Assert.AreEqual(7, rows);
@@ -201,10 +203,34 @@ namespace KymiraAdminTests
             var delCandyLink = driver.FindElement(By.CssSelector("#deleteCandy"));
             delCandyLink.Click();
 
+            //on delete confirmation page.
+
+            var ddList = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
+            var dtList = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+
+
+            Assert.AreEqual(ddList[0].Text, obList[0].name);
+            Assert.AreEqual(ddList[1].Text, obList[0].description);
+            Assert.AreEqual(ddList[2].Text, obList[0].imageURL);
+            Assert.AreEqual(ddList[4].Text, obList[0].recycleReason);
+            Assert.AreEqual(ddList[5].Text, obList[0].endResult);
+            Assert.AreEqual(ddList[6].Text, obList[0].qtyRecycled.ToString());
+
+
+            Assert.AreEqual(dtList[0].Text, "name");
+            Assert.AreEqual(dtList[1].Text, "description");
+            Assert.AreEqual(dtList[2].Text, "imageURL");
+            Assert.AreEqual(dtList[3].Text, "isRecyclable");
+            Assert.AreEqual(dtList[4].Text, "recycleReason");
+            Assert.AreEqual(dtList[5].Text, "endResult");
+            Assert.AreEqual(dtList[6].Text, "qtyRecycled");
+
+
+
             //the Back to List link.. Just to verify that it is seeing the next page
             driver.FindElement(By.LinkText("Back to List"));
             //Click the delete button to remove the item
-            var delBtn = driver.FindElement(By.Id("btnDelete"));
+            var delBtn = driver.FindElement(By.CssSelector("#btnDelete"));
             delBtn.Click();
 
             //Check how many rows are in the table now
@@ -216,33 +242,7 @@ namespace KymiraAdminTests
 
         }
 
-        //Will test that an inactive item does not show up in the table
-        [TestMethod]
-        public void TestThatInactiveItemIsNotVisibleInList()
-        {
-            Disposable disposableItem = new Disposable();
-            //driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
-
-
-            int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
-
-            var list = driver.FindElements(By.XPath("//table[@class='table']//tr"));
-
-            //Assert there are 7 rows in the table
-            Assert.AreEqual(rows, 7);
-
-            //Find a way to set a piece of data in the list to inactive
-            
-
-            foreach (var item in list)
-            {
-                var names = new List<string>(item.Text.Split(' '));
-
-                Assert.IsFalse(names.Contains("Candy"));
-            }
-        }
-
-  
+       
        
 
 
