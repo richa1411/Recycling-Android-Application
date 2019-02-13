@@ -31,25 +31,24 @@ namespace KymiraAdmin
         public static Site GenerateSiteObjectFromRow(List<string> sRow, bool IsHeaderRow)
         {   
             //If Excel file does not have the correct number of columns
-            if(sRow.Count > 19 || sRow.Count < 19)
+            if(IsHeaderRow && sRow.Count > 19 || sRow.Count < 19)
             {
                 //Return an invalid site
                 return new Site
                 {
-                    siteID = -2,
                     pickupDays = Site.PickupDays.Invalid,
                     frequency = Site.PickupFrequency.Invalid
                 };
             }
 
             //Try and create a Site object from the row data
-            if (IsHeaderRow && sRow[(int)ColumnName.SiteIDCol].Equals("Site ID") && sRow[7].Equals("Full Address") && sRow[10].Equals("Frequency") && sRow[15].Equals("Collection1")
-                    && sRow[16].Equals("Collection2") && sRow[17].Equals("Collection3") && sRow[18].Equals("Collection4"))
+            if (IsHeaderRow && !(sRow[(int)ColumnName.SiteIDCol].Equals("Site ID") || sRow[7].Equals("Full Address") || sRow[10].Equals("Frequency") || sRow[15].Equals("Collection1")
+                    || sRow[16].Equals("Collection2") || sRow[17].Equals("Collection3") || sRow[18].Equals("Collection4")))
             {
                 //Return a site with the flag value of 0 (header row is OK)
                 return new Site
                 {
-                    siteID = 0
+                    pickupDays = Site.PickupDays.Invalid
                 };
             }
             //If row is a header row and one or more columns are incorrect
@@ -58,7 +57,10 @@ namespace KymiraAdmin
                 //Return an invalid site with flag value of -1 (header row is incorrect)
                 return new Site
                 {
-                    siteID = -1
+                    siteID = 123,
+                    address = "valid",
+                    frequency = Site.PickupFrequency.BiWeekly,
+                    pickupDays = Site.PickupDays.Monday
                 };
             }
             //Else row is NOT a header row, try to parse

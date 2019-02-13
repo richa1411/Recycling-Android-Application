@@ -10,6 +10,7 @@ using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace KymiraAdmin.Controllers
 {
@@ -25,6 +26,7 @@ namespace KymiraAdmin.Controllers
         public HomeController(KymiraAdminContext context)
         {
             _context = context;
+
         }
 
         [HttpGet]
@@ -38,7 +40,7 @@ namespace KymiraAdmin.Controllers
         {
 
             //checks mime type of excelFile and creates appropriate workbook
-            if (excelFile.ContentType == "application/vnd.ms-excel") //This will read the Excel 97-2000 formats   
+            if (excelFile.ContentType == "application/vnd.ms-excel") //This will read the Excel 97-2000 formats  
             {
                 HSSFWorkbook hssfwb = new HSSFWorkbook(excelFile.OpenReadStream());
                 sheet = hssfwb.GetSheetAt(0); //get Site and Collection Data sheet from workbook   
@@ -68,44 +70,47 @@ namespace KymiraAdmin.Controllers
                 NPOI.SS.UserModel.ICell cell = headerRow.GetCell(j);
 
                 listRow.Add(cell.ToString());
-
-
             }
 
 
             Site siteObject = SiteParser.GenerateSiteObjectFromRow(listRow, true);
 
-            if(siteObject.siteID == -2) // There are not exactly 19 columns in the sheet
+            List<ValidationResult> validationResultsHeaderRow = ValidationHelper.Validate(siteObject);
+
+            if(validationResultsHeaderRow.Count > 0)
             {
-                ViewData["Message"] = "Upload unsuccessful. Please ensure there are exactly 19 columns in the Kymira Containers Spreadsheet.";
-                return View();
-            }
-            else if(siteObject.siteID == -1) // The order of the cells in the header is wrong
-            {
-                ViewData["Message"] = "Upload unsuccessful. Please ensure the following columns are" +
-                                        " in the Kymira Containers Spreadsheet in the following order:";
+                ViewData["Message"] = "Upload unsuccessful. Please ensure Excel file was uploaded in the proper format.";
                 return View();
             }
             else // The header Row is 19 Columns, and is in the right order
             {
                 for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++)
                 {
-                    IRow row = sheet.GetRow(i);
-
-                    listRow = row.Cells.Select(c => c.ToString()).ToList();
-
-                    siteObject = SiteParser.GenerateSiteObjectFromRow(listRow, false);
-
-                    List<ValidationResult> validationResults = ValidationHelper.Validate(siteObject);
-
-                    //add converted BinStatus to appropriate list based on validationResults
-                    if (validationResults.Count == 0)
+                    if(sheet.GetRow(i) != null)
                     {
-                        validSitesList.Add(siteObject);
-                    }
-                    else
-                    {
-                        invalidSitesList.Add(siteObject);
+                        IRow row = sheet.GetRow(i);
+
+                        listRow = row.Cells.Select(c => c.ToString()).ToList();
+
+                        siteObject = SiteParser.GenerateSiteObjectFromRow(listRow, false);
+
+                        List<ValidationResult> validationResults = ValidationHelper.Validate(siteObject);
+
+                        //add converted BinStatus to appropriate list based on validationResults
+                        if (validationResults.Count == 0)
+                        {
+                            if(validSitesList.Where(s => s.siteID == siteObject.siteID).Count() == 0)
+                            {
+                                validSitesList.Add(siteObject);
+                            }
+                        }
+                        else
+                        {
+                            if(!invalidSitesList.Contains(siteObject))
+                            {
+                                invalidSitesList.Add(siteObject);
+                            }
+                        }
                     }
                 }
             }
@@ -114,7 +119,10 @@ namespace KymiraAdmin.Controllers
             if (validSitesList.Count > 0)
             {
                 //attempts to add the list of BinStatuses to the database
+                //_context.Site.AddRange(validSitesList);
                 _context.Site.AddRange(validSitesList);
+
+
                 try
                 {
                     var result = _context.SaveChanges();
