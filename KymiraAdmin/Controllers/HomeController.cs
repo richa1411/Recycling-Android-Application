@@ -120,25 +120,27 @@ namespace KymiraAdmin.Controllers
             {
                 //attempts to add the list of BinStatuses to the database
                 //_context.Site.AddRange(validSitesList);
+                //_context.Site.UpdateRange(validSitesList);
+                _context.Database.ExecuteSqlCommand("DELETE FROM Site");
                 _context.Site.AddRange(validSitesList);
 
 
-                try
-                {
-                    var result = _context.SaveChanges();
+                // try
+                // {
+                var result = _context.SaveChanges();
                     if (result > 0)
                     {
                         //display success message if save changes was successful
                         ViewData["Message"] = "Upload Successful.";
                         return View();
                     }
-                }
-                catch (Exception e)
-                {
+                //}
+                //catch (Exception e)
+                //{
                     //display unsuccess message
-                    ViewData["Message"] = "Upload unsuccessful. something went wrong, try again.";
-                    return View();
-                }
+                   // ViewData["Message"] = "Upload unsuccessful. something went wrong, try again.";
+                   // return View();
+                //}
             }
             else
             {
