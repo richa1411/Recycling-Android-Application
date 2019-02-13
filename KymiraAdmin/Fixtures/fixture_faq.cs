@@ -41,7 +41,7 @@ namespace KymiraAdmin.Fixtures
             {
 
                 question = "Do I have to register to view bin collection dates?",
-                answer = "Absolutely not, \"you\"  can just open an application enter your bin address and there's your date!"
+                answer = "Absolutely not, \"you\" can just open an application enter your bin address and there's your date!"
 
             },
             new FAQ

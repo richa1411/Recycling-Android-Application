@@ -19,11 +19,11 @@ namespace KymiraAdministratorTests
         private static TestDatabaseContext db;
 
         [ClassInitialize]
-        public static void InitializeTest(TestContext context)
+        public static void ClassInit(TestContext context)
         {
             db = new TestDatabaseContext("kymiraAPIDatabase26");
-
-            populateData();
+            
+            fixture_faq.Load(db.context);
 
             obList = new List<FAQ>(new FAQ[]
             {
@@ -54,7 +54,7 @@ namespace KymiraAdministratorTests
             {
 
                 question = "Do I have to register to view bin collection dates?",
-                answer = "Absolutely not, \"you\"  can just open an application enter your bin address and there's your date!"
+                answer = "Absolutely not, \"you\" can just open an application enter your bin address and there's your date!"
 
             },
             new FAQ
@@ -256,6 +256,8 @@ namespace KymiraAdministratorTests
 
             //check that the answer has changed as expected
             Assert.AreEqual("Do I have to register to view bin collection dates?Testing functionality", text);
+
+            ClassCleanup();
         }
 
         /**
@@ -324,7 +326,7 @@ namespace KymiraAdministratorTests
 
             //Ensure we have all but one record.
             listQuestion = table.FindElements(By.Id("question"));
-            Assert.AreEqual(6, listQuestion.Count);
+            Assert.AreEqual(5, listQuestion.Count);
 
             //Make sure that record is not the one appearing
 
@@ -335,10 +337,10 @@ namespace KymiraAdministratorTests
 
         }
 
-        private static void populateData()
+        [ClassCleanup]
+        public static void ClassCleanup()
         {
             fixture_faq.Unload(db.context);
-            fixture_faq.Load(db.context);
         }
     }
 }

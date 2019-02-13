@@ -23,7 +23,13 @@ namespace KymiraAdmin.Controllers
         // GET: FAQs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.FAQDBSet.ToListAsync());
+            List<FAQ> list = await _context.FAQDBSet.Where(o => o.inactive == false).ToListAsync();
+
+            list.OrderBy(o => o.question);
+
+            
+
+            return View(list.OrderBy(o => o.question));
         }
 
         //// GET: FAQs/Details/5
