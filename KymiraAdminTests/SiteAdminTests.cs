@@ -1,0 +1,150 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using KymiraAdmin.Models;
+using KymiraAdmin.Fixtures;
+
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+namespace KymiraAdminTests
+{
+    //*******************************************************************************************//
+    //Will need to load the BinStatus fixture each time so we will populate our database again.//
+    //*******************************************************************************************//
+
+    [TestClass]
+    public class SiteAdminTests
+    {
+        public static List<Site> obList;
+        IWebDriver driver;
+        private static TestDatabaseContext db;
+        [TestInitialize]
+        public void InitializeTest()
+        {
+
+
+           db = new TestDatabaseContext("kymiraAPIDatabase33");
+            fixture_site.Unload(db.context);
+            fixture_site.Load(db.context);
+
+           
+            ChromeOptions chrome_options = new ChromeOptions();
+
+            //Wont open up a new chrome tab when run
+            chrome_options.AddArgument("--headless");
+
+            //disable various chrome services that may interfer with the test
+            chrome_options.AddArgument("--disable-sync");
+            chrome_options.AddArgument("--disable-extensions");
+            chrome_options.AddArgument("--remote-debugging-address=0.0.0.0");
+            chrome_options.AddArgument("--remote-debugging-port=9222");
+
+            //Not necessary if running in headless mode
+            chrome_options.AddArgument("--window-size=1280,720");
+
+            //Assign the driver to the location of the chromedriver.exe on the local drive
+            driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
+
+            driver.Navigate().GoToUrl("http://localhost:59649/");
+        }
+
+        //Test that the list displays correctly on launch
+        [TestMethod]
+        public void TestThatAListDisplaysCorrectly()
+        {
+
+            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+
+            var table = driver.FindElement(By.ClassName("table"));
+           
+            var elementList = table.FindElements(By.TagName("tr"));
+
+
+            //check that there are the same amount of Qs as As
+            var siteid = driver.FindElements(By.Id("siteId")).Count;
+            var address = driver.FindElements(By.Id("address")).Count;
+            var 
+            Assert.AreEqual(QCount, ACount);
+
+
+        }
+
+        //Test that the Delete link visible for each item
+        [TestMethod]
+        public void TestThatADeleteLinkIsVisible()
+        {
+
+            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+
+            //Will search for the delete link by its text
+            //Could also search each individual Delete button 
+            driver.FindElement(By.LinkText("Delete"));
+        }
+
+        //Test that the deleting an item removes it from the list
+        [TestMethod]
+        public void TestThatDeletingItemRemovesItFromList()
+        {
+
+
+            int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+
+            //Assert there are 7 rows in the table
+            Assert.AreEqual(7, rows);
+            //click the delete link for Candy
+            var delCandyLink = driver.FindElement(By.Id("deleteCandy"));
+            delCandyLink.Click();
+
+            //the Back to List link.. Just to verify that it is seeing the next page
+            driver.FindElement(By.LinkText("Back to List"));
+            //Click the delete button to remove the item
+            var delBtn = driver.FindElement(By.Id("btnDelete"));
+            delBtn.Click();
+
+            //Check how many rows are in the table now
+            rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+
+            //Assert that there are 6 rows (one less) than before
+            Assert.AreEqual(6, rows);
+
+
+        }
+
+        //Will test that an inactive item does not show up in the table
+        [TestMethod]
+        public void TestThatInactiveItemIsNotVisibleInList()
+        {
+            Disposable disposableItem = new Disposable();
+            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+
+
+            int rows = driver.FindElements(By.XPath("//table[@class='table']//tr")).Count;
+
+            var list = driver.FindElements(By.XPath("//table[@class='table']//tr"));
+
+            //Assert there are 7 rows in the table
+            Assert.AreEqual(rows, 7);
+
+            //Find a way to set a piece of data in the list to inactive
+
+
+            foreach (var item in list)
+            {
+                var names = new List<string>(item.Text.Split(' '));
+
+                Assert.IsFalse(names.Contains("Candy"));
+            }
+
+
+        }
+
+
+    }
+
+
+}
+
