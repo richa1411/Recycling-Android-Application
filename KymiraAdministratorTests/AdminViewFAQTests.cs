@@ -16,18 +16,18 @@ namespace KymiraAdministratorTests
         //FAQ newFAQ1;
         static IWebDriver driver;
         public static List<FAQ> obList;
-
+        private static TestDatabaseContext db;
 
         [ClassInitialize]
         public static void InitializeTest(TestContext context)
         {
-            var db = new TestDatabaseContext("kymiraAPIDatabase26");
-            fixture_faq.Unload(db.context);
-            fixture_faq.Load(db.context);
+            db = new TestDatabaseContext("kymiraAPIDatabase26");
+
+            populateData();
 
             obList = new List<FAQ>(new FAQ[]
             {
- new FAQ {
+            new FAQ {
 
                  question = "Where is Cosmo Industries?",
                  answer = "1302 Alberta Ave. Saskatoon."
@@ -94,24 +94,14 @@ namespace KymiraAdministratorTests
             var table = driver.FindElement(By.ClassName("table"));
             var btnAdd = driver.FindElement(By.Id("btnAdd"));
             var elementList = table.FindElements(By.TagName("tr"));
-            //for each item in the list of FAQs check that the item is displayed properly
-            for (int i = 0; i < elementList.Count; i++)
-            {
-                var item = elementList[i];
-                var itemElementList = item.FindElements(By.TagName("td"));
 
-                //check that there are 3 td elements
-                Assert.AreEqual(3, itemElementList.Count);
 
-                //check that the "question" id occurs
-                item.FindElement(By.Id("question"));
+            //check that there are the same amount of Qs as As
+            var QCount = driver.FindElements(By.Id("question")).Count;
+            var ACount = driver.FindElements(By.Id("answer")).Count;
 
-                //check that the "answer" id occurs
-                item.FindElements(By.TagName("answer"));
-
-                //check that the two a elements are withing the 3rd td
-                Assert.AreEqual(2, item.FindElements(By.TagName("a")).Count);
-            }
+            Assert.AreEqual(QCount, ACount);
+            
         }
 
         /**
@@ -197,12 +187,12 @@ namespace KymiraAdministratorTests
             btnDel.Click();
             btnDel = driver.FindElement(By.Id("btnDel"));
             btnDel.Click();
-
+            
             //upon return to the list page, check that the count of items is one less than it was before
             table = driver.FindElement(By.ClassName("table"));
             listQuestion = table.FindElements(By.Id("question"));
 
-            Assert.AreEqual(listQuestion.Count, itemCount - 1 );
+            Assert.AreEqual(itemCount - 1, listQuestion.Count);
 
         }
 
@@ -343,6 +333,12 @@ namespace KymiraAdministratorTests
                 Assert.AreNotEqual(listQuestion[i].Text, "What is the airspeed velocity of an unladden swallow?");
             }
 
+        }
+
+        private static void populateData()
+        {
+            fixture_faq.Unload(db.context);
+            fixture_faq.Load(db.context);
         }
     }
 }

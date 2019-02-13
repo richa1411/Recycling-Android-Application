@@ -19,29 +19,30 @@ namespace KymiraAdmin.Controllers
             _context = context;
         }
 
+        //will only send the faqs that are active
         // GET: FAQs
         public async Task<IActionResult> Index()
         {
             return View(await _context.FAQDBSet.ToListAsync());
         }
 
-        // GET: FAQs/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: FAQs/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var fAQ = await _context.FAQDBSet
-                .SingleOrDefaultAsync(m => m.id == id);
-            if (fAQ == null)
-            {
-                return NotFound();
-            }
+        //    var fAQ = await _context.FAQDBSet
+        //        .SingleOrDefaultAsync(m => m.id == id);
+        //    if (fAQ == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(fAQ);
-        }
+        //    return View(fAQ);
+        //}
 
         // GET: FAQs/Create
         public IActionResult Create()
@@ -134,13 +135,16 @@ namespace KymiraAdmin.Controllers
             return View(fAQ);
         }
 
+        //this will change the inactive field of the given fAQ to true so that it will not be used in the app, etc.
         // POST: FAQs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var fAQ = await _context.FAQDBSet.SingleOrDefaultAsync(m => m.id == id);
-            _context.FAQDBSet.Remove(fAQ);
+            fAQ.inactive = true;
+            //change the inactive field to true
+            await this.Edit(id, fAQ);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
