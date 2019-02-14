@@ -14,18 +14,18 @@
         <dt>
             @Html.DisplayNameFor(model => model.question)
         </dt>
-        <dd>
+        <dd id="question">
             @Html.DisplayFor(model => model.question)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.answer)
         </dt>
-        <dd>
-            @Utils.shortAnswer(Model.answer.ToString(), 10);
+        <dd id="answer">
+            @Html.DisplayFor(model => model.answer)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a id="btnEdit" asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a id="btnBack" asp-action="Index">Back to List</a>
 </div>

@@ -7,7 +7,7 @@ using KymiraAdmin.Models;
 using System;
 using KymiraAdmin.Data;
 
-namespace KymiraAdministratorTests
+namespace KymiraAdminTests
 {
     class TestDatabaseContext : IDisposable
     {

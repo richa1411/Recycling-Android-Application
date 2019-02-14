@@ -5,7 +5,7 @@ using System.Text;
 using System.Linq;
 using KymiraAdmin.Models;
 
-namespace KymiraAdministratorTests
+namespace KymiraAdminTests
 {
     [TestClass]
     public class FAQAdminTest
