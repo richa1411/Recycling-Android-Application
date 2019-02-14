@@ -25,16 +25,16 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td id="question">
+            <td>
                 @Html.DisplayFor(modelItem => item.question)
             </td>
-            <td id="answer">
+            <td>
                 @Utils.shortAnswer(item.answer.ToString(), 10)
             </td>
             <td>
-                <a id="btnEdit" asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a id="btnDelete" asp-action="Delete" asp-route-id="@item.id">Delete</a> | 
-                <a id="btnDetails" asp-action="Details" asp-route-id="@item.id">Details</a>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a> | 
+                <a asp-action="Details" asp-route-id="@item.id">Details</a>
             </td>
         </tr>
 }

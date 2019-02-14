@@ -97,7 +97,7 @@ namespace KymiraAdminTests
             var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
             Assert.AreEqual(listQuestion, inptQuestion);
-            Assert.AreEqual(listAnswer, inptAnswer);
+            Assert.AreEqual(listAnswer, inptAnswer.Substring(0, 10) + "...");
             
         }
 
@@ -121,7 +121,7 @@ namespace KymiraAdminTests
             driver.FindElement(By.CssSelector("#btnBack"));
 
             Assert.AreEqual(questionOG, question);
-            Assert.AreEqual(answerOG, answer);
+            Assert.AreEqual(answerOG, answer.Substring(0, 10) + "...");
 
         }
 
@@ -155,8 +155,8 @@ namespace KymiraAdminTests
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //find all the page elements
             var table = driver.FindElement(By.CssSelector(".table"));
-            var listQuestion = driver.FindElements(By.CssSelector("#question"));
-            var btnDel = driver.FindElement(By.CssSelector("#btnDelete"));
+            var listQuestion = driver.FindElements(By.CssSelector(".table tr:first-child td:first-child"));
+            var btnDel = driver.FindElement(By.CssSelector(".table tr:first-child td:last-child a:nth-child(2)"));
        
             var elementList = table.FindElements(By.CssSelector(".table tr"));
             //count the items displayed on the page
@@ -165,7 +165,7 @@ namespace KymiraAdminTests
             //delete an object from the list
             //click on the delete link and the delete link on the delete page
 
-            var deletedQuestion = table.FindElement(By.CssSelector(".table #question")).Text;
+            var deletedQuestion = table.FindElement(By.CssSelector(".table .table tr:first-child")).Text;
 
             btnDel.Click();
             btnDel = driver.FindElement(By.CssSelector("#btnDel"));
@@ -173,7 +173,7 @@ namespace KymiraAdminTests
             
             //upon return to the list page, check that the count of items is one less than it was before
             table = driver.FindElement(By.CssSelector(".table"));
-            listQuestion = driver.FindElements(By.CssSelector("#question"));
+            listQuestion = driver.FindElements(By.CssSelector(".table tr:first-child"));
 
             Assert.AreEqual(itemCount - 1, listQuestion.Count);
 
