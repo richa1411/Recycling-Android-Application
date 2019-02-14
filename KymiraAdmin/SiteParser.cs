@@ -41,23 +41,23 @@ namespace KymiraAdmin
                 };
             }
 
-            //Try and create a Site object from the row data
-            if (isHeaderRow && !(sRow[(int)ColumnName.SiteIDCol].Equals("Site ID") || sRow[7].Equals("Full Address") || sRow[10].Equals("Frequency") || sRow[15].Equals("Collection1")
-                    || sRow[16].Equals("Collection2") || sRow[17].Equals("Collection3") || sRow[18].Equals("Collection4")))
+            // Check if all the columns we need to parse have valid headers
+            if (isHeaderRow && !(sRow[(int)ColumnName.SiteIDCol].Equals("Site ID") && sRow[7].Equals("Full Address") && sRow[10].Equals("Frequency") && sRow[15].Equals("Collection1")
+                    && sRow[16].Equals("Collection2") && sRow[17].Equals("Collection3") && sRow[18].Equals("Collection4")))
             {
-                //Return a site with the flag value of 0 (header row is OK)
+                // If this is reached, it means the headers are incorrect, so return an invalid object
                 return new Site
                 {
                     SitePickupDays = Site.PickupDays.Invalid
                 };
             }
-            //If row is a header row and one or more columns are incorrect
+            //If row is a header row, but has all required fields
             else if(isHeaderRow)
             {
-                //Return an invalid site with flag value of -1 (header row is incorrect)
+                // Return a valid site object (this one won't be parsed, and added to the array)
                 return new Site
                 {
-                    SiteID = 123,
+                    SiteID = 1,
                     Address = "valid",
                     Frequency = Site.PickupFrequency.BiWeekly,
                     SitePickupDays = Site.PickupDays.Monday

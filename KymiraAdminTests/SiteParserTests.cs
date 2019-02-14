@@ -285,9 +285,13 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatInvalidSiteObjectIsCreatedWithInvalidSiteInformation()
         {
+            // Site ID
             cellList[1] = "jdasdfa";
+            // Address
             cellList[7] = "";
+            // Frequency
             cellList[10] = "jdfsal";
+            // Collection1 
             cellList[15] = "23kjl32";
 
             Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
@@ -303,6 +307,7 @@ namespace KymiraAdminTests
 
         //*************************WHERE I LEFT OFF ON FEB 13/19********************************************//
 
+            // Test that a site object with an address of 1 character passes validation
         [TestMethod]
         public void TestThatSiteObjectWithAddressOf1PassesValidation()
         {
@@ -315,6 +320,7 @@ namespace KymiraAdminTests
             Assert.AreEqual(0, results.Count);
         }
 
+        // Test that a site object with an address of 200 characters passes validation 
         [TestMethod]
         public void TestThatSiteObjectWithAddressOf200PassesValidation()
         {
@@ -327,6 +333,7 @@ namespace KymiraAdminTests
             Assert.AreEqual(0, results.Count);
         }
 
+        // Test that a site object with an address of 201 characters fails validation
         [TestMethod]
         public void TestThatSiteObjectWithAddressOf201FailsValidation()
         {
@@ -340,6 +347,7 @@ namespace KymiraAdminTests
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
         }
 
+        // Test that a site object with a frequency of Invalid fails validation
         [TestMethod]
         public void TestThatSiteObjectWithFrequencyOfInvalidFailsValidation()
         {
@@ -353,6 +361,7 @@ namespace KymiraAdminTests
             Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[0].ErrorMessage);
         }
 
+        // Test that a site object with a PickupDay of Invalid fails validation
         [TestMethod]
         public void TestThatSiteObjectWithPickupDayOfInvalidFailsValidation()
         {
@@ -366,18 +375,23 @@ namespace KymiraAdminTests
             Assert.AreEqual("Specified Pickup Days are invalid", results[0].ErrorMessage);
         }
 
-
+        // Test that a row with too many columns passed in returns an object that fails Validation
         [TestMethod]
         public void TestThatTooManyColumnsInExcelSheetReturnsASiteObjectWithIDOfNegativeTwo()
         {
-            
+            // Adding an extra column (which is 1 too many)
             cellList.Add("Sdawdawdawdaw");
 
-            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, true);
 
-            Assert.AreEqual(-2, site.SiteID);
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(3, results.Count);
+            Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
+            Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[1].ErrorMessage);
+            Assert.AreEqual("Specified Pickup Days are invalid", results[2].ErrorMessage);
         }
 
+        // Tests that when there are two too few columns in the header, an invalid site is returned
         [TestMethod]
         public void TestThatTooFewColumnsInExcelSheetReturnsASiteObjectWithIDOfNegativeTwo()
         {
@@ -385,16 +399,22 @@ namespace KymiraAdminTests
             cellList.Remove(cellList[5]);
             cellList.Remove(cellList[6]);
 
-            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
+            Site site = SiteParser.GenerateSiteObjectFromRow(cellList, true);
 
-            Assert.AreEqual(-2, site.SiteID);
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(3, results.Count);
+            Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
+            Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[1].ErrorMessage);
+            Assert.AreEqual("Specified Pickup Days are invalid", results[2].ErrorMessage);
         }
 
 
         //***** Header Row Tests *****//
 
+            // Tests that when a valid header row is passed in, it will return a valid
+            // site object, with an ID of 1 (this object isn't parsed)
         [TestMethod]
-        public void TestThatHeaderRowWithValidDataReturnsASiteObjectWithSiteIDOfZero()
+        public void TestThatHeaderRowWithValidDataReturnsASiteObjectWithSiteIDOf1()
         {
             cellList[1] = "Site ID";
             cellList[7] = "Full Address";
@@ -406,13 +426,16 @@ namespace KymiraAdminTests
 
             Site site = SiteParser.GenerateSiteObjectFromRow(cellList, true);
 
-            Assert.AreEqual(0, site.SiteID);
+            Assert.AreEqual(1, site.SiteID);
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(0, results.Count);
 
 
         }
 
+        // Tests that when an invalid header row is passed in, it sends back an object that fails validation
         [TestMethod]
-        public void TestThatHeaderRowWithInValidDataReturnsASiteObjectWithSiteIDOfNegativeOne()
+        public void TestThatHeaderRowWithInValidDataReturnsAnInvalidSiteObject()
         {
             cellList[1] = "Site ID";
             cellList[7] = "Full Address";
@@ -424,7 +447,11 @@ namespace KymiraAdminTests
 
             Site site = SiteParser.GenerateSiteObjectFromRow(cellList, true);
 
-            Assert.AreEqual(-1, site.SiteID);
+            var results = HelperTestModel.Validate(site);
+            Assert.AreEqual(3, results.Count);
+            Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
+            Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[1].ErrorMessage);
+            Assert.AreEqual("Specified Pickup Days are invalid", results[2].ErrorMessage);
 
 
         }
