@@ -212,7 +212,7 @@ namespace KymiraAdminTests
             //Assert there are 7 rows in the table
            
             //click the delete link for Candy
-            var delCandyLink = driver.FindElement(By.CssSelector("#deleteCandy"));
+            var delCandyLink = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(5) a"));
             delCandyLink.Click();
 
             //on delete confirmation page.
@@ -271,7 +271,7 @@ namespace KymiraAdminTests
 
             //  Assert.AreEqual(item.Text, "Candy");
 
-            var delCandyLink = driver.FindElement(By.CssSelector("#deletePizza"));
+            var delCandyLink = driver.FindElement(By.CssSelector(".table tr:nth-child(6) td:nth-child(5) a"));
             delCandyLink.Click();
 
             //on delete confirmation page.
@@ -280,12 +280,12 @@ namespace KymiraAdminTests
             var dtList = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
 
 
-            Assert.AreEqual(ddList[0].Text, obList[4].name);
-            Assert.AreEqual(ddList[1].Text, obList[4].description);
-            Assert.AreEqual(ddList[2].Text, obList[4].imageURL);
-            Assert.AreEqual(ddList[4].Text, obList[4].recycleReason);
-            Assert.AreEqual(ddList[5].Text, obList[4].endResult);
-            Assert.AreEqual(ddList[6].Text, obList[4].qtyRecycled.ToString());
+            Assert.AreEqual(ddList[0].Text, obList[5].name);
+            Assert.AreEqual(ddList[1].Text, obList[5].description);
+            Assert.AreEqual(ddList[2].Text, obList[5].imageURL);
+            Assert.AreEqual(ddList[4].Text, obList[5].recycleReason);
+            Assert.AreEqual(ddList[5].Text, obList[5].endResult);
+            Assert.AreEqual(ddList[6].Text, obList[5].qtyRecycled.ToString());
 
 
             Assert.AreEqual(dtList[0].Text, "name");
@@ -312,7 +312,7 @@ namespace KymiraAdminTests
 
             foreach(var i in items)
             {
-                Assert.AreNotEqual(i.Text, "Pizza");
+                Assert.AreNotEqual(i.Text, "Tin Cans");
             }
            
 
