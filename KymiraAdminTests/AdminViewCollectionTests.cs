@@ -10,19 +10,8 @@ namespace KymiraAdminTests
     [TestClass]
     public class AdminViewCollectionTests
     {
-        //static TestDatabaseContext db = new TestDatabaseContext("KymiraAdminDatabase30");
-
-        /*
-        List<BinStatus> list = new List<BinStatus>
-        {
-            new BinStatus{ binID = "W114-320-123", collectionDate = "2018-01-01", siteID = 1609312, status = 1 },
-            new BinStatus{ binID = "W114-320-124", collectionDate = "2018-01-01", siteID = 1609312, status = 1 },
-            new BinStatus{ binID = "W114-320-125", collectionDate = "2018-01-01", siteID = 1609312, status = 1 },
-            new BinStatus{ binID = "W114-320-123", collectionDate = "2018-02-02", siteID = 1609313, status = 1 }
-        };
-        */
-
-
+        static TestDatabaseContext db = new TestDatabaseContext("KymiraAdminDatabase30");
+        public static KymiraAdminContext context;
         List<BinStatus> obBins = new List<BinStatus> {
         new BinStatus
         {
@@ -60,12 +49,7 @@ namespace KymiraAdminTests
             collectionDate = "2019-01-01"
         }};
 
-
-        //list of BinStatuses to compare test results to -- in order (siteID, binID, collectionDate(?))
-        //List<BinStatus> dbBins = fixture_bin_status.obBins;
-
-
-        public static IWebDriver driver;
+        public static IWebDriver driver; //browser to interact with
 
         [ClassInitialize] //this method will run once before all of the tests
         public static void ClassInitialize(TestContext context)
@@ -90,22 +74,23 @@ namespace KymiraAdminTests
 
         }
 
-        [ClassCleanup] //this method will remove everything
+        [ClassCleanup] //this method will remove all items from BinStatus table in the database
         public static void ClassCleanup()
         {
-            //remove all items from test database
             //fixture_bin_status.Unload(db.context);
         }
 
         [TestInitialize]
         public void InitializeTest()
         {
-            //navigate to proper page
+            //navigate to proper page each time
             driver.Navigate().GoToUrl("http://localhost:55270/BinStatus");
         }
 
         [TestMethod]
         //Test that a deleted collection status is removed from the list (and database)
+        //TO DO: GET LAST ITEM TO DELETE - grab text of this record and once back on the 
+        // list page, go through all fields and search for this text to ensure that it is not anywhere on the page!!!
         public void TestThatDeletedStatusNotDisplayed()
         {
             //select item to remove - 1st item
@@ -119,8 +104,8 @@ namespace KymiraAdminTests
             //on delete confirmation page - shows info about specific bin selected
             var binInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
             var binTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
-            
-            //above lists come back as empty*************
+
+            //above lists come back as empty********
 
             //ensure titles displayed are correct
             Assert.AreEqual(binTitles[0].Text,"binID");
@@ -144,11 +129,11 @@ namespace KymiraAdminTests
             Assert.AreNotEqual(item.Text,itemToDelete.Text);
             //ensure list is one less
             Assert.AreEqual(driver.FindElements(By.CssSelector(".table tr")).Count,obBins.Count-1);
-
         }
 
         [TestMethod]
         //test that list is displayed in the correct order
+        //TODO: DO NOT LOOK AT LAST ITEM (will be deleted in other test)
         public void TestThatListIsDisplayedInOrder()
         {
             //list of all rows
@@ -176,46 +161,27 @@ namespace KymiraAdminTests
         }
 
         [TestMethod]
-        //test that message is displayed if connection cannot be made / is timed out
-        public void TestThatNoConnectionDisplaysMessage()
-        {
-            //assert is true that message is displayed
-            //assert is true that list is not displayed
-        }
-
-        [TestMethod]
-        //test that upon clicking the delete button for a collection status takes the admin to a confirmation page
-        public void TestThatAdminIsTakenToDeleteConfirmationPage()
-        {
-            //click to view the confirmation page
-            driver.FindElement(By.CssSelector(".table tr td:last-child")).Click();
-            
-            var binInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
-            var binTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
-
-            //above lists come back as empty***********
-
-            //ensure titles displayed are correct
-            Assert.AreEqual(binTitles[0].Text, "binID");
-            Assert.AreEqual(binTitles[1].Text, "status");
-            Assert.AreEqual(binTitles[2].Text, "siteID");
-            Assert.AreEqual(binTitles[3].Text, "collectionDate");
-
-            //ensure detail info is correct
-            Assert.AreEqual(binInfo[0].Text, obBins[0].binID);
-            Assert.AreEqual(binInfo[1].Text, obBins[0].status);
-            Assert.AreEqual(binInfo[2].Text, obBins[0].siteID);
-            Assert.AreEqual(binInfo[3].Text, obBins[0].collectionDate);
-
-            driver.FindElement(By.LinkText("Back to List")); //verify link is showing
-            driver.FindElement(By.CssSelector("btn btn-default")); //verify delete button is showing
-        }
-
-        [TestMethod]
         //test that if admin cancels deletion that they are taken back to the list and the list has not changed
+        //TODO: add checking detail fields for specific item
         public void TestThatAdminIsTakenBackToList()
         {
             //check that list has not changed / collection item has not been deleted
+            var initialRows = driver.FindElements(By.CssSelector(".table tr"));
+
+            //click to view the confirmation page
+            driver.FindElement(By.CssSelector(".table tr td:last-child")).Click();
+
+            //ensure is on confirmation page - verify elements are here
+            driver.FindElements(By.CssSelector("dl dd"));
+            driver.FindElements(By.CssSelector("dl dt"));
+            //driver.FindElement(By.CssSelector("#btnDelete"));
+
+            driver.FindElement(By.LinkText("Back to List")).Click(); //link to go back
+
+            //back to list page
+            //ensure list size has not changed
+            var rows = driver.FindElements(By.CssSelector(".table tr"));
+            Assert.AreEqual(initialRows.Count,rows.Count);
         }
     }
 }

@@ -127,6 +127,8 @@ namespace KymiraAdmin.Controllers
                 return NotFound();
             }
 
+            //change to be inactive
+
             var binStatus = await _context.BinStatus
                 .SingleOrDefaultAsync(m => m.pickupID == id);
             if (binStatus == null)

@@ -33,5 +33,7 @@ namespace KymiraAdmin.Models
         [Required(ErrorMessage = "Collection date is required")] //format is "yyyy-mm-dd"
         [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", ErrorMessage = "Collection date must be a valid date")]
         public string collectionDate { get; set; }
+
+        public bool inactive { get; set; } //holds whether or not the BinStatus is inactive/"deleted" or not
     }
 }
