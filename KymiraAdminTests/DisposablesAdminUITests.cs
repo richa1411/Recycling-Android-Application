@@ -10,6 +10,7 @@ using KymiraAdmin.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading;
+using System.Linq;
 
 namespace KymiraAdminTests
 {
@@ -265,7 +266,14 @@ namespace KymiraAdminTests
             int rows = driver.FindElements(By.CssSelector(".table tr")).Count;
 
             //Assert there are 7 rows in the table
-          
+
+            var itemsfirst = new List<IWebElement>(driver.FindElements(By.CssSelector(".table tr td:nth-child(1)")));
+
+            //fix
+
+            var stringItems = itemsfirst.Select(m => m.Text).ToList<string>();
+
+            Assert.IsTrue(stringItems.Contains("Tin Cans"));
 
             var item = driver.FindElement(By.CssSelector(".table tr:nth-child(6) td:nth-child(1)"));
 

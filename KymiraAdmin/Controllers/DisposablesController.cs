@@ -23,9 +23,8 @@ namespace KymiraAdmin.Controllers
         public async Task<IActionResult> Index()
         {
             //Will sort the list alphabetically by name and only display the items that are NOT inactive
-            var list = await _context.DisposableDBSet.ToListAsync();
-            list.RemoveAll(m => m.inactive == true);
-            list.Sort();
+            var list = await _context.DisposableDBSet.Where(M=> M.inactive==false).OrderBy(M => M.name).ToListAsync();
+      
             return View(list);
 
             //return View(await _context.DisposableDBSet.ToListAsync());
