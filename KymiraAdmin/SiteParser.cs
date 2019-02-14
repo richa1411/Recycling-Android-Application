@@ -36,8 +36,8 @@ namespace KymiraAdmin
                 //Return an invalid site
                 return new Site
                 {
-                    pickupDays = Site.PickupDays.Invalid,
-                    frequency = Site.PickupFrequency.Invalid
+                    SitePickupDays = Site.PickupDays.Invalid,
+                    Frequency = Site.PickupFrequency.Invalid
                 };
             }
 
@@ -48,7 +48,7 @@ namespace KymiraAdmin
                 //Return a site with the flag value of 0 (header row is OK)
                 return new Site
                 {
-                    pickupDays = Site.PickupDays.Invalid
+                    SitePickupDays = Site.PickupDays.Invalid
                 };
             }
             //If row is a header row and one or more columns are incorrect
@@ -57,10 +57,10 @@ namespace KymiraAdmin
                 //Return an invalid site with flag value of -1 (header row is incorrect)
                 return new Site
                 {
-                    siteID = 123,
-                    address = "valid",
-                    frequency = Site.PickupFrequency.BiWeekly,
-                    pickupDays = Site.PickupDays.Monday
+                    SiteID = 123,
+                    Address = "valid",
+                    Frequency = Site.PickupFrequency.BiWeekly,
+                    SitePickupDays = Site.PickupDays.Monday
                 };
             }
             //Else row is NOT a header row, try to parse
@@ -70,13 +70,13 @@ namespace KymiraAdmin
                 Site siteFromRow = new Site();
 
                 //Parse the ID and add it to the Site object
-                siteFromRow.siteID = ParseSiteID(sRow[1]);
+                siteFromRow.SiteID = ParseSiteID(sRow[1]);
 
                 //Parse the address and add it to the Site object
-                siteFromRow.address = ParseAddress(sRow[7]);
+                siteFromRow.Address = ParseAddress(sRow[7]);
 
                 //Parse the frequency and add it to the Site object
-                siteFromRow.frequency = ParseFrequency(sRow[10]);
+                siteFromRow.Frequency = ParseFrequency(sRow[10]);
 
                 //Create a string array to hold each potential collection day
                 string[] collections = new string[4];
@@ -87,7 +87,7 @@ namespace KymiraAdmin
                 collections[3] = sRow[18];
 
                 //Parse the pickup days and add it to the site object
-                siteFromRow.pickupDays = ParsePickupDays(collections);
+                siteFromRow.SitePickupDays = ParsePickupDays(collections);
             
                 return siteFromRow;
 
@@ -156,34 +156,47 @@ namespace KymiraAdmin
         // and tries to parse to a valid PickupDay. If it fails, it will return an invalid PickupDay
         public static Site.PickupDays ParsePickupDays(string[] pickupDays)
         {
-
+            //Order the pickupDays string array in descending order for each collection that has data (is not null or empty)
             pickupDays = pickupDays.Where(s => !string.IsNullOrEmpty(s)).OrderByDescending(s=>s).ToArray();
 
             Site.PickupDays parsedPickupDays = (Site.PickupDays) 0;
 
             int largestNumber = 0;
 
+            //If there are no collection days to parse, immediately set the PickupDays to invalid and return
             if (pickupDays.Length == 0)
             {
                 return Site.PickupDays.Invalid;
             }
 
+            //Find and parse the largest number (also most recent) of the given collection days
             Int32.TryParse(pickupDays[0], out largestNumber);
-                
+
+            //If the largest number falls outside of the valid ranges, immediately set the PickupDays to invalid and return  
             if(largestNumber > 9999 || largestNumber < 1000 || largestNumber == 0)
             {
                 return Site.PickupDays.Invalid;
             }
 
+            //Create a string array to hold the largest collection day value
             string collectionDay = pickupDays[0];
+
+            //Create a char array to store individual digits of each collection day
             char largestDigit = collectionDay[0];
 
+            //For each digit in the current collection day
             foreach(string day in pickupDays)
             {
+                //If the first digit in the day is the largest digit and the entire number is 4 digits (valid)
                 if(day[0] == largestDigit && day.Length == 4)
                 {
+                    //Get the last digit of the collection (numeric day of the week)
                     int lastDigit = Convert.ToInt32(day[3].ToString());
+
+                    //Get the last pick up day of the collection (convert to value our enum can use)
                     int lastPickupDay = Convert.ToInt32(Math.Pow(2, (lastDigit - 1)));
+
+                    //Append the parsed pickup day to the existing variable of pickup days
                     parsedPickupDays = parsedPickupDays | ((Site.PickupDays) lastPickupDay);
                 }
                 else

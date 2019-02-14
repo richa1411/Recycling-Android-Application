@@ -115,7 +115,7 @@ namespace KymiraAdmin.Controllers
                         if (validationResults.Count == 0)
                         {
                             //Add it to the list of valid Site objects (first check if it already exists, do not add duplicate rows)
-                            if(validSitesList.Where(s => s.siteID == siteObject.siteID).Count() == 0)
+                            if(validSitesList.Where(s => s.SiteID == siteObject.SiteID).Count() == 0)
                             {
                                 validSitesList.Add(siteObject);
                             }
@@ -124,7 +124,7 @@ namespace KymiraAdmin.Controllers
                         else
                         {
                             //Add it to the list of invalid Site objects (if it doesn't already exist)
-                            if(invalidSitesList.Where(s => s.siteID == siteObject.siteID).Count() == 0)
+                            if(invalidSitesList.Where(s => s.SiteID == siteObject.SiteID).Count() == 0)
                             {
                                 invalidSitesList.Add(siteObject);
                             }

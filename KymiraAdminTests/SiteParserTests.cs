@@ -306,7 +306,7 @@ namespace KymiraAdminTests
 
             Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
 
-            Assert.AreEqual(-2, site.siteID);
+            Assert.AreEqual(-2, site.SiteID);
         }
 
         [TestMethod]
@@ -318,7 +318,7 @@ namespace KymiraAdminTests
 
             Site site = SiteParser.GenerateSiteObjectFromRow(cellList, false);
 
-            Assert.AreEqual(-2, site.siteID);
+            Assert.AreEqual(-2, site.SiteID);
         }
 
 
@@ -337,7 +337,7 @@ namespace KymiraAdminTests
 
             Site site = SiteParser.GenerateSiteObjectFromRow(cellList, true);
 
-            Assert.AreEqual(0, site.siteID);
+            Assert.AreEqual(0, site.SiteID);
 
 
         }
@@ -355,7 +355,7 @@ namespace KymiraAdminTests
 
             Site site = SiteParser.GenerateSiteObjectFromRow(cellList, true);
 
-            Assert.AreEqual(-1, site.siteID);
+            Assert.AreEqual(-1, site.SiteID);
 
 
         }
