@@ -49,14 +49,14 @@ namespace KymiraAdministratorTests
         public void TestThatListPageLoadsCorrectly()
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var table = driver.FindElement(By.ClassName("table"));
-            var btnAdd = driver.FindElement(By.Id("btnAdd"));
-            var elementList = table.FindElements(By.TagName("tr"));
+            var table = driver.FindElement(By.CssSelector(".table"));
+            var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
+            var elementList = driver.FindElements(By.CssSelector(".table tr"));
 
 
             //check that there are the same amount of Qs as As
-            var QCount = driver.FindElements(By.Id("question")).Count;
-            var ACount = driver.FindElements(By.Id("answer")).Count;
+            var QCount = driver.FindElements(By.CssSelector("#question")).Count;
+            var ACount = driver.FindElements(By.CssSelector("#answer")).Count;
 
             Assert.AreEqual(QCount, ACount);
             
@@ -69,12 +69,12 @@ namespace KymiraAdministratorTests
         public void TestThatCreatePageDisplaysCorrectly()
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnAdd = driver.FindElement(By.Id("btnAdd"));
+            var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
             btnAdd.Click();
-            var inptQuestion = driver.FindElement(By.Id("inptQuestion"));
-            var inptAnswer = driver.FindElement(By.Id("inptAnswer"));
-            var btnSubmit = driver.FindElement(By.Id("btnSubmit"));
-            var btnBack = driver.FindElement(By.Id("btnBack"));
+            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+            var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
+            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
         }
 
         /**
@@ -84,17 +84,17 @@ namespace KymiraAdministratorTests
         public void TestThatEditPageDisplaysCorrectly()
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var table = driver.FindElement(By.ClassName("table"));
-            var listQuestion = table.FindElement(By.Id("question")).Text;
-            var listAnswer = table.FindElement(By.Id("answer")).Text;
-            var btnEdit = driver.FindElement(By.Id("btnEdit"));
+            var table = driver.FindElement(By.CssSelector(".table"));
+            var listQuestion = driver.FindElement(By.CssSelector("#question")).Text;
+            var listAnswer = driver.FindElement(By.CssSelector("#answer")).Text;
+            var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
 
             btnEdit.Click();
 
-            var inptQuestion = driver.FindElement(By.Id("inptQuestion")).GetAttribute("value");
-            var inptAnswer = driver.FindElement(By.Id("inptAnswer")).GetAttribute("value");
-            var btnSubmit = driver.FindElement(By.Id("btnSave"));
-            var btnBack = driver.FindElement(By.Id("btnBack"));
+            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion")).GetAttribute("value");
+            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer")).GetAttribute("value");
+            var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
+            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
             Assert.AreEqual(listQuestion, inptQuestion);
             Assert.AreEqual(listAnswer, inptAnswer);
@@ -109,16 +109,16 @@ namespace KymiraAdministratorTests
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //change up the list - record the changes? 
-            var questionOG = driver.FindElement(By.Id("question")).Text;
-            var answerOG = driver.FindElement(By.Id("answer")).Text;
+            var questionOG = driver.FindElement(By.CssSelector("#question")).Text;
+            var answerOG = driver.FindElement(By.CssSelector("#answer")).Text;
 
-            var btnDelete = driver.FindElement(By.Id("btnDelete"));
+            var btnDelete = driver.FindElement(By.CssSelector("#btnDelete"));
             btnDelete.Click();
 
-            var question = driver.FindElement(By.Id("question")).Text;
-            var answer = driver.FindElement(By.Id("answer")).Text;
-            driver.FindElement(By.Id("btnDel"));
-            driver.FindElement(By.Id("btnBack"));
+            var question = driver.FindElement(By.CssSelector("#question")).Text;
+            var answer = driver.FindElement(By.CssSelector("#answer")).Text;
+            driver.FindElement(By.CssSelector("#btnDel"));
+            driver.FindElement(By.CssSelector("#btnBack"));
 
             Assert.AreEqual(questionOG, question);
             Assert.AreEqual(answerOG, answer);
@@ -134,23 +134,23 @@ namespace KymiraAdministratorTests
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //find all the page elements
-            var table = driver.FindElement(By.ClassName("table"));
-            var listQuestion = table.FindElements(By.Id("question"));
-            var btnDel = table.FindElement(By.Id("btnDelete"));
+            var table = driver.FindElement(By.CssSelector(".table"));
+            var listQuestion = driver.FindElements(By.CssSelector("#question"));
+            var btnDel = driver.FindElement(By.CssSelector("#btnDelete"));
        
-            var elementList = table.FindElements(By.ClassName("tr"));
+            var elementList = table.FindElements(By.CssSelector(".table tr"));
             //count the items displayed on the page
             int itemCount = listQuestion.Count;
 
             //delete an object from the list
                 //click on the delete link and the delete link on the delete page
             btnDel.Click();
-            btnDel = driver.FindElement(By.Id("btnDel"));
+            btnDel = driver.FindElement(By.CssSelector("#btnDel"));
             btnDel.Click();
             
             //upon return to the list page, check that the count of items is one less than it was before
-            table = driver.FindElement(By.ClassName("table"));
-            listQuestion = table.FindElements(By.Id("question"));
+            table = driver.FindElement(By.CssSelector(".table"));
+            listQuestion = driver.FindElements(By.CssSelector("#question"));
 
             Assert.AreEqual(itemCount - 1, listQuestion.Count);
 
@@ -163,19 +163,19 @@ namespace KymiraAdministratorTests
         public void TestThatListItemAdded()
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var table = driver.FindElement(By.ClassName("table"));
-            var listQuestion = table.FindElements(By.Id("question"));
+            var table = driver.FindElement(By.CssSelector(".table"));
+            var listQuestion = driver.FindElements(By.CssSelector("#question"));
 
             var itemCount = listQuestion.Count;
 
             //navigate to the add new item page
-            var btnCreate = driver.FindElement(By.Id("btnAdd"));
+            var btnCreate = driver.FindElement(By.CssSelector("#btnAdd"));
             btnCreate.Click();
 
             //find all the page elements
-            var inptQuestion = driver.FindElement(By.Id("inptQuestion"));
-            var inptAnswer = driver.FindElement(By.Id("inptAnswer"));
-            btnCreate = driver.FindElement(By.Id("btnSubmit"));
+            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+            btnCreate = driver.FindElement(By.CssSelector("#btnSubmit"));
 
             //create a new FAQ to add to the site's list
             inptQuestion.SendKeys("This is a new test question to make sure that this works");
@@ -186,8 +186,8 @@ namespace KymiraAdministratorTests
 
             //check that the page's list contains the newly added FAQ
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            table = driver.FindElement(By.ClassName("table"));
-            listQuestion = table.FindElements(By.Id("question"));
+            table = driver.FindElement(By.CssSelector(".table"));
+            listQuestion = driver.FindElements(By.CssSelector("#question"));
 
             Assert.AreEqual(itemCount + 1, listQuestion.Count);
         }
@@ -200,20 +200,20 @@ namespace KymiraAdministratorTests
         public void TestThatFAQsEditCorrectlyInList()
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var question = driver.FindElement(By.Id("question")).Text;
-            var btn = driver.FindElement(By.Id("btnEdit"));
+            var question = driver.FindElement(By.CssSelector("#question")).Text;
+            var btn = driver.FindElement(By.CssSelector("#btnEdit"));
             btn.Click();
 
             //change one of the faqs already in list
-            var inptQuestion = driver.FindElement(By.Id("inptQuestion"));
+            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
             inptQuestion.SendKeys("Testing functionality");
 
             //call the edit method
-            var save = driver.FindElement(By.Id("btnSave"));
+            var save = driver.FindElement(By.CssSelector("#btnSave"));
             save.Click();
 
             //get the FAQ from the list
-            var text = driver.FindElement(By.Id("question")).Text;
+            var text = driver.FindElement(By.CssSelector("#question")).Text;
 
             //check that the answer has changed as expected
             Assert.AreEqual(question + "Testing functionality", text);
@@ -231,8 +231,8 @@ namespace KymiraAdministratorTests
 
             //Suggestion: Use CollectionAssert
 
-            var table = driver.FindElement(By.ClassName("table"));
-            var elementList = table.FindElements(By.Id("question"));
+            var table = driver.FindElement(By.CssSelector(".table"));
+            var elementList = driver.FindElements(By.CssSelector("#question"));
 
             ArrayList originalList = new ArrayList();
 
@@ -256,18 +256,18 @@ namespace KymiraAdministratorTests
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
             //Record the orgiginal page
-            var table = driver.FindElement(By.ClassName("table"));
-            int elementList = table.FindElements(By.TagName("tr")).Count;
+            var table = driver.FindElement(By.CssSelector(".table"));
+            int elementList = table.FindElements(By.CssSelector(".table tr")).Count;
 
-            var btndel = driver.FindElement(By.Id("btnDelete"));
+            var btndel = driver.FindElement(By.CssSelector("#btnDelete"));
             btndel.Click();
             //Make some changes tp the (new duplicated) list 
-            var btn = driver.FindElement(By.Id("btnBack"));
+            var btn = driver.FindElement(By.CssSelector("#btnBack"));
             //press cancel
             btn.Click();
             //check that the page is identical to the original page recorded.
-            var table2 = driver.FindElement(By.ClassName("table"));
-            int elementList2 = table2.FindElements(By.TagName("tr")).Count;
+            var table2 = driver.FindElement(By.CssSelector(".table"));
+            int elementList2 = table2.FindElements(By.CssSelector(".table tr")).Count;
 
             Assert.AreEqual(elementList, elementList2);
         }
@@ -281,8 +281,8 @@ namespace KymiraAdministratorTests
         {
             driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
 
-            var table = driver.FindElement(By.ClassName("table"));
-            var listQuestion = table.FindElements(By.Id("question"));
+            var table = driver.FindElement(By.CssSelector(".table"));
+            var listQuestion = driver.FindElements(By.CssSelector("#question"));
             
             //make sure our monty python reference is not in the list
             for(int i = 0; i < listQuestion.Count; i++)

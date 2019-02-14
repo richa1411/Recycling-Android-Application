@@ -32,23 +32,23 @@ namespace KymiraAdmin.Controllers
             return View(list.OrderBy(o => o.question));
         }
 
-        //// GET: FAQs/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: FAQs/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        //    var fAQ = await _context.FAQDBSet
-        //        .SingleOrDefaultAsync(m => m.id == id);
-        //    if (fAQ == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var fAQ = await _context.FAQDBSet
+                .SingleOrDefaultAsync(m => m.id == id);
+            if (fAQ == null)
+            {
+                return NotFound();
+            }
 
-        //    return View(fAQ);
-        //}
+            return View(fAQ);
+        }
 
         // GET: FAQs/Create
         public IActionResult Create()

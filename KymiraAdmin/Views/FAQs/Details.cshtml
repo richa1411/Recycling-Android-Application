@@ -21,13 +21,7 @@
             @Html.DisplayNameFor(model => model.answer)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.answer)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.inactive)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.inactive)
+            @Utils.shortAnswer(Model.answer.ToString(), 10);
         </dd>
     </dl>
 </div>

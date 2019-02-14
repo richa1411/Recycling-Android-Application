@@ -23,5 +23,6 @@ namespace KymiraAdmin.Models
 
         //the status of the answer whether it has been deleted and is no longer visible to users
         public bool inactive { get; set; }
+
     }
 }
