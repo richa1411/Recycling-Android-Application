@@ -108,8 +108,42 @@ namespace KymiraAdminTests
         //Test that a deleted collection status is removed from the list (and database)
         public void TestThatDeletedStatusNotDisplayed()
         {
+            //select item to remove - 1st item
+            var itemToDelete = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)"));
             
+            //click to delete the first collection status
+            var deleteLink = driver.FindElement(By.CssSelector(".table tr td:last-child"));
+            deleteLink.Click();
 
+
+            //on delete confirmation page - shows info about specific bin selected
+            var binInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
+            var binTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+            
+            //above lists come back as empty*************
+
+            //ensure titles displayed are correct
+            Assert.AreEqual(binTitles[0].Text,"binID");
+            Assert.AreEqual(binTitles[1].Text, "status");
+            Assert.AreEqual(binTitles[2].Text, "siteID");
+            Assert.AreEqual(binTitles[3].Text, "collectionDate");
+
+            //ensure detail info is correct
+            Assert.AreEqual(binInfo[0].Text,obBins[0].binID);
+            Assert.AreEqual(binInfo[1].Text,obBins[0].status);
+            Assert.AreEqual(binInfo[2].Text, obBins[0].siteID);
+            Assert.AreEqual(binInfo[3].Text, obBins[0].collectionDate);
+
+            driver.FindElement(By.LinkText("Back to List")); //verify link is showing
+            var btnDelete = driver.FindElement(By.CssSelector("btn btn-default")); //delete button
+            btnDelete.Click();
+
+            //back to list page
+            //ensure item is no longer there
+            var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)")); //grab 1st item in list
+            Assert.AreNotEqual(item.Text,itemToDelete.Text);
+            //ensure list is one less
+            Assert.AreEqual(driver.FindElements(By.CssSelector(".table tr")).Count,obBins.Count-1);
 
         }
 
@@ -117,9 +151,6 @@ namespace KymiraAdminTests
         //test that list is displayed in the correct order
         public void TestThatListIsDisplayedInOrder()
         {
-            //count of rows
-            //int totalRows = driver.FindElements(By.CssSelector(".table tr")).Count;
-
             //list of all rows
             var list = driver.FindElements(By.CssSelector(".table tr"));
 
@@ -129,7 +160,7 @@ namespace KymiraAdminTests
             //check matching data from expected list defined above
             for (int i = 0; i < list.Count; i++)
             {
-                Assert.AreEqual(siteIdData[i++], obBins[i++].siteID);
+                Assert.AreEqual(siteIdData[i++].Text, obBins[i].siteID.ToString());
             }
 
             //ensure all rows are shown
@@ -156,7 +187,28 @@ namespace KymiraAdminTests
         //test that upon clicking the delete button for a collection status takes the admin to a confirmation page
         public void TestThatAdminIsTakenToDeleteConfirmationPage()
         {
+            //click to view the confirmation page
+            driver.FindElement(By.CssSelector(".table tr td:last-child")).Click();
+            
+            var binInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
+            var binTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
 
+            //above lists come back as empty***********
+
+            //ensure titles displayed are correct
+            Assert.AreEqual(binTitles[0].Text, "binID");
+            Assert.AreEqual(binTitles[1].Text, "status");
+            Assert.AreEqual(binTitles[2].Text, "siteID");
+            Assert.AreEqual(binTitles[3].Text, "collectionDate");
+
+            //ensure detail info is correct
+            Assert.AreEqual(binInfo[0].Text, obBins[0].binID);
+            Assert.AreEqual(binInfo[1].Text, obBins[0].status);
+            Assert.AreEqual(binInfo[2].Text, obBins[0].siteID);
+            Assert.AreEqual(binInfo[3].Text, obBins[0].collectionDate);
+
+            driver.FindElement(By.LinkText("Back to List")); //verify link is showing
+            driver.FindElement(By.CssSelector("btn btn-default")); //verify delete button is showing
         }
 
         [TestMethod]
