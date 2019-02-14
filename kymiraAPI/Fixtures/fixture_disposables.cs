@@ -23,7 +23,7 @@ namespace kymiraAPI.Fixtures
             recycleReason = "Cardboard Reason",
             endResult = "Cardboard End Result",
             qtyRecycled = 1000,
-            inactive = true
+            inactive = false
         }, new Disposable
         {
            

@@ -12,7 +12,7 @@ using Android.Widget;
 
 namespace KymiraApplication.Models
 {
-    public class Disposable
+    public class Disposable : IComparable
     {
         public Disposable()
         {
@@ -95,7 +95,11 @@ namespace KymiraApplication.Models
         [Required(ErrorMessage = "inactive field cannot be null")]
         public bool inactive { get; set; }
 
-
+        public int CompareTo(object obj)
+        {
+            Disposable disp = (Disposable)obj;
+            return this.name.CompareTo(disp.name);
+        }
 
     }
 

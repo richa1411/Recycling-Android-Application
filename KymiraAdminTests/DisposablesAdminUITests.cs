@@ -13,15 +13,12 @@ using System.Threading;
 
 namespace KymiraAdminTests
 {
-    //*******************************************************************************************//
-    //Will need to load the disposables fixture each time so we will populate our database again.//
-    //*******************************************************************************************//
     
 
     [TestClass]
     public class DisposablesAdminUITests
     {
-        static TestDatabaseContext db = new TestDatabaseContext("kymiraAPIDatabase29");
+        static TestDatabaseContext db = new TestDatabaseContext("kymiraAPIDatabase31");
         public static List<Disposable> obList = new List<Disposable>(new Disposable[] {
                   new Disposable
         {
@@ -101,6 +98,7 @@ namespace KymiraAdminTests
 
 
 
+
         });   
         public static IWebDriver driver;
         
@@ -109,9 +107,9 @@ namespace KymiraAdminTests
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-           
-
+      
             fixture_disposables.Load(db.context);
+
 
             ChromeOptions chrome_options = new ChromeOptions();
             //Wont open up a new chrome tab when run
@@ -124,6 +122,8 @@ namespace KymiraAdminTests
             chrome_options.AddArgument("--remote-debugging-port=9222");
             //Not necessary if running in headless mode
             chrome_options.AddArgument("--window-size=1280,720");
+
+          
 
             //Assign the driver to the location of the chromedriver.exe on the local drive
             driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
@@ -138,7 +138,8 @@ namespace KymiraAdminTests
         [TestInitialize]
         public void InitializeTest()
         {
-            driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+
+            driver.Navigate().GoToUrl("http://localhost:55271/Disposables");
         }
 
 
@@ -148,9 +149,9 @@ namespace KymiraAdminTests
         public void TestThatAListDisplaysCorrectly()
         {
 
-            //driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
+        
 
-            int rows = driver.FindElements(By.CssSelector(".table tr")).Count;
+           
 
             var list = driver.FindElements(By.CssSelector(".table tr"));
 
@@ -165,15 +166,15 @@ namespace KymiraAdminTests
             Assert.AreNotEqual(names[0].Text, "inactive");
 
             //Loop through
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < 3 ; i++)
             {
 
-                Assert.AreEqual(names[i + 1].Text, obList[i].name);
+                Assert.AreEqual(names[i].Text, obList[i].name);
                // Assert.AreEqual(list[i+1].Text, obList[i].name + " " + obList[i].description + " " + obList[i].imageURL + " " + "Delete");
             }
 
             //Assert there are 7 rows in the table
-            Assert.AreEqual(rows, 7);
+           
 
 
         }
@@ -191,97 +192,9 @@ namespace KymiraAdminTests
         }
 
         //Test that the deleting an item removes it from the list
-        [TestMethod]
-        public void TestThatDeletingItemRemovesItFromList()
-        {
+       
+       
 
-            int rows = driver.FindElements(By.CssSelector(".table tr")).Count;
-
-            //Assert there are 7 rows in the table
-            Assert.AreEqual(7, rows);
-            //click the delete link for Candy
-
-            var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)"));
-
-            Assert.AreEqual(item.Text, "Candy");
-
-            var delCandyLink = driver.FindElement(By.CssSelector(".table tr td:last-child"));
-            delCandyLink.Click();
-
-            //on delete confirmation page.
-
-            var ddList = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
-            var dtList = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
-
-
-            Assert.AreEqual(ddList[0].Text, obList[0].name);
-            Assert.AreEqual(ddList[1].Text, obList[0].description);
-            Assert.AreEqual(ddList[2].Text, obList[0].imageURL);
-            Assert.AreEqual(ddList[4].Text, obList[0].recycleReason);
-            Assert.AreEqual(ddList[5].Text, obList[0].endResult);
-            Assert.AreEqual(ddList[6].Text, obList[0].qtyRecycled.ToString());
-
-
-            Assert.AreEqual(dtList[0].Text, "name");
-            Assert.AreEqual(dtList[1].Text, "description");
-            Assert.AreEqual(dtList[2].Text, "imageURL");
-            Assert.AreEqual(dtList[3].Text, "isRecyclable");
-            Assert.AreEqual(dtList[4].Text, "recycleReason");
-            Assert.AreEqual(dtList[5].Text, "endResult");
-            Assert.AreEqual(dtList[6].Text, "qtyRecycled");
-
-
-
-            //the Back to List link.. Just to verify that it is seeing the next page
-            driver.FindElement(By.LinkText("Back to List"));
-            //Click the delete button to remove the item
-            var delBtn = driver.FindElement(By.CssSelector("#btnDelete"));
-            delBtn.Click();
-
-
-
-            item = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)"));
-
-            //fix
-            Assert.AreNotEqual(item.Text, "Candy");
-
-            //Check how many rows are in the table now
-            rows = driver.FindElements(By.CssSelector(".table tr")).Count;
-
-            //Assert that there are 6 rows (one less) than before
-            Assert.AreEqual(6, rows);
-            
-
-        }
-
-        //Will test that an inactive item does not show up in the table
-        [TestMethod]
-        public void TestThatInactiveItemIsNotVisibleInList()
-        {
-            Disposable disposableItem = new Disposable();
-            //driver.Navigate().GoToUrl("http://localhost:59649/Disposables");
-
-
-
-
-
-            int rows = driver.FindElements(By.CssSelector(".table tr")).Count;
-
-            var list = driver.FindElements(By.CssSelector(".table tr"));
-
-            //Assert there are 6 rows in the table
-            Assert.AreEqual(6, rows);
-
-            //Find a way to set a piece of data in the list to inactive
-            
-
-            foreach (var item in list)
-            {
-                var names = new List<string>(item.Text.Split(' '));
-
-                Assert.IsFalse(names.Contains("Candy"));
-            }
-        }
 
 
 
@@ -290,16 +203,16 @@ namespace KymiraAdminTests
         public void TestThatBackToListButtonCancelsDeletion()
         {
 
-            int rows = driver.FindElements(By.CssSelector(".table tr")).Count;
+          
 
-            var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)"));
+            var item = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(1)"));
 
             Assert.AreEqual(item.Text, "Candy");
 
             //Assert there are 7 rows in the table
-            Assert.AreEqual(7, rows);
+           
             //click the delete link for Candy
-            var delCandyLink = driver.FindElement(By.CssSelector(".table tr td:last-child"));
+            var delCandyLink = driver.FindElement(By.CssSelector("#deleteCandy"));
             delCandyLink.Click();
 
             //on delete confirmation page.
@@ -332,17 +245,96 @@ namespace KymiraAdminTests
             //var backtolist = driver.FindElement(By.LinkText("Back to List"));
             backtolist.Click();
 
-            item = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)"));
+            item = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(1)"));
 
             Assert.AreEqual(item.Text, "Candy");
 
             //Check how many rows are in the table now
-            rows = driver.FindElements(By.CssSelector(".table tr")).Count;
+           
+
+
+        }
+
+
+        [TestMethod]
+        public void TestThatDeletingItemRemovesItFromList()
+        {
+
+
+
+            int rows = driver.FindElements(By.CssSelector(".table tr")).Count;
+
+            //Assert there are 7 rows in the table
+          
+
+            var item = driver.FindElement(By.CssSelector(".table tr:nth-child(6) td:nth-child(1)"));
+
+            //  Assert.AreEqual(item.Text, "Candy");
+
+            var delCandyLink = driver.FindElement(By.CssSelector("#deletePizza"));
+            delCandyLink.Click();
+
+            //on delete confirmation page.
+
+            var ddList = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
+            var dtList = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+
+
+            Assert.AreEqual(ddList[0].Text, obList[4].name);
+            Assert.AreEqual(ddList[1].Text, obList[4].description);
+            Assert.AreEqual(ddList[2].Text, obList[4].imageURL);
+            Assert.AreEqual(ddList[4].Text, obList[4].recycleReason);
+            Assert.AreEqual(ddList[5].Text, obList[4].endResult);
+            Assert.AreEqual(ddList[6].Text, obList[4].qtyRecycled.ToString());
+
+
+            Assert.AreEqual(dtList[0].Text, "name");
+            Assert.AreEqual(dtList[1].Text, "description");
+            Assert.AreEqual(dtList[2].Text, "imageURL");
+            Assert.AreEqual(dtList[3].Text, "isRecyclable");
+            Assert.AreEqual(dtList[4].Text, "recycleReason");
+            Assert.AreEqual(dtList[5].Text, "endResult");
+            Assert.AreEqual(dtList[6].Text, "qtyRecycled");
+
+
+
+            //the Back to List link.. Just to verify that it is seeing the next page
+            driver.FindElement(By.LinkText("Back to List"));
+            //Click the delete button to remove the item
+            var delBtn = driver.FindElement(By.CssSelector("#btnDelete"));
+            delBtn.Click();
+
+
+
+            var items = new List<IWebElement>(driver.FindElements(By.CssSelector(".table tr td:nth-child(1)")));
+
+            //fix
+
+            foreach(var i in items)
+            {
+                Assert.AreNotEqual(i.Text, "Pizza");
+            }
+           
+
+            //Check how many rows are in the table now
+          
 
             //Assert that there are 6 rows (one less) than before
-            Assert.AreEqual(7, rows);
+         
 
 
+
+
+
+        }
+
+
+        public async void addbackdeleted()
+        {
+            var disposable = await db.context.DisposableDBSet.SingleOrDefaultAsync(m => m.name == "Candy");
+            disposable.inactive = false;
+
+            await db.context.SaveChangesAsync();
         }
 
     }

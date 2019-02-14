@@ -15,6 +15,7 @@ namespace KymiraAdmin.Controllers
 
         public DisposablesController(KymiraAdminContext context)
         {
+   
             _context = context;
         }
 
@@ -24,6 +25,7 @@ namespace KymiraAdmin.Controllers
             //Will sort the list alphabetically by name and only display the items that are NOT inactive
             var list = await _context.DisposableDBSet.ToListAsync();
             list.RemoveAll(m => m.inactive == true);
+            list.Sort();
             return View(list);
 
             //return View(await _context.DisposableDBSet.ToListAsync());

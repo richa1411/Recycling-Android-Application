@@ -9,7 +9,7 @@ namespace kymiraAPI.Models
     /**
      * This class is a disposable object used to store information to be displayed in an app, or stored in a database.
      * */
-    public class Disposable
+    public class Disposable : IComparable
     {
         [Key]
         [Required(ErrorMessage = "ID is required")]
@@ -51,5 +51,10 @@ namespace kymiraAPI.Models
         [Required(ErrorMessage = "inactive field cannot be null")]
         public bool inactive { get; set; }
 
+        public int CompareTo(object obj)
+        {
+            Disposable disp = (Disposable)obj;
+            return this.name.CompareTo(disp.name);
+        }
     }
 }

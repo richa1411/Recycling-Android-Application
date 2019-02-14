@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:59648/",
+      "applicationUrl": "http://localhost:55270/",
       "sslPort": 0
     }
   },
@@ -17,12 +17,11 @@
     },
     "KymiraAdmin": {
       "commandName": "Project",
-      "launchUrl": "Disposables",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:59649/"
+      "applicationUrl": "http://localhost:55271/"
     }
   }
 }
