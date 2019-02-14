@@ -148,9 +148,11 @@ namespace KymiraAdmin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /*
         private bool BinStatusExists(int id)
         {
             return _context.BinStatus.Any(e => e.pickupID == id);
         }
+        */
     }
 }

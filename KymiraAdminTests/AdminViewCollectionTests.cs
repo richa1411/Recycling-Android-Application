@@ -1,13 +1,17 @@
 ﻿using KymiraAdmin.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using KymiraAdmin.Fixtures;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 
 namespace KymiraAdminTests
 {
     [TestClass]
     public class AdminViewCollectionTests
     {
-        
+        //static TestDatabaseContext db = new TestDatabaseContext("KymiraAdminDatabase30");
+
         /*
         List<BinStatus> list = new List<BinStatus>
         {
@@ -18,24 +22,94 @@ namespace KymiraAdminTests
         };
         */
 
+
+        List<BinStatus> obBins = new List<BinStatus> {
+        new BinStatus
+        {
+            binID = "W114-320-203",
+            siteID = 1609312,
+            status = 1,
+            collectionDate = "2019-01-01"
+        },
+        new BinStatus
+        {
+            binID = "W114-320-204",
+            siteID = 1609312,
+            status = 2,
+            collectionDate = "2019-01-01"
+        },
+        new BinStatus
+        {
+            binID = "W114-320-205",
+            siteID = 1609312,
+            status = 1,
+            collectionDate = "2019-01-01"
+        },
+        new BinStatus
+        {
+             binID = "COSMO123",
+            siteID = 1609320,
+            status = 1,
+            collectionDate = "2019-01-01"
+        },
+        new BinStatus
+        {
+            binID = "12345",
+            siteID = 1609320,
+            status = 3,
+            collectionDate = "2019-01-01"
+        }};
+
+
         //list of BinStatuses to compare test results to -- in order (siteID, binID, collectionDate(?))
         //List<BinStatus> dbBins = fixture_bin_status.obBins;
-        
+
+
+        public static IWebDriver driver;
+
+        [ClassInitialize] //this method will run once before all of the tests
+        public static void ClassInitialize(TestContext context)
+        {
+            //load items into test database
+            //fixture_bin_status.Load(db.context);
+
+            ChromeOptions chrome_options = new ChromeOptions();
+            //Wont open up a new chrome tab when run
+            chrome_options.AddArgument("--headless");
+
+            //disable various chrome services that may interfere with the test
+            chrome_options.AddArgument("--disable-sync");
+            chrome_options.AddArgument("--disable-extensions");
+            chrome_options.AddArgument("--remote-debugging-address=0.0.0.0");
+            chrome_options.AddArgument("--remote-debugging-port=9222");
+            //Not necessary if running in headless mode
+            chrome_options.AddArgument("--window-size=1280,720");
+
+            //Assign the driver to the location of the chromedriver.exe on the local drive
+            driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
+
+        }
+
+        [ClassCleanup] //this method will remove everything
+        public static void ClassCleanup()
+        {
+            //remove all items from test database
+            //fixture_bin_status.Unload(db.context);
+        }
 
         [TestInitialize]
-        public void Setup()
+        public void InitializeTest()
         {
-
-            //remove all items from the database and add data to be displayed to test for
-            //call fixture class to load bin statuses
+            //navigate to proper page
+            driver.Navigate().GoToUrl("http://localhost:55270/BinStatus");
         }
 
         [TestMethod]
         //Test that a deleted collection status is removed from the list (and database)
         public void TestThatDeletedStatusNotDisplayed()
         {
-            //List<BinStatus> list = BinStatusPage.Index();
-            //Assert.IsTrue(!dbBins.Contains());
+            
+
 
         }
 
@@ -43,7 +117,23 @@ namespace KymiraAdminTests
         //test that list is displayed in the correct order
         public void TestThatListIsDisplayedInOrder()
         {
-            //Assert.IsTrue(dbBins.Equals());
+            //count of rows
+            //int totalRows = driver.FindElements(By.CssSelector(".table tr")).Count;
+
+            //list of all rows
+            var list = driver.FindElements(By.CssSelector(".table tr"));
+
+            //list of siteID data shown in list
+            var siteIdData = driver.FindElements(By.CssSelector(".table tr td:first-child"));
+
+            //check matching data from expected list defined above
+            for (int i = 0; i < list.Count; i++)
+            {
+                Assert.AreEqual(siteIdData[i++], obBins[i++].siteID);
+            }
+
+            //ensure all rows are shown
+            Assert.AreEqual(siteIdData.Count, obBins.Count);
         }
 
         [TestMethod]
