@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using kymiraAPI.Models;
 using System.Linq;
+using KymiraAdmin.Models;
 
 namespace KymiraAdministratorTests
 {
