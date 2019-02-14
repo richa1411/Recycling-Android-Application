@@ -12,7 +12,6 @@ namespace KymiraAdmin.Models
             : base(options)
         {
         }
-
         public DbSet<KymiraAdmin.Models.Site> Site { get; set; }
     }
 }

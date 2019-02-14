@@ -105,7 +105,17 @@ namespace KymiraAdmin
             //Try to parse the string ID into an integer
             bool success = Int32.TryParse(siteIDString, out convertedID);
 
-            return convertedID;
+            //If parse successful
+            if(success)
+            {
+                //Return 0 if value is negative, otherwise return the ID
+                return convertedID > 0 ? convertedID : 0;
+            }
+            //If parsing failed, return 0
+            else
+            {
+                return 0;
+            }
         }
 
         // This method will take in a String value of an Excel cell

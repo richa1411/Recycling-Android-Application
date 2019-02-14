@@ -24,8 +24,6 @@ namespace KymiraAdminTests
         public void Setup()
         {
 
-            //var stringRow = row.Cells.Select(c => c.ToString()).ToList();
-
             //Create a static "row" for testing that is actually a list of strings
             //Each string in the list is the string value of an indiviudal cell from the row
             cellList = new List<string>();
@@ -112,18 +110,65 @@ namespace KymiraAdminTests
             Assert.IsTrue(siteID == 0);
         }
 
+        //Test that an empty site ID returns a flag value of 0 (invalid)
+        [TestMethod]
+        public void TestThatParseSiteIDEmptyIDInvalidReturnsZero()
+        {
+            int siteID = SiteParser.ParseSiteID("");
+
+            Assert.IsTrue(siteID == 0);
+        }
+
+        //Test that a site ID that is negative returns a flag value of 0 (invalid)
+        [TestMethod]
+        public void TestThatParseSiteIDNegativeIDInvalidReturnsZero()
+        {
+            int siteID = SiteParser.ParseSiteID("-1");
+
+            Assert.IsTrue(siteID == 0);
+        }
+
+        //Test that site ID that is larger than what can be stored in an integer returns flag value of 0 (invalid)
+        [TestMethod]
+        public void TestThatParseSiteIDLargerThanIntegerReturnsZero()
+        {
+            int siteID = SiteParser.ParseSiteID("1000000000000000000000000");
+
+            Assert.IsTrue(siteID == 0);
+        }
+
         //Test that a valid address is correctly parsed
         [TestMethod]
         public void TestThatParseSiteAddressValidAddress()
         {
             string address = SiteParser.ParseAddress("123 Test St");
 
-            Assert.IsTrue(address.Length > 0);
+            Assert.AreEqual(address, "123 Test St");
+        }
+
+        //Test that an address that is one character is valid and correctly parsed
+        [TestMethod]
+        public void TestThatParseSiteAddressOneCharValid()
+        {
+            string address = SiteParser.ParseAddress("T");
+
+            Assert.AreEqual(address, "T");
+        }
+
+        //Test that an address that is 200 characters long is valid and correctly parsed
+        [TestMethod]
+        public void TestThatParseSiteAddress200CharValid()
+        {
+            string testString = new string('a', 200);
+
+            string address = SiteParser.ParseAddress(testString);
+
+            Assert.IsTrue(address.Length == 200);
         }
 
         //Test that an invalid address returns a flag value of empty string
         [TestMethod]
-        public void TestThatParseSiteAddressWithInvalidAddressReturnsEmptyString()
+        public void TestThatParseSiteAddressTooLongReturnsEmptyString()
         {
             string testString = new String('a', 201);
 
@@ -134,16 +179,25 @@ namespace KymiraAdminTests
 
         //Test that a valid frequency is parsed correctly
         [TestMethod]
-        public void TestThatParseSiteFrequencyValidFrequency()
+        public void TestThatParseSiteFrequencyWeeklyValidFrequency()
         {
             Site.PickupFrequency frequency = SiteParser.ParseFrequency("Weekly");
 
             Assert.IsTrue(frequency == Site.PickupFrequency.Weekly);
         }
 
+        //Test that a valid frequency is parsed correctly
+        [TestMethod]
+        public void TestThatParseSiteFrequencyBiWeeklyValidFrequency()
+        {
+            Site.PickupFrequency frequency = SiteParser.ParseFrequency("Bi-Weekly");
+
+            Assert.IsTrue(frequency == Site.PickupFrequency.BiWeekly);
+        }
+
         //Test that an invalid frequency returns a flag value of null
         [TestMethod]
-        public void TestThatParseSiteFrequencyWithInvalidFrequencyReturnsNull()
+        public void TestThatParseSiteFrequencyWithInvalidFrequencyReturnsInvalid()
         {
 
             Site.PickupFrequency frequency = SiteParser.ParseFrequency("kljas");
@@ -169,9 +223,9 @@ namespace KymiraAdminTests
 
 
 
-        // Test that an invalid Collection Day returns null
+        // Test that an invalid Collection Day returns invalid
         [TestMethod]
-        public void TestThatParseSitePickupDaysWithInvalidDaysReturnsNull()
+        public void TestThatParseSitePickupDaysWithInvalidDaysReturnsInvalid()
         {
             string[] collectionDays = new string[]
             {
@@ -201,6 +255,19 @@ namespace KymiraAdminTests
             Site.PickupDays pickupDays = SiteParser.ParsePickupDays(collectionDays);
 
             Assert.IsTrue(pickupDays == (Site.PickupDays.Tuesday | Site.PickupDays.Friday));
+        }
+
+        //Test that all empty strings returns an invalid PickupDays
+        [TestMethod]
+        public void TestThatParseSitePickupDaysAllEmptyStringsInvalid()
+        {
+            string[] collectionDays = new string[]
+            {
+                "",
+                "",
+                "",
+                ""
+            };
         }
 
         // Test that A Valid Site object is created when GenerateSiteObjectFromRow method is given valid info
@@ -233,6 +300,8 @@ namespace KymiraAdminTests
             Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[2].ErrorMessage);
             Assert.AreEqual("Specified Pickup Days are invalid", results[3].ErrorMessage);
         }
+
+        //*************************WHERE I LEFT OFF ON FEB 13/19********************************************//
 
         [TestMethod]
         public void TestThatSiteObjectWithAddressOf1PassesValidation()

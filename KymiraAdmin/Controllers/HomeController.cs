@@ -139,7 +139,7 @@ namespace KymiraAdmin.Controllers
                 try
                 {
                     //Delete all rows from the Site table
-                    _context.Database.ExecuteSqlCommand("DELETE FROM Site");
+                    //_context.Database.ExecuteSqlCommand("CREATE TABLE Site IF NOT EXISTS");
 
                     //Reload the site table with the new data from the Excel file
                     _context.Site.AddRange(validSitesList);
@@ -159,6 +159,7 @@ namespace KymiraAdmin.Controllers
                 //If an exception is ensountered
                 catch (Exception e)
                 {
+                    //******** WHERE I LEFT OFF ON FEB 13/19 **** CHANGING SITE pickupDays to SitePickupDays MADE DATABASE MAD, HAVE TO FIX*******
                     //Display message that upload was unsuccessful if something went wrong
                     ViewData["Message"] = "Error 1: Something went wrong, try again later";
                     return View();

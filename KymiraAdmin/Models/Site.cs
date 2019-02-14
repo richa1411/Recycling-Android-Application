@@ -36,9 +36,7 @@ namespace KymiraAdmin.Models
         // Each new site will contain an empty list of BinStatus "children"
         public Site()
         {
-            this.BinStatus = new List<BinStatus>();
-
-            
+            this.BinStatus = new List<BinStatus>();          
         }
 
         [Key]  //the primary key for a Site object, the decoration below makes it so that this is not auto-incrementing

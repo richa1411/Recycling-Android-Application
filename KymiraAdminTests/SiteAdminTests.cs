@@ -134,7 +134,7 @@ namespace KymiraAdminTests
 
         }
 
-        //Test that a Site object with a collection 1 day of Monday to Friday is valid
+        //Test that a Site object with pickup days of Monday to Friday is valid
         [TestMethod]
         public void TestThatCollectionDayOfWeekMondayToFridayIsValid()
         {
