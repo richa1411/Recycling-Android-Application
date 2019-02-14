@@ -17,8 +17,9 @@ namespace kymiraAPI.Models
         [Key] 
         public int pickupID { get; set; }
         
-        [Range(1, int.MaxValue, ErrorMessage = "BinID must be a valid number")] //to hold a Bin serial number/ID code
-        public int binID { get; set; }
+        [StringLength(20,MinimumLength = 1,ErrorMessage ="BinID must be between 1 and 20 characters")]
+        [RegularExpression("^[A-Z0-9 -]*$", ErrorMessage = "BinID is not valid")] //to hold a Bin serial number/ID code
+        public string binID { get; set; }
         
         //1 -> Collected, 2 -> Inaccessible, 3 -> Contaminated
         [Range(1, 3, ErrorMessage = "A status can only be the value of 1, 2, or 3")]

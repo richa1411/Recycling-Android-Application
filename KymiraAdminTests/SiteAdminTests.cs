@@ -18,10 +18,10 @@ namespace KymiraAdminTests
         {
              testSite = new Site
             {
-                SiteID = 10,
-                Address = "123 Test Street",
-                Frequency = Site.PickupFrequency.Weekly,
-                SitePickupDays = Site.PickupDays.Monday
+                siteID = 10,
+                address = "123 Test Street",
+                frequency = Site.PickupFrequency.Weekly,
+                sitePickupDays = Site.PickupDays.Monday
              };
         }
 
@@ -39,7 +39,7 @@ namespace KymiraAdminTests
         //testing that the siteID of a Site object cannot be less than 0
         public void TestThatSiteIDLessThanOneIsInvalid()
         {
-            testSite.SiteID = -1;
+            testSite.siteID = -1;
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
@@ -49,7 +49,7 @@ namespace KymiraAdminTests
         //testing that siteID cannot be 0
         public void TestThatSideIDOfZeroIsInvalid()
         {
-            testSite.SiteID = 0;
+            testSite.siteID = 0;
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("The siteID must be a valid integer", results[0].ErrorMessage);
@@ -59,7 +59,7 @@ namespace KymiraAdminTests
         //testing that the siteID of a Site object of 1 is valid
         public void TestThatSiteIDOfOneIsValid()
         {
-            testSite.SiteID = 1;
+            testSite.siteID = 1;
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(0, results.Count);
         }
@@ -68,7 +68,7 @@ namespace KymiraAdminTests
         //testing that the address of a Site object cannot be an empty string
         public void TestThatSiteAddressOfEmptyStringIsInvalid()
         {
-            testSite.Address = "";
+            testSite.address = "";
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
@@ -78,7 +78,7 @@ namespace KymiraAdminTests
         //testing that the address of a Site object can be 1 character
         public void TestThatSiteAddressOfOneCharacterIsValid()
         {
-            testSite.Address = "a";
+            testSite.address = "a";
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(0, results.Count);
         }
@@ -87,7 +87,7 @@ namespace KymiraAdminTests
         //testing that the address of a Site object can be 200 characters
         public void TestThatSiteAddressOf200CharactersIsValid()
         {
-            testSite.Address = new string('a', 200);
+            testSite.address = new string('a', 200);
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(0, results.Count);
         }
@@ -97,7 +97,7 @@ namespace KymiraAdminTests
         //testing that the address of a Site object cannot be 201 characters
         public void TestThatSiteAddressOfLargeStringIsInvalid()
         {
-            testSite.Address = new string('a', 201);
+            testSite.address = new string('a', 201);
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Address must be 1 to 200 characters", results[0].ErrorMessage);
@@ -107,7 +107,7 @@ namespace KymiraAdminTests
         //Test that a Site object with an "empty" frequency is not valid
         public void TestThatSiteFrequencyOfZeroIsInvalid()
         {
-            testSite.Frequency = 0;
+            testSite.frequency = 0;
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Pickup Frequency must be Weekly or BiWeekly", results[0].ErrorMessage);
@@ -118,7 +118,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatSiteFrequencyOfWeeklyIsValid()
         {
-            testSite.Frequency = Site.PickupFrequency.Weekly;
+            testSite.frequency = Site.PickupFrequency.Weekly;
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(0, results.Count);
 
@@ -128,7 +128,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatSiteFrequencyOfBiWeeklyIsValid()
         {
-            testSite.Frequency = Site.PickupFrequency.BiWeekly;
+            testSite.frequency = Site.PickupFrequency.BiWeekly;
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(0, results.Count);
 
@@ -138,7 +138,7 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatCollectionDayOfWeekMondayToFridayIsValid()
         {
-            testSite.SitePickupDays = Site.PickupDays.Monday | Site.PickupDays.Tuesday | Site.PickupDays.Wednesday | Site.PickupDays.Thursday | Site.PickupDays.Friday;
+            testSite.sitePickupDays = Site.PickupDays.Monday | Site.PickupDays.Tuesday | Site.PickupDays.Wednesday | Site.PickupDays.Thursday | Site.PickupDays.Friday;
 
             var results = HelperTestModel.Validate(testSite);
             Assert.AreEqual(0, results.Count);

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace KymiraAdmin
+namespace KymiraAdminTests
 {
     //this validation helper class has a method called validate that will accept Model class's object,
     //and stores results of validating objects (error messages) in a list
-    class ValidationHelper
+    class TestValidationHelper
     {
         public static List<ValidationResult> Validate(object model)
         {

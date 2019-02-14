@@ -33,7 +33,7 @@ namespace KymiraAdmin.Controllers
             }
 
             var site = await _context.Site
-                .SingleOrDefaultAsync(m => m.SiteID == id);
+                .SingleOrDefaultAsync(m => m.siteID == id);
             if (site == null)
             {
                 return NotFound();
@@ -72,7 +72,7 @@ namespace KymiraAdmin.Controllers
                 return NotFound();
             }
 
-            var site = await _context.Site.SingleOrDefaultAsync(m => m.SiteID == id);
+            var site = await _context.Site.SingleOrDefaultAsync(m => m.siteID == id);
             if (site == null)
             {
                 return NotFound();
@@ -87,7 +87,7 @@ namespace KymiraAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("siteID,address,frequency,collection1,collection2,collection3,collection4")] Site site)
         {
-            if (id != site.SiteID)
+            if (id != site.siteID)
             {
                 return NotFound();
             }
@@ -101,7 +101,7 @@ namespace KymiraAdmin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SiteExists(site.SiteID))
+                    if (!SiteExists(site.siteID))
                     {
                         return NotFound();
                     }
@@ -124,7 +124,7 @@ namespace KymiraAdmin.Controllers
             }
 
             var site = await _context.Site
-                .SingleOrDefaultAsync(m => m.SiteID == id);
+                .SingleOrDefaultAsync(m => m.siteID == id);
             if (site == null)
             {
                 return NotFound();
@@ -138,7 +138,7 @@ namespace KymiraAdmin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var site = await _context.Site.SingleOrDefaultAsync(m => m.SiteID == id);
+            var site = await _context.Site.SingleOrDefaultAsync(m => m.siteID == id);
             _context.Site.Remove(site);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -146,7 +146,7 @@ namespace KymiraAdmin.Controllers
 
         private bool SiteExists(int id)
         {
-            return _context.Site.Any(e => e.SiteID == id);
+            return _context.Site.Any(e => e.siteID == id);
         }
     }
 }

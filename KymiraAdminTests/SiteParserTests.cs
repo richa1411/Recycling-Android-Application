@@ -426,7 +426,7 @@ namespace KymiraAdminTests
 
             Site site = SiteParser.GenerateSiteObjectFromRow(cellList, true);
 
-            Assert.AreEqual(1, site.SiteID);
+            Assert.AreEqual(1, site.siteID);
             var results = HelperTestModel.Validate(site);
             Assert.AreEqual(0, results.Count);
 

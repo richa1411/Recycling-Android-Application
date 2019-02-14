@@ -35,7 +35,7 @@ namespace KymiraAdmin
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();             
+                app.UseDeveloperExceptionPage();
             }
             else
             {

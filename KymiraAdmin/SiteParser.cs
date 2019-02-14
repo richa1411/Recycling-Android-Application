@@ -36,8 +36,8 @@ namespace KymiraAdmin
                 //Return an invalid site
                 return new Site
                 {
-                    SitePickupDays = Site.PickupDays.Invalid,
-                    Frequency = Site.PickupFrequency.Invalid
+                    sitePickupDays = Site.PickupDays.Invalid,
+                    frequency = Site.PickupFrequency.Invalid
                 };
             }
 
@@ -48,7 +48,7 @@ namespace KymiraAdmin
                 // If this is reached, it means the headers are incorrect, so return an invalid object
                 return new Site
                 {
-                    SitePickupDays = Site.PickupDays.Invalid
+                    sitePickupDays = Site.PickupDays.Invalid
                 };
             }
             //If row is a header row, but has all required fields
@@ -57,10 +57,10 @@ namespace KymiraAdmin
                 // Return a valid site object (this one won't be parsed, and added to the array)
                 return new Site
                 {
-                    SiteID = 1,
-                    Address = "valid",
-                    Frequency = Site.PickupFrequency.BiWeekly,
-                    SitePickupDays = Site.PickupDays.Monday
+                    siteID = 1,
+                    address = "valid",
+                    frequency = Site.PickupFrequency.BiWeekly,
+                    sitePickupDays = Site.PickupDays.Monday
                 };
             }
             //Else row is NOT a header row, try to parse
@@ -70,13 +70,13 @@ namespace KymiraAdmin
                 Site siteFromRow = new Site();
 
                 //Parse the ID and add it to the Site object
-                siteFromRow.SiteID = ParseSiteID(sRow[1]);
+                siteFromRow.siteID = ParseSiteID(sRow[1]);
 
                 //Parse the address and add it to the Site object
-                siteFromRow.Address = ParseAddress(sRow[7]);
+                siteFromRow.address = ParseAddress(sRow[7]);
 
                 //Parse the frequency and add it to the Site object
-                siteFromRow.Frequency = ParseFrequency(sRow[10]);
+                siteFromRow.frequency = ParseFrequency(sRow[10]);
 
                 //Create a string array to hold each potential collection day
                 string[] collections = new string[4];
@@ -87,7 +87,7 @@ namespace KymiraAdmin
                 collections[3] = sRow[18];
 
                 //Parse the pickup days and add it to the site object
-                siteFromRow.SitePickupDays = ParsePickupDays(collections);
+                siteFromRow.sitePickupDays = ParsePickupDays(collections);
             
                 return siteFromRow;
 

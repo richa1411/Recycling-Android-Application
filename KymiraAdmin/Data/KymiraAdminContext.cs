@@ -12,6 +12,8 @@ namespace KymiraAdmin.Models
             : base(options)
         {
         }
+
+        public DbSet<KymiraAdmin.Models.BinStatus> BinStatus { get; set; }
         public DbSet<KymiraAdmin.Models.Site> Site { get; set; }
     }
 }
