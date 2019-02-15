@@ -145,6 +145,19 @@ namespace KymiraAdminTests
 
         }
 
+        [DataTestMethod]
+        [DataRow(Site.PickupDays.Saturday)]
+        [DataRow(Site.PickupDays.Sunday)]
+        [DataRow(Site.PickupDays.Invalid)]
+        public void TestThatInvalidDayOfWeekFailsValidation(Site.PickupDays day)
+        {
+            testSite.sitePickupDays = day;
+            var results = HelperTestModel.Validate(testSite);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("Specified Pickup Days are invalid", results[0].ErrorMessage);
+
+        }
+
 
 
 

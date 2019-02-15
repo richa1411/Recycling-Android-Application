@@ -53,7 +53,7 @@ namespace KymiraAdmin.Controllers
          * It first checks the mime type of the excel file passed through the form posted and creates the appropriate workbook
          * to grab the data from.
          */
-        public IActionResult Index(IFormFile excelFile)
+        public async Task<IActionResult> Index(IFormFile excelFile)
         {
 
             if (excelFile == null)
@@ -171,13 +171,42 @@ namespace KymiraAdmin.Controllers
                     //_context.Database.ExecuteSqlCommand("CREATE TABLE Site IF NOT EXISTS");
 
                     //Reload the site table with the new data from the Excel file
-                    _context.Database.ExecuteSqlCommand("DELETE FROM Site");
-                    _context.Site.AddRange(validSitesList);
+                    //_context.Database.ExecuteSqlCommand("DELETE FROM Site");
+                    try
+                    {
+                        foreach (Site site in validSitesList)
+                        {
+
+                            var siteFromDB = await _context.Site.SingleOrDefaultAsync<Site>(s => s.siteID == site.siteID);
+
+                            // If not in Database
+                            if (siteFromDB == null)
+                            {
+                                // Add to database
+                                await _context.Site.AddAsync(site);
+
+                            }
+                            else
+                            {
+                                siteFromDB.address = site.address;
+                                siteFromDB.frequency = site.frequency;
+                                siteFromDB.sitePickupDays = site.sitePickupDays;
+
+
+                            }
+
+                        }
+
+                    }
+                    catch
+                    {
+
+                    }
 
                     //If the database received a successful result of rows updated
-                    var result = _context.SaveChanges();
+                    var result = _context.SaveChangesAsync();
 
-                    if (result > 0)
+                    if (result.IsCompletedSuccessfully)
                     {
 
                         //Display message letting user know that upload succeeded
