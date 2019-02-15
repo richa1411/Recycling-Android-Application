@@ -5,20 +5,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace kymiraAPI.Models
+namespace KymiraAdmin.Models
 {
     public class Site
     {
 
         // This enum represents the pickup frequency,
         // either weekly or bi-weekly
-        public enum PickupFrequency { Weekly = 1, BiWeekly = 2, Invalid = 0 }
+        public enum PickupFrequency { Weekly = 1, BiWeekly = 2, Invalid = 0}
 
         // This enum represents the collection days
         // This can be Sunday-Saturday
         [Flags]
-        public enum PickupDays
-        {
+        public enum PickupDays {
             Monday = 1,
             Tuesday = 2,
             Wednesday = 4,
@@ -37,7 +36,7 @@ namespace kymiraAPI.Models
         // Each new site will contain an empty list of BinStatus "children"
         public Site()
         {
-            this.binStatus = new List<BinStatus>();
+            this.binStatus = new List<BinStatus>();          
         }
 
         [Key]  //the primary key for a Site object, the decoration below makes it so that this is not auto-incrementing
@@ -64,5 +63,6 @@ namespace kymiraAPI.Models
         public PickupDays sitePickupDays { get; set; }
 
     }
+
 }
 

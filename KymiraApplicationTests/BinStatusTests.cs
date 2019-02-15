@@ -32,7 +32,9 @@ namespace KymiraApplicationTests
         Site testSite = new Site
         {
             siteID = 20,
-            address = "123 Test Street"
+            address = "123 Test Street",
+            sitePickupDays = Site.PickupDays.Monday,
+            frequency = Site.PickupFrequency.Weekly
         };
 
 

@@ -12,8 +12,10 @@ namespace kymiraAPI.Fixtures
     public class fixture_bin_status
     {
         //Site objects to add to the database
-        public static List<Site> obSites = new List<Site>(new Site[] { new Site { siteID = 10, address = "123 Test Street" },
-            new Site { siteID = 20, address = "123 Another Street"}, new Site { siteID = 30, address = "123 Fake Street" } });
+        public static List<Site> obSites = new List<Site>(new Site[] {
+            new Site { siteID = 10, address = "123 Test Street", sitePickupDays = Site.PickupDays.Monday, frequency = Site.PickupFrequency.Weekly },
+            new Site { siteID = 20, address = "123 Another Street", sitePickupDays = Site.PickupDays.Monday, frequency = Site.PickupFrequency.Weekly},
+            new Site { siteID = 30, address = "123 Fake Street", sitePickupDays = Site.PickupDays.Monday, frequency = Site.PickupFrequency.Weekly } });
         
         //BinStatus objects to add to the database
         public static List<BinStatus> obBins = new List<BinStatus>(new BinStatus[] { new BinStatus
