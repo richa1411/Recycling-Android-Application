@@ -19,7 +19,7 @@ namespace KymiraAdminTests
     [TestClass]
     public class DisposablesAdminUITests
     {
-        static TestDatabaseContext db = new TestDatabaseContext("kymiraAPIDatabase31");
+        static TestDatabaseContext db = new TestDatabaseContext("kymira_db_test");
         public static List<Disposable> obList = new List<Disposable>(new Disposable[] {
                   new Disposable
         {
