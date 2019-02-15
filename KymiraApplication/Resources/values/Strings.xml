@@ -3,7 +3,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
-    <string name="UrlAPI">http://10.0.2.2:55085</string>
+    <string name="UrlAPI">http://kymiraadmin.azurewebsites.net</string>
     <string name="UrlBinStatus">/api/BinStatus/</string>
     <string name ="UrlFAQ">/api/FAQs/</string>
   <!-- Strings for showing recent Bin Statuses -->
