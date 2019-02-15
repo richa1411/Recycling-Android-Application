@@ -6,8 +6,11 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using KymiraAdmin.Models;
+using KymiraAdmin.Fixtures;
 
 namespace KymiraAdmin
 {
@@ -27,32 +30,21 @@ namespace KymiraAdmin
 
             services.AddDbContext<KymiraAdminContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("KymiraAdminContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,KymiraAdminContext context)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, KymiraAdminContext context)
         {
             if (env.IsDevelopment())
             {
-                app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            context.Database.EnsureCreated();
+            Fixtures.fixture_disposables.Unload(context);
+            Fixtures.fixture_disposables.Load(context);
 
-
-            //Fixtures.fixture_disposables.Unload(context);
-           // Fixtures.fixture_disposables.Load(context);
-            app.UseStaticFiles();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }

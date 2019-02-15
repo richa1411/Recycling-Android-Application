@@ -1,23 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using kymiraAPI;
-using kymiraAPI.Models;
+using KymiraAdmin;
+using KymiraAdmin.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace kymiraAPITest
+namespace KymiraAdminTests
 {
-
-   
     [TestClass]
-    public class DisposablesAPITests
+    public class DisposablesAdminTest
     {
-
-
-
-
-
 
         Disposable testDbItem = new Disposable
         {
@@ -45,13 +38,6 @@ namespace kymiraAPITest
         };
 
 
-
-
-
-
-
-
-
         /**
          * Tests that the model allows a valid object
          * */
@@ -59,7 +45,7 @@ namespace kymiraAPITest
         public void AllRecyclableInformationIsValidTest()
         {
 
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
 
         }
@@ -73,7 +59,7 @@ namespace kymiraAPITest
         {
 
             testDbItem.ID = 1;
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
 
 
@@ -89,7 +75,7 @@ namespace kymiraAPITest
         public void TestThatNameIsEmpty()
         {
             testDbItem.name = null;
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Name is required", results[0].ErrorMessage);
         }
@@ -102,7 +88,7 @@ namespace kymiraAPITest
 
             //ErrorMessage = "name must be 50 characters or less."
             testDbItem.name = new string('a', 51);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("name must be 50 characters or less.", results[0].ErrorMessage);
 
@@ -115,7 +101,7 @@ namespace kymiraAPITest
         public void TestThatNameIs50CharsLong()
         {
             testDbItem.name = new string('a', 50);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
 
             //no errors
@@ -130,7 +116,7 @@ namespace kymiraAPITest
         public void TestThatDescriptionisValid()
         {
             testDbItem.description = "PRJ2Cosmo";
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //NoError
 
@@ -142,7 +128,7 @@ namespace kymiraAPITest
         public void TestThatDescriptionisEmpty()
         {
             testDbItem.description = null;
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Description is required", results[0].ErrorMessage);
             //error
@@ -155,7 +141,7 @@ namespace kymiraAPITest
         public void TestThatDescriptionisGreaterThan500Characters()
         {
             testDbItem.description = new string('a', 501);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Description must be 500 characters or less.", results[0].ErrorMessage);
             //error
@@ -168,10 +154,10 @@ namespace kymiraAPITest
         public void TestThatDescriptionis500Characters()
         {
             testDbItem.description = new string('a', 500);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
-            
-           
+
+
 
         }
 
@@ -183,7 +169,7 @@ namespace kymiraAPITest
         public void TestThatPictureIDIsEmpty()
         {
             testDbItem.imageURL = null;
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("PictureID is required", results[0].ErrorMessage);
             //errors
@@ -196,7 +182,7 @@ namespace kymiraAPITest
         public void TestThatPictureIDIsAString()
         {
             testDbItem.imageURL = "pizza";
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //no errors
 
@@ -209,7 +195,7 @@ namespace kymiraAPITest
         public void TestThatPictureIDCanNotbeGreaterThan90Characters()
         {
             testDbItem.imageURL = new string('a', 91);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("PictureID must be 90 characters or less", results[0].ErrorMessage);
             //error
@@ -222,14 +208,14 @@ namespace kymiraAPITest
         public void TestThatPictureIDis90Characters()
         {
             testDbItem.imageURL = new string('a', 90);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //error
 
         }
 
         //*********** isRECYCLABLE ***********
-        
+
         /**
          * Test that the disposable item is not recyclable. IsRecyclable set to false is Valid
          * */
@@ -237,7 +223,7 @@ namespace kymiraAPITest
         public void TestThatisRecyclableIsFalse()
         {
             testDbItem.isRecyclable = false;
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //NoError
 
@@ -250,7 +236,7 @@ namespace kymiraAPITest
         {
 
             testDbItem.isRecyclable = true;
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //NoError
 
@@ -266,7 +252,7 @@ namespace kymiraAPITest
         public void TestThatRecyclableReasonIsValid()
         {
             testDbItem.recycleReason = "Because stone cold steve austin said so";
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //noerror
 
@@ -280,7 +266,7 @@ namespace kymiraAPITest
         public void TestThatRecyclableReasonIsGreaterThan500Characters()
         {
             testDbItem.recycleReason = new string('a', 501);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Reason must be 500 characters or less.", results[0].ErrorMessage);
 
@@ -295,9 +281,9 @@ namespace kymiraAPITest
         public void TestThatRecyclableReasonIs500Characters()
         {
             testDbItem.recycleReason = new string('a', 500);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
-         
+
 
 
         }
@@ -309,7 +295,7 @@ namespace kymiraAPITest
         public void TestThatRecyclableReasonIsEmpty()
         {
             testDbItem.recycleReason = null;
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Disposable must have a recyclable reason", results[0].ErrorMessage);
 
@@ -328,7 +314,7 @@ namespace kymiraAPITest
         public void TestThatisEndResultisValid()
         {
             testDbItem.endResult = "toilet paper for babies. this ad was sponsered by huggies";
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //Noerror
 
@@ -342,7 +328,7 @@ namespace kymiraAPITest
         {
 
             testDbItem.endResult = new string('a', 501);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("Result must be 500 characters or less.", results[0].ErrorMessage);
 
@@ -358,9 +344,9 @@ namespace kymiraAPITest
         {
 
             testDbItem.endResult = new string('a', 500);
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
-          
+
 
 
         }
@@ -371,7 +357,7 @@ namespace kymiraAPITest
         public void TestThatisEndResultIsEmpty()
         {
             testDbItem.endResult = null;
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(1, results.Count);
             Assert.AreEqual("An end result is required", results[0].ErrorMessage);
 
@@ -383,7 +369,7 @@ namespace kymiraAPITest
 
 
         //*********** qtyRecycled ***********
-      
+
         /**
          * Tests that the qty Recycled is a valid input ( int). result is valid
          * */
@@ -392,12 +378,13 @@ namespace kymiraAPITest
         {
 
             testDbItem.qtyRecycled = 1234567;
-            var results = HelperTestModel.Validate(testDbItem);
+            var results = TestValidationHelper.Validate(testDbItem);
             Assert.AreEqual(0, results.Count);
             //Noerror
 
 
         }
+
 
         //*********** Inactive ***********
 
@@ -427,7 +414,5 @@ namespace kymiraAPITest
 
         }
 
-
     }
 }
-
