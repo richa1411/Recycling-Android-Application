@@ -42,10 +42,11 @@ namespace kymiraAPI
             }
             context.Database.EnsureCreated();
 
+            //context.Database.Migrate();
             Fixtures.fixture_resident.delete(context);
             Fixtures.fixture_resident.load(context);
 
-            Fixtures.fixture_bin_status.Unload(context);
+           Fixtures.fixture_bin_status.Unload(context);
             Fixtures.fixture_bin_status.Load(context);
 
             // Fixtures for Disposables List Table
