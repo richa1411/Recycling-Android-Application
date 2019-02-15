@@ -21,7 +21,14 @@ namespace KymiraAdmin.Controllers
         // GET: Sites
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Site.ToListAsync());
+            List<Site> list = await _context.Site.Where(o => o.inactive == false).ToListAsync();
+
+            list.OrderBy(o => o.siteID);
+
+
+
+            return View(list.OrderBy(o => o.siteID));
+            //return View(await _context.Site.ToListAsync());
         }
 
         // GET: Sites/Details/5

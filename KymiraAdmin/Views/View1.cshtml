@@ -1,11 +1,10 @@
 ﻿@model IEnumerable<KymiraAdmin.Models.Site>
 
 @{
-    ViewData["Title"] = "Sites";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "View1";
 }
 
-<h2>Sites</h2>
+<h2>View1</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.siteID)
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.address)
                 </th>
@@ -29,7 +31,11 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Utils.shortAddress(item.address.ToString(),10)
+                @Html.DisplayFor(modelItem => item.siteID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.frequency)
             </td>
@@ -37,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.pickupDays)
             </td>
             <td>
-                @*<a asp-action="Edit" asp-route-id="@item.siteID">Edit</a> |*@
-               @* <a asp-action="Details" asp-route-id="@item.siteID">Details</a> |*@
-                <a asp-action="Delete" asp-route-id="@item.siteID">Delete</a>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }
