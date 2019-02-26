@@ -16,6 +16,35 @@ namespace KymiraAdminTests
 
         public static IWebDriver driver; //browser to interact with
 
+
+
+        List<Site> obSites = new List<Site> {
+        new Site
+        {
+            siteID = 10,
+            address = "123 Test Street",
+            frequency = Site.PickupFrequency.Weekly,
+            sitePickupDays = Site.PickupDays.Monday
+        },
+        new Site
+        {
+            siteID = 20,
+            address = "123 Another Street",
+            frequency = Site.PickupFrequency.Weekly,
+            sitePickupDays = Site.PickupDays.Monday
+        },
+        new Site
+        {
+            siteID = 30,
+            address = "123 Fake Street",
+            frequency = Site.PickupFrequency.Weekly,
+            sitePickupDays = Site.PickupDays.Monday
+        }
+
+        };
+
+
+
         [ClassInitialize] //this method will run once before all of the tests
         public static void ClassInitialize(TestContext context)
         {
@@ -65,22 +94,22 @@ namespace KymiraAdminTests
 
 
             //on delete confirmation page - shows info about specific bin selected
-            var binInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
-            var binTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+            var siteInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
+            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
 
             //above lists come back as empty********
 
             //ensure titles displayed are correct
-            Assert.AreEqual(binTitles[0].Text, "binID");
-            Assert.AreEqual(binTitles[1].Text, "status");
-            Assert.AreEqual(binTitles[2].Text, "siteID");
-            Assert.AreEqual(binTitles[3].Text, "collectionDate");
+            Assert.AreEqual(siteTitles[0].Text, "siteID");
+            Assert.AreEqual(siteTitles[1].Text, "address");
+            Assert.AreEqual(siteTitles[2].Text, "frequency");
+            Assert.AreEqual(siteTitles[3].Text, "sitePickupDays");
 
             //ensure detail info is correct
-            Assert.AreEqual(binInfo[0].Text, obBins[0].binID);
-            Assert.AreEqual(binInfo[1].Text, obBins[0].status);
-            Assert.AreEqual(binInfo[2].Text, obBins[0].siteID);
-            Assert.AreEqual(binInfo[3].Text, obBins[0].collectionDate);
+            Assert.AreEqual(siteInfo[0].Text, obSites[0].siteID);
+            Assert.AreEqual(siteInfo[1].Text, obSites[0].address);
+            Assert.AreEqual(siteInfo[2].Text, obSites[0].frequency);
+            Assert.AreEqual(siteInfo[3].Text, obSites[0].sitePickupDays);
 
             driver.FindElement(By.LinkText("Back to List")); //verify link is showing
             var btnDelete = driver.FindElement(By.CssSelector("btn btn-default")); //delete button
@@ -88,10 +117,13 @@ namespace KymiraAdminTests
 
             //back to list page
             //ensure item is no longer there
-            var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)")); //grab 1st item in list
+            var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(3)")); //grab 1st item in list
             Assert.AreNotEqual(item.Text, itemToDelete.Text);
             //ensure list is one less
-            Assert.AreEqual(driver.FindElements(By.CssSelector(".table tr")).Count, obBins.Count - 1);
+            Assert.AreEqual(driver.FindElements(By.CssSelector(".table tr")).Count, obSites.Count - 1);
+
+            Site testSite = context.Site.Find("30");
+            Assert.IsTrue(testSite.inactive);
         }
 
         [TestMethod]
@@ -108,11 +140,11 @@ namespace KymiraAdminTests
             //check matching data from expected list defined above
             for (int i = 0; i < list.Count; i++)
             {
-                Assert.AreEqual(siteIdData[i++].Text, obBins[i].siteID.ToString());
+                Assert.AreEqual(siteIdData[i++].Text, obSites[i].siteID.ToString());
             }
 
             //ensure all rows are shown
-            Assert.AreEqual(siteIdData.Count, obBins.Count);
+            Assert.AreEqual(siteIdData.Count, obSites.Count);
         }
 
 
@@ -138,6 +170,8 @@ namespace KymiraAdminTests
             //ensure list size has not changed
             var rows = driver.FindElements(By.CssSelector(".table tr"));
             Assert.AreEqual(initialRows.Count, rows.Count);
+
+           
         }
 
     }

@@ -25,24 +25,6 @@ namespace KymiraAdmin.Controllers
             return View(await _context.Site.ToListAsync());
         }
 
-        // GET: Sites/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var site = await _context.Site
-                .SingleOrDefaultAsync(m => m.siteID == id);
-            if (site == null)
-            {
-                return NotFound();
-            }
-
-            return View(site);
-        }
-
 
 
         // GET: Sites/Delete/5
