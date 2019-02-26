@@ -19,17 +19,9 @@
                     @Html.DisplayNameFor(model => model.frequency)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.collection1)
+                    @Html.DisplayNameFor(model => model.sitePickupDays)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.collection2)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.collection3)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.collection4)
-                </th>
+                
             <th></th>
         </tr>
     </thead>
@@ -43,17 +35,9 @@
                 @Html.DisplayFor(modelItem => item.frequency)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.collection1)
+                @Html.DisplayFor(modelItem => item.sitePickupDays)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.collection2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.collection3)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.collection4)
-            </td>
+
             <td>
                 <a asp-action="Edit" asp-route-id="@item.siteID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.siteID">Details</a> |

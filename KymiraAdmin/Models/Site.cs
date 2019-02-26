@@ -62,6 +62,8 @@ namespace KymiraAdmin.Models
         [Range(1, 31, ErrorMessage = "Specified Pickup Days are invalid")]
         public PickupDays sitePickupDays { get; set; }
 
+        public bool inactive { get; set; }
+
     }
 
 }
