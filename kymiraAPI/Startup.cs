@@ -54,7 +54,7 @@ namespace kymiraAPI
 
             //Fixture for FAQ Table
             Fixtures.fixture_faq.Unload(context);
-            Fixtures.fixture_faq.Load(context); 
+            Fixtures.fixture_faq.Load(context);
 
 
             app.UseMvc();

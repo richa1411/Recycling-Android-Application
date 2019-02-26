@@ -14,6 +14,8 @@ namespace kymiraAPI.Models
      */
     public class BinStatus
     {
+        public enum CollectionStatus { Collected = 1, Inaccessible = 2, Contaminated = 3 }
+
         [Key] 
         public int pickupID { get; set; }
         
@@ -23,7 +25,8 @@ namespace kymiraAPI.Models
         
         //1 -> Collected, 2 -> Inaccessible, 3 -> Contaminated
         [Range(1, 3, ErrorMessage = "A status can only be the value of 1, 2, or 3")]
-        public int status { get; set; }
+        [EnumDataType(typeof(CollectionStatus), ErrorMessage = "A status can only be the value of 1, 2, or 3")]
+        public CollectionStatus status { get; set; }
         
         [ForeignKey("Site")] //BinStatus(siteID(FK)) references Site(siteID(PK))
         public int siteID { get; set; }
@@ -31,5 +34,7 @@ namespace kymiraAPI.Models
         [Required(ErrorMessage = "Collection date is required")]
         [RegularExpression("^([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))", ErrorMessage = "Collection date must be a valid date")]
         public string collectionDate { get; set; }
+
+        public bool inactive { get; set; } //holds whether or not the BinStatus is inactive/"deleted" or not
     }
 }

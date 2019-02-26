@@ -22,42 +22,42 @@ namespace kymiraAPI.Fixtures
         {
             binID = "1",
             siteID = obSites[0].siteID,
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
             binID = "2",
             siteID = obSites[0].siteID,
-            status = 2,
+            status =  BinStatus.CollectionStatus.Inaccessible,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
             binID = "3",
             siteID = obSites[1].siteID,
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
              binID = "4",
             siteID = obSites[1].siteID,
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
             binID = "5",
             siteID = obSites[1].siteID,
-            status = 3,
+            status =  BinStatus.CollectionStatus.Contaminated,
             collectionDate = "2019-01-01"
         },
             new BinStatus
         {
             binID = "6",
             siteID = obSites[2].siteID,
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-01-01"
         },
             //---------history pickups for 3 bins---------------
@@ -65,21 +65,21 @@ namespace kymiraAPI.Fixtures
         {
             binID = "3",
             siteID = obSites[1].siteID,
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-02-02"
         },
             new BinStatus
         {
              binID = "4",
             siteID = obSites[1].siteID,
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-02-02"
         },
             new BinStatus
         {
             binID = "5",
             siteID = obSites[1].siteID,
-            status = 3,
+            status =  BinStatus.CollectionStatus.Contaminated,
             collectionDate = "2019-02-02"
         }});
 

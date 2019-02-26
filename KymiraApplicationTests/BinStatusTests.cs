@@ -23,7 +23,7 @@ namespace KymiraApplicationTests
             binID = "1",
             collectionDate = "2019-01-01",
             siteID = 30,
-            status = 2
+            status = BinStatus.CollectionStatus.Inaccessible
         };
 
         List<ValidationResult> results; //to hold a list of validation results
@@ -111,33 +111,33 @@ namespace KymiraApplicationTests
 
         
 
-        [TestMethod]
-        //tests that a BinStatus status cannot be greater than 3 - acceptable statuses are 1, 2, and 3
-        public void TestThatBinStatusOfGreaterThan3IsInvalid()
-        {
-            testBinStatus.status = 4;
-            results = TestValidationHelper.Validate(testBinStatus);
-            Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
+        //[TestMethod]
+        ////tests that a BinStatus status cannot be greater than 3 - acceptable statuses are 1, 2, and 3
+        //public void TestThatBinStatusOfGreaterThan3IsInvalid()
+        //{
+        //    testBinStatus.status = 4;
+        //    results = TestValidationHelper.Validate(testBinStatus);
+        //    Assert.AreEqual(1, results.Count());
+        //    Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
 
-        }
+        //}
 
-        [TestMethod]
-        //tests that a BinStatus status cannot be less than 1 - acceptable statuses are 1, 2, and 3
-        public void TestThatBinStatusOfLessThan1IsInvalid()
-        {
-            testBinStatus.status = 0;
-            results = TestValidationHelper.Validate(testBinStatus);
-            Assert.AreEqual(1, results.Count());
-            Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
+        //[TestMethod]
+        ////tests that a BinStatus status cannot be less than 1 - acceptable statuses are 1, 2, and 3
+        //public void TestThatBinStatusOfLessThan1IsInvalid()
+        //{
+        //    testBinStatus.status = 0;
+        //    results = TestValidationHelper.Validate(testBinStatus);
+        //    Assert.AreEqual(1, results.Count());
+        //    Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
 
-        }
+        //}
 
         [TestMethod]
         //tests that a bin object BinStatus of one of the valid numbers is valid (1, 2, or 3)
         public void TestThatBinsWithProperBinStatusAreValid()
         {
-            testBinStatus.status = 2;
+            testBinStatus.status = BinStatus.CollectionStatus.Inaccessible;
             results = TestValidationHelper.Validate(testBinStatus);
             Assert.AreEqual(0, results.Count());
         }

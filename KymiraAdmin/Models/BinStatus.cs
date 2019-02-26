@@ -15,6 +15,7 @@ namespace KymiraAdmin.Models
     public class BinStatus
     {
         public enum CollectionStatus { Collected = 1, Inaccessible = 2, Contaminated = 3 }
+
         [Key] //primary auto-incrementing key
         public int pickupID { get; set; }
 

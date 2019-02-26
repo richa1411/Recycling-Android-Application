@@ -155,13 +155,13 @@ namespace KymiraApplication.Fragments
             {
                 switch(obList[i].status)
                 {
-                    case 1:
+                    case BinStatus.CollectionStatus.Collected:
                         countOfCollected++;
                         break;
-                    case 2:
+                    case BinStatus.CollectionStatus.Inaccessible:
                         countOfInacc++;
                         break;
-                    case 3:
+                    case BinStatus.CollectionStatus.Contaminated:
                         countOfContam++;
                         break;
                     default:
