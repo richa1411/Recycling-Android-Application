@@ -1,16 +1,18 @@
-﻿using kymiraAPI.Models;
+﻿using KymiraAdmin.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using kymiraAPI;
+using KymiraAdmin;
 
-namespace kymiraAPI.Fixtures
+namespace KymiraAdmin.Fixtures
 {/**
     this class will be used to wipe and reload the database with test data used in unit tests
         */
-    public static class fixture_disposables
+    public class fixture_disposables
     {
+
+     
 
         //** Recyclable Items **/
         public static List<Disposable> obList = new List<Disposable>(new Disposable[] { new Disposable
@@ -48,7 +50,7 @@ namespace kymiraAPI.Fixtures
             qtyRecycled = 1200,
             inactive = false
         },
-            //Non recycalble items
+            //Non Recyclable items
             new Disposable
         {
             
@@ -59,7 +61,7 @@ namespace kymiraAPI.Fixtures
             recycleReason = "Pizza Reason",
             endResult = "Pizza End Result",
             qtyRecycled = 0,
-             inactive = false
+            inactive = false
         },
             new Disposable
         {
@@ -71,7 +73,7 @@ namespace kymiraAPI.Fixtures
             recycleReason = "Orange Peels Reason",
             endResult = "Orange Peels End Result",
             qtyRecycled = 0,
-             inactive = false
+            inactive = false
         },
             new Disposable
         {
@@ -87,26 +89,21 @@ namespace kymiraAPI.Fixtures
         }
         });
 
+
         /**
          * This function will create a connection to a local test database and load the specific data into it.
          * */
-        public static void Load(kymiraAPIContext _context)
+        public static void Load(KymiraAdminContext _context)
         {
-
                     _context.DisposableDBSet.AddRange(obList);
                     _context.SaveChanges();
-                
-    
         }
         /**
          * this function will delete all entries  in the database.
          * */
-        public static void Unload(kymiraAPIContext _context) {
-           
-
+        public static void Unload(KymiraAdminContext _context) {
                 _context.DisposableDBSet.RemoveRange(_context.DisposableDBSet);
                 _context.SaveChanges();
- 
         }
     }
 }

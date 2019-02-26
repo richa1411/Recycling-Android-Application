@@ -70,7 +70,9 @@ namespace KymiraApplication.Fragments
             //check validation of address attempting to send using an object
             Site testSite = new Site {
                 siteID = 234,
-                address = address
+                address = address,
+                frequency = Site.PickupFrequency.Weekly,
+                sitePickupDays = Site.PickupDays.Monday
             };
 
             IList<ValidationResult> validationResults = ValidationHelper.Validate(testSite);

@@ -1,0 +1,63 @@
+﻿@model KymiraAdmin.Models.Disposable
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Disposable</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.imageURL)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.imageURL)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.isRecyclable)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.isRecyclable)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.recycleReason)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.recycleReason)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.endResult)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.endResult)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.qtyRecycled)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.qtyRecycled)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input id="btnDelete" type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
