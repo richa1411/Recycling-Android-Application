@@ -7,9 +7,6 @@
 
 <h2>Frequently Asked Questions</h2>
 
-<p>
-    <a id="btnAdd" asp-action="Create">Create New</a>
-</p>
 <table class="table" id="FAQTable">
     <thead>
         <tr>
@@ -29,12 +26,10 @@
                 @Html.DisplayFor(modelItem => item.question)
             </td>
             <td>
-                @Utils.shortAnswer(item.answer.ToString(), 10)
+                @Utils.shortAnswer(item.answer.ToString(), 40)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a> | 
-                <a asp-action="Details" asp-route-id="@item.id">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>
 }

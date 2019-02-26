@@ -17,11 +17,11 @@ namespace KymiraAdmin.Models
         [StringLength(255, MinimumLength = 15, ErrorMessage = "Question must be between 15 - 255 characters")]
         public string question { get; set; }
 
-        //answer field is used to authenticate whether the answer exists in the database (is required for a valid FAQ object)
+        //Answer field is used to authenticate whether the answer exists in the database (is required for a valid FAQ object)
         [Required(ErrorMessage = "Answer cannot be empty")]
         public string answer { get; set; }
 
-        //the status of the answer whether it has been deleted and is no longer visible to users
+        //The status of the answer whether it has been deleted and is no longer visible to users
         public bool inactive { get; set; }
 
     }

@@ -8,7 +8,7 @@ using KymiraAdmin.Models;
 namespace KymiraAdminTests
 {
     [TestClass]
-    public class FAQAdminTest
+    public class AdminFAQTests
     {
         FAQ objFAQ;
         /*
@@ -61,7 +61,7 @@ namespace KymiraAdminTests
             //checks against the validation helper class and sends the FAQ object and finds that there are no any errors
             var results = TestValidationHelper.Validate(objFAQ);
             Assert.AreEqual(0, results.Count());
-           
+
         }
 
         /* a test method that checks if an answer field is non empty string or not */
@@ -90,7 +90,7 @@ namespace KymiraAdminTests
             var results = TestValidationHelper.Validate(objFAQ);
 
             Assert.AreEqual(0, results.Count);
-            
+
 
         }
 

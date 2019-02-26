@@ -11,6 +11,7 @@ namespace KymiraAdmin.Data
         public KymiraAdminContext(DbContextOptions<KymiraAdminContext> options)
             : base(options)
         {
+
         }
 
         public DbSet<KymiraAdmin.Models.FAQ> FAQDBSet { get; set; }

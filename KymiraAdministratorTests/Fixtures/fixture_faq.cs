@@ -13,8 +13,10 @@ namespace KymiraAdmin.Fixtures
     public class fixture_faq
     {
         //Define the static list of FAQ objects to add to the FAQ table of the database
-        public static List<FAQ> listFAQ = new List<FAQ>(new FAQ[] { new FAQ
+        public static List<FAQ> listFAQ = new List<FAQ>(new FAQ[] 
         {
+            new FAQ
+            {
 
                  question = "Where is Cosmo Industries?",
                  answer = "1302 Alberta Ave. Saskatoon."
