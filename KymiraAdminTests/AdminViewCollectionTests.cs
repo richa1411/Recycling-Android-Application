@@ -125,8 +125,15 @@ namespace KymiraAdminTests
 
             //back to list page
             //ensure item is no longer there
-            var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)")); //grab 1st item in list
-            Assert.AreNotEqual(item.Text,itemToDelete.Text);
+            
+            var list = driver.FindElements(By.CssSelector(".table tr"));
+            for (int i = 1; i < list.Count; i++)
+            {
+                var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(" + i + ")")); 
+                Assert.AreNotEqual(item.Text, itemToDelete.Text);
+            }
+            
+           
             //ensure list is one less
             Assert.AreEqual(driver.FindElements(By.CssSelector(".table tr")).Count,obBins.Count-1);
         }
