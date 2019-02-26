@@ -21,6 +21,7 @@ namespace KymiraAdmin.Controllers
         // GET: Sites
         public async Task<IActionResult> Index()
         {
+            //return only active sites (where clause)
             return View(await _context.Site.ToListAsync());
         }
 

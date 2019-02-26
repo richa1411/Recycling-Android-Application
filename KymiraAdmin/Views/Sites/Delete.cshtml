@@ -12,6 +12,12 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.siteID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.siteID)
+        </dd>
+        <dt>
             @Html.DisplayNameFor(model => model.address)
         </dt>
         <dd>
@@ -29,9 +35,6 @@
         <dd>
             @Html.DisplayFor(model => model.sitePickupDays)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.inactive)
-        </dt>
     </dl>
     
     <form asp-action="Delete">
