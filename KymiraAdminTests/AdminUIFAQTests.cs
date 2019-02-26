@@ -37,7 +37,7 @@ namespace KymiraAdminTests
             //chrome_options.AddArgument("--window-size=1280,720");
 
             //Assign the driver to the location of the chromedriver.exe on the local drive
-            driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdministratorTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
+            driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
         }
 
         [ClassCleanup]
