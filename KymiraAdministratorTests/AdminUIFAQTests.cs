@@ -21,7 +21,7 @@ namespace KymiraAdminTests
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
-            db = new TestDatabaseContext("kymiraAPIDatabase26");
+            db = new TestDatabaseContext("kymiraAPIDatabase29");
             
             fixture_faq.Load(db.context);
 
@@ -36,7 +36,7 @@ namespace KymiraAdminTests
             chrome_options.AddArgument("--remote-debugging-port=9222");
 
             //Not necessary if running in headless mode
-            chrome_options.AddArgument("--window-size=1280,720");
+            //chrome_options.AddArgument("--window-size=1280,720");
 
             //Assign the driver to the location of the chromedriver.exe on the local drive
             driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdministratorTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
@@ -65,41 +65,41 @@ namespace KymiraAdminTests
         /**
          * Test that all elements are diplayed on the create page
          * **/
-        [TestMethod]
-        public void TestThatCreatePageDisplaysCorrectly()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
-            btnAdd.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
-        }
+        //[TestMethod]
+        //public void TestThatCreatePageDisplaysCorrectly()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
+        //    btnAdd.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //}
 
-        /**
-         * Test that all elements are diplayed on the edit page
-         * **/
-        [TestMethod]
-        public void TestThatEditPageDisplaysCorrectly()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var table = driver.FindElement(By.CssSelector(".table"));
-            var listQuestion = driver.FindElement(By.CssSelector("#question")).Text;
-            var listAnswer = driver.FindElement(By.CssSelector("#answer")).Text;
-            var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
+        ///**
+        // * Test that all elements are diplayed on the edit page
+        // * **/
+        //[TestMethod]
+        //public void TestThatEditPageDisplaysCorrectly()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var table = driver.FindElement(By.CssSelector(".table"));
+        //    var listQuestion = driver.FindElement(By.CssSelector("#question")).Text;
+        //    var listAnswer = driver.FindElement(By.CssSelector("#answer")).Text;
+        //    var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
 
-            btnEdit.Click();
+        //    btnEdit.Click();
 
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion")).GetAttribute("value");
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer")).GetAttribute("value");
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion")).GetAttribute("value");
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer")).GetAttribute("value");
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            Assert.AreEqual(listQuestion, inptQuestion);
-            Assert.AreEqual(listAnswer, inptAnswer.Substring(0, 10) + "...");
+        //    Assert.AreEqual(listQuestion, inptQuestion);
+        //    Assert.AreEqual(listAnswer, inptAnswer.Substring(0, 10) + "...");
             
-        }
+        //}
 
         /**
         * Test to ensure that the confirmation page shows the correct object information
@@ -125,127 +125,127 @@ namespace KymiraAdminTests
 
         }
 
-        [TestMethod]
-        public void TestThatDetailPageDisplaysCorrectly()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            //change up the list - record the changes? 
-            var questionOG = driver.FindElement(By.CssSelector(".table #question")).Text;
-            var answerOG = driver.FindElement(By.CssSelector("#answer")).Text;
+        //[TestMethod]
+        //public void TestThatDetailPageDisplaysCorrectly()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    //change up the list - record the changes? 
+        //    var questionOG = driver.FindElement(By.CssSelector(".table #question")).Text;
+        //    var answerOG = driver.FindElement(By.CssSelector("#answer")).Text;
 
-            var btnDetails = driver.FindElement(By.CssSelector("#btnDetails"));
-            btnDetails.Click();
+        //    var btnDetails = driver.FindElement(By.CssSelector("#btnDetails"));
+        //    btnDetails.Click();
 
-            var question = driver.FindElement(By.CssSelector("#question")).Text;
-            var answer = driver.FindElement(By.CssSelector("#answer")).Text;
-            driver.FindElement(By.CssSelector("#btnBack"));
+        //    var question = driver.FindElement(By.CssSelector("#question")).Text;
+        //    var answer = driver.FindElement(By.CssSelector("#answer")).Text;
+        //    driver.FindElement(By.CssSelector("#btnBack"));
 
-            Assert.AreEqual(questionOG, question);
-            Assert.AreEqual(answerOG, answer.Substring(0, 10) + "...");
+        //    Assert.AreEqual(questionOG, question);
+        //    Assert.AreEqual(answerOG, answer.Substring(0, 10) + "...");
 
-        }
+        //}
 
         /**
          * Test that after being deleted the item is no longer in the list. Afte selecting the item to delete
          * it will be passed into the delete method and then be removed from the list
          * **/
-        [TestMethod]
-        public void TestThatListItemRemoved()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            //find all the page elements
-            var table = driver.FindElement(By.CssSelector(".table"));
-            var listQuestion = driver.FindElements(By.CssSelector(".table tr:first-child td:first-child"));
-            var btnDel = driver.FindElement(By.CssSelector(".table tr:first-child td:last-child a:nth-child(2)"));
+        //[TestMethod]
+        //public void TestThatListItemRemoved()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    //find all the page elements
+        //    var table = driver.FindElement(By.CssSelector(".table"));
+        //    var listQuestion = driver.FindElements(By.CssSelector(".table tr:first-child td:first-child"));
+        //    var btnDel = driver.FindElement(By.CssSelector(".table tr:first-child td:last-child a:nth-child(2)"));
        
-            var elementList = table.FindElements(By.CssSelector(".table tr"));
-            //count the items displayed on the page
-            int itemCount = listQuestion.Count;
+        //    var elementList = table.FindElements(By.CssSelector(".table tr"));
+        //    //count the items displayed on the page
+        //    int itemCount = listQuestion.Count;
 
-            //delete an object from the list
-            //click on the delete link and the delete link on the delete page
+        //    //delete an object from the list
+        //    //click on the delete link and the delete link on the delete page
 
-            var deletedQuestion = table.FindElement(By.CssSelector(".table .table tr:first-child")).Text;
+        //    var deletedQuestion = table.FindElement(By.CssSelector(".table .table tr:first-child")).Text;
 
-            btnDel.Click();
-            btnDel = driver.FindElement(By.CssSelector("#btnDel"));
-            btnDel.Click();
+        //    btnDel.Click();
+        //    btnDel = driver.FindElement(By.CssSelector("#btnDel"));
+        //    btnDel.Click();
             
-            //upon return to the list page, check that the count of items is one less than it was before
-            table = driver.FindElement(By.CssSelector(".table"));
-            listQuestion = driver.FindElements(By.CssSelector(".table tr:first-child"));
+        //    //upon return to the list page, check that the count of items is one less than it was before
+        //    table = driver.FindElement(By.CssSelector(".table"));
+        //    listQuestion = driver.FindElements(By.CssSelector(".table tr:first-child"));
 
-            Assert.AreEqual(itemCount - 1, listQuestion.Count);
+        //    Assert.AreEqual(itemCount - 1, listQuestion.Count);
 
-            for (int i = 0; i < listQuestion.Count; i++)
-            {
-                Assert.AreNotEqual(listQuestion[i].Text, deletedQuestion);
-            }
+        //    for (int i = 0; i < listQuestion.Count; i++)
+        //    {
+        //        Assert.AreNotEqual(listQuestion[i].Text, deletedQuestion);
+        //    }
 
-        }
+        //}
 
-        /**
-         * Tests that we can add a FAQ to the page's list
-         * **/
-        [TestMethod]
-        public void TestThatListItemAdded()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var table = driver.FindElement(By.CssSelector(".table"));
-            var listQuestion = driver.FindElements(By.CssSelector("#question"));
+        ///**
+        // * Tests that we can add a FAQ to the page's list
+        // * **/
+        //[TestMethod]
+        //public void TestThatListItemAdded()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var table = driver.FindElement(By.CssSelector(".table"));
+        //    var listQuestion = driver.FindElements(By.CssSelector("#question"));
 
-            var itemCount = listQuestion.Count;
+        //    var itemCount = listQuestion.Count;
 
-            //navigate to the add new item page
-            var btnCreate = driver.FindElement(By.CssSelector("#btnAdd"));
-            btnCreate.Click();
+        //    //navigate to the add new item page
+        //    var btnCreate = driver.FindElement(By.CssSelector("#btnAdd"));
+        //    btnCreate.Click();
 
-            //find all the page elements
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            btnCreate = driver.FindElement(By.CssSelector("#btnSubmit"));
+        //    //find all the page elements
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    btnCreate = driver.FindElement(By.CssSelector("#btnSubmit"));
 
-            //create a new FAQ to add to the site's list
-            inptQuestion.SendKeys("This is a new test question to make sure that this works");
-            inptAnswer.SendKeys("This is the matching test answer");
+        //    //create a new FAQ to add to the site's list
+        //    inptQuestion.SendKeys("This is a new test question to make sure that this works");
+        //    inptAnswer.SendKeys("This is the matching test answer");
 
-            //add the new FAQ
-            btnCreate.Click();
+        //    //add the new FAQ
+        //    btnCreate.Click();
 
-            //check that the page's list contains the newly added FAQ
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            table = driver.FindElement(By.CssSelector(".table"));
-            listQuestion = driver.FindElements(By.CssSelector("#question"));
+        //    //check that the page's list contains the newly added FAQ
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    table = driver.FindElement(By.CssSelector(".table"));
+        //    listQuestion = driver.FindElements(By.CssSelector("#question"));
 
-            Assert.AreEqual(itemCount + 1, listQuestion.Count);
-        }
+        //    Assert.AreEqual(itemCount + 1, listQuestion.Count);
+        //}
         
-        /**
-         * Test to ensure that a FAQ will be editted in the list when the 
-         * item loses focus after being editted
-         * **/
-        [TestMethod]
-        public void TestThatFAQsEditCorrectlyInList()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var question = driver.FindElement(By.CssSelector("#question")).Text;
-            var btn = driver.FindElement(By.CssSelector("#btnEdit"));
-            btn.Click();
+        ///**
+        // * Test to ensure that a FAQ will be editted in the list when the 
+        // * item loses focus after being editted
+        // * **/
+        //[TestMethod]
+        //public void TestThatFAQsEditCorrectlyInList()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var question = driver.FindElement(By.CssSelector("#question")).Text;
+        //    var btn = driver.FindElement(By.CssSelector("#btnEdit"));
+        //    btn.Click();
 
-            //change one of the faqs already in list
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            inptQuestion.SendKeys("Testing functionality");
+        //    //change one of the faqs already in list
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    inptQuestion.SendKeys("Testing functionality");
 
-            //call the edit method
-            var save = driver.FindElement(By.CssSelector("#btnSave"));
-            save.Click();
+        //    //call the edit method
+        //    var save = driver.FindElement(By.CssSelector("#btnSave"));
+        //    save.Click();
 
-            //get the FAQ from the list
-            var text = driver.FindElement(By.CssSelector("#question")).Text;
+        //    //get the FAQ from the list
+        //    var text = driver.FindElement(By.CssSelector("#question")).Text;
 
-            //check that the answer has changed as expected
-            Assert.AreEqual(question + "Testing functionality", text);
-        }
+        //    //check that the answer has changed as expected
+        //    Assert.AreEqual(question + "Testing functionality", text);
+        //}
 
         /**
          * Test to ensure that the list is being viewed in alphabetical order
@@ -319,187 +319,187 @@ namespace KymiraAdminTests
 
         }
 
-        [TestMethod]
-        public void TestThatBlankNewShowsErrors()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
-            btnAdd.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThatBlankNewShowsErrors()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
+        //    btnAdd.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
-            var errAnswer = driver.FindElement(By.CssSelector("#inptAnswer-error"));
-        }
+        //    var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
+        //    var errAnswer = driver.FindElement(By.CssSelector("#inptAnswer-error"));
+        //}
 
-        [TestMethod]
-        public void TestThatBlankQuestionShowsErrors()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
-            btnAdd.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThatBlankQuestionShowsErrors()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
+        //    btnAdd.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            inptAnswer.SendKeys("This is the standalone answer");
+        //    inptAnswer.SendKeys("This is the standalone answer");
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
-        }
+        //    var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
+        //}
 
-        [TestMethod]
-        public void TestThatBlankAnswerShowsErrors()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
-            btnAdd.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThatBlankAnswerShowsErrors()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
+        //    btnAdd.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            inptQuestion.SendKeys("This is the standalone question");
+        //    inptQuestion.SendKeys("This is the standalone question");
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errAnswer = driver.FindElement(By.CssSelector("#inptAnswer-error"));
-        }
+        //    var errAnswer = driver.FindElement(By.CssSelector("#inptAnswer-error"));
+        //}
 
-        [TestMethod]
-        public void TestThat256QuestionShowsError()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
-            btnAdd.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThat256QuestionShowsError()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
+        //    btnAdd.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            inptQuestion.SendKeys(new string('a', 256));
+        //    inptQuestion.SendKeys(new string('a', 256));
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
-        }
+        //    var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
+        //}
 
-        [TestMethod]
-        public void TestThat14QuestionShowsError()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
-            btnAdd.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThat14QuestionShowsError()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnAdd = driver.FindElement(By.CssSelector("#btnAdd"));
+        //    btnAdd.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSubmit"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            inptQuestion.SendKeys(new string('a', 14));
+        //    inptQuestion.SendKeys(new string('a', 14));
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
-        }
+        //    var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
+        //}
 
-        [TestMethod]
-        public void TestThatBlankEditShowsErrors()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
-            btnEdit.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThatBlankEditShowsErrors()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
+        //    btnEdit.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            inptQuestion.Clear();
-            inptAnswer.Clear();
+        //    inptQuestion.Clear();
+        //    inptAnswer.Clear();
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
-            var errAnswer = driver.FindElement(By.CssSelector("#inptAnswer-error"));
-        }
+        //    var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
+        //    var errAnswer = driver.FindElement(By.CssSelector("#inptAnswer-error"));
+        //}
 
-        [TestMethod]
-        public void TestThatBlankEditRemoveQuestionShowsErrors()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
-            btnEdit.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThatBlankEditRemoveQuestionShowsErrors()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
+        //    btnEdit.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            inptQuestion.Clear();
+        //    inptQuestion.Clear();
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
-        }
+        //    var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
+        //}
 
-        [TestMethod]
-        public void TestThatBlankEditRemoveAnswerShowsErrors()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
-            btnEdit.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThatBlankEditRemoveAnswerShowsErrors()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
+        //    btnEdit.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            inptAnswer.Clear();
+        //    inptAnswer.Clear();
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errQuestion = driver.FindElement(By.CssSelector("#inptAnswer-error"));
-        }
+        //    var errQuestion = driver.FindElement(By.CssSelector("#inptAnswer-error"));
+        //}
 
-        [TestMethod]
-        public void TestThatBlankEditQuestionExceedShowsErrors()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
-            btnEdit.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThatBlankEditQuestionExceedShowsErrors()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
+        //    btnEdit.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            inptQuestion.SendKeys(new string('a', 256));
+        //    inptQuestion.SendKeys(new string('a', 256));
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
-        }
+        //    var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
+        //}
 
-        [TestMethod]
-        public void TestThatBlankEditQuestionBelowMinShowsErrors()
-        {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
-            var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
-            btnEdit.Click();
-            var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
-            var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
-            var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
-            var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
+        //[TestMethod]
+        //public void TestThatBlankEditQuestionBelowMinShowsErrors()
+        //{
+        //    driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+        //    var btnEdit = driver.FindElement(By.CssSelector("#btnEdit"));
+        //    btnEdit.Click();
+        //    var inptQuestion = driver.FindElement(By.CssSelector("#inptQuestion"));
+        //    var inptAnswer = driver.FindElement(By.CssSelector("#inptAnswer"));
+        //    var btnSubmit = driver.FindElement(By.CssSelector("#btnSave"));
+        //    var btnBack = driver.FindElement(By.CssSelector("#btnBack"));
 
-            inptQuestion.Clear();
-            inptQuestion.SendKeys(new string('a', 14));
+        //    inptQuestion.Clear();
+        //    inptQuestion.SendKeys(new string('a', 14));
 
-            btnSubmit.Click();
+        //    btnSubmit.Click();
 
-            var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
-        }
+        //    var errQuestion = driver.FindElement(By.CssSelector("#inptQuestion-error"));
+        //}
 
         [ClassCleanup]
         public static void ClassCleanup()
