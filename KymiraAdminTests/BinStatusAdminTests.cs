@@ -24,17 +24,18 @@ namespace KymiraAdminTests
         List<ValidationResult> results; //to hold a list of validation results
 
         /*------------------------Testing BinStatus validation-----------------------------------*/
-        [TestMethod]
-        //testing that the status of a BinStatus object cannot be less than 1
-        public void TestThatBinStatusLessThan1IsInvalid()
-        {
-            testBin.status = 0;
-            results = TestValidationHelper.Validate(testBin);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
-        }
-
         //TODO: testing for collection status other than 1, 2, 3 
+        //[TestMethod]
+        ////testing that the status of a BinStatus object cannot be less than 1
+        //public void TestThatBinStatusLessThan1IsInvalid()
+        //{
+        //    testBin.status = 0;
+        //    results = TestValidationHelper.Validate(testBin);
+        //    Assert.AreEqual(1, results.Count);
+        //    Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
+        //}
+
+        
         //[TestMethod]
         ////testing that the status of a BinStatus object cannot be greater than 3
         //public void TestThatBinStatusGreaterThan3IsInvalid()
@@ -177,7 +178,7 @@ namespace KymiraAdminTests
         //testing that the expected bin status is parsed correctly
         public void TestThatExpectedStatusReturnsValidInt(string status)
         {
-            Assert.AreEqual(1, BinStatusParser.ParseStatus(status));
+            Assert.AreEqual(BinStatus.CollectionStatus.Collected, BinStatusParser.ParseStatus(status));
         }
         
         [DataTestMethod]
@@ -187,7 +188,7 @@ namespace KymiraAdminTests
         //testing that the unexpected bin status is parsed correctly
         public void TestThatUnexpectedStatusReturnsValidInt(string status)
         {
-            Assert.AreEqual(2, BinStatusParser.ParseStatus(status));
+            Assert.AreEqual(BinStatus.CollectionStatus.Inaccessible, BinStatusParser.ParseStatus(status));
         }
 
         [DataTestMethod]
@@ -220,7 +221,7 @@ namespace KymiraAdminTests
         //testing that theinvalid  bin status is parsed correctly
         public void TestThatInvalidStatusReturnsZero()
         {
-            Assert.AreEqual(0, BinStatusParser.ParseStatus(""));
+            Assert.AreEqual(BinStatus.CollectionStatus.Inaccessible, BinStatusParser.ParseStatus(""));
         }
 
         [TestMethod]
@@ -240,7 +241,7 @@ namespace KymiraAdminTests
 
             Assert.AreEqual("W114-320-203", binStatus.binID);
             Assert.AreEqual(1609312, binStatus.siteID);
-            Assert.AreEqual(1, binStatus.status);
+            Assert.AreEqual(BinStatus.CollectionStatus.Collected, binStatus.status);
             Assert.AreEqual("2018-01-01", binStatus.collectionDate);
 
             //ensure bin received back is valid
@@ -256,7 +257,7 @@ namespace KymiraAdminTests
           
             Assert.AreEqual("", binStatus.binID);
             Assert.AreEqual(0, binStatus.siteID);
-            Assert.AreEqual(0, binStatus.status);
+            Assert.AreEqual(BinStatus.CollectionStatus.Inaccessible, binStatus.status);
             Assert.AreEqual("", binStatus.collectionDate);
 
             //ensure bin received back is invalid

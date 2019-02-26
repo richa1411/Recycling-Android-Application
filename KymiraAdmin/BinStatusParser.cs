@@ -66,7 +66,7 @@ namespace KymiraAdmin
         {
             if(status == "")
             {
-                return 0;
+                return CollectionStatus.Inaccessible;
             }
             switch(status) //return corresponding int value
             {
