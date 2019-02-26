@@ -17,35 +17,35 @@ namespace KymiraAdminTests
         {
             binID = "W114-320-203",
             siteID = 1609312,
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-01-01"
         },
         new BinStatus
         {
             binID = "W114-320-204",
             siteID = 1609312,
-            status = 2,
+            status = BinStatus.CollectionStatus.Inaccessible,
             collectionDate = "2019-01-01"
         },
         new BinStatus
         {
             binID = "W114-320-205",
             siteID = 1609312,
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-01-01"
         },
         new BinStatus
         {
              binID = "COSMO123",
             siteID = 1609320,
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-01-01"
         },
         new BinStatus
         {
             binID = "12345",
             siteID = 1609320,
-            status = 3,
+            status = BinStatus.CollectionStatus.Contaminated,
             collectionDate = "2019-01-01"
         }};
 

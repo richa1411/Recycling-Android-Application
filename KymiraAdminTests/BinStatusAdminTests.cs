@@ -17,7 +17,7 @@ namespace KymiraAdminTests
         BinStatus testBin = new BinStatus
         {
             binID = "1",
-            status = 1,
+            status = BinStatus.CollectionStatus.Collected,
             collectionDate = "2019-01-01",
             siteID = 101010
         };
@@ -34,21 +34,22 @@ namespace KymiraAdminTests
             Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
         }
 
-        [TestMethod]
-        //testing that the status of a BinStatus object cannot be greater than 3
-        public void TestThatBinStatusGreaterThan3IsInvalid()
-        {
-            testBin.status = 4;
-            results = TestValidationHelper.Validate(testBin);
-            Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
-        }
+        //TODO: testing for collection status other than 1, 2, 3 
+        //[TestMethod]
+        ////testing that the status of a BinStatus object cannot be greater than 3
+        //public void TestThatBinStatusGreaterThan3IsInvalid()
+        //{
+        //    testBin.status = ;
+        //    results = TestValidationHelper.Validate(testBin);
+        //    Assert.AreEqual(1, results.Count);
+        //    Assert.AreEqual("A status can only be the value of 1, 2, or 3", results[0].ErrorMessage);
+        //}
 
         [TestMethod]
         //testing that the valid BinStatus object is indeed valid
         public void TestThatdBinStatusIsValidWithMinimumEntry()
         {
-            testBin.status = 1;
+            testBin.status = BinStatus.CollectionStatus.Collected;
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }
@@ -57,7 +58,7 @@ namespace KymiraAdminTests
         //testing that the status of a BinStatus object can be between 1 and 3
         public void TestThatBinStatusIsValidWithMaximumEntry()
         {
-            testBin.status = 3;
+            testBin.status = BinStatus.CollectionStatus.Contaminated;
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }

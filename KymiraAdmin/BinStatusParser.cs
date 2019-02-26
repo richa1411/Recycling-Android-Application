@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using static KymiraAdmin.Models.BinStatus;
 
 namespace KymiraAdmin
 {
@@ -62,7 +62,7 @@ namespace KymiraAdmin
          * "Inaccessible" = returns int of 2 
          * "Contaminated" = returns int of 3
          */
-        public static int ParseStatus(string status)
+        public static CollectionStatus ParseStatus(string status)
         {
             if(status == "")
             {
@@ -71,11 +71,11 @@ namespace KymiraAdmin
             switch(status) //return corresponding int value
             {
                 case "Collected":
-                    return 1;
+                    return CollectionStatus.Collected;
                 case "Contaminated":
-                    return 3;
+                    return CollectionStatus.Contaminated;
                 default: //"Inaccessible"
-                    return 2;
+                    return CollectionStatus.Inaccessible;
             }
         }
 

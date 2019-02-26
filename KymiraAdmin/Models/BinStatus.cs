@@ -14,7 +14,7 @@ namespace KymiraAdmin.Models
      */
     public class BinStatus
     {
-
+        public enum CollectionStatus { Collected = 1, Inaccessible = 2, Contaminated = 3 }
         [Key] //primary auto-incrementing key
         public int pickupID { get; set; }
 
@@ -24,7 +24,8 @@ namespace KymiraAdmin.Models
 
         //1 -> Collected, 2 -> Inaccessible, 3 -> Contaminated
         [Range(1, 3, ErrorMessage = "A status can only be the value of 1, 2, or 3")]
-        public int status { get; set; }
+        [EnumDataType(typeof(CollectionStatus), ErrorMessage = "A status can only be the value of 1, 2, or 3")]
+        public CollectionStatus status { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "The siteID must be a valid integer")]
         [ForeignKey("Site")] //BinStatus(siteID(FK)) references Site(siteID(PK))
