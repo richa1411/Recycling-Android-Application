@@ -43,6 +43,7 @@ namespace KymiraAdmin
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

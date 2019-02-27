@@ -17,6 +17,7 @@
     },
     "KymiraAdmin": {
       "commandName": "Project",
+      "launchUrl": "http://localhost:60225/FAQs",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

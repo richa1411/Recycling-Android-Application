@@ -88,17 +88,26 @@ namespace KymiraAdminTests
             var questionOG = driver.FindElement(By.CssSelector(".table tr th:first-child")).Text; //#question
             var answerOG = driver.FindElement(By.CssSelector(".table tr th:nth-child(2)")).Text; //#answer
 
+            var firstFAQAnswer = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(2)")).Text;
+
+
+
+
+
             var deleteLink = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(3) a"));
             deleteLink.Click();
 
             var question = driver.FindElement(By.CssSelector(".dl-horizontal dt:first-child")).Text; //#question
-            //var answer = driver.FindElement(By.CssSelector(".dl-horizontal dt:nth-child(2)")).Text; //#answer
+            var answer = driver.FindElement(By.CssSelector(".dl-horizontal dt:nth-child(3)")).Text; //#answer
 
-            //driver.FindElement(By.CssSelector("btn btn-default"));
+            var firstDeleteFAQAnswer = driver.FindElement(By.CssSelector(".dl-horizontal dd:nth-child(4)")).Text;
+
+            driver.FindElement(By.CssSelector("#btnDel"));
             driver.FindElement(By.LinkText("Back to List"));
 
             Assert.AreEqual(questionOG, question);
-            //Assert.AreEqual(answerOG, answer.Substring(0, 10) + "...");
+            Assert.AreEqual(answerOG, answer);
+            Assert.AreEqual(firstFAQAnswer, firstDeleteFAQAnswer.Substring(0, 40) + "...");
 
         }
 
