@@ -11,44 +11,9 @@ namespace KymiraAdminTests
     [TestClass]
     public class AdminViewCollectionTests
     {
-        static TestDatabaseContext db = new TestDatabaseContext("KymiraAdminDatabase32");
+        static TestDatabaseContext db = new TestDatabaseContext("KymiraAdminDatabase33");
         public static KymiraAdminContext context;
-        //List<BinStatus> obBins = new List<BinStatus> {
-        //new BinStatus
-        //{
-        //    binID = "W114-320-203",
-        //    siteID = 1609312,
-        //    status = BinStatus.CollectionStatus.Collected,
-        //    collectionDate = "2019-01-01"
-        //},
-        //new BinStatus
-        //{
-        //    binID = "W114-320-204",
-        //    siteID = 1609312,
-        //    status = BinStatus.CollectionStatus.Inaccessible,
-        //    collectionDate = "2019-01-01"
-        //},
-        //new BinStatus
-        //{
-        //    binID = "W114-320-205",
-        //    siteID = 1609312,
-        //    status = BinStatus.CollectionStatus.Collected,
-        //    collectionDate = "2019-01-01"
-        //},
-        //new BinStatus
-        //{
-        //     binID = "COSMO123",
-        //    siteID = 1609320,
-        //    status = BinStatus.CollectionStatus.Collected,
-        //    collectionDate = "2019-01-01"
-        //},
-        //new BinStatus
-        //{
-        //    binID = "12345",
-        //    siteID = 1609320,
-        //    status = BinStatus.CollectionStatus.Contaminated,
-        //    collectionDate = "2019-01-01"
-        //}};
+       
 
         public static IWebDriver driver; //browser to interact with
 
@@ -71,7 +36,7 @@ namespace KymiraAdminTests
             chrome_options.AddArgument("--window-size=1280,720");
 
             //Assign the driver to the location of the chromedriver.exe on the local drive
-            driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
+            driver = new ChromeDriver("D:\\KymiraApp\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
 
         }
 
@@ -98,10 +63,10 @@ namespace KymiraAdminTests
             int initCount = driver.FindElements(By.CssSelector(".table tr")).Count;
 
             //select item to remove - 1st item
-            var itemToDelete = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)"));
+            var itemToDelete = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)")).Text;
             
             //click to delete the first collection status
-            var deleteLink = driver.FindElement(By.CssSelector(".table tr td:last-child"));
+            var deleteLink = driver.FindElement(By.CssSelector(".table tr td:last-child a"));
             deleteLink.Click();
 
 
@@ -117,7 +82,7 @@ namespace KymiraAdminTests
             Assert.AreEqual(binTitles[3].Text, "collectionDate");
             
             driver.FindElement(By.LinkText("Back to List")); //verify link is showing
-            var btnDelete = driver.FindElement(By.CssSelector("btn btn-default")); //delete button
+            var btnDelete = driver.FindElement(By.CssSelector("#btnDelete")); //delete button
             btnDelete.Click();
 
             //back to list page
@@ -127,7 +92,7 @@ namespace KymiraAdminTests
             for (int i = 1; i < list.Count; i++)
             {
                 var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(" + i + ")")); 
-                Assert.AreNotEqual(item.Text, itemToDelete.Text);
+                Assert.AreNotEqual(item.Text, itemToDelete);
             }
             
             //ensure list is one less
@@ -181,15 +146,15 @@ namespace KymiraAdminTests
             var initialRows = driver.FindElements(By.CssSelector(".table tr"));
 
             //click to view the confirmation page
-            driver.FindElement(By.CssSelector(".table tr td:last-child")).Click();
-
+            var delLink = driver.FindElement(By.CssSelector(".table tr td:last-child a"));
+            delLink.Click();
             //ensure is on confirmation page - verify elements are here
             driver.FindElements(By.CssSelector("dl dd"));
             driver.FindElements(By.CssSelector("dl dt"));
             //driver.FindElement(By.CssSelector("#btnDelete"));
 
-            var list = driver.FindElements(By.TagName("a"));
-            list[11].Click(); //link to go back
+            var list = driver.FindElement(By.LinkText("Back to List"));
+            list.Click(); //link to go back
             //back to list page
             //ensure list size has not changed
             var rows = driver.FindElements(By.CssSelector(".table tr"));
