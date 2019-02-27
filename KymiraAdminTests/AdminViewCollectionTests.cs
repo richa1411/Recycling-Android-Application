@@ -134,7 +134,11 @@ namespace KymiraAdminTests
         public void TestThatEmptyListDisplaysMessage()
         {
             //assert is true that list received is empty
+            var initialRows = driver.FindElements(By.CssSelector(".table tr"));
+            Assert.AreEqual(1, initialRows.Count);
             //assert is true that message is displayed
+            var delLink = driver.FindElement(By.CssSelector(".table tr td")).Text;
+            Assert.AreEqual("")
         }
 
         [TestMethod]
