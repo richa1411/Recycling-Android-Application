@@ -87,31 +87,37 @@ namespace kymiraAPI.Controllers
         //Function also will utliize an internal helper function that will calculate the next two pick up dates to return based on the site found
         //Returns an empty array of DateTime objects if the address is not matched to a site in the database
         [HttpPost]
-        public async Task<IActionResult> PostAddressToSearch([FromBody] string searchAddress)
+        public async Task<List<String>> PostAddressToSearch([FromBody] string searchAddress)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return new List<string>();
             }
 
-            _context.Site.Add(search);
-            try
+            //if the string passed in is invalid in any way, return an empty list
+            if (searchAddress == "" || searchAddress.Length > 200)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (SiteExists(site.siteID))
-                {
-                    return new StatusCodeResult(StatusCodes.Status409Conflict);
-                }
-                else
-                {
-                    throw;
-                }
+                return new List<String>();
             }
 
-            return CreatedAtAction("GetSite", new { id = site.siteID }, site);
+            var siteFound = await _context.Site.Where(m => m.address == searchAddress).ToListAsync();
+
+            if (siteFound.Count.Equals(0) || siteFound == null)
+            {
+                //site was not found, return empty list
+                return new List<String>();
+            }
+
+            var freq = siteFound[0].frequency;
+            var day = siteFound[0].sitePickupDays;
+
+
+
+            List<String> nextTwoDays = new List<string>();
+
+            return nextTwoDays;
+
+          
         }
 
         // DELETE: api/Sites/5

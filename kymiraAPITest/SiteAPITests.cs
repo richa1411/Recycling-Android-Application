@@ -78,10 +78,6 @@ namespace kymiraAPITest
         {
             DateTime[] pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27)); //Hard code input date so we can get an expected output date
 
-            //DateTime result = DateTime.Now.AddDays(1);
-            //while (result.DayOfWeek != DayOfWeek.Monday)
-            //    result = result.AddDays(1);
-
             Assert.AreEqual(new DateTime(2019, 3, 4), pickupDates[0]);
 
             Assert.AreEqual(new DateTime(2019, 3, 11), pickupDates[0]);
