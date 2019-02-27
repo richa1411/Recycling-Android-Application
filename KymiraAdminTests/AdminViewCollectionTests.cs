@@ -4,50 +4,51 @@ using System.Collections.Generic;
 using KymiraAdmin.Fixtures;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System;
 
 namespace KymiraAdminTests
 {
     [TestClass]
     public class AdminViewCollectionTests
     {
-        static TestDatabaseContext db = new TestDatabaseContext("KymiraAdminDatabase30");
+        static TestDatabaseContext db = new TestDatabaseContext("KymiraAdminDatabase32");
         public static KymiraAdminContext context;
-        List<BinStatus> obBins = new List<BinStatus> {
-        new BinStatus
-        {
-            binID = "W114-320-203",
-            siteID = 1609312,
-            status = BinStatus.CollectionStatus.Collected,
-            collectionDate = "2019-01-01"
-        },
-        new BinStatus
-        {
-            binID = "W114-320-204",
-            siteID = 1609312,
-            status = BinStatus.CollectionStatus.Inaccessible,
-            collectionDate = "2019-01-01"
-        },
-        new BinStatus
-        {
-            binID = "W114-320-205",
-            siteID = 1609312,
-            status = BinStatus.CollectionStatus.Collected,
-            collectionDate = "2019-01-01"
-        },
-        new BinStatus
-        {
-             binID = "COSMO123",
-            siteID = 1609320,
-            status = BinStatus.CollectionStatus.Collected,
-            collectionDate = "2019-01-01"
-        },
-        new BinStatus
-        {
-            binID = "12345",
-            siteID = 1609320,
-            status = BinStatus.CollectionStatus.Contaminated,
-            collectionDate = "2019-01-01"
-        }};
+        //List<BinStatus> obBins = new List<BinStatus> {
+        //new BinStatus
+        //{
+        //    binID = "W114-320-203",
+        //    siteID = 1609312,
+        //    status = BinStatus.CollectionStatus.Collected,
+        //    collectionDate = "2019-01-01"
+        //},
+        //new BinStatus
+        //{
+        //    binID = "W114-320-204",
+        //    siteID = 1609312,
+        //    status = BinStatus.CollectionStatus.Inaccessible,
+        //    collectionDate = "2019-01-01"
+        //},
+        //new BinStatus
+        //{
+        //    binID = "W114-320-205",
+        //    siteID = 1609312,
+        //    status = BinStatus.CollectionStatus.Collected,
+        //    collectionDate = "2019-01-01"
+        //},
+        //new BinStatus
+        //{
+        //     binID = "COSMO123",
+        //    siteID = 1609320,
+        //    status = BinStatus.CollectionStatus.Collected,
+        //    collectionDate = "2019-01-01"
+        //},
+        //new BinStatus
+        //{
+        //    binID = "12345",
+        //    siteID = 1609320,
+        //    status = BinStatus.CollectionStatus.Contaminated,
+        //    collectionDate = "2019-01-01"
+        //}};
 
         public static IWebDriver driver; //browser to interact with
 
@@ -93,6 +94,9 @@ namespace KymiraAdminTests
         // list page, go through all fields and search for this text to ensure that it is not anywhere on the page!!!
         public void TestThatDeletedStatusNotDisplayed()
         {
+            //do an initial count of items
+            int initCount = driver.FindElements(By.CssSelector(".table tr")).Count;
+
             //select item to remove - 1st item
             var itemToDelete = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)"));
             
@@ -102,7 +106,6 @@ namespace KymiraAdminTests
 
 
             //on delete confirmation page - shows info about specific bin selected
-            var binInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
             var binTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
 
             //above lists come back as empty********
@@ -112,13 +115,7 @@ namespace KymiraAdminTests
             Assert.AreEqual(binTitles[1].Text, "status");
             Assert.AreEqual(binTitles[2].Text, "siteID");
             Assert.AreEqual(binTitles[3].Text, "collectionDate");
-
-            //ensure detail info is correct
-            Assert.AreEqual(binInfo[0].Text,obBins[0].binID);
-            Assert.AreEqual(binInfo[1].Text,obBins[0].status);
-            Assert.AreEqual(binInfo[2].Text, obBins[0].siteID);
-            Assert.AreEqual(binInfo[3].Text, obBins[0].collectionDate);
-
+            
             driver.FindElement(By.LinkText("Back to List")); //verify link is showing
             var btnDelete = driver.FindElement(By.CssSelector("btn btn-default")); //delete button
             btnDelete.Click();
@@ -133,14 +130,12 @@ namespace KymiraAdminTests
                 Assert.AreNotEqual(item.Text, itemToDelete.Text);
             }
             
-           
             //ensure list is one less
-            Assert.AreEqual(driver.FindElements(By.CssSelector(".table tr")).Count,obBins.Count-1);
+            Assert.AreEqual(initCount-1, driver.FindElements(By.CssSelector(".table tr")).Count);
         }
 
         [TestMethod]
         //test that list is displayed in the correct order
-        //TODO: DO NOT LOOK AT LAST ITEM (will be deleted in other test)
         public void TestThatListIsDisplayedInOrder()
         {
             //list of all rows
@@ -148,15 +143,25 @@ namespace KymiraAdminTests
 
             //list of siteID data shown in list
             var siteIdData = driver.FindElements(By.CssSelector(".table tr td:first-child"));
+            var binIdData = driver.FindElements(By.CssSelector(".table tr td:nth-child(2)"));
+
+            var lastSiteID = 0;
+            var lastBinID = 0;
 
             //check matching data from expected list defined above
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 1; i < list.Count; i++)
             {
-                Assert.AreEqual(siteIdData[i++].Text, obBins[i].siteID.ToString());
-            }
+                //check the site id
+                Assert.IsTrue(Convert.ToInt32(siteIdData[i].Text) >= lastSiteID);
+                lastSiteID = Convert.ToInt32(siteIdData[i].Text);
 
-            //ensure all rows are shown
-            Assert.AreEqual(siteIdData.Count, obBins.Count);
+                if (Convert.ToInt32(siteIdData[i].Text) == lastSiteID)
+                {
+                    //check the bin id
+                    Assert.IsTrue(Convert.ToInt32(binIdData[i].Text) >= lastBinID);
+                }
+                lastBinID = Convert.ToInt32(binIdData[i].Text);
+            }
         }
 
         [TestMethod]
@@ -183,8 +188,8 @@ namespace KymiraAdminTests
             driver.FindElements(By.CssSelector("dl dt"));
             //driver.FindElement(By.CssSelector("#btnDelete"));
 
-            driver.FindElement(By.LinkText("Back to List")).Click(); //link to go back
-
+            var list = driver.FindElements(By.TagName("a"));
+            list[11].Click(); //link to go back
             //back to list page
             //ensure list size has not changed
             var rows = driver.FindElements(By.CssSelector(".table tr"));
