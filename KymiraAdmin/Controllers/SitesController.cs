@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KymiraAdmin.Models;
+using PagedList;
+
 
 namespace KymiraAdmin.Controllers
 {
@@ -19,10 +21,23 @@ namespace KymiraAdmin.Controllers
         }
 
         // GET: Sites
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
+
+            if(page == null)
+            {
+                page = 1;
+            }
+
+
+            var list = await _context.Site.ToListAsync();
+
+            //var list = _context.Site.ToListAsync();
+
+
+
             //return only active sites (where clause)
-            return View(await _context.Site.ToListAsync());
+            return View(list.ToPagedList( (int) page, 2));
         }
 
 

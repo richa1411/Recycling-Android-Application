@@ -169,7 +169,19 @@ namespace KymiraAdminTests
         //testing that the headers on the page are properly shown to the admin
         public void TestThatHeadersAreProper()
         {
+            var intialRows = driver.FindElements(By.CssSelector(".table thead th"));
 
+            List<String> listHeaders = new List<String>();
+
+            listHeaders.Add("Site ID");
+            listHeaders.Add("Full Address");
+            listHeaders.Add("Frequency");
+            listHeaders.Add("Site Pickup Day(s)");
+
+            for(int i = 0; i < intialRows.Count; i++)
+            {
+                Assert.AreEqual(intialRows[i].Text, listHeaders[i]);
+            }
         }
 
         [TestMethod]

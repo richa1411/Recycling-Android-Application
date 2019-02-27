@@ -1,8 +1,16 @@
-﻿@model IEnumerable<KymiraAdmin.Models.Site>
+﻿@model PagedList.IPagedList<KymiraAdmin.Models.Site>
+
+@using PagedList.Mvc;
+@using PagedList;
+
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewData["Title"] = "Index";
+    ViewBag.Title = "Sites";
+    //ViewData["Title"] = "Index";
 }
+
+
 
 <h2>All Sites</h2>
 
@@ -21,30 +29,40 @@
             <th>
                 Site Pickup Day(s)
             </th>
-
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.siteID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.frequency)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sitePickupDays)
-            </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.siteID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.frequency)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sitePickupDays)
+                </td>
 
-            <td>
-                <a asp-action="Delete" asp-route-id="@item.siteID">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.siteID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<br />
+
+@Html.ActionLink("Previous", "Index", new { page = (Model.PageNumber - 1 < 1 ? Model.PageNumber : Model.PageNumber - 1) })
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.ActionLink("Next", "Index", new { page = (Model.PageNumber + 1 > Model.PageCount ? Model.PageNumber : Model.PageNumber + 1) })
+
+
+
+
