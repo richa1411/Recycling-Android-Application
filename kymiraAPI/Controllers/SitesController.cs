@@ -11,6 +11,7 @@ namespace kymiraAPI.Controllers
 {
     [Produces("application/json")]
     [Route("api/Sites")]
+    //Class responsible for handling HTTP requests related to Site objects
     public class SitesController : Controller
     {
         private readonly kymiraAPIContext _context;
@@ -82,15 +83,18 @@ namespace kymiraAPI.Controllers
         }
 
         // POST: api/Sites
+        //Function responsible for querying the database for the given search address
+        //Function also will utliize an internal helper function that will calculate the next two pick up dates to return based on the site found
+        //Returns an empty array of DateTime objects if the address is not matched to a site in the database
         [HttpPost]
-        public async Task<IActionResult> PostSite([FromBody] Site site)
+        public async Task<IActionResult> PostAddressToSearch([FromBody] string searchAddress)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Site.Add(site);
+            _context.Site.Add(search);
             try
             {
                 await _context.SaveChangesAsync();
