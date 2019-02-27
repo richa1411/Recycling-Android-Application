@@ -137,8 +137,8 @@ namespace KymiraAdminTests
             var initialRows = driver.FindElements(By.CssSelector(".table tr"));
             Assert.AreEqual(1, initialRows.Count);
             //assert is true that message is displayed
-            var delLink = driver.FindElement(By.CssSelector(".table tr td")).Text;
-            Assert.AreEqual("")
+            var errText = driver.FindElement(By.CssSelector(".table tr td")).Text;
+            Assert.AreEqual("No collection records to display", errText);
         }
 
         [TestMethod]

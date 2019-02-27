@@ -127,15 +127,16 @@ namespace KymiraAdmin.Controllers
                 return NotFound();
             }
 
-            //change to be inactive
-
+            //find the requested bin status
             var binStatus = await _context.BinStatus
                 .SingleOrDefaultAsync(m => m.pickupID == id);
             if (binStatus == null)
             {
+                //the binstatus was not found
                 return NotFound();
             }
 
+            //return a view containing the info for the requested binstatus
             return View(binStatus);
         }
 
@@ -145,6 +146,7 @@ namespace KymiraAdmin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var binStatus = await _context.BinStatus.SingleOrDefaultAsync(m => m.pickupID == id);
+            //change this so that it changes the inactive field and does not remove the record
             _context.BinStatus.Remove(binStatus);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
