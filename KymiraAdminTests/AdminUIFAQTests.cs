@@ -15,7 +15,7 @@ namespace KymiraAdminTests
     {
         static IWebDriver driver;
         public static List<FAQ> obList;
-        private static TestDatabaseContext db = new TestDatabaseContext("kymiraAPIDatabase30");
+        private static TestDatabaseContext db = new TestDatabaseContext("kymiraAPIDatabase100");
 
         [ClassInitialize]
         public static void ClassInit(TestContext context)
@@ -180,15 +180,42 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatNavBarIsBlack()
         {
-            
+            var navbar = driver.FindElement(By.CssSelector("nav:first-child"));
+            var color = navbar.GetCssValue("background-color");
+
+            //color returns a stinrg which is what is below. we googled it and its right
+            Assert.AreEqual("rgba(34, 34, 34, 1)", color);
+
+
+
 
         }
 
         //This test will check that the fontsize of the title is 30 pixels large
         [TestMethod]
-        public void TestThatTitleFontSizeIs30pxLarge()
+        public void TestAdminpageFontSizes()
         {
-            
+            var KymiraAdminText = driver.FindElement(By.CssSelector(".navbar-brand"));
+            var navBarItemText = driver.FindElement(By.CssSelector(".container div:nth-child(2) ul li:first-child"));
+            var FaqTitleText = driver.FindElement(By.CssSelector("div h2"));
+            var FAQHeaderText = driver.FindElement(By.CssSelector(".table tr:first-child th:first-child"));
+            var TableText = new List<IWebElement>(driver.FindElements(By.CssSelector(".table tbody tr td")));
+
+
+
+            Assert.AreEqual("18px", KymiraAdminText.GetCssValue("font-size"));
+            Assert.AreEqual("14px", navBarItemText.GetCssValue("font-size"));
+            Assert.AreEqual("30px", FaqTitleText.GetCssValue("font-size"));
+            Assert.AreEqual("14px", FAQHeaderText.GetCssValue("font-size"));
+
+
+
+            foreach (var td in TableText)
+            {
+                var size = td.GetCssValue("font-size");
+                Assert.AreEqual("14px",size);
+            }
+
 
         }
 
