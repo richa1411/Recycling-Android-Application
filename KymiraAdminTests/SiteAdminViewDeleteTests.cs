@@ -17,7 +17,7 @@ namespace KymiraAdminTests
         public static IWebDriver driver; //browser to interact with
 
 
-
+        //list of sites expected to be shown on the page (in the DB)
         List<Site> obSites = new List<Site> {
         new Site
         {
@@ -64,12 +64,7 @@ namespace KymiraAdminTests
             driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
 
         }
-
-        [ClassCleanup] //this method will remove all items from BinStatus table in the database
-        public static void ClassCleanup()
-        {
-            //fixture_bin_status.Unload(db.context);
-        }
+        
 
         [TestInitialize]
         public void InitializeTest()
@@ -81,8 +76,6 @@ namespace KymiraAdminTests
 
         [TestMethod]
         //Test that a deleted Site is removed from the list
-        //TO DO: GET LAST ITEM TO DELETE - grab text of this record and once back on the 
-        // list page, go through all fields and search for this text to ensure that it is not anywhere on the page!!!
         public void TestThatDeletedStatusNotDisplayed()
         {
             //select item to remove - last item
@@ -96,9 +89,7 @@ namespace KymiraAdminTests
             //on delete confirmation page - shows info about specific bin selected
             var siteInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
             var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
-
-            //above lists come back as empty********
-
+            
             //ensure titles displayed are correct
             Assert.AreEqual(siteTitles[0].Text, "siteID");
             Assert.AreEqual(siteTitles[1].Text, "address");
@@ -117,18 +108,20 @@ namespace KymiraAdminTests
 
             //back to list page
             //ensure item is no longer there
-            var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(3)")); //grab 1st item in list
+            var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(3)"));
             Assert.AreNotEqual(item.Text, itemToDelete.Text);
+
             //ensure list is one less
             Assert.AreEqual(driver.FindElements(By.CssSelector(".table tr")).Count, obSites.Count - 1);
 
+            //ensure the Site's inactive field is set to true
             Site testSite = context.Site.Find("30");
             Assert.IsTrue(testSite.inactive);
         }
 
         [TestMethod]
         //test that list is displayed in the correct order
-        //TODO: DO NOT LOOK AT LAST ITEM (will be deleted in other test)
+        //DO NOT LOOK AT LAST ITEM (will be deleted in other test)
         public void TestThatListIsDisplayedInOrder()
         {
             //list of all rows
@@ -162,7 +155,6 @@ namespace KymiraAdminTests
             //ensure is on confirmation page - verify elements are here
             driver.FindElements(By.CssSelector("dl dd"));
             driver.FindElements(By.CssSelector("dl dt"));
-            //driver.FindElement(By.CssSelector("#btnDelete"));
 
             driver.FindElement(By.LinkText("Back to List")).Click(); //link to go back
 
@@ -170,9 +162,23 @@ namespace KymiraAdminTests
             //ensure list size has not changed
             var rows = driver.FindElements(By.CssSelector(".table tr"));
             Assert.AreEqual(initialRows.Count, rows.Count);
-
-           
+            
         }
+
+        [TestMethod]
+        //testing that the headers on the page are properly shown to the admin
+        public void TestThatHeadersAreProper()
+        {
+
+        }
+
+        [TestMethod]
+        //testing that the admin can see the data displayed in a manageable way
+        public void TestThatPagesAndLinksAreShown()
+        {
+            //
+        }
+
 
     }
 }
