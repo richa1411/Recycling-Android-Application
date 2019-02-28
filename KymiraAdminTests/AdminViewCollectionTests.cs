@@ -36,7 +36,7 @@ namespace KymiraAdminTests
             chrome_options.AddArgument("--window-size=1280,720");
 
             //Assign the driver to the location of the chromedriver.exe on the local drive
-            driver = new ChromeDriver("D:\\KymiraApp\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
+            driver = new ChromeDriver("D:\\COSACPMG\\prj2.cosmo\\KymiraAdminTests\\bin\\Debug\\netcoreapp2.0", chrome_options);
 
         }
 
@@ -111,21 +111,23 @@ namespace KymiraAdminTests
             var binIdData = driver.FindElements(By.CssSelector(".table tr td:nth-child(2)"));
 
             var lastSiteID = 0;
-            var lastBinID = 0;
+            var lastBinID = "";
 
             //check matching data from expected list defined above
-            for (int i = 1; i < list.Count; i++)
+            for (int i = 1; i < list.Count - 1; i++)
             {
                 //check the site id
                 Assert.IsTrue(Convert.ToInt32(siteIdData[i].Text) >= lastSiteID);
-                lastSiteID = Convert.ToInt32(siteIdData[i].Text);
 
                 if (Convert.ToInt32(siteIdData[i].Text) == lastSiteID)
                 {
+                    string binID = binIdData[i].Text;
                     //check the bin id
-                    Assert.IsTrue(Convert.ToInt32(binIdData[i].Text) >= lastBinID);
+                    Assert.IsTrue( binID.CompareTo(lastBinID) >= 0);
                 }
-                lastBinID = Convert.ToInt32(binIdData[i].Text);
+
+                lastSiteID = Convert.ToInt32(siteIdData[i].Text);
+                lastBinID = binIdData[i].Text;
             }
         }
 

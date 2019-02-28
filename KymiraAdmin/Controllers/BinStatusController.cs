@@ -20,15 +20,56 @@ namespace KymiraAdmin.Controllers
             _context = context;
         }
 
-        // GET: BinStatus
-        public async Task<IActionResult> Index()
-        {
-            //return the list of all binstatuses here ---- TODO: sort by siteID then binID
-            List<BinStatus> list = await _context.BinStatus.Where(o => o.inactive == false).ToListAsync();
-            list.OrderBy(o => o.siteID).ThenByDescending(o=>o.binID);
+        //// GET: BinStatus
+        //public async Task<IActionResult> Index()
+        //{
+        //    //return the list of all binstatuses here ---- sort by siteID then binID
+        //    List<BinStatus> list = await _context.BinStatus.Where(o => o.inactive == false).ToListAsync();
+        //    //list.OrderBy(o => o.siteID).ThenBy(o=>o.binID);
 
-            return View(list);
+        //    return View(list.OrderBy(o => o.siteID).ThenBy(o => o.binID).ThenBy(o => o.collectionDate));
+        //}
+
+        public ActionResult Index(string sortOrder)
+        {
+            ViewBag.SiteSortParm = sortOrder.Contains("siteID") ? "siteID_desc" : "";
+            ViewBag.BinSortParam = sortOrder.Contains("binID") ? "binID_desc" : "binID";
+            ViewBag.StatusSortParm = sortOrder.Contains("status") ? "status_desc" : "status";
+            ViewBag.DateSortParm = sortOrder.Contains("collDate") ? "collDate_desc" : "collDate";
+
+            var binStatus = from b in _context.BinStatus select b;
+
+            switch(sortOrder)
+            {
+                case "binID":
+                    binStatus = binStatus.OrderBy(b => b.binID);
+                    break;
+                case "status":
+                    binStatus = binStatus.OrderBy(b => b.status);
+                    break;
+                case "collDate":
+                    binStatus = binStatus.OrderBy(b => b.collectionDate);
+                    break;
+                case "siteID_desc":
+                    binStatus = binStatus.OrderByDescending(b => b.siteID);
+                    break;
+                case "binID_desc":
+                    binStatus = binStatus.OrderByDescending(b => b.binID);
+                    break;
+                case "status_desc":
+                    binStatus = binStatus.OrderByDescending(b => b.status);
+                    break;
+                case "collDate_desc":
+                    binStatus = binStatus.OrderByDescending(b => b.collectionDate);
+                    break;
+                default:
+                    binStatus = binStatus.OrderBy(b => b.siteID);
+                    break;
+            }
+                
+            return View(binStatus.ToList());
         }
+
         // GET: BinStatus/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
