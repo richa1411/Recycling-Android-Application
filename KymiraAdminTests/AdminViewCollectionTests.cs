@@ -11,7 +11,7 @@ namespace KymiraAdminTests
     [TestClass]
     public class AdminViewCollectionTests
     {
-        static TestDatabaseContext db = new TestDatabaseContext("KymiraAdminDatabase33");
+        static TestDatabaseContext db = new TestDatabaseContext("KymiraAdminDatabase34");
         public static KymiraAdminContext context;
        
 
@@ -133,6 +133,8 @@ namespace KymiraAdminTests
         //test that an empty list (no bin status objects to display) displays message
         public void TestThatEmptyListDisplaysMessage()
         {
+            //removing data from database
+            fixture_bin_status.Unload(db.context);
             //assert is true that list received is empty
             var initialRows = driver.FindElements(By.CssSelector(".table tr"));
             Assert.AreEqual(1, initialRows.Count);
