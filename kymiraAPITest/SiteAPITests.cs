@@ -76,7 +76,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatPickupDatesAreCorrect()
         {
-            DateTime[] pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27)); //Hard code input date so we can get an expected output date
+            List<string> pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27)); //Hard code input date so we can get an expected output date
 
             Assert.AreEqual(new DateTime(2019, 3, 4), pickupDates[0]);
 
@@ -90,9 +90,9 @@ namespace kymiraAPITest
         {
             testSite.sitePickupDays = 0;
 
-            DateTime[] pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27));
+            List<string> pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27));
 
-            Assert.AreEqual(0, pickupDates.Length);
+            Assert.AreEqual(0, pickupDates.Count);
         }
 
         //Test that a site with an invalid value of frequency returns an empty array of dates
@@ -101,9 +101,9 @@ namespace kymiraAPITest
         {
             testSite.frequency = 0;
 
-            DateTime[] pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27));
+            List<string> pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27));
 
-            Assert.AreEqual(0, pickupDates.Length);
+            Assert.AreEqual(0, pickupDates.Count);
         }
 
 
@@ -113,7 +113,7 @@ namespace kymiraAPITest
             //the next leap day is on a saturday
             testSite.sitePickupDays = Site.PickupDays.Saturday;
 
-            DateTime[] pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2020, 2, 22));
+            List<string> pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27));
 
             Assert.AreEqual(pickupDates[0], new DateTime(2020, 2, 29));
         }

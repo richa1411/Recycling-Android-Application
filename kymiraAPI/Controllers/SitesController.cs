@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using kymiraAPI.Models;
@@ -108,33 +107,13 @@ namespace kymiraAPI.Controllers
                 return new List<String>();
             }
 
-            var freq = siteFound[0].frequency;
-            var day = siteFound[0].sitePickupDays;
+            Site site = siteFound[0];
 
             List<String> nextTwoDays = new List<string>();
 
+            nextTwoDays = PickupDateCalculatorHelper.CalculateNextPickupDates(site, DateTime.Today);
+
             return nextTwoDays;  
-        }
-
-        // DELETE: api/Sites/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSite([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var site = await _context.Site.SingleOrDefaultAsync(m => m.siteID == id);
-            if (site == null)
-            {
-                return NotFound();
-            }
-
-            _context.Site.Remove(site);
-            await _context.SaveChangesAsync();
-
-            return Ok(site);
         }
 
         private bool SiteExists(int id)
