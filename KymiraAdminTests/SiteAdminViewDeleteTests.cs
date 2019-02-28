@@ -167,7 +167,7 @@ namespace KymiraAdminTests
 
         [TestMethod]
         //testing that the headers on the page are properly shown to the admin
-        public void TestThatHeadersAreProper()
+        public void TestThatHeadersAreCorrect()
         {
             var intialRows = driver.FindElements(By.CssSelector(".table thead th"));
 
@@ -192,5 +192,98 @@ namespace KymiraAdminTests
         }
 
 
+        
+        [TestMethod]
+        //This test will check that the nav bar is black
+        public void TestThatNavBarIsBlack()
+        {
+            var navbar = driver.FindElement(By.CssSelector("nav:first-child"));
+            var color = navbar.GetCssValue("background-color");
+            Assert.AreEqual("rgba(34, 34, 34, 1)", color);
+        }
+
+        [TestMethod]
+        //testing that all font displayed on the page is what is expected
+        public void TestThatFontSizesAreCorrect()
+        {
+            var kymiraAdminText = driver.FindElement(By.CssSelector(".navbar-brand"));
+            var navBarItemText = driver.FindElement(By.CssSelector(".container div:nth-child(2) ul li:first-child"));
+            var siteTitleText = driver.FindElement(By.CssSelector("div h2"));
+            var siteHeaderText = driver.FindElement(By.CssSelector(".table tr:first-child th:first-child"));
+            var tableText = new List<IWebElement>(driver.FindElements(By.CssSelector(".table tbody tr td")));
+            
+            //checking navbar text size
+            Assert.AreEqual("18px", kymiraAdminText.GetCssValue("font-size"));
+            Assert.AreEqual("14px", navBarItemText.GetCssValue("font-size"));
+
+            //checking page specific font sizes
+            Assert.AreEqual("30px", siteTitleText.GetCssValue("font-size"));
+            Assert.AreEqual("14px", siteHeaderText.GetCssValue("font-size"));
+            
+            //checking each row text size
+            foreach (var td in tableText)
+            {
+                var size = td.GetCssValue("font-size");
+                Assert.AreEqual("14px", size);
+            }
+        }
+
+        [TestMethod]
+        //testing that the sort by siteid is correct (ASCENDING)
+        public void TestThatAscSiteIDIsCorrect()
+        {
+            //grab the header text displayed
+            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+
+            siteTitles[0].Click(); //click the Site ID text once
+
+            //checking that the first object displayed in the list contains the same site id as the first site in the expected list
+            var firstSite = driver.FindElement(By.CssSelector(".table tr td"));
+            Assert.AreEqual(firstSite.Text,obSites[0].siteID);
+        }
+
+        [TestMethod]
+        //testing that the sort by siteid is correct (DESCENDING)
+        public void TestThatDescSiteIDIsCorrect()
+        {
+            //grab the header text displayed
+            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+
+            siteTitles[0].Click(); 
+            siteTitles[0].Click(); //click the Site ID text twice for descending
+
+            //checking that the first object displayed in the list contains the same site id as the last site in the expected list
+            var lastSite = driver.FindElement(By.CssSelector(".table tr td"));
+            Assert.AreEqual(lastSite.Text, obSites[2].siteID);
+        }
+
+        [TestMethod]
+        //testing that the sort by siteid is correct (ASCENDING)
+        public void TestThatAscAddressIsCorrect()
+        {
+            //grab the header text displayed
+            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+
+            siteTitles[1].Click(); //click the Full Address text once
+
+            //checking that the first object displayed in the list contains the same address as the first site in the expected list
+            var firstSite = driver.FindElement(By.CssSelector(".table tr td:nth-child(2)"));
+            Assert.AreEqual(firstSite.Text, obSites[0].siteID);
+        }
+
+        [TestMethod]
+        //testing that the sort by siteid is correct (DESCENDING)
+        public void TestThatDescAddressIsCorrect()
+        {
+            //grab the header text displayed
+            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+
+            siteTitles[1].Click();
+            siteTitles[1].Click(); //click the Full Address text twice for descending
+
+            //checking that the first object displayed in the list contains the same address as the last site in the expected list
+            var lastSite = driver.FindElement(By.CssSelector(".table tr td:nth-child(2)"));
+            Assert.AreEqual(lastSite.Text, obSites[2].siteID);
+        }
     }
 }
