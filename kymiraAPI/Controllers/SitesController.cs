@@ -111,13 +111,9 @@ namespace kymiraAPI.Controllers
             var freq = siteFound[0].frequency;
             var day = siteFound[0].sitePickupDays;
 
-
-
             List<String> nextTwoDays = new List<string>();
 
-            return nextTwoDays;
-
-          
+            return nextTwoDays;  
         }
 
         // DELETE: api/Sites/5

@@ -80,7 +80,7 @@ namespace kymiraAPITest
 
             Assert.AreEqual(new DateTime(2019, 3, 4), pickupDates[0]);
 
-            Assert.AreEqual(new DateTime(2019, 3, 11), pickupDates[0]);
+            Assert.AreEqual(new DateTime(2019, 3, 11), pickupDates[1]);
 
         }
 
@@ -107,5 +107,15 @@ namespace kymiraAPITest
         }
 
 
+        //Test that the next occurance of a leap year (Saturday, Febuary 29 2020) is valid. 
+        public void TestThatFeb29OnLeapYear()
+        {
+            //the next leap day is on a saturday
+            testSite.sitePickupDays = Site.PickupDays.Saturday;
+
+            DateTime[] pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2020, 2, 22));
+
+            Assert.AreEqual(pickupDates[0], new DateTime(2020, 2, 29));
+        }
     }
 }
