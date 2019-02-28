@@ -184,13 +184,6 @@ namespace KymiraAdminTests
             }
         }
 
-        [TestMethod]
-        //testing that the admin can see the data displayed in a manageable way
-        public void TestThatPagesAndLinksAreShown()
-        {
-            //
-        }
-
 
         
         [TestMethod]

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KymiraAdmin.Models;
-using PagedList;
+using X.PagedList;
 
 
 namespace KymiraAdmin.Controllers
@@ -32,12 +32,11 @@ namespace KymiraAdmin.Controllers
 
             var list = await _context.Site.ToListAsync();
 
-            //var list = _context.Site.ToListAsync();
 
 
 
             //return only active sites (where clause)
-            return View(list.ToPagedList( (int) page, 2));
+            return View(list.ToPagedList( (int) page, 100));
         }
 
 
