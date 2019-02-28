@@ -5,16 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20181211192923_Initial1.cs" />
-    <Compile Remove="Migrations\20181211192923_Initial1.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Server\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetCore.NPOI" Version="1.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />

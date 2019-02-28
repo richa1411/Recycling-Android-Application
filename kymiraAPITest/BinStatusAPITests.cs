@@ -14,7 +14,7 @@ namespace kymiraAPITest
     {
         //valid BinStatus object to be used to validate
         BinStatus testBin = new BinStatus {
-            binID = 1,
+            binID = "1",
             status = 1,
             collectionDate = "2019-01-01",
             siteID = 101010
@@ -24,6 +24,8 @@ namespace kymiraAPITest
         Site testSite = new Site {
             siteID = 10,
             address = "123 Test Street",
+            sitePickupDays = Site.PickupDays.Monday,
+            frequency = Site.PickupFrequency.Weekly
         };
 
         //list to hold ValidationResults
@@ -101,20 +103,31 @@ namespace kymiraAPITest
         //testing that the valid binID of a BinStatus object is valid
         public void TestThatBinStatusBinIDIsValid()
         {
-            testBin.binID = 10;
+            testBin.binID = "W114-320-257";
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(0, results.Count);
         }
 
         [TestMethod]
-        //testing that the binID of a BinStatus object cannot be less than 1
-        public void TestThatBinStatusBinIDLessThanOneIsInvalid()
+        //testing that the binID of a BinStatus object cannot be an empty string
+        public void TestThatBinStatusBinIDEmptyStringIsInvalid()
         {
-            testBin.binID = 0;
+            testBin.binID = "";
             results = TestValidationHelper.Validate(testBin);
             Assert.AreEqual(1, results.Count);
-            Assert.AreEqual("BinID must be a valid number", results[0].ErrorMessage);
+            Assert.AreEqual("BinID must be between 1 and 20 characters", results[0].ErrorMessage);
         }
+
+        [TestMethod]
+        //testing that the binID of a BinStatus object cannot be in an invalid format
+        public void TestThatBinStatusBinIDInvalidFormatIsInvalid()
+        {
+            testBin.binID = "A3/D";
+            results = TestValidationHelper.Validate(testBin);
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual("BinID is not valid", results[0].ErrorMessage);
+        }
+
 
         /*--------------------------------Site validation tests--------------------------------*/
         [TestMethod]

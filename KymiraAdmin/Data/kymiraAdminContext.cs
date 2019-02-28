@@ -4,16 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace KymiraAdmin.Data
+namespace KymiraAdmin.Models
 {
     public class KymiraAdminContext : DbContext
     {
-        public KymiraAdminContext(DbContextOptions<KymiraAdminContext> options)
+        public KymiraAdminContext (DbContextOptions<KymiraAdminContext> options)
             : base(options)
         {
-
         }
-
+        public DbSet<KymiraAdmin.Models.Disposable> DisposableDBSet { get; set; }
+        public DbSet<KymiraAdmin.Models.BinStatus> BinStatus { get; set; }
+        public DbSet<KymiraAdmin.Models.Site> Site { get; set; }
         public DbSet<KymiraAdmin.Models.FAQ> FAQDBSet { get; set; }
     }
+
 }

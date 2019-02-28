@@ -6,9 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using kymiraAPI.Fixtures;
 using Microsoft.EntityFrameworkCore;
-using KymiraAdmin.Data;
+using KymiraAdmin.Models;
 
 namespace KymiraAdmin
 {
@@ -31,7 +30,7 @@ namespace KymiraAdmin
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,KymiraAdminContext context)
         {
             if (env.IsDevelopment())
             {
@@ -43,7 +42,9 @@ namespace KymiraAdmin
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            
+
+            //Fixtures.fixture_disposables.Unload(context);
+           // Fixtures.fixture_disposables.Load(context);
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

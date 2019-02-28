@@ -17,7 +17,7 @@ namespace KymiraAdminTests
     {
         static IWebDriver driver;
         public static List<FAQ> obList;
-        private static TestDatabaseContext db = new TestDatabaseContext("kymiraAPIDatabase100");
+        private static TestDatabaseContext db = new TestDatabaseContext("kymiraAPIDatabase103");
 
         [ClassInitialize]
         public static void ClassInit(TestContext context)
@@ -51,7 +51,7 @@ namespace KymiraAdminTests
         [TestInitialize]
         public void InitializeTest()
         {
-            driver.Navigate().GoToUrl("http://localhost:60225/FAQs");
+            driver.Navigate().GoToUrl("http://localhost:55271/FAQs");
         }
 
         /**
