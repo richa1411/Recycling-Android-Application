@@ -222,13 +222,45 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatTableHeadersAreBold()
         {
+            var FaqQuestionHeaderText = driver.FindElement(By.CssSelector(".table thead tr:first-child th:first-child"));
+            var FaqAnswerHeaderText = driver.FindElement(By.CssSelector(".table thead tr:first-child th:nth-child(2)"));
 
-
+            Assert.AreEqual("700", FaqQuestionHeaderText.GetCssValue("font-weight"));
+            Assert.AreEqual("700", FaqAnswerHeaderText.GetCssValue("font-weight"));
         }
 
 
+        [TestMethod]
+        public void TestThatConfirmDeletePageDisplaysProperly()
+        {
+            //Record the original page
+            var table = driver.FindElement(By.CssSelector(".table"));
+            int elementList = table.FindElements(By.CssSelector(".table tr")).Count;
+
+            var deleteLink = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(3) a"));
+            deleteLink.Click();
+
+            var KymiraAdminText = driver.FindElement(By.CssSelector(".navbar-brand"));
+            var navBarItemText = driver.FindElement(By.CssSelector(".container div:nth-child(2) ul li:first-child"));
+            var FaqTitleText = driver.FindElement(By.CssSelector("div h2"));
+            var FAQQuestionHeader = driver.FindElement(By.CssSelector(".dl-horizontal dt:first-child"));
+            var FAQAnswerHeader = driver.FindElement(By.CssSelector(".dl-horizontal dt:nth-child(3)"));
+
+            var QuestionText = driver.FindElement(By.CssSelector(".dl-horizontal dd:nth-child(2)"));
+            var AnswerText = driver.FindElement(By.CssSelector(".dl-horizontal dd:nth-child(4)"));
+
+            Assert.AreEqual("18px", KymiraAdminText.GetCssValue("font-size"));
+            Assert.AreEqual("14px", navBarItemText.GetCssValue("font-size"));
+            Assert.AreEqual("30px", FaqTitleText.GetCssValue("font-size"));
+            Assert.AreEqual("14px", FAQQuestionHeader.GetCssValue("font-size"));
+            Assert.AreEqual("700", FAQQuestionHeader.GetCssValue("font-weight"));
+            Assert.AreEqual("14px", FAQAnswerHeader.GetCssValue("font-size"));
+            Assert.AreEqual("700", FAQAnswerHeader.GetCssValue("font-weight"));
+
+            Assert.AreEqual("14px", QuestionText.GetCssValue("font-size"));
+            Assert.AreEqual("14px", AnswerText.GetCssValue("font-size"));
+        }
 
 
-        
     }
 }
