@@ -138,6 +138,35 @@ namespace KymiraAdminTests
         }
 
 
+        //*********** Inactive ***********
+
+        //Test that the Inactive field is true
+        [TestMethod]
+        public void TestThatInactiveIsTrue()
+        {
+
+            objFAQ.inactive = true;
+            var results = TestValidationHelper.Validate(objFAQ);
+            Assert.AreEqual(0, results.Count);
+            //NoError
+
+
+        }
+
+        //Test that the Inactive field is false
+        [TestMethod]
+        public void TestThatInactiveIsFalse()
+        {
+
+            objFAQ.inactive = false;
+            var results = TestValidationHelper.Validate(objFAQ);
+            Assert.AreEqual(0, results.Count);
+            //NoError
+
+
+        }
+
+
 
     }
 }

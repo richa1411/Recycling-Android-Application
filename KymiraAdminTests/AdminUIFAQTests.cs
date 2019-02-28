@@ -7,6 +7,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace KymiraAdminTests
 {
@@ -259,6 +261,30 @@ namespace KymiraAdminTests
 
             Assert.AreEqual("14px", QuestionText.GetCssValue("font-size"));
             Assert.AreEqual("14px", AnswerText.GetCssValue("font-size"));
+        }
+        [TestMethod]
+        public void TestThatDeleteMakesItemInactiveAndStillInDatabase()
+        {
+
+
+            //Record the original page
+        
+           
+
+            var deleteLink = driver.FindElement(By.CssSelector(".table tbody tr:nth-child(5) td:nth-child(3) a"));
+            deleteLink.Click();
+
+            driver.FindElement(By.LinkText("Back to List"));
+            //Click the delete button to remove the item
+            var delBtn = driver.FindElement(By.CssSelector("form input:nth-child(2)"));
+            delBtn.Click();
+
+            var item = db.context.FAQDBSet.Where(m => m.question == "Where is Cosmo Industries?").ToList();
+
+            Assert.IsFalse(item == null);
+            Assert.AreEqual("Where is Cosmo Industries?", item[0].question);
+           
+
         }
 
 
