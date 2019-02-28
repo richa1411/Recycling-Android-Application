@@ -26,10 +26,10 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
     <thead>
         <tr>
             <th>
-                Site ID
+                @Html.ActionLink("Site ID", "Index", new { sortOrder = ViewBag.SiteSortParam })
             </th>
             <th>
-                Full Address
+                @Html.ActionLink("Full Address", "Index", new { sortOrder = ViewBag.AddressSortParam })
             </th>
             <th>
                 Frequency
@@ -69,5 +69,5 @@ Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.Page
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page }))
+    new { page, sortOrder = ViewBag.CurrentSort }))
 

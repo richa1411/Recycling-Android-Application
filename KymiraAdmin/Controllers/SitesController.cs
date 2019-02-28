@@ -21,21 +21,42 @@ namespace KymiraAdmin.Controllers
         }
 
         // GET: Sites
-        public async Task<IActionResult> Index(int? page)
+        /* This method shows the correct page that the user selects to view,
+         the view only includes a list of the Site objects that are active,
+         it also by default sorts the list by the Site ID in ascending order. */
+        public async Task<IActionResult> Index(int? page, string sortOrder)
         {
+            //grab values passed from controller
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.SiteSortParam = String.IsNullOrEmpty(sortOrder) ? "site_desc" : "";
+            ViewBag.AddressSortParam = sortOrder == "Full Address" ? "address_desc" : "Full Address";
 
-            if(page == null)
+            //default show page 1
+            if (page == null)
             {
                 page = 1;
             }
 
+            List<Site> list; //var to hold the list to display to the page
 
-            var list = await _context.Site.ToListAsync();
+            //sort the list to display by the order passed in - only grabs active sites
+            switch(sortOrder)
+            {
+                case "address_desc": //address descending order
+                    list = await _context.Site.Where(e => e.inactive == false).OrderByDescending(e => e.address).ToListAsync();
+                    break;
+                case "Full Address": //address ascending order
+                    list = await _context.Site.Where(e => e.inactive == false).OrderBy(e => e.address).ToListAsync();
+                    break;
+                case "site_desc": //site descending order
+                    list = await _context.Site.Where(e => e.inactive == false).OrderByDescending(e => e.siteID).ToListAsync();
+                    break;
+                default: //site ascending order
+                    list = await _context.Site.Where(e => e.inactive == false).OrderBy(e => e.siteID).ToListAsync();
+                    break;
+            }
 
-
-
-
-            //return only active sites (where clause)
+            //return view using pages, showing only a max of 100 on a page at a time
             return View(list.ToPagedList( (int) page, 100));
         }
 
@@ -62,10 +83,12 @@ namespace KymiraAdmin.Controllers
         // POST: Sites/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        /* This method takes in the int id of the item the user selected to delete and
+         * sets the Site's inactive field to be true (won't be displayed). */
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var site = await _context.Site.SingleOrDefaultAsync(m => m.siteID == id);
-            _context.Site.Remove(site);
+            site.inactive = true; //set the inactive field of the Site to delete to be true
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

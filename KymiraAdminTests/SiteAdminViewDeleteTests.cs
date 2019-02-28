@@ -70,7 +70,7 @@ namespace KymiraAdminTests
         public void InitializeTest()
         {
             //navigate to proper page each time
-            driver.Navigate().GoToUrl("http://localhost:55270/Sites");
+            driver.Navigate().GoToUrl("http://localhost:55271/Sites");
         }
 
 
@@ -87,8 +87,8 @@ namespace KymiraAdminTests
 
 
             //on delete confirmation page - shows info about specific bin selected
-            var siteInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
-            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+            var siteInfo = driver.FindElements(By.CssSelector(".dl-horizontal dd"));
+            var siteTitles = driver.FindElements(By.CssSelector(".dl-horizontal dt"));
             
             //ensure titles displayed are correct
             Assert.AreEqual(siteTitles[0].Text, "siteID");
@@ -124,16 +124,13 @@ namespace KymiraAdminTests
         //DO NOT LOOK AT LAST ITEM (will be deleted in other test)
         public void TestThatListIsDisplayedInOrder()
         {
-            //list of all rows
-            var list = driver.FindElements(By.CssSelector(".table tr"));
-
             //list of siteID data shown in list
             var siteIdData = driver.FindElements(By.CssSelector(".table tr td:first-child"));
 
             //check matching data from expected list defined above
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < siteIdData.Count; i++)
             {
-                Assert.AreEqual(siteIdData[i++].Text, obSites[i].siteID.ToString());
+                Assert.AreEqual(siteIdData[i].Text, obSites[i].siteID.ToString());
             }
 
             //ensure all rows are shown
@@ -143,26 +140,27 @@ namespace KymiraAdminTests
 
         [TestMethod]
         //test that if admin cancels deletion that they are taken back to the list and the list has not changed
-        //TODO: add checking detail fields for specific item
         public void TestThatAdminIsTakenBackToList()
         {
             //check that list has not changed / collection item has not been deleted
             var initialRows = driver.FindElements(By.CssSelector(".table tr"));
 
+            //var deleteLink = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(3) a"));
             //click to view the confirmation page
-            driver.FindElement(By.CssSelector(".table tr td:last-child")).Click();
+            var deleteLinkMain = driver.FindElement(By.CssSelector(".table tr:nth-child(2) td:nth-child(5) a"));
+            deleteLinkMain.Click();
 
             //ensure is on confirmation page - verify elements are here
             driver.FindElements(By.CssSelector("dl dd"));
             driver.FindElements(By.CssSelector("dl dt"));
 
-            driver.FindElement(By.LinkText("Back to List")).Click(); //link to go back
+            var deleteLink = driver.FindElement(By.LinkText("Back to List"));//link to go back
+            deleteLink.Click(); //click to go back
 
             //back to list page
             //ensure list size has not changed
             var rows = driver.FindElements(By.CssSelector(".table tr"));
             Assert.AreEqual(initialRows.Count, rows.Count);
-            
         }
 
         [TestMethod]
@@ -226,13 +224,17 @@ namespace KymiraAdminTests
         public void TestThatAscSiteIDIsCorrect()
         {
             //grab the header text displayed
-            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+            var siteTitles = driver.FindElement(By.CssSelector(".table thead tr:first-child th:first-child a"));
 
-            siteTitles[0].Click(); //click the Site ID text once
+            siteTitles.Click(); //click the Site ID text twice
+
+            siteTitles = driver.FindElement(By.CssSelector(".table thead tr:first-child th:first-child a"));
+
+            siteTitles.Click();
 
             //checking that the first object displayed in the list contains the same site id as the first site in the expected list
             var firstSite = driver.FindElement(By.CssSelector(".table tr td"));
-            Assert.AreEqual(firstSite.Text,obSites[0].siteID);
+            Assert.AreEqual(Convert.ToInt32(firstSite.Text),obSites[0].siteID);
         }
 
         [TestMethod]
@@ -240,14 +242,13 @@ namespace KymiraAdminTests
         public void TestThatDescSiteIDIsCorrect()
         {
             //grab the header text displayed
-            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+            var siteTitles = driver.FindElement(By.CssSelector(".table thead tr:first-child th:first-child a"));
 
-            siteTitles[0].Click(); 
-            siteTitles[0].Click(); //click the Site ID text twice for descending
+            siteTitles.Click(); //click the Site ID text once for descending
 
             //checking that the first object displayed in the list contains the same site id as the last site in the expected list
             var lastSite = driver.FindElement(By.CssSelector(".table tr td"));
-            Assert.AreEqual(lastSite.Text, obSites[2].siteID);
+            Assert.AreEqual(Convert.ToInt32(lastSite.Text), obSites[2].siteID);
         }
 
         [TestMethod]
@@ -255,13 +256,14 @@ namespace KymiraAdminTests
         public void TestThatAscAddressIsCorrect()
         {
             //grab the header text displayed
-            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+            var siteTitles = driver.FindElement(By.CssSelector(".table thead tr:first-child th:nth-child(2) a"));
 
-            siteTitles[1].Click(); //click the Full Address text once
+            siteTitles.Click(); //click the Full Address text once
+
 
             //checking that the first object displayed in the list contains the same address as the first site in the expected list
             var firstSite = driver.FindElement(By.CssSelector(".table tr td:nth-child(2)"));
-            Assert.AreEqual(firstSite.Text, obSites[0].siteID);
+            Assert.AreEqual(firstSite.Text, obSites[1].address);
         }
 
         [TestMethod]
@@ -269,14 +271,24 @@ namespace KymiraAdminTests
         public void TestThatDescAddressIsCorrect()
         {
             //grab the header text displayed
-            var siteTitles = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dt")));
+            var siteTitles = driver.FindElement(By.CssSelector(".table thead tr:first-child th:nth-child(2) a"));
 
-            siteTitles[1].Click();
-            siteTitles[1].Click(); //click the Full Address text twice for descending
+            siteTitles.Click();
+
+            siteTitles = driver.FindElement(By.CssSelector(".table thead tr:first-child th:nth-child(2) a"));
+
+            siteTitles.Click(); //click the Full Address text twice for descending
 
             //checking that the first object displayed in the list contains the same address as the last site in the expected list
             var lastSite = driver.FindElement(By.CssSelector(".table tr td:nth-child(2)"));
-            Assert.AreEqual(lastSite.Text, obSites[2].siteID);
+            Assert.AreEqual(lastSite.Text, obSites[0].address);
+        }
+
+        [TestMethod]
+        //testing that the admin can see data located on the 5th page
+        public void TestThatAdminCanGoToOtherPage()
+        {
+
         }
     }
 }
