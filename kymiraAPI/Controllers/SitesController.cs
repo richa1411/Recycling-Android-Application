@@ -19,68 +19,7 @@ namespace kymiraAPI.Controllers
         {
             _context = context;
         }
-
-        // GET: api/Sites
-        [HttpGet]
-        public IEnumerable<Site> GetSite()
-        {
-            return _context.Site;
-        }
-
-        // GET: api/Sites/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetSite([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var site = await _context.Site.SingleOrDefaultAsync(m => m.siteID == id);
-
-            if (site == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(site);
-        }
-
-        // PUT: api/Sites/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutSite([FromRoute] int id, [FromBody] Site site)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != site.siteID)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(site).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SiteExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+      
         // POST: api/Sites
         //Function responsible for querying the database for the given search address
         //Function also will utliize an internal helper function that will calculate the next two pick up dates to return based on the site found

@@ -77,10 +77,17 @@ namespace kymiraAPITest
         public void TestThatPickupDatesAreCorrect()
         {
             List<string> pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27)); //Hard code input date so we can get an expected output date
+            Assert.AreEqual(new DateTime(2019, 3, 4).ToShortDateString(), pickupDates[0]);
+            Assert.AreEqual(new DateTime(2019, 3, 11).ToShortDateString(), pickupDates[1]);
 
-            Assert.AreEqual(new DateTime(2019, 3, 4), pickupDates[0]);
+            pickupDates.Clear();
 
-            Assert.AreEqual(new DateTime(2019, 3, 11), pickupDates[1]);
+            testSite.frequency = Site.PickupFrequency.BiWeekly;
+            testSite.sitePickupDays = Site.PickupDays.Friday;
+
+            pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 3, 1));
+            Assert.AreEqual(new DateTime(2019, 3, 15).ToShortDateString(), pickupDates[0]);
+            Assert.AreEqual(new DateTime(2019, 3, 29).ToShortDateString(), pickupDates[1]);
 
         }
 
@@ -112,9 +119,7 @@ namespace kymiraAPITest
         {
             //the next leap day is on a saturday
             testSite.sitePickupDays = Site.PickupDays.Saturday;
-
             List<string> pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27));
-
             Assert.AreEqual(pickupDates[0], new DateTime(2020, 2, 29));
         }
     }
