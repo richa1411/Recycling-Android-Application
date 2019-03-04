@@ -13,7 +13,20 @@ namespace kymiraAPI.Fixtures
     {
 
         //** Recyclable Items **/
-        public static List<Disposable> obList = new List<Disposable>(new Disposable[] { new Disposable
+        public static List<Disposable> obList = new List<Disposable>(new Disposable[] {
+            new Disposable
+        {
+
+            name = "Candy",
+            description = "Candy Description",
+            imageURL = "Candy",
+            isRecyclable = false,
+            recycleReason = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+            endResult = "Candy End Result",
+            qtyRecycled = 0,
+            inactive = false
+        },
+            new Disposable
         {
 
             name = "Cardboard",
@@ -24,7 +37,21 @@ namespace kymiraAPI.Fixtures
             endResult = "Cardboard End Result",
             qtyRecycled = 1000,
             inactive = false
-        }, new Disposable
+        },
+            //Non recyclable item
+            new Disposable
+        {
+
+            name = "Orange Peels",
+            description = "Orange Peels Description",
+            imageURL = "OrangePeels",
+            isRecyclable = false,
+            recycleReason = "Orange Peels Reason",
+            endResult = "Orange Peels End Result",
+            qtyRecycled = 0,
+             inactive = false
+        },
+            new Disposable
         {
            
             name = "Paper",
@@ -36,22 +63,10 @@ namespace kymiraAPI.Fixtures
             qtyRecycled = 2500,
             inactive = false
         },
+            //Non recyclable item
             new Disposable
         {
-           
-            name = "Tin Cans",
-            description = "Tins Cans Description",
-            imageURL = "tincan",
-            isRecyclable = true,
-            recycleReason = "Tin Cans Reason",
-            endResult = "Tin Cans End Result",
-            qtyRecycled = 1200,
-            inactive = false
-        },
-            //Non recycalble items
-            new Disposable
-        {
-            
+
             name = "Pizza",
             description = "Pizza Description",
             imageURL = "Pizza",
@@ -64,27 +79,16 @@ namespace kymiraAPI.Fixtures
             new Disposable
         {
            
-            name = "Orange Peels",
-            description = "Orange Peels Description",
-            imageURL = "OrangePeels",
-            isRecyclable = false,
-            recycleReason = "Orange Peels Reason",
-            endResult = "Orange Peels End Result",
-            qtyRecycled = 0,
-             inactive = false
-        },
-            new Disposable
-        {
-            
-            name = "Candy",
-            description = "Candy Description",
-            imageURL = "Candy",
-            isRecyclable = false,
-            recycleReason = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-            endResult = "Candy End Result",
-            qtyRecycled = 0,
-             inactive = false
+            name = "Tin Cans",
+            description = "Tins Cans Description",
+            imageURL = "tincan",
+            isRecyclable = true,
+            recycleReason = "Tin Cans Reason",
+            endResult = "Tin Cans End Result",
+            qtyRecycled = 1200,
+            inactive = false
         }
+            
         });
 
         /**

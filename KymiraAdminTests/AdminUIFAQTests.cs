@@ -202,15 +202,11 @@ namespace KymiraAdminTests
             var FaqTitleText = driver.FindElement(By.CssSelector("div h2"));
             var FAQHeaderText = driver.FindElement(By.CssSelector(".table tr:first-child th:first-child"));
             var TableText = new List<IWebElement>(driver.FindElements(By.CssSelector(".table tbody tr td")));
-
-
-
+            
             Assert.AreEqual("18px", KymiraAdminText.GetCssValue("font-size"));
             Assert.AreEqual("14px", navBarItemText.GetCssValue("font-size"));
             Assert.AreEqual("30px", FaqTitleText.GetCssValue("font-size"));
             Assert.AreEqual("14px", FAQHeaderText.GetCssValue("font-size"));
-
-
 
             foreach (var td in TableText)
             {
@@ -221,6 +217,7 @@ namespace KymiraAdminTests
 
         }
 
+        //This test method will verify that the table headers are bold
         [TestMethod]
         public void TestThatTableHeadersAreBold()
         {
@@ -231,7 +228,7 @@ namespace KymiraAdminTests
             Assert.AreEqual("700", FaqAnswerHeaderText.GetCssValue("font-weight"));
         }
 
-
+        //This test method will test that the deletion page displays as intended
         [TestMethod]
         public void TestThatConfirmDeletePageDisplaysProperly()
         {
@@ -242,15 +239,16 @@ namespace KymiraAdminTests
             var deleteLink = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(3) a"));
             deleteLink.Click();
 
+            //Use CSS selectors to locate certain visual attributes on the page
             var KymiraAdminText = driver.FindElement(By.CssSelector(".navbar-brand"));
             var navBarItemText = driver.FindElement(By.CssSelector(".container div:nth-child(2) ul li:first-child"));
             var FaqTitleText = driver.FindElement(By.CssSelector("div h2"));
             var FAQQuestionHeader = driver.FindElement(By.CssSelector(".dl-horizontal dt:first-child"));
             var FAQAnswerHeader = driver.FindElement(By.CssSelector(".dl-horizontal dt:nth-child(3)"));
-
             var QuestionText = driver.FindElement(By.CssSelector(".dl-horizontal dd:nth-child(2)"));
             var AnswerText = driver.FindElement(By.CssSelector(".dl-horizontal dd:nth-child(4)"));
 
+            //Use CSS Selectors to verify visual attributes of the page
             Assert.AreEqual("18px", KymiraAdminText.GetCssValue("font-size"));
             Assert.AreEqual("14px", navBarItemText.GetCssValue("font-size"));
             Assert.AreEqual("30px", FaqTitleText.GetCssValue("font-size"));
@@ -262,18 +260,18 @@ namespace KymiraAdminTests
             Assert.AreEqual("14px", QuestionText.GetCssValue("font-size"));
             Assert.AreEqual("14px", AnswerText.GetCssValue("font-size"));
         }
+
+        /**
+         * This test will delete an item and check that it is removed from the list, but is still inside the database.
+         */
         [TestMethod]
         public void TestThatDeleteMakesItemInactiveAndStillInDatabase()
         {
-
-
-            //Record the original page
-        
-           
-
+            //Find the delete link and click it
             var deleteLink = driver.FindElement(By.CssSelector(".table tbody tr:nth-child(5) td:nth-child(3) a"));
             deleteLink.Click();
 
+            //find the Back To List link to verify we are on the deletion page
             driver.FindElement(By.LinkText("Back to List"));
             //Click the delete button to remove the item
             var delBtn = driver.FindElement(By.CssSelector("form input:nth-child(2)"));
@@ -281,12 +279,9 @@ namespace KymiraAdminTests
 
             var item = db.context.FAQDBSet.Where(m => m.question == "Where is Cosmo Industries?").ToList();
 
+            //Make sure that the item is NOT null
             Assert.IsFalse(item == null);
             Assert.AreEqual("Where is Cosmo Industries?", item[0].question);
-           
-
         }
-
-
     }
 }

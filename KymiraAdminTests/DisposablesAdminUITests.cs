@@ -108,7 +108,7 @@ namespace KymiraAdminTests
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-      
+
             fixture_disposables.Load(db.context);
 
 
@@ -149,11 +149,6 @@ namespace KymiraAdminTests
         [TestMethod]
         public void TestThatAListDisplaysCorrectly()
         {
-
-        
-
-           
-
             var list = driver.FindElements(By.CssSelector(".table tr"));
 
             //.table tr td:first-child
