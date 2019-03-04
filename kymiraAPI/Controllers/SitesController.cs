@@ -50,7 +50,14 @@ namespace kymiraAPI.Controllers
 
             List<String> nextTwoDays = new List<string>();
 
-            nextTwoDays = PickupDateCalculatorHelper.CalculateNextPickupDates(site, DateTime.Today);
+            var latestCollection = await _context.BinStatus.Where(b => b.siteID == site.siteID).OrderByDescending(b => b.collectionDate).Take(1).ToListAsync();
+
+            DateTime latestDate = DateTime.Parse(latestCollection[0].collectionDate);
+
+
+            
+
+            nextTwoDays = PickupDateCalculatorHelper.CalculateNextPickupDates(site, DateTime.Today, latestDate);
 
             return nextTwoDays;  
         }

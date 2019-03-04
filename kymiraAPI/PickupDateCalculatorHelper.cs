@@ -11,7 +11,7 @@ namespace kymiraAPI
     {
         //Function that takes a site and the current date and will output an array of DateTimes (dates) of the site's next two collection dates
         //based on pickup days during the week and frequency
-        public static List<string> CalculateNextPickupDates(Site site, DateTime currentDate)
+        public static List<string> CalculateNextPickupDates(Site site, DateTime currentDate, DateTime lastPickupDate)
         {
             var days = site.sitePickupDays;
             var freq = site.frequency;
@@ -21,6 +21,8 @@ namespace kymiraAPI
                 return new List<string>();
             }
 
+            double daysToAdd = 7 - (currentDate - lastPickupDate).TotalDays;
+
             //Problems: Multiple pickup days and the fact that the pickup days may be out of sync.
 
             //find how many days till the next day of the week.
@@ -28,31 +30,31 @@ namespace kymiraAPI
 
             if(days == Site.PickupDays.Monday)
             {
-                nextPickupDay = DateTime.Today.AddDays(((int)DateTime.Today.DayOfWeek - (int)DayOfWeek.Monday) - 1 );
+                nextPickupDay = currentDate.AddDays(((int)currentDate.DayOfWeek + daysToAdd));
             }
             else if(days == Site.PickupDays.Tuesday)
             {
-                nextPickupDay = DateTime.Today.AddDays(((int)DateTime.Today.DayOfWeek - (int)DayOfWeek.Tuesday) - 1 );
+                nextPickupDay = currentDate.AddDays(((int)currentDate.DayOfWeek - (int)DayOfWeek.Tuesday) + daysToAdd);
             }
             else if (days == Site.PickupDays.Wednesday)
             {
-                nextPickupDay = DateTime.Today.AddDays(((int)DateTime.Today.DayOfWeek - (int)DayOfWeek.Wednesday) - 1 );
+                nextPickupDay = currentDate.AddDays(((int)currentDate.DayOfWeek - (int)DayOfWeek.Wednesday) + daysToAdd);
             }
             else if (days == Site.PickupDays.Thursday)
             {
-                nextPickupDay = DateTime.Today.AddDays(((int)DateTime.Today.DayOfWeek - (int)DayOfWeek.Thursday) - 1 );
+                nextPickupDay = currentDate.AddDays(((int)currentDate.DayOfWeek - (int)DayOfWeek.Thursday) + daysToAdd);
             }
             else if (days == Site.PickupDays.Friday)
             {
-                nextPickupDay = DateTime.Today.AddDays(((int)DateTime.Today.DayOfWeek - (int)DayOfWeek.Friday) - 1 );
+                nextPickupDay = currentDate.AddDays(((int)currentDate.DayOfWeek - (int)DayOfWeek.Friday) + daysToAdd);
             }
             else if (days == Site.PickupDays.Saturday)
             {
-                nextPickupDay = DateTime.Today.AddDays(((int)DateTime.Today.DayOfWeek - (int)DayOfWeek.Saturday) - 1 );
+                nextPickupDay = currentDate.AddDays(((int)currentDate.DayOfWeek - (int)DayOfWeek.Saturday) + daysToAdd);
             }
             else if (days == Site.PickupDays.Sunday)
             {
-                nextPickupDay = DateTime.Today.AddDays(((int)DateTime.Today.DayOfWeek - (int)DayOfWeek.Sunday) - 1 );
+                nextPickupDay = currentDate.AddDays(((int)currentDate.DayOfWeek - (int)DayOfWeek.Sunday) + daysToAdd);
             }
             else
             {
