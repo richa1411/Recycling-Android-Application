@@ -264,5 +264,30 @@ namespace KymiraAdminTests
             results = TestValidationHelper.Validate(binStatus);
             Assert.AreEqual(4, results.Count);
         }
+
+        //check that inactive is true/false
+
+        //Test that the Inactive field is true
+        [TestMethod]
+        public void TestThatInactiveIsTrue()
+        {
+            testBin.inactive = true;
+            var results = TestValidationHelper.Validate(testBin);
+            Assert.AreEqual(0, results.Count);
+            //NoError
+
+
+        }
+
+        //Test that the Inactive field is false
+        [TestMethod]
+        public void TestThatInactiveIsFalse()
+        {
+
+            testBin.inactive = false;
+            var results = TestValidationHelper.Validate(testBin);
+            Assert.AreEqual(0, results.Count);
+            //NoError
+        }
     }
 }

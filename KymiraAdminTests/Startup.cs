@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using KymiraAdmin.Models;
-using KymiraAdmin.Fixtures;
+using KymiraAdminTests.Fixtures;
 
 namespace KymiraAdmin
 {
@@ -41,8 +41,8 @@ namespace KymiraAdmin
                 app.UseDeveloperExceptionPage();
             }
             context.Database.EnsureCreated();
-            Fixtures.fixture_disposables.Unload(context);
-            Fixtures.fixture_disposables.Load(context);
+            fixture_disposables.Unload(context);
+            fixture_disposables.Load(context);
 
             app.UseMvc();
         }

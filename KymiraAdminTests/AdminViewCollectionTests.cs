@@ -1,10 +1,11 @@
 ﻿using KymiraAdmin.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using KymiraAdmin.Fixtures;
+using KymiraAdminTests.Fixtures;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.Collections;
 
 namespace KymiraAdminTests
 {
@@ -57,13 +58,14 @@ namespace KymiraAdminTests
         //Test that a deleted collection status is removed from the list (and database)
         //TO DO: GET LAST ITEM TO DELETE - grab text of this record and once back on the 
         // list page, go through all fields and search for this text to ensure that it is not anywhere on the page!!!
+
         public void TestThatDeletedStatusNotDisplayed()
         {
             //do an initial count of items
             int initCount = driver.FindElements(By.CssSelector(".table tr")).Count;
 
             //select item to remove - 1st item
-            var itemToDelete = driver.FindElement(By.CssSelector(".table tr td:nth-child(1)")).Text;
+            var itemToDelete = driver.FindElement(By.CssSelector(".table tr td:nth-child(2)")).Text;
             
             //click to delete the first collection status
             var deleteLink = driver.FindElement(By.CssSelector(".table tr td:last-child a"));
@@ -91,8 +93,8 @@ namespace KymiraAdminTests
             var list = driver.FindElements(By.CssSelector(".table tr"));
             for (int i = 1; i < list.Count; i++)
             {
-                var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(" + i + ")")); 
-                Assert.AreNotEqual(item.Text, itemToDelete);
+                var item = driver.FindElement(By.CssSelector(".table tr td:nth-child(" + (i+1) + ")")).Text; 
+                Assert.AreNotEqual(item, itemToDelete);
             }
             
             //ensure list is one less
@@ -168,5 +170,44 @@ namespace KymiraAdminTests
             var rows = driver.FindElements(By.CssSelector(".table tr"));
             Assert.AreEqual(initialRows.Count,rows.Count);
         }
-    }
+
+        //This test will check that the nav bar is black
+        [TestMethod]
+        public void TestThatNavBarIsBlack()
+        {
+            var navbar = driver.FindElement(By.CssSelector("nav:first-child"));
+            var color = navbar.GetCssValue("background-color");
+            //color returns a stinrg which is what is below. we googled it and its right
+            Assert.AreEqual("rgba(34, 34, 34, 1)", color);
+        }
+
+        //This test will check that the fontsize of the title is 30 pixels large
+        [TestMethod]
+        public void TestAdminpageFontSizes()
+        {
+            var KymiraAdminText = driver.FindElement(By.CssSelector(".navbar-brand"));
+            var navBarItemText = driver.FindElement(By.CssSelector(".container div:nth-child(2) ul li:first-child"));
+            var FaqTitleText = driver.FindElement(By.CssSelector("div h2"));
+            var FAQHeaderText = driver.FindElement(By.CssSelector(".table tr:first-child th:first-child"));
+            var TableText = new List<IWebElement>(driver.FindElements(By.CssSelector(".table tbody tr td")));
+            Assert.AreEqual("18px", KymiraAdminText.GetCssValue("font-size"));
+            Assert.AreEqual("14px", navBarItemText.GetCssValue("font-size"));
+            Assert.AreEqual("30px", FaqTitleText.GetCssValue("font-size"));
+            Assert.AreEqual("14px", FAQHeaderText.GetCssValue("font-size"));
+            foreach (var td in TableText)
+            {
+                var size = td.GetCssValue("font-size");
+                Assert.AreEqual("14px", size);
+            }
+        }
+        [TestMethod]
+        public void TestThatTableHeadersAreBold()
+        {
+            var FaqQuestionHeaderText = driver.FindElement(By.CssSelector(".table thead tr:first-child th:first-child"));
+            var FaqAnswerHeaderText = driver.FindElement(By.CssSelector(".table thead tr:first-child th:nth-child(2)"));
+            Assert.AreEqual("700", FaqQuestionHeaderText.GetCssValue("font-weight"));
+            Assert.AreEqual("700", FaqAnswerHeaderText.GetCssValue("font-weight"));
+        }
+        
+     }
 }

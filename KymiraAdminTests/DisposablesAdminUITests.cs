@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using KymiraAdmin.Models;
-using KymiraAdmin.Fixtures;
+using KymiraAdminTests.Fixtures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading;
@@ -150,10 +150,6 @@ namespace KymiraAdminTests
         public void TestThatAListDisplaysCorrectly()
         {
 
-        
-
-           
-
             var list = driver.FindElements(By.CssSelector(".table tr"));
 
             //.table tr td:first-child
@@ -173,11 +169,7 @@ namespace KymiraAdminTests
                 Assert.AreEqual(names[i].Text, obList[i].name);
                // Assert.AreEqual(list[i+1].Text, obList[i].name + " " + obList[i].description + " " + obList[i].imageURL + " " + "Delete");
             }
-
-            //Assert there are 7 rows in the table
-           
-
-
+            
         }
 
         //Test that the Delete link visible for each item
@@ -193,13 +185,6 @@ namespace KymiraAdminTests
         }
 
         //Test that the deleting an item removes it from the list
-       
-       
-
-
-
-
-        //Test that the deleting an item removes it from the list
         [TestMethod]
         public void TestThatBackToListButtonCancelsDeletion()
         {
@@ -210,8 +195,6 @@ namespace KymiraAdminTests
 
             Assert.AreEqual(item.Text, "Candy");
 
-            //Assert there are 7 rows in the table
-           
             //click the delete link for Candy
             var delCandyLink = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(5) a"));
             delCandyLink.Click();
@@ -249,10 +232,6 @@ namespace KymiraAdminTests
             item = driver.FindElement(By.CssSelector(".table tr:nth-child(1) td:nth-child(1)"));
 
             Assert.AreEqual(item.Text, "Candy");
-
-            //Check how many rows are in the table now
-           
-
 
         }
 
@@ -323,17 +302,6 @@ namespace KymiraAdminTests
                 Assert.AreNotEqual(i.Text, "Tin Cans");
             }
            
-
-            //Check how many rows are in the table now
-          
-
-            //Assert that there are 6 rows (one less) than before
-         
-
-
-
-
-
         }
 
 

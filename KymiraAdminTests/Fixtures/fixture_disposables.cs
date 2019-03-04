@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KymiraAdmin;
 
-namespace KymiraAdmin.Fixtures
+namespace KymiraAdminTests.Fixtures
 {/**
     this class will be used to wipe and reload the database with test data used in unit tests
         */

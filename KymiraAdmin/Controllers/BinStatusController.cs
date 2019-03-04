@@ -32,7 +32,7 @@ namespace KymiraAdmin.Controllers
         //    return View(list.OrderBy(o => o.siteID).ThenBy(o => o.binID).ThenBy(o => o.collectionDate));
         //}
 
-        public async Task<ActionResult> IndexAsync(int? page,string sortOrder)
+        public async Task<ActionResult> Index(int? page,string sortOrder)
         {
             ViewBag.CurrentSort = sortOrder;
             ViewBag.SiteSortParm = String.IsNullOrEmpty(sortOrder) ? "siteID_desc" : "";
@@ -57,10 +57,10 @@ namespace KymiraAdmin.Controllers
                     binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderBy(b => b.status).ToListAsync();
                     break;
                 case "collDate":
-                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderBy(b => b.collectionDate).ToListAsync(0;
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderBy(b => b.collectionDate).ToListAsync();
                     break;
                 case "siteID_desc":
-                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.siteID).ToListAsync(0;
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.siteID).ToListAsync();
                     break;
                 case "binID_desc":
                     binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.binID).ToListAsync();
@@ -69,7 +69,7 @@ namespace KymiraAdmin.Controllers
                     binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.status).ToListAsync();
                     break;
                 case "collDate_desc":
-                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.collectionDate).ToListAsync(0;
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.collectionDate).ToListAsync();
                     break;
                 default:
                     binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderBy(b => b.siteID).ToListAsync();
@@ -110,7 +110,7 @@ namespace KymiraAdmin.Controllers
             binStatus.inactive = true;
            
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(IndexAsync));
+            return RedirectToAction(nameof(Index));
         }
 
         private bool StatusExists(int id)
