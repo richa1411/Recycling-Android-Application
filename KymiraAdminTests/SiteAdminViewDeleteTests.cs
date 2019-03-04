@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace KymiraAdminTests
@@ -11,13 +12,11 @@ namespace KymiraAdminTests
     [TestClass]
     public class SiteAdminViewDeleteTests
     {
+        //test database class object
         static TestDatabaseContext db = new TestDatabaseContext("kymira_db2");
-        public static KymiraAdminContext context;
-
         public static IWebDriver driver; //browser to interact with
 
-
-        //list of sites expected to be shown on the page (in the DB)
+        //list of sites expected to be shown on the page (added to the db using fixture_sites)
         List<Site> obSites = new List<Site> {
         new Site
         {
@@ -39,8 +38,14 @@ namespace KymiraAdminTests
             address = "123 Fake Street",
             frequency = Site.PickupFrequency.Weekly,
             sitePickupDays = Site.PickupDays.Monday
+        },
+        new Site
+        {
+            siteID = 40,
+            address = "123 Again Street",
+            frequency = Site.PickupFrequency.BiWeekly,
+            sitePickupDays = Site.PickupDays.Thursday
         }
-
         };
 
 
@@ -48,7 +53,7 @@ namespace KymiraAdminTests
         [ClassInitialize] //this method will run once before all of the tests
         public static void ClassInitialize(TestContext context)
         {
-            Fixtures.fixture_sites.Load(db.context);
+           // Fixtures.fixture_sites.Load(db.context);
 
             ChromeOptions chrome_options = new ChromeOptions();
             //Wont open up a new chrome tab when run
@@ -68,16 +73,21 @@ namespace KymiraAdminTests
         }
         
 
-        [TestInitialize]
+        [TestInitialize] //this method will run before each test and load the appropriate data
         public void InitializeTest()
         {
-            //navigate to proper page each time
+            //load content into test db
+            Fixtures.fixture_sites.Load(db.context);
+
+            //navigate to proper page
             driver.Navigate().GoToUrl("http://localhost:55271/Sites");
         }
 
-        [ClassCleanup]
-        public static void ClassCleanup()
+        [TestCleanup]
+        //this method will run after each test and unload the data
+        public void TestCleanup()
         {
+            //unload content from test db
             Fixtures.fixture_sites.Unload(db.context);
         }
 
@@ -86,15 +96,9 @@ namespace KymiraAdminTests
         //Test that a deleted Site is removed from the list
         public void TestThatDeletedStatusNotDisplayed()
         {
-            //select item to remove - last item
-             var itemToDelete = driver.FindElement(By.CssSelector(".table tbody tr td:nth-child(3)"));
-
             //click to delete the first collection status
-              var deleteLink = driver.FindElement(By.CssSelector(".table tbody tr:last-child td:last-child a"));
-              deleteLink.Click();
-
-           // driver.Navigate().GoToUrl("http://localhost:55271/Sites/Delete/30");
-
+            var deleteLink = driver.FindElement(By.CssSelector(".table tbody tr:last-child td:last-child a"));
+            deleteLink.Click();
 
             //on delete confirmation page - shows info about specific bin selected
             var siteInfo = new List<IWebElement>(driver.FindElements(By.CssSelector("dl dd")));
@@ -118,24 +122,23 @@ namespace KymiraAdminTests
 
             //back to list page
             //ensure item is no longer there
-            var item = driver.FindElement(By.CssSelector(".table tbody tr td:nth-child(3)"));
+            var item = driver.FindElement(By.CssSelector(".table tbody tr td:nth-child(2)"));
             //Assert.AreNotEqual(item.Text, itemToDelete.Text);
 
             //ensure list is one less
             Assert.AreEqual(driver.FindElements(By.CssSelector(".table tbody tr")).Count, obSites.Count - 1);
 
-            //ensure the Site's inactive field is set to true
-            Site testSite = context.Site.Find("30");
-            Assert.IsTrue(testSite.inactive);
+            //ensure the Site object is still in the database (has not been actually deleted)
+            var testSite = db.context.Site.Where(m => m.siteID == 30).ToList();
+            Assert.IsNotNull(testSite[0]);
         }
 
         [TestMethod]
         //test that list is displayed in the correct order
-        //DO NOT LOOK AT LAST ITEM (will be deleted in other test)
         public void TestThatListIsDisplayedInOrder()
         {
             //list of siteID data shown in list
-            var siteIdData = driver.FindElements(By.CssSelector(".table tr td:first-child"));
+            var siteIdData = driver.FindElements(By.CssSelector(".table tbody tr td:first-child"));
 
             //check matching data from expected list defined above
             for (int i = 0; i < siteIdData.Count; i++)
@@ -144,7 +147,7 @@ namespace KymiraAdminTests
             }
 
             //ensure all rows are shown
-            Assert.AreEqual(siteIdData.Count, obSites.Count);
+            Assert.AreEqual(siteIdData.Count, obSites.Count - 1);
         }
 
 
@@ -177,15 +180,15 @@ namespace KymiraAdminTests
         //testing that the headers on the page are properly shown to the admin
         public void TestThatHeadersAreCorrect()
         {
+            //header values shown to the admin
             var intialRows = driver.FindElements(By.CssSelector(".table thead th"));
 
-            List<String> listHeaders = new List<String>();
+            //list of strings to compare against
+            List<String> listHeaders = new List<String> {
+                "Site ID", "Full Address", "Frequency", "Site Pickup Day(s)"
+            };
 
-            listHeaders.Add("Site ID");
-            listHeaders.Add("Full Address");
-            listHeaders.Add("Frequency");
-            listHeaders.Add("Site Pickup Day(s)");
-
+            //ensure the list shown is the same as the hard-coded expected values
             for(int i = 0; i < intialRows.Count; i++)
             {
                 Assert.AreEqual(intialRows[i].Text, listHeaders[i]);
@@ -229,17 +232,28 @@ namespace KymiraAdminTests
             }
         }
 
+        
+        [TestMethod]
+        //This test method will verify that the table headers are bold
+        public void TestThatTableHeadersAreBold()
+        {
+            //grab all header text items from the view
+            var headers = driver.FindElements(By.CssSelector(".table thead tr th"));
+
+            Assert.AreEqual("700", headers[0].GetCssValue("font-weight"));
+            Assert.AreEqual("700", headers[1].GetCssValue("font-weight"));
+            Assert.AreEqual("700", headers[2].GetCssValue("font-weight"));
+            Assert.AreEqual("700", headers[3].GetCssValue("font-weight"));
+        }
+
         [TestMethod]
         //testing that the sort by siteid is correct (ASCENDING)
         public void TestThatAscSiteIDIsCorrect()
         {
             //grab the header text displayed
             var siteTitles = driver.FindElement(By.CssSelector(".table thead tr:first-child th:first-child a"));
-
             siteTitles.Click(); //click the Site ID text twice
-
             siteTitles = driver.FindElement(By.CssSelector(".table thead tr:first-child th:first-child a"));
-
             siteTitles.Click();
 
             //checking that the first object displayed in the list contains the same site id as the first site in the expected list
@@ -257,8 +271,8 @@ namespace KymiraAdminTests
             siteTitles.Click(); //click the Site ID text once for descending
 
             //checking that the first object displayed in the list contains the same site id as the last site in the expected list
-            var lastSite = driver.FindElement(By.CssSelector(".table tr td"));
-            Assert.AreEqual(Convert.ToInt32(lastSite.Text), obSites[2].siteID);
+            var lastSite = driver.FindElement(By.CssSelector(".table tbody tr td"));
+            Assert.AreEqual(Convert.ToInt32(lastSite.Text), obSites[3].siteID);
         }
 
         [TestMethod]
@@ -267,13 +281,11 @@ namespace KymiraAdminTests
         {
             //grab the header text displayed
             var siteTitles = driver.FindElement(By.CssSelector(".table thead tr:first-child th:nth-child(2) a"));
-
             siteTitles.Click(); //click the Full Address text once
-
 
             //checking that the first object displayed in the list contains the same address as the first site in the expected list
             var firstSite = driver.FindElement(By.CssSelector(".table tr td:nth-child(2)"));
-            Assert.AreEqual(firstSite.Text, obSites[1].address);
+            Assert.AreEqual(firstSite.Text, obSites[3].address);
         }
 
         [TestMethod]
@@ -296,9 +308,34 @@ namespace KymiraAdminTests
 
         [TestMethod]
         //testing that the admin can see data located on the 5th page
-        public void TestThatAdminCanGoToOtherPage()
+        public void TestThatAdminViewsSecondPage()
         {
+            //grabs the active page "link" we are currently on
+            var firstPage = driver.FindElement(By.CssSelector(".pagination .active span"));
+            //check to see if we're already on the first page
+            if (firstPage.Text != "1")
+            {
+                //navigate to 1st page
+                var firstPageLink = driver.FindElement(By.CssSelector(".pagination li:nth-child(1) a"));
+                firstPageLink.Click();
+            }
+            
 
+            //grab reference to the first item on the first page
+            var firstPageItem = driver.FindElement(By.CssSelector(".table tr td:nth-child(2)"));
+            var idText = driver.FindElement(By.CssSelector(".table tbody tr:first-child td:first-child"));
+            Assert.AreEqual(Convert.ToInt32(idText.Text),obSites[0].siteID);
+
+            //grab reference to 2nd page button and click on it
+            var pageLink = driver.FindElement(By.CssSelector(".pagination li:nth-child(2) a"));
+            pageLink.Click();
+
+            //now on 2nd page
+            var secondPageItem = driver.FindElement(By.CssSelector(".table tr td:nth-child(2)"));
+
+            //check reference to first item on the second page
+            var idText2 = driver.FindElement(By.CssSelector(".table tbody tr:first-child td:first-child"));
+            Assert.AreEqual(Convert.ToInt32(idText2.Text), obSites[3].siteID);
         }
     }
 }

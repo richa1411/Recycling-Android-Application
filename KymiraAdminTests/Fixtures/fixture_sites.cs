@@ -15,7 +15,8 @@ namespace KymiraAdminTests.Fixtures
         public static List<Site> obSites = new List<Site>(new Site[] {
             new Site { siteID = 10, address = "123 Test Street", sitePickupDays = Site.PickupDays.Monday, frequency = Site.PickupFrequency.Weekly },
             new Site { siteID = 20, address = "123 Another Street", sitePickupDays = Site.PickupDays.Monday, frequency = Site.PickupFrequency.Weekly},
-            new Site { siteID = 30, address = "123 Fake Street", sitePickupDays = Site.PickupDays.Monday, frequency = Site.PickupFrequency.Weekly } });
+            new Site { siteID = 30, address = "123 Fake Street", sitePickupDays = Site.PickupDays.Monday, frequency = Site.PickupFrequency.Weekly },
+        new Site { siteID = 40, address = "123 Again Street", sitePickupDays = Site.PickupDays.Thursday, frequency = Site.PickupFrequency.BiWeekly }});
         
 
         /**

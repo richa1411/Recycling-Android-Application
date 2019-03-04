@@ -57,7 +57,7 @@ namespace KymiraAdmin.Controllers
             }
 
             //return view using pages, showing only a max of 100 on a page at a time
-            return View(list.ToPagedList( (int) page, 100));
+            return View(list.ToPagedList( (int) page, 3));
         }
 
 
