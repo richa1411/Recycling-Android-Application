@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using KymiraAdmin.Models;
+using X.PagedList;
+
 
 
 namespace KymiraAdmin.Controllers
@@ -30,44 +32,51 @@ namespace KymiraAdmin.Controllers
         //    return View(list.OrderBy(o => o.siteID).ThenBy(o => o.binID).ThenBy(o => o.collectionDate));
         //}
 
-        public ActionResult Index(string sortOrder)
+        public async Task<ActionResult> IndexAsync(int? page,string sortOrder)
         {
-            ViewBag.SiteSortParm = sortOrder.Contains("siteID") ? "siteID_desc" : "";
-            ViewBag.BinSortParam = sortOrder.Contains("binID") ? "binID_desc" : "binID";
-            ViewBag.StatusSortParm = sortOrder.Contains("status") ? "status_desc" : "status";
-            ViewBag.DateSortParm = sortOrder.Contains("collDate") ? "collDate_desc" : "collDate";
-
-            var binStatus = from b in _context.BinStatus select b;
-
-            switch(sortOrder)
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.SiteSortParm = String.IsNullOrEmpty(sortOrder) ? "siteID_desc" : "";
+            ViewBag.BinSortParam = sortOrder == "binID" ? "binID_desc" : "binID";
+            ViewBag.StatusSortParm = sortOrder == "status" ? "status_desc" : "status";
+            ViewBag.DateSortParm = sortOrder== "collDate" ? "collDate_desc" : "collDate";
+            //default show page 1
+            if (page == null)
             {
+                page = 1;
+            }
+           
+            List<BinStatus> binStatus;//var to hold the list to display to the page
+            //sort the list to display by the order passed in - only grabs active collection sites with collection statuses
+            switch (sortOrder)
+            {
+                
                 case "binID":
-                    binStatus = binStatus.OrderBy(b => b.binID);
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderBy(b => b.binID).ToListAsync();
                     break;
                 case "status":
-                    binStatus = binStatus.OrderBy(b => b.status);
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderBy(b => b.status).ToListAsync();
                     break;
                 case "collDate":
-                    binStatus = binStatus.OrderBy(b => b.collectionDate);
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderBy(b => b.collectionDate).ToListAsync(0;
                     break;
                 case "siteID_desc":
-                    binStatus = binStatus.OrderByDescending(b => b.siteID);
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.siteID).ToListAsync(0;
                     break;
                 case "binID_desc":
-                    binStatus = binStatus.OrderByDescending(b => b.binID);
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.binID).ToListAsync();
                     break;
                 case "status_desc":
-                    binStatus = binStatus.OrderByDescending(b => b.status);
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.status).ToListAsync();
                     break;
                 case "collDate_desc":
-                    binStatus = binStatus.OrderByDescending(b => b.collectionDate);
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderByDescending(b => b.collectionDate).ToListAsync(0;
                     break;
                 default:
-                    binStatus = binStatus.OrderBy(b => b.siteID);
+                    binStatus = await _context.BinStatus.Where(o => o.inactive == false).OrderBy(b => b.siteID).ToListAsync();
                     break;
             }
                 
-            return View(binStatus.ToList());
+            return View((binStatus.ToPagedList((int)page, 100)));
         }
 
         // GET: BinStatus/Delete/5
@@ -101,7 +110,12 @@ namespace KymiraAdmin.Controllers
             binStatus.inactive = true;
            
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexAsync));
+        }
+
+        private bool StatusExists(int id)
+        {
+            return _context.Site.Any(e => e.siteID == id);
         }
 
     }

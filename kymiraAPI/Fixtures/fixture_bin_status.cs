@@ -16,40 +16,45 @@ namespace kymiraAPI.Fixtures
             new Site { siteID = 30, address = "123 Fake Street", sitePickupDays = Site.PickupDays.Monday, frequency = Site.PickupFrequency.Weekly } });
         //list of BinStatus objects to be added to database
         public static List<BinStatus> obBins = new List<BinStatus> {
-        new BinStatus
+           new BinStatus
         {
             binID = "W114-320-203",
             siteID = obSites[0].siteID,
             status = BinStatus.CollectionStatus.Collected,
-            collectionDate = "2019-01-01"
+            collectionDate = "2019-01-01",
+            inactive = false
         },
         new BinStatus
         {
             binID = "W114-320-204",
             siteID = obSites[0].siteID,
             status = BinStatus.CollectionStatus.Inaccessible,
-            collectionDate = "2019-01-01"
+            collectionDate = "2019-01-01",
+        inactive = false
         },
         new BinStatus
         {
             binID = "W114-320-205",
             siteID = obSites[1].siteID,
             status = BinStatus.CollectionStatus.Collected,
-            collectionDate = "2019-01-01"
+            collectionDate = "2019-01-01",
+            inactive = true
         },
         new BinStatus
         {
              binID = "COSMO123",
             siteID = obSites[1].siteID,
             status = BinStatus.CollectionStatus.Collected,
-            collectionDate = "2019-01-01"
+            collectionDate = "2019-01-01",
+            inactive = false
         },
         new BinStatus
         {
             binID = "12345",
             siteID = obSites[2].siteID,
             status = BinStatus.CollectionStatus.Contaminated,
-            collectionDate = "2019-01-01"
+            collectionDate = "2019-01-01",
+            inactive = true
         }};
 
         /* This function will load specific Bin Status objects to the Bin Status table in the database passed in.*/

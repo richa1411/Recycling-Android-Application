@@ -1,24 +1,34 @@
-﻿@model IEnumerable<KymiraAdmin.Models.BinStatus>
+﻿
+@model X.PagedList.IPagedList<KymiraAdmin.Models.BinStatus>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+<link href="~/css/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewData["Title"] = "Recent Collection Statuses";
+    ViewBag.Title = "Recent Collection Statuses";
 }
 
 <h2>Recent Collection Statuses</h2>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page }))
 <table class="table">
     <thead>
         <tr>
             <th>
-                Site ID
+                @Html.ActionLink("Site ID", "Index", new { sortOrder = ViewBag.SiteSortParm })
+            </th>
+
+            <th>
+                @Html.ActionLink("Bin ID", "Index", new { sortOrder = ViewBag.BinSortParam })
             </th>
             <th>
-                Bin ID
+                @Html.ActionLink("Collection Status", "Index", new { sortOrder = ViewBag.StatusSortParm })
             </th>
             <th>
-                Collection Status
-            </th>
-            <th>
-                Collection Date
+                @Html.ActionLink("Collection Date", "Index", new { sortOrder = ViewBag.DateSortParm })
             </th>
             <th></th>
         </tr>
@@ -35,7 +45,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.status)
-                </td> 
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.collectionDate)
                 </td>
@@ -46,3 +56,9 @@
         }
     </tbody>
 </table>
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort }))
