@@ -54,9 +54,6 @@ namespace kymiraAPI.Controllers
 
             DateTime latestDate = DateTime.Parse(latestCollection[0].collectionDate);
 
-
-            
-
             nextTwoDays = PickupDateCalculatorHelper.CalculateNextPickupDates(site, DateTime.Today, latestDate);
 
             return nextTwoDays;  

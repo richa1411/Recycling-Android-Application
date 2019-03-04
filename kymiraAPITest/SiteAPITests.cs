@@ -76,6 +76,7 @@ namespace kymiraAPITest
         [TestMethod]
         public void TestThatPickupDatesAreCorrect()
         {
+            //Testing basic weekly pickups
             List<string> pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 2, 27), new DateTime(2019, 2, 25)); //Hard code input date so we can get an expected output date
             Assert.AreEqual(new DateTime(2019, 3, 4).ToShortDateString(), pickupDates[0]);
             Assert.AreEqual(new DateTime(2019, 3, 11).ToShortDateString(), pickupDates[1]);
@@ -85,10 +86,21 @@ namespace kymiraAPITest
             testSite.frequency = Site.PickupFrequency.BiWeekly;
             testSite.sitePickupDays = Site.PickupDays.Friday;
 
+            //Testing biweekly where the week we are currently on is a pickup week
             pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 3, 1), new DateTime(2019, 3, 1));
             Assert.AreEqual(new DateTime(2019, 3, 15).ToShortDateString(), pickupDates[0]);
             Assert.AreEqual(new DateTime(2019, 3, 29).ToShortDateString(), pickupDates[1]);
 
+            //Testing biweekly where the week we are on is not a pickup week.
+            pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 3, 8), new DateTime(2019, 3, 1));
+            Assert.AreEqual(new DateTime(2019, 3, 15).ToShortDateString(), pickupDates[0]);
+            Assert.AreEqual(new DateTime(2019, 3, 29).ToShortDateString(), pickupDates[1]);
+
+            //Testing the next two pickup dates are in the same week
+            testSite.sitePickupDays = Site.PickupDays.Monday | Site.PickupDays.Tuesday;
+            pickupDates = PickupDateCalculatorHelper.CalculateNextPickupDates(testSite, new DateTime(2019, 3, 8), new DateTime(2019, 3, 1));
+            //Assert.AreEqual(new DateTime(2019, 3, 11).ToShortDateString(), pickupDates[0]);
+            //Assert.AreEqual(new DateTime(2019, 3, 12).ToShortDateString(), pickupDates[1]);
         }
 
         //Test that a site with an invalid value off pickup days returns an empty array of dates
