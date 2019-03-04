@@ -15,5 +15,6 @@ namespace KymiraAdmin.Models
         public DbSet<KymiraAdmin.Models.Disposable> DisposableDBSet { get; set; }
         public DbSet<KymiraAdmin.Models.BinStatus> BinStatus { get; set; }
         public DbSet<KymiraAdmin.Models.Site> Site { get; set; }
+        public DbSet<KymiraAdmin.Models.FAQ> FAQDBSet { get; set; }
     }
 }

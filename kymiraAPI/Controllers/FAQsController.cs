@@ -28,7 +28,8 @@ namespace kymiraAPI.Controllers
         [HttpGet]
         public IEnumerable<FAQ> GetFAQ()
         {
-            return _context.FAQDBSet;
+
+            return _context.FAQDBSet.Where(m => m.inactive == false);
         }
 
 
